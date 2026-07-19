@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quick Cash Memo & Receipt Maker Pro - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --page-bg: #0f172a;
+            --paper-bg: #ffffff;
+            --paper-text: #0f172a;
+            --accent-color: #059669;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #34d399, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #34d399;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-top {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT CONTROLS PANEL */
+        .controls-panel {
+            width: 450px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            flex-shrink: 0;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.95);
+            overflow-x: auto;
+            scrollbar-width: none;
+            flex-shrink: 0;
+        }
+
+        .tabs-header::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex: 1;
+            min-width: 75px;
+            text-align: center;
+            padding: 12px 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tab-item.active {
+            color: #34d399;
+            background: rgba(52, 211, 153, 0.1);
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #34d399, #059669);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-item i {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .tab-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 40px 20px;
+            display: none;
+        }
+
+        .tab-body.active { display: block; }
+
+        /* FORM CONTROLS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option { background: #1e293b; color: #fff; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #34d399;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .opt-box.active {
+            background: rgba(52, 211, 153, 0.15);
+            border-color: rgba(52, 211, 153, 0.5);
+            color: #a7f3d0;
+            box-shadow: 0 0 12px rgba(52, 211, 153, 0.2);
+        }
+
+        .opt-box i { font-size: 18px; }
+
+        .action-btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            height: 46px;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.35);
+            transition: transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn-main:active { transform: scale(0.98); }
+
+        /* ITEM ROW BUILDER */
+        .item-edit-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .btn-del-item {
+            position: absolute;
+            top: 8px; right: 8px;
+            color: #f87171;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* RIGHT PREVIEW PANEL (CASH MEMO RECEIPT SHEET) */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 30px 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .memo-sheet {
+            width: 580px;
+            min-height: 750px;
+            background: var(--paper-bg);
+            color: var(--paper-text);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            border-radius: 6px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* MEMO HEADER GRID */
+        .memo-header-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .memo-vendor-info h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .memo-vendor-info p {
+            font-size: 11px;
+            color: #475569;
+            margin-top: 2px;
+        }
+
+        .memo-doc-badge {
+            text-align: right;
+        }
+
+        .memo-title-tag {
+            background: var(--accent-color);
+            color: #fff;
+            font-weight: 900;
+            font-size: 14px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        /* CUSTOMER DETAILS BAR */
+        .memo-meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 20px;
+            font-size: 11px;
+        }
+
+        .memo-meta-cell strong {
+            color: #64748b;
+            display: block;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .memo-meta-cell span {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        /* ITEMS TABLE */
+        .memo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+
+        .memo-table th {
+            background: var(--accent-color);
+            color: #fff;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 11px;
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        .memo-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .memo-table tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        /* TOTALS & STAMP BAR */
+        .memo-bottom-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        .stamp-badge {
+            border: 3px dashed #10b981;
+            color: #10b981;
+            font-weight: 900;
+            font-size: 18px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border-radius: 6px;
+            transform: rotate(-8deg);
+            display: inline-block;
+            letter-spacing: 2px;
+        }
+
+        .stamp-due {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .stamp-partial {
+            border-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        .memo-totals-box {
+            width: 220px;
+            font-size: 12px;
+        }
+
+        .memo-totals-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+        }
+
+        .memo-grand-total {
+            border-top: 2px solid var(--accent-color);
+            padding-top: 6px;
+            margin-top: 4px;
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--accent-color);
+        }
+
+        /* PRINT STYLING (@media print) */
+        @media print {
+            body { background: #fff !important; color: #000 !important; height: auto !important; overflow: visible !important; }
+            .app-header, .controls-panel, #toast-container { display: none !important; }
+            .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; }
+            .memo-sheet { box-shadow: none !important; width: 100% !important; height: auto !important; margin: 0 !important; border: none !important; }
+        }
+
+        @media (max-width: 900px) {
+            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            .controls-panel { width: 100%; height: auto; border-right: none; }
+            .preview-panel { padding: 15px; }
+            .memo-sheet { width: 100%; scale: 0.95; transform-origin: top center; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-receipt"></i>
+            <span>RAJU CRAFTER STUDIO (Cash Memo & Receipt)</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="btn-top" onclick="printMemo()"><i class="fas fa-print"></i> Print PDF</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#34d399,#059669); color:#fff" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-store"></i> Vendor</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-user-check"></i> Customer</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-list-check"></i> Items</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-qrcode"></i> Bank & Payment</div>
+                <div class="tab-item" onclick="nav('5',this)"><i class="fas fa-download"></i> Export</div>
+            </div>
+
+            <!-- TAB 1: VENDOR PROFILE -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">Vendor Logo</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()"><i class="fas fa-upload"></i> Upload Logo <input type="file" id="up-logo" hidden onchange="loadLogo(this)"></div>
+                    <button type="button" class="opt-box" onclick="removeLogo()"><i class="fas fa-trash"></i> Remove Logo</button>
+                </div>
+
+                <div class="grp-label">Vendor / Shop Name</div>
+                <input type="text" id="v-name" value="Raju Electronics & Hardware" style="font-weight:700; color:#34d399" oninput="saveVendorProfile(); render()" placeholder="Shop Name">
+
+                <div class="grp-label">Tagline / Business Line</div>
+                <input type="text" id="v-tagline" value="All Electricals, Hardware & Retail Goods" oninput="saveVendorProfile(); render()" placeholder="Tagline">
+
+                <div class="grp-label">Phone & Email</div>
+                <div class="grid-2">
+                    <input type="text" id="v-phone" value="+91 98765 43210" oninput="saveVendorProfile(); render()" placeholder="Phone">
+                    <input type="text" id="v-email" value="info@rajuelectronics.com" oninput="saveVendorProfile(); render()" placeholder="Email">
+                </div>
+
+                <div class="grp-label">Shop Address</div>
+                <input type="text" id="v-address" value="Shop #12, Commercial Complex, Main Market" oninput="saveVendorProfile(); render()" placeholder="Address">
+
+                <div class="grp-label">Auto-Save Profile Notification</div>
+                <div style="font-size:11px; color:#34d399"><i class="fas fa-floppy-disk"></i> Vendor Profile auto-saved in browser localStorage!</div>
+            </div>
+
+            <!-- TAB 2: RECEIPT & CUSTOMER DETAILS -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label">Document Mode Title</div>
+                <div class="grid-3">
+                    <div class="opt-box active" onclick="setDocTitle('CASH MEMO', this)"><i class="fas fa-money-bill-wave"></i> Cash Memo</div>
+                    <div class="opt-box" onclick="setDocTitle('PAYMENT RECEIPT', this)"><i class="fas fa-receipt"></i> Payment Receipt</div>
+                    <div class="opt-box" onclick="setDocTitle('RENT RECEIPT', this)"><i class="fas fa-home"></i> Rent Receipt</div>
+                </div>
+
+                <div class="grp-label">Receipt No & Date</div>
+                <div class="grid-2">
+                    <input type="text" id="m-no" value="MEMO-2026-104" oninput="render()" placeholder="Memo #">
+                    <input type="date" id="m-date" oninput="render()">
+                </div>
+
+                <div class="grp-label">Payment Mode</div>
+                <select id="m-paymode" onchange="render()">
+                    <option value="CASH">Cash Payment</option>
+                    <option value="UPI / QR">UPI (GPay / PhonePe / Paytm)</option>
+                    <option value="CARD">Credit / Debit Card</option>
+                    <option value="CHEQUE">Cheque / DD</option>
+                </select>
+
+                <div class="grp-label">Payment Stamp Status</div>
+                <div class="grid-3">
+                    <div class="opt-box active" onclick="setStamp('PAID', this)"><i class="fas fa-check-circle" style="color:#10b981"></i> 🟢 PAID</div>
+                    <div class="opt-box" onclick="setStamp('PARTIAL', this)"><i class="fas fa-adjust" style="color:#f59e0b"></i> 🟡 PARTIAL</div>
+                    <div class="opt-box" onclick="setStamp('DUE', this)"><i class="fas fa-clock" style="color:#ef4444"></i> 🔴 DUE</div>
+                </div>
+
+                <div class="grp-label">Customer Name</div>
+                <input type="text" id="c-name" value="Suresh Patel" style="font-weight:700" oninput="render()" placeholder="Customer Name">
+
+                <div class="grp-label">Customer Phone & Address</div>
+                <input type="text" id="c-phone" value="+91 91234 56789" oninput="render()" placeholder="Customer Phone">
+                <input type="text" id="c-address" value="Sector 4, Green Park Colony" oninput="render()" placeholder="Customer Address">
+            </div>
+
+            <!-- TAB 3: ITEMIZED ROWS & TAX -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">Itemized Rows</div>
+                <div id="items-edit-container"></div>
+                <button type="button" class="btn-top" style="width:100%; justify-content:center; margin-bottom:15px; background:rgba(52,211,153,0.15); color:#a7f3d0; border-color:rgba(52,211,153,0.3)" onclick="addItem()"><i class="fas fa-plus"></i> Add Item Row</button>
+
+                <div class="grid-2">
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Discount Amount (₹)</label>
+                        <input type="number" id="m-discount" value="50" oninput="render()">
+                    </div>
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Tax / GST % (Optional)</label>
+                        <input type="number" id="m-tax-pct" value="0" oninput="render()">
+                    </div>
+                </div>
+
+                <div style="margin-top:10px">
+                    <label style="font-size:11px; color:#34d399; font-weight:700">Amount Paid / Advance Received (₹)</label>
+                    <input type="number" id="m-paid-amt" value="500" style="font-weight:700; color:#34d399" oninput="render()" placeholder="Paid Amount">
+                </div>
+            </div>
+
+            <!-- TAB 4: BANK & PAYMENT QR -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">UPI ID for Live Scan-to-Pay QR</div>
+                <input type="text" id="m-upi-id" value="9876543210@paytm" oninput="saveVendorProfile(); render()" placeholder="UPI ID (e.g. 9876543210@paytm)">
+
+                <div class="grp-label">Authorized Signatory Name</div>
+                <input type="text" id="m-sign-name" value="Raju Jatapara (Proprietor)" oninput="saveVendorProfile(); render()" placeholder="Signatory Name">
+            </div>
+
+            <!-- TAB 5: EXPORT & PRINT -->
+            <div id="tab-5" class="tab-body">
+                <div class="grp-label">1. Print PDF Receipt</div>
+                <button class="action-btn-main" onclick="printMemo()"><i class="fas fa-print"></i> Print / Save as PDF</button>
+
+                <div class="grp-label" style="margin-top:20px">2. Download High-Res PNG</div>
+                <button class="action-btn-main" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG Image</button>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL (CASH MEMO RECEIPT SHEET) -->
+        <div class="preview-panel">
+            <div class="memo-sheet" id="memo-sheet-root">
+                <div class="memo-header-grid">
+                    <div style="display:flex; align-items:center; gap:14px">
+                        <img id="d-v-logo-img" src="" style="width:64px; height:64px; object-fit:contain; border-radius:8px; border:1px solid #cbd5e1; display:none; flex-shrink:0">
+                        <div class="memo-vendor-info">
+                            <h2 id="d-v-name">Raju Electronics & Hardware</h2>
+                            <p id="d-v-tagline">All Electricals, Hardware & Retail Goods</p>
+                            <p id="d-v-address">Shop #12, Commercial Complex, Main Market</p>
+                            <p><b>Phone:</b> <span id="d-v-phone">+91 98765 43210</span> | <b>Email:</b> <span id="d-v-email">info@rajuelectronics.com</span></p>
+                        </div>
+                    </div>
+
+                    <div class="memo-doc-badge">
+                        <div class="memo-title-tag" id="d-doc-title">CASH MEMO</div>
+                        <p style="font-size:11px"><b>MEMO NO:</b> <span id="d-m-no">MEMO-2026-104</span></p>
+                        <p style="font-size:11px"><b>DATE:</b> <span id="d-m-date">19/07/2026</span></p>
+                    </div>
+                </div>
+
+                <div class="memo-meta-grid">
+                    <div class="memo-meta-cell">
+                        <strong>Customer Details:</strong>
+                        <span id="d-c-name">Suresh Patel</span><br>
+                        <span id="d-c-phone" style="font-weight:400; color:#475569">+91 91234 56789</span>
+                    </div>
+                    <div class="memo-meta-cell">
+                        <strong>Payment Details:</strong>
+                        <span>MODE: <span id="d-m-paymode">CASH</span></span><br>
+                        <span>STATUS: <span id="d-m-status" style="color:#10b981">PAID</span></span>
+                    </div>
+                </div>
+
+                <!-- ITEMS TABLE -->
+                <table class="memo-table">
+                    <thead>
+                        <tr>
+                            <th style="width:40px">#</th>
+                            <th>Item Description</th>
+                            <th style="width:60px; text-align:center">Qty</th>
+                            <th style="width:90px; text-align:right">Rate (₹)</th>
+                            <th style="width:100px; text-align:right">Total (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="d-items-tbody"></tbody>
+                </table>
+
+                <!-- BOTTOM TOTALS & STAMP -->
+                <div class="memo-bottom-grid">
+                    <div>
+                        <div id="d-stamp-wrap" class="stamp-badge">PAID</div>
+
+                        <div id="d-upi-wrap" style="margin-top:15px; display:flex; align-items:center; gap:10px">
+                            <img id="d-upi-img" src="" style="width:70px; height:70px; border:1px solid #ddd; padding:2px; border-radius:4px">
+                            <div style="font-size:10px">
+                                <b>Scan & Pay UPI</b><br>
+                                <span id="d-upi-id">9876543210@paytm</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memo-totals-box">
+                        <div class="memo-totals-row">
+                            <span>Subtotal:</span>
+                            <span id="d-subtotal">₹ 0.00</span>
+                        </div>
+                        <div class="memo-totals-row" id="d-row-disc">
+                            <span>Discount:</span>
+                            <span id="d-discount">- ₹ 0.00</span>
+                        </div>
+                        <div class="memo-totals-row" id="d-row-tax">
+                            <span>Tax / GST:</span>
+                            <span id="d-tax">+ ₹ 0.00</span>
+                        </div>
+                        <div class="memo-totals-row memo-grand-total">
+                            <span>Grand Total:</span>
+                            <span id="d-grandtotal">₹ 0.00</span>
+                        </div>
+                        <div class="memo-totals-row" style="color:#10b981; font-weight:700; margin-top:4px">
+                            <span>Amount Paid:</span>
+                            <span id="d-paid-amt">₹ 0.00</span>
+                        </div>
+                        <div class="memo-totals-row" id="d-row-baldue" style="color:#ef4444; font-weight:800; border-top:1px dashed #cbd5e1; padding-top:4px; margin-top:2px">
+                            <span>Balance Due:</span>
+                            <span id="d-baldue-amt">₹ 0.00</span>
+                        </div>
+
+                        <div style="margin-top:25px; text-align:center">
+                            <div style="border-top:1px solid #0f172a; padding-top:4px; font-weight:700; font-size:11px" id="d-sign-name">Raju Jatapara (Proprietor)</div>
+                            <div style="font-size:9px; color:#64748b">Authorized Signatory</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top:auto; text-align:center; font-size:10px; color:#94a3b8; padding-top:15px">
+                    Thank you for your business! | Powered by <b>Raju Crafter Studio</b>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        const app = {
+            docTitle: 'CASH MEMO',
+            stamp: 'PAID',
+            logoUrl: '',
+            items: [
+                { name: 'Philips 12W LED Bulb', qty: 4, rate: 120 },
+                { name: 'Anchor Modular Switch Box', qty: 2, rate: 350 }
+            ]
+        };
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#34d399"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            _('m-date').valueAsDate = new Date();
+            loadVendorProfile();
+            renderItemsEditors();
+            render();
+        };
+
+        function loadLogo(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    app.logoUrl = x.target.result;
+                    render();
+                    showToast('Vendor Logo Uploaded!', 'fa-image');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function removeLogo() {
+            app.logoUrl = '';
+            _('up-logo').value = '';
+            render();
+            showToast('Logo Removed', 'fa-trash');
+        }
+
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+        }
+
+        function setDocTitle(t, b) {
+            app.docTitle = t;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+        }
+
+        function setStamp(s, b) {
+            app.stamp = s;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+        }
+
+        /* LOCALSTORAGE VENDOR AUTO-SAVE SYSTEM */
+        function saveVendorProfile() {
+            const profile = {
+                name: _('v-name').value,
+                tagline: _('v-tagline').value,
+                phone: _('v-phone').value,
+                email: _('v-email').value,
+                address: _('v-address').value,
+                upi: _('m-upi-id').value,
+                sign: _('m-sign-name').value
+            };
+            localStorage.setItem('rcs_vendor_profile', JSON.stringify(profile));
+        }
+
+        function loadVendorProfile() {
+            const saved = localStorage.getItem('rcs_vendor_profile');
+            if (saved) {
+                try {
+                    const p = JSON.parse(saved);
+                    if (p.name) _('v-name').value = p.name;
+                    if (p.tagline) _('v-tagline').value = p.tagline;
+                    if (p.phone) _('v-phone').value = p.phone;
+                    if (p.email) _('v-email').value = p.email;
+                    if (p.address) _('v-address').value = p.address;
+                    if (p.upi) _('m-upi-id').value = p.upi;
+                    if (p.sign) _('m-sign-name').value = p.sign;
+                } catch(e){}
+            }
+        }
+
+        /* ITEMS EDITOR */
+        function renderItemsEditors() {
+            const container = _('items-edit-container');
+            container.innerHTML = '';
+            app.items.forEach((item, idx) => {
+                container.innerHTML += `
+                    <div class="item-edit-card">
+                        <i class="fas fa-trash btn-del-item" onclick="deleteItem(${idx})"></i>
+                        <input type="text" value="${item.name}" placeholder="Item Description" oninput="app.items[${idx}].name=this.value; render()">
+                        <div class="grid-2">
+                            <input type="number" value="${item.qty}" placeholder="Qty" oninput="app.items[${idx}].qty=parseFloat(this.value)||0; render()">
+                            <input type="number" value="${item.rate}" placeholder="Rate (₹)" oninput="app.items[${idx}].rate=parseFloat(this.value)||0; render()">
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function addItem() {
+            app.items.push({ name: 'New Item', qty: 1, rate: 100 });
+            renderItemsEditors();
+            render();
+            showToast('Item Added', 'fa-plus');
+        }
+
+        function deleteItem(idx) {
+            app.items.splice(idx, 1);
+            renderItemsEditors();
+            render();
+            showToast('Item Deleted', 'fa-trash');
+        }
+
+        function render() {
+            _('d-doc-title').innerText = app.docTitle;
+
+            // Vendor Logo
+            const logoImg = _('d-v-logo-img');
+            if (app.logoUrl) {
+                logoImg.src = app.logoUrl;
+                logoImg.style.display = 'block';
+            } else {
+                logoImg.style.display = 'none';
+            }
+
+            _('d-v-name').innerText = _('v-name').value;
+            _('d-v-tagline').innerText = _('v-tagline').value;
+            _('d-v-phone').innerText = _('v-phone').value;
+            _('d-v-email').innerText = _('v-email').value;
+            _('d-v-address').innerText = _('v-address').value;
+
+            _('d-m-no').innerText = _('m-no').value;
+            const dt = _('m-date').value;
+            if (dt) {
+                const p = dt.split('-');
+                _('d-m-date').innerText = `${p[2]}/${p[1]}/${p[0]}`;
+            }
+
+            _('d-c-name').innerText = _('c-name').value;
+            _('d-c-phone').innerText = _('c-phone').value;
+
+            _('d-m-paymode').innerText = _('m-paymode').value;
+
+            // Stamp & Status text
+            const stampWrap = _('d-stamp-wrap');
+            if (app.stamp === 'PAID') {
+                stampWrap.innerText = 'PAID';
+                stampWrap.className = 'stamp-badge';
+                _('d-m-status').innerText = 'PAID';
+                _('d-m-status').style.color = '#10b981';
+            } else if (app.stamp === 'PARTIAL') {
+                stampWrap.innerText = 'PARTIALLY PAID';
+                stampWrap.className = 'stamp-badge stamp-partial';
+                _('d-m-status').innerText = 'PARTIALLY PAID';
+                _('d-m-status').style.color = '#f59e0b';
+            } else {
+                stampWrap.innerText = 'PAYMENT DUE';
+                stampWrap.className = 'stamp-badge stamp-due';
+                _('d-m-status').innerText = 'DUE / PENDING';
+                _('d-m-status').style.color = '#ef4444';
+            }
+
+            // Items Table Math
+            const tbody = _('d-items-tbody');
+            tbody.innerHTML = '';
+            let subtotal = 0;
+
+            app.items.forEach((item, idx) => {
+                const tot = (item.qty || 0) * (item.rate || 0);
+                subtotal += tot;
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="text-align:center">${idx + 1}</td>
+                        <td><b>${item.name}</b></td>
+                        <td style="text-align:center">${item.qty}</td>
+                        <td style="text-align:right">₹ ${(item.rate || 0).toFixed(2)}</td>
+                        <td style="text-align:right"><b>₹ ${tot.toFixed(2)}</b></td>
+                    </tr>
+                `;
+            });
+
+            _('d-subtotal').innerText = `₹ ${subtotal.toFixed(2)}`;
+
+            const disc = parseFloat(_('m-discount').value) || 0;
+            _('d-discount').innerText = `- ₹ ${disc.toFixed(2)}`;
+
+            const taxPct = parseFloat(_('m-tax-pct').value) || 0;
+            const taxAmt = ((subtotal - disc) * taxPct) / 100;
+            _('d-tax').innerText = `+ ₹ ${taxAmt.toFixed(2)}`;
+
+            const grand = Math.max(0, subtotal - disc + taxAmt);
+            _('d-grandtotal').innerText = `₹ ${grand.toFixed(2)}`;
+
+            // Advance Paid & Balance Due Math
+            const paidAmt = parseFloat(_('m-paid-amt').value) || 0;
+            const balDue = Math.max(0, grand - paidAmt);
+
+            _('d-paid-amt').innerText = `₹ ${paidAmt.toFixed(2)}`;
+            _('d-baldue-amt').innerText = `₹ ${balDue.toFixed(2)}`;
+
+            _('d-sign-name').innerText = _('m-sign-name').value;
+
+            // UPI QR
+            const upiId = _('m-upi-id').value;
+            const upiWrap = _('d-upi-wrap');
+            if (upiId) {
+                upiWrap.style.display = 'flex';
+                _('d-upi-id').innerText = upiId;
+                const payAmt = balDue > 0 ? balDue : grand;
+                const upiUrl = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(_('v-name').value)}&am=${payAmt.toFixed(2)}`;
+                _('d-upi-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUrl)}`;
+            } else {
+                upiWrap.style.display = 'none';
+            }
+        }
+
+        function downloadPNG() {
+            showToast('Generating High-Res PNG...', 'fa-spinner fa-spin');
+            const card = _('memo-sheet-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `CashMemo-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ High-Res PNG Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function printMemo() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

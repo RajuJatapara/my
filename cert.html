@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Certificate & Award Crafter - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Great+Vibes&family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #b45309;
+            --primary-hover: #92400e;
+            --page-bg: #0f172a;
+            --cert-bg: #fffdf5;
+            --cert-text-color: #1e293b;
+            --cert-border-color: #d97706;
+            --cert-accent-color: #b45309;
+            --cert-font: 'Cinzel', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-top {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT CONTROLS PANEL */
+        .controls-panel {
+            width: 450px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.85);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-header::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+            padding: 12px 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .tab-item.active {
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.08);
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #fbbf24, #d97706);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-item i {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .tab-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 40px 20px;
+            display: none;
+        }
+
+        .tab-body.active { display: block; }
+
+        /* FORM CONTROLS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option { background: #1e293b; color: #fff; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #fbbf24;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .opt-box.active {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.5);
+            color: #fef08a;
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.2);
+        }
+
+        .opt-box i { font-size: 18px; }
+
+        .action-btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #fff;
+            height: 46px;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.35);
+            transition: transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn-main:active { transform: scale(0.98); }
+
+        /* RIGHT PREVIEW PANEL (A4 CERTIFICATE CANVAS) */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* BASE CERTIFICATE CANVAS SHEET */
+        .cert-canvas {
+            width: 800px;
+            height: 560px;
+            background: var(--cert-bg);
+            color: var(--cert-text-color);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .cert-border-outer {
+            width: 100%;
+            height: 100%;
+            border: 6px double var(--cert-border-color);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .cert-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--cert-border-color);
+        }
+
+        .cert-c-tl { top: 6px; left: 6px; border-right: none; border-bottom: none; }
+        .cert-c-tr { top: 6px; right: 6px; border-left: none; border-bottom: none; }
+        .cert-c-bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
+        .cert-c-br { bottom: 6px; right: 6px; border-left: none; border-top: none; }
+
+        .cert-inst-logo {
+            max-height: 55px;
+            max-width: 160px;
+            object-fit: contain;
+            margin-bottom: 4px;
+        }
+
+        .cert-inst-name {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--cert-accent-color);
+            margin-bottom: 10px;
+        }
+
+        .cert-main-title {
+            font-family: var(--cert-font);
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--cert-accent-color);
+            letter-spacing: 1px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .cert-sub-text {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #64748b;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .cert-recipient-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 48px;
+            color: var(--cert-accent-color);
+            line-height: 1.1;
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--cert-border-color);
+            padding: 0 30px 4px 30px;
+        }
+
+        .cert-body-desc {
+            font-size: 13px;
+            color: var(--cert-text-color);
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* BOTTOM FOOTER (SIGNATURES, SEAL & QR) */
+        .cert-footer-grid {
+            width: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: auto;
+            padding: 0 20px;
+        }
+
+        .cert-sign-box {
+            text-align: center;
+            width: 160px;
+        }
+
+        .cert-sign-line {
+            border-top: 1px solid var(--cert-border-color);
+            padding-top: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--cert-text-color);
+        }
+
+        .cert-gold-seal {
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #fde047 0%, #ca8a04 70%, #854d0e 100%);
+            border-radius: 50%;
+            border: 3px dashed #fff;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #451a03;
+            font-weight: 900;
+            font-size: 10px;
+            text-transform: uppercase;
+            text-align: center;
+            line-height: 1.2;
+            padding: 6px;
+        }
+
+        .cert-qr-box {
+            width: 65px;
+            height: 65px;
+            background: #fff;
+            padding: 3px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .cert-qr-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* --- 5 STRUCTURAL LAYOUT DESIGNS --- */
+
+        /* LAYOUT 1: CLASSIC FILIGREE FRAME */
+        .ly-filigree .cert-corner { display: block; }
+
+        /* LAYOUT 2: CORPORATE LEFT PILLAR BLOCK */
+        .ly-left-pillar {
+            display: flex;
+            flex-direction: row;
+            padding: 0;
+        }
+        .ly-left-pillar .cert-border-outer {
+            border: none;
+            padding: 25px;
+            flex: 1;
+        }
+        .ly-left-pillar .cert-corner { display: none; }
+        .cert-left-pillar-block {
+            width: 180px;
+            background: var(--cert-accent-color);
+            color: #fff;
+            padding: 25px 15px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .ly-left-pillar .cert-left-pillar-block { display: flex; }
+
+        /* LAYOUT 3: GEOMETRIC DIAGONAL RIBBONS */
+        .cert-diag-top {
+            position: absolute;
+            top: -40px; left: -40px;
+            width: 120px; height: 120px;
+            background: var(--cert-accent-color);
+            transform: rotate(45deg);
+            display: none;
+        }
+        .cert-diag-bottom {
+            position: absolute;
+            bottom: -40px; right: -40px;
+            width: 120px; height: 120px;
+            background: var(--cert-accent-color);
+            transform: rotate(45deg);
+            display: none;
+        }
+        .ly-diagonal .cert-diag-top, .ly-diagonal .cert-diag-bottom { display: block; }
+        .ly-diagonal .cert-border-outer { border: 2px solid var(--cert-border-color); }
+        .ly-diagonal .cert-corner { display: none; }
+
+        /* LAYOUT 4: MINIMAL DOUBLE LINE FRAME */
+        .ly-minimal .cert-border-outer {
+            border: 1px solid var(--cert-border-color);
+            outline: 1px solid var(--cert-border-color);
+            outline-offset: -8px;
+        }
+        .ly-minimal .cert-corner { display: none; }
+
+        /* LAYOUT 5: ROYAL ARCH CREST FRAME */
+        .cert-arch-header {
+            width: 80%;
+            height: 12px;
+            background: var(--cert-accent-color);
+            border-radius: 0 0 100px 100px;
+            margin-top: -20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .ly-arch .cert-arch-header { display: block; }
+        .ly-arch .cert-border-outer { border: 3px solid var(--cert-border-color); }
+        .ly-arch .cert-corner { display: none; }
+
+        /* --- 5 COLOR THEMES --- */
+        .t-royal-gold {
+            --cert-bg: #fffdf5;
+            --cert-text-color: #1e293b;
+            --cert-border-color: #d97706;
+            --cert-accent-color: #b45309;
+        }
+
+        .t-modern-blue {
+            --cert-bg: #ffffff;
+            --cert-text-color: #0f172a;
+            --cert-border-color: #2563eb;
+            --cert-accent-color: #1d4ed8;
+        }
+
+        .t-emerald-green {
+            --cert-bg: #f0fdf4;
+            --cert-text-color: #064e3b;
+            --cert-border-color: #059669;
+            --cert-accent-color: #047857;
+        }
+
+        .t-vintage-red {
+            --cert-bg: #fffbfb;
+            --cert-text-color: #450a0a;
+            --cert-border-color: #dc2626;
+            --cert-accent-color: #991b1b;
+        }
+
+        .t-dark-gold {
+            --cert-bg: #0f172a;
+            --cert-text-color: #f8fafc;
+            --cert-border-color: #fbbf24;
+            --cert-accent-color: #f59e0b;
+        }
+
+        /* PRINT STYLING (@media print) */
+        @media print {
+            body { background: #fff !important; color: #000 !important; height: auto !important; overflow: visible !important; }
+            .app-header, .controls-panel, #toast-container { display: none !important; }
+            .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; }
+            .cert-canvas { box-shadow: none !important; width: 100% !important; height: 100vh !important; scale: 1 !important; transform: none !important; margin: 0 !important; }
+        }
+
+        @media (max-width: 900px) {
+            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            .controls-panel { width: 100%; height: auto; border-right: none; }
+            .preview-panel { padding: 15px; overflow-x: auto; }
+            .cert-canvas { scale: 0.75; transform-origin: top center; margin-bottom: -120px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-certificate"></i>
+            <span>RAJU CRAFTER STUDIO (Certificate)</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="btn-top" onclick="printCert()"><i class="fas fa-print"></i> Print PDF</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#fbbf24,#d97706); color:#000" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-file-signature"></i> Info & Recipient</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-award"></i> Seals & Signs</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-layer-group"></i> Layout & Themes</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-download"></i> Export</div>
+            </div>
+
+            <!-- TAB 1: INFO & RECIPIENT -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">Institution Logo</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()"><i class="fas fa-upload"></i> Upload Logo <input type="file" id="up-logo" hidden onchange="loadLogo(this)"></div>
+                    <button type="button" class="opt-box" onclick="removeLogo()"><i class="fas fa-trash"></i> Remove Logo</button>
+                </div>
+
+                <div class="grp-label">Institution / Issuer Name</div>
+                <input type="text" id="in-inst-name" value="Apex Institute of Technology" style="font-weight:700" oninput="render()" placeholder="Institution Name">
+
+                <div class="grp-label">Certificate Title & Sub-Text</div>
+                <input type="text" id="in-main-title" value="CERTIFICATE OF COMPLETION" style="font-weight:800" oninput="render()" placeholder="Main Title (e.g. CERTIFICATE OF COMPLETION)">
+                <input type="text" id="in-sub-text" value="THIS IS PROUDLY PRESENTED TO" oninput="render()" placeholder="Sub-Text (e.g. THIS IS PROUDLY PRESENTED TO)">
+
+                <div class="grp-label">Recipient Full Name</div>
+                <input type="text" id="in-recipient-name" value="Raju Jatapara" style="font-size:16px; font-weight:700; color:#fbbf24" oninput="render()" placeholder="Student / Participant Name">
+
+                <div class="grp-label">Certificate Description Text</div>
+                <textarea id="in-body-desc" rows="3" oninput="render()" placeholder="Description text...">for successfully completing the Masterclass in Full-Stack Web Engineering & Advanced UI Design with Grade 'A' Distinction.</textarea>
+
+                <div class="grid-2">
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Issue Date</label>
+                        <input type="date" id="in-cert-date" oninput="render()">
+                    </div>
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Certificate / Roll ID</label>
+                        <input type="text" id="in-cert-id" value="CERT-2026-904" oninput="render()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: SEALS & SIGNS -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label">Gold Ribbon Seal Badge</div>
+                <div class="grid-auto">
+                    <div class="opt-box active" onclick="setSeal('gold_excel', this)"><i class="fas fa-award" style="color:#fbbf24"></i> Excellence</div>
+                    <div class="opt-box" onclick="setSeal('winner', this)"><i class="fas fa-trophy" style="color:#f59e0b"></i> Winner</div>
+                    <div class="opt-box" onclick="setSeal('certified', this)"><i class="fas fa-certificate" style="color:#38bdf8"></i> Certified</div>
+                    <div class="opt-box" onclick="setSeal('none', this)"><i class="fas fa-ban"></i> No Seal</div>
+                </div>
+
+                <div class="grp-label">Authorized Signature 1</div>
+                <input type="text" id="in-sign1-name" value="Dr. A. K. Sharma (Director)" oninput="render()" placeholder="Signatory 1 Name">
+
+                <div class="grp-label">Authorized Signature 2</div>
+                <input type="text" id="in-sign2-name" value="Prof. Meera Patel (Head of Dept)" oninput="render()" placeholder="Signatory 2 Name">
+
+                <div class="grp-label">Verification QR Code</div>
+                <div class="ct-edit-row">
+                    <input type="checkbox" id="k-qr" checked onchange="render()">
+                    <i class="fas fa-qrcode" style="color:#fbbf24"></i>
+                    <span style="font-size:12px; font-weight:600">Include Scan-to-Verify QR Code</span>
+                </div>
+            </div>
+
+            <!-- TAB 3: LAYOUT & THEMES -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">5 Structural Card Layout Designs</div>
+                <div class="grid-auto" style="margin-bottom:15px">
+                    <div class="opt-box active" onclick="setLayout('ly-filigree', this)"><i class="fas fa-square-full" style="color:#fbbf24"></i> Classic Filigree</div>
+                    <div class="opt-box" onclick="setLayout('ly-left-pillar', this)"><i class="fas fa-columns" style="color:#38bdf8"></i> Left Pillar</div>
+                    <div class="opt-box" onclick="setLayout('ly-diagonal', this)"><i class="fas fa-vector-square" style="color:#f87171"></i> Diagonal Ribbons</div>
+                    <div class="opt-box" onclick="setLayout('ly-minimal', this)"><i class="fas fa-border-none" style="color:#34d399"></i> Minimal Dual</div>
+                    <div class="opt-box" onclick="setLayout('ly-arch', this)"><i class="fas fa-archway" style="color:#c084fc"></i> Royal Arch</div>
+                </div>
+
+                <div class="grp-label">5 Color Palette Themes</div>
+                <div class="grid-auto" style="margin-bottom:15px">
+                    <div class="opt-box active" onclick="setTheme('t-royal-gold', this)"><i class="fas fa-circle" style="color:#d97706"></i> Royal Gold</div>
+                    <div class="opt-box" onclick="setTheme('t-modern-blue', this)"><i class="fas fa-circle" style="color:#2563eb"></i> Corporate Blue</div>
+                    <div class="opt-box" onclick="setTheme('t-emerald-green', this)"><i class="fas fa-circle" style="color:#059669"></i> Emerald Green</div>
+                    <div class="opt-box" onclick="setTheme('t-vintage-red', this)"><i class="fas fa-circle" style="color:#dc2626"></i> Vintage Red</div>
+                    <div class="opt-box" onclick="setTheme('t-dark-gold', this)"><i class="fas fa-circle" style="color:#fbbf24"></i> Dark Obsidian</div>
+                </div>
+
+                <div class="grp-label">Title Font Style</div>
+                <select id="font-select" onchange="setFont(this.value)">
+                    <option value="'Cinzel', serif">Cinzel (Royal Classic)</option>
+                    <option value="'Playfair Display', serif">Playfair (Luxury Serifs)</option>
+                    <option value="'Montserrat', sans-serif">Montserrat (Modern Bold)</option>
+                </select>
+            </div>
+
+            <!-- TAB 4: EXPORT & PRINT -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">1. Download High-Res PNG</div>
+                <button class="action-btn-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download High-Res PNG Certificate</button>
+
+                <div class="grp-label" style="margin-top:20px">2. Print PDF Certificate</div>
+                <button class="action-btn-main" style="background:linear-gradient(135deg, #10b981, #059669)" onclick="printCert()"><i class="fas fa-print"></i> Print / Save as PDF</button>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL (A4 CERTIFICATE CANVAS) -->
+        <div class="preview-panel">
+            <div class="cert-canvas ly-filigree t-royal-gold" id="cert-canvas-root">
+                <div class="cert-diag-top"></div>
+                <div class="cert-diag-bottom"></div>
+
+                <!-- LEFT PILLAR BLOCK FOR LAYOUT 2 -->
+                <div class="cert-left-pillar-block">
+                    <div id="d-pillar-logo"></div>
+                    <div class="cert-gold-seal" id="d-pillar-seal" style="width:70px; height:70px; font-size:9px">
+                        <i class="fas fa-award" style="font-size:16px"></i>
+                        <span>EXCELLENCE</span>
+                    </div>
+                    <div class="cert-qr-box" id="d-pillar-qr" style="width:55px; height:55px"></div>
+                </div>
+
+                <div class="cert-border-outer">
+                    <div class="cert-arch-header"></div>
+
+                    <div class="cert-corner cert-c-tl"></div>
+                    <div class="cert-corner cert-c-tr"></div>
+                    <div class="cert-corner cert-c-bl"></div>
+                    <div class="cert-corner cert-c-br"></div>
+
+                    <div id="d-logo-wrap"></div>
+                    <div class="cert-inst-name" id="d-inst-name">Apex Institute of Technology</div>
+
+                    <div class="cert-main-title" id="d-main-title">CERTIFICATE OF COMPLETION</div>
+                    <div class="cert-sub-text" id="d-sub-text">THIS IS PROUDLY PRESENTED TO</div>
+
+                    <div class="cert-recipient-name" id="d-recipient-name">Raju Jatapara</div>
+
+                    <div class="cert-body-desc" id="d-body-desc">for successfully completing the Masterclass in Full-Stack Web Engineering & Advanced UI Design with Grade 'A' Distinction.</div>
+
+                    <!-- FOOTER GRID -->
+                    <div class="cert-footer-grid">
+                        <div class="cert-sign-box">
+                            <div class="cert-sign-line" id="d-sign1-name">Dr. A. K. Sharma (Director)</div>
+                        </div>
+
+                        <!-- GOLD SEAL -->
+                        <div class="cert-gold-seal" id="d-gold-seal">
+                            <i class="fas fa-award" style="font-size:20px"></i>
+                            <span>GOLD EXCELLENCE</span>
+                        </div>
+
+                        <!-- QR VERIFICATION -->
+                        <div class="cert-qr-box" id="d-qr-box">
+                            <img id="d-qr-img" src="" alt="Verification QR">
+                        </div>
+
+                        <div class="cert-sign-box">
+                            <div class="cert-sign-line" id="d-sign2-name">Prof. Meera Patel (HOD)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        const app = {
+            layout: 'ly-filigree',
+            theme: 't-royal-gold',
+            logoUrl: '',
+            seal: 'gold_excel',
+            font: "'Cinzel', serif"
+        };
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#fbbf24"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            _('in-cert-date').valueAsDate = new Date();
+            render();
+        };
+
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+        }
+
+        function setLayout(l, b) {
+            app.layout = l;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast('Card Layout structure updated!', 'fa-layer-group');
+        }
+
+        function setTheme(t, b) {
+            app.theme = t;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast('Color Theme updated!', 'fa-palette');
+        }
+
+        function setSeal(s, b) {
+            app.seal = s;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+        }
+
+        function setFont(f) {
+            app.font = f;
+            render();
+        }
+
+        function loadLogo(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    app.logoUrl = x.target.result;
+                    render();
+                    showToast('Logo uploaded!', 'fa-image');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function removeLogo() {
+            app.logoUrl = '';
+            _('up-logo').value = '';
+            render();
+            showToast('Logo removed', 'fa-trash');
+        }
+
+        function render() {
+            const canvas = _('cert-canvas-root');
+            canvas.className = `cert-canvas ${app.layout} ${app.theme}`;
+            canvas.style.setProperty('--cert-font', app.font);
+
+            // Logo
+            const logoWrap = _('d-logo-wrap');
+            const pillarLogo = _('d-pillar-logo');
+            if (app.logoUrl) {
+                logoWrap.innerHTML = `<img src="${app.logoUrl}" class="cert-inst-logo">`;
+                pillarLogo.innerHTML = `<img src="${app.logoUrl}" class="cert-inst-logo" style="filter:brightness(0) invert(1)">`;
+            } else {
+                logoWrap.innerHTML = '';
+                pillarLogo.innerHTML = '';
+            }
+
+            _('d-inst-name').innerText = _('in-inst-name').value;
+            _('d-main-title').innerText = _('in-main-title').value;
+            _('d-sub-text').innerText = _('in-sub-text').value;
+            _('d-recipient-name').innerText = _('in-recipient-name').value;
+            _('d-body-desc').innerText = _('in-body-desc').value;
+
+            _('d-sign1-name').innerText = _('in-sign1-name').value;
+            _('d-sign2-name').innerText = _('in-sign2-name').value;
+
+            // Seal
+            const sealBox = _('d-gold-seal');
+            if (app.seal === 'gold_excel') {
+                sealBox.style.display = 'flex';
+                sealBox.innerHTML = `<i class="fas fa-award" style="font-size:20px"></i><span>GOLD EXCELLENCE</span>`;
+            } else if (app.seal === 'winner') {
+                sealBox.style.display = 'flex';
+                sealBox.innerHTML = `<i class="fas fa-trophy" style="font-size:20px"></i><span>TOP WINNER</span>`;
+            } else if (app.seal === 'certified') {
+                sealBox.style.display = 'flex';
+                sealBox.innerHTML = `<i class="fas fa-certificate" style="font-size:20px"></i><span>OFFICIAL CERTIFIED</span>`;
+            } else {
+                sealBox.style.display = 'none';
+            }
+
+            // Verification QR
+            const kQr = _('k-qr').checked;
+            const qrBox = _('d-qr-box');
+            if (kQr) {
+                qrBox.style.display = 'block';
+                const certId = _('in-cert-id').value;
+                const verifyUrl = `https://verify-cert.org/?id=${encodeURIComponent(certId)}`;
+                const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}`;
+                _('d-qr-img').src = qrSrc;
+                _('d-pillar-qr').innerHTML = `<img src="${qrSrc}" style="width:100%; height:100%">`;
+            } else {
+                qrBox.style.display = 'none';
+                _('d-pillar-qr').innerHTML = '';
+            }
+        }
+
+        function downloadPNG() {
+            showToast('Generating High-Res PNG...', 'fa-spinner fa-spin');
+            const card = _('cert-canvas-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `Certificate-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ High-Res PNG Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function printCert() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

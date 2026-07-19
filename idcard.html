@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Employee & Student ID Card Crafter - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --page-bg: #0f172a;
+            --id-theme-color: #2563eb;
+            --id-bg-color: #ffffff;
+            --id-text-color: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #60a5fa, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #60a5fa;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-top {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT CONTROLS PANEL */
+        .controls-panel {
+            width: 440px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.85);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-header::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+            padding: 12px 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .tab-item.active {
+            color: #60a5fa;
+            background: rgba(96, 165, 250, 0.08);
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #60a5fa, #2563eb);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-item i {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .tab-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 40px 20px;
+            display: none;
+        }
+
+        .tab-body.active { display: block; }
+
+        /* FORM CONTROLS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option { background: #1e293b; color: #fff; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #60a5fa;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .opt-box.active {
+            background: rgba(96, 165, 250, 0.15);
+            border-color: rgba(96, 165, 250, 0.5);
+            color: #93c5fd;
+            box-shadow: 0 0 12px rgba(96, 165, 250, 0.2);
+        }
+
+        .opt-box i { font-size: 18px; }
+
+        .action-btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            height: 46px;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+            transition: transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn-main:active { transform: scale(0.98); }
+
+        /* RIGHT PREVIEW PANEL (CR80 ID CARD CANVAS) */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* BASE CR80 STANDARD ID BADGE */
+        .id-badge-card {
+            width: 320px;
+            height: 500px;
+            background: var(--id-bg-color);
+            color: var(--id-text-color);
+            border-radius: 18px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(37, 99, 235, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .lanyard-hole {
+            width: 44px;
+            height: 12px;
+            background: #0f172a;
+            border-radius: 6px;
+            margin-top: 10px;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .id-header-bg {
+            width: 100%;
+            height: 115px;
+            background: var(--id-theme-color);
+            padding: 20px 16px 10px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .id-company-name {
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .id-company-sub {
+            font-size: 9px;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        .id-photo-wrapper {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            margin-top: -38px;
+            background: #e2e8f0;
+            overflow: hidden;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .id-photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .id-person-name {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--id-text-color);
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        .id-person-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--id-theme-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .id-details-table {
+            width: 85%;
+            font-size: 11px;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .id-details-table td {
+            padding: 3px 0;
+        }
+
+        .id-details-table td:first-child {
+            color: #64748b;
+            font-weight: 700;
+            width: 45%;
+        }
+
+        .id-details-table td:last-child {
+            color: var(--id-text-color);
+            font-weight: 800;
+        }
+
+        .id-bottom-barcode-row {
+            margin-top: auto;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.03);
+            border-top: 1px dashed #cbd5e1;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .id-qr-img {
+            width: 42px;
+            height: 42px;
+            background: #fff;
+            padding: 2px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .security-badge-banner {
+            width: 100%;
+            background: #dc2626;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+            padding: 3px 0;
+            display: none;
+            flex-shrink: 0;
+        }
+
+        .id-sidebar-strip {
+            width: 28px;
+            height: 100%;
+            background: var(--id-theme-color);
+            color: #fff;
+            writing-mode: vertical-rl;
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* --- 5 STRUCTURAL CARD LAYOUTS --- */
+
+        /* LAYOUT 1: CLASSIC CURVED WAVE */
+        .ly-curved-wave .id-header-bg {
+            border-bottom-left-radius: 50% 18px;
+            border-bottom-right-radius: 50% 18px;
+        }
+
+        /* LAYOUT 2: CORPORATE SIDE BAR BADGE */
+        .ly-side-bar {
+            flex-direction: row;
+        }
+        .ly-side-bar .id-sidebar-strip { display: flex; }
+        .ly-side-bar .id-main-body-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+        }
+
+        /* LAYOUT 3: GEOMETRIC DIAGONAL SLASH */
+        .ly-diagonal-slash .id-header-bg {
+            clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+            height: 120px;
+        }
+        .ly-diagonal-slash .id-photo-wrapper {
+            margin-top: -45px;
+        }
+
+        /* LAYOUT 4: MODERN MINIMAL SQUARE */
+        .ly-minimal-square .id-header-bg {
+            background: transparent;
+            color: var(--id-text-color);
+            height: 75px;
+            padding-top: 10px;
+        }
+        .ly-minimal-square .id-company-name { color: var(--id-theme-color); }
+        .ly-minimal-square .id-photo-wrapper {
+            margin-top: 0;
+            border-radius: 14px;
+            border: 3px solid var(--id-theme-color);
+        }
+
+        /* LAYOUT 5: SECURITY GATE PASS */
+        .ly-gate-pass .security-badge-banner { display: block; }
+        .ly-gate-pass .id-header-bg { height: 100px; padding-top: 15px; }
+
+        /* --- 5 COLOR THEMES --- */
+        .t-corp-blue {
+            --id-theme-color: #2563eb;
+            --id-bg-color: #ffffff;
+            --id-text-color: #0f172a;
+        }
+        .t-tech-purple {
+            --id-theme-color: #7c3aed;
+            --id-bg-color: #ffffff;
+            --id-text-color: #0f172a;
+        }
+        .t-modern-dark {
+            --id-theme-color: #38bdf8;
+            --id-bg-color: #0f172a;
+            --id-text-color: #f8fafc;
+        }
+        .t-school-green {
+            --id-theme-color: #059669;
+            --id-bg-color: #ffffff;
+            --id-text-color: #0f172a;
+        }
+        .t-luxury-gold {
+            --id-theme-color: #b45309;
+            --id-bg-color: #fffdf5;
+            --id-text-color: #451a03;
+        }
+
+        /* PRINT STYLING (@media print) */
+        @media print {
+            body { background: #fff !important; color: #000 !important; height: auto !important; overflow: visible !important; }
+            .app-header, .controls-panel, #toast-container { display: none !important; }
+            .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; }
+            .id-badge-card { box-shadow: none !important; scale: 1 !important; transform: none !important; margin: 30px auto !important; border: 1px solid #000 !important; }
+        }
+
+        @media (max-width: 900px) {
+            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            .controls-panel { width: 100%; height: auto; border-right: none; }
+            .preview-panel { padding: 20px; }
+            .id-badge-card { scale: 0.9; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-id-card-clip"></i>
+            <span>RAJU CRAFTER STUDIO (ID Card)</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="btn-top" onclick="printID()"><i class="fas fa-print"></i> Print ID Badge</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#60a5fa,#2563eb); color:#fff" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-building"></i> Company</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-user-tie"></i> Person Details</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-layer-group"></i> Layout & Themes</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-download"></i> Export</div>
+            </div>
+
+            <!-- TAB 1: COMPANY / SCHOOL INFO -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">Company / School Logo</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()"><i class="fas fa-upload"></i> Upload Logo <input type="file" id="up-logo" hidden onchange="loadLogo(this)"></div>
+                    <button type="button" class="opt-box" onclick="removeLogo()"><i class="fas fa-trash"></i> Remove Logo</button>
+                </div>
+
+                <div class="grp-label">Company / School Name</div>
+                <input type="text" id="in-comp-name" value="Apex Global Technologies" style="font-weight:700" oninput="render()" placeholder="Company Name">
+
+                <div class="grp-label">Tagline / Location</div>
+                <input type="text" id="in-comp-sub" value="Innovation & Software Engineering" oninput="render()" placeholder="Tagline">
+
+                <div class="grp-label">Emergency Contact Phone</div>
+                <input type="text" id="in-comp-phone" value="+91 98765 43210" oninput="render()" placeholder="Helpline Phone">
+            </div>
+
+            <!-- TAB 2: PERSON DETAILS -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label">Profile Photo Upload</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-photo').click()"><i class="fas fa-camera"></i> Upload Photo <input type="file" id="up-photo" hidden onchange="loadPhoto(this)"></div>
+                    <button type="button" class="opt-box" onclick="removePhoto()"><i class="fas fa-trash"></i> Remove Photo</button>
+                </div>
+
+                <div class="grp-label">Full Name</div>
+                <input type="text" id="in-person-name" value="Raju Jatapara" style="font-weight:700" oninput="render()" placeholder="Full Name">
+
+                <div class="grp-label">Designation / Title</div>
+                <input type="text" id="in-person-title" value="Senior Software Engineer" oninput="render()" placeholder="Designation">
+
+                <div class="grid-2">
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">EMP / Student ID</label>
+                        <input type="text" id="in-person-id" value="EMP-8942" oninput="render()">
+                    </div>
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Department</label>
+                        <input type="text" id="in-person-dept" value="Engineering" oninput="render()">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Blood Group</label>
+                        <input type="text" id="in-person-bg" value="O+ve" oninput="render()">
+                    </div>
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Issue Date</label>
+                        <input type="date" id="in-person-date" oninput="render()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: LAYOUT & THEMES -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">5 Structural ID Card Layouts</div>
+                <div class="grid-auto" style="margin-bottom:15px">
+                    <div class="opt-box active" onclick="setLayout('ly-curved-wave', this)"><i class="fas fa-water" style="color:#60a5fa"></i> Curved Wave</div>
+                    <div class="opt-box" onclick="setLayout('ly-side-bar', this)"><i class="fas fa-columns" style="color:#c084fc"></i> Side Bar</div>
+                    <div class="opt-box" onclick="setLayout('ly-diagonal-slash', this)"><i class="fas fa-slash" style="color:#f87171"></i> Diagonal Slash</div>
+                    <div class="opt-box" onclick="setLayout('ly-minimal-square', this)"><i class="fas fa-square" style="color:#34d399"></i> Minimal Square</div>
+                    <div class="opt-box" onclick="setLayout('ly-gate-pass', this)"><i class="fas fa-shield-alt" style="color:#fbbf24"></i> Gate Pass</div>
+                </div>
+
+                <div class="grp-label">5 Color Themes</div>
+                <div class="grid-3">
+                    <div class="opt-box active" onclick="setTheme('t-corp-blue', this)"><i class="fas fa-id-badge" style="color:#2563eb"></i> Corp Blue</div>
+                    <div class="opt-box" onclick="setTheme('t-tech-purple', this)"><i class="fas fa-id-badge" style="color:#7c3aed"></i> Tech Purple</div>
+                    <div class="opt-box" onclick="setTheme('t-school-green', this)"><i class="fas fa-id-badge" style="color:#059669"></i> School Green</div>
+                    <div class="opt-box" onclick="setTheme('t-luxury-gold', this)"><i class="fas fa-id-badge" style="color:#b45309"></i> Luxury Gold</div>
+                    <div class="opt-box" onclick="setTheme('t-modern-dark', this)"><i class="fas fa-id-badge" style="color:#38bdf8"></i> Modern Dark</div>
+                </div>
+
+                <div class="grp-label">Attendance Barcode / QR</div>
+                <div class="ct-edit-row">
+                    <input type="checkbox" id="k-qr" checked onchange="render()">
+                    <i class="fas fa-barcode" style="color:#60a5fa"></i>
+                    <span style="font-size:12px; font-weight:600">Include Scan QR Code</span>
+                </div>
+            </div>
+
+            <!-- TAB 4: EXPORT & PRINT -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">1. Download High-Res PNG</div>
+                <button class="action-btn-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG ID Badge</button>
+
+                <div class="grp-label" style="margin-top:20px">2. Print CR80 Standard ID Card</div>
+                <button class="action-btn-main" style="background:linear-gradient(135deg, #10b981, #059669)" onclick="printID()"><i class="fas fa-print"></i> Print ID Badge</button>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL (CR80 ID BADGE MOCKUP) -->
+        <div class="preview-panel">
+            <div class="id-badge-card ly-curved-wave t-corp-blue" id="id-badge-card-root">
+                <div class="id-sidebar-strip">OFFICIAL ID BADGE</div>
+
+                <div class="id-main-body-wrap" style="width:100%; display:flex; flex-direction:column; align-items:center; height:100%">
+                    <div class="security-badge-banner">AUTHORIZED PERSONNEL ONLY</div>
+                    <div class="lanyard-hole"></div>
+
+                    <div class="id-header-bg">
+                        <div class="id-company-name" id="d-comp-name">Apex Global Tech</div>
+                        <div class="id-company-sub" id="d-comp-sub">Innovation & Software</div>
+                    </div>
+
+                    <div class="id-photo-wrapper">
+                        <img id="d-photo-img" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Profile Photo">
+                    </div>
+
+                    <div class="id-person-name" id="d-person-name">Raju Jatapara</div>
+                    <div class="id-person-title" id="d-person-title">Senior Software Engineer</div>
+
+                    <table class="id-details-table">
+                        <tr><td>ID NO:</td><td id="d-person-id">EMP-8942</td></tr>
+                        <tr><td>DEPT:</td><td id="d-person-dept">Engineering</td></tr>
+                        <tr><td>BLOOD GRP:</td><td id="d-person-bg">O+ve</td></tr>
+                        <tr><td>JOIN DATE:</td><td id="d-person-date">18/07/2026</td></tr>
+                    </table>
+
+                    <div class="id-bottom-barcode-row">
+                        <div style="font-size:9px; opacity:0.8">
+                            <b>HELPLINE:</b><br><span id="d-comp-phone">+91 98765 43210</span>
+                        </div>
+                        <div id="d-qr-wrap">
+                            <img id="d-qr-img" class="id-qr-img" src="" alt="QR">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        const app = {
+            layout: 'ly-curved-wave',
+            theme: 't-corp-blue',
+            photoUrl: 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'
+        };
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#60a5fa"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            _('in-person-date').valueAsDate = new Date();
+            render();
+        };
+
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+        }
+
+        function setLayout(l, b) {
+            app.layout = l;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast('ID Card Layout updated!', 'fa-layer-group');
+        }
+
+        function setTheme(t, b) {
+            app.theme = t;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast('Theme updated!', 'fa-palette');
+        }
+
+        function loadPhoto(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    app.photoUrl = x.target.result;
+                    render();
+                    showToast('Photo uploaded!', 'fa-camera');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function removePhoto() {
+            app.photoUrl = 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png';
+            _('up-photo').value = '';
+            render();
+            showToast('Photo reset', 'fa-trash');
+        }
+
+        function render() {
+            const card = _('id-badge-card-root');
+            card.className = `id-badge-card ${app.layout} ${app.theme}`;
+
+            _('d-comp-name').innerText = _('in-comp-name').value;
+            _('d-comp-sub').innerText = _('in-comp-sub').value;
+            _('d-comp-phone').innerText = _('in-comp-phone').value;
+
+            _('d-photo-img').src = app.photoUrl;
+
+            _('d-person-name').innerText = _('in-person-name').value;
+            _('d-person-title').innerText = _('in-person-title').value;
+            _('d-person-id').innerText = _('in-person-id').value;
+            _('d-person-dept').innerText = _('in-person-dept').value;
+            _('d-person-bg').innerText = _('in-person-bg').value;
+
+            const dt = _('in-person-date').value;
+            if (dt) {
+                const parts = dt.split('-');
+                _('d-person-date').innerText = `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+
+            // QR Code
+            const kQr = _('k-qr').checked;
+            const qrWrap = _('d-qr-wrap');
+            if (kQr) {
+                qrWrap.style.display = 'block';
+                const idVal = _('in-person-id').value;
+                _('d-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent('EMP_ID:' + idVal)}`;
+            } else {
+                qrWrap.style.display = 'none';
+            }
+        }
+
+        function downloadPNG() {
+            showToast('Generating High-Res PNG...', 'fa-spinner fa-spin');
+            const card = _('id-badge-card-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `ID-Badge-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ High-Res PNG Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function printID() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>WhatsApp Direct Chat & Link Crafter - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #25d366;
+            --primary-hover: #16a34a;
+            --page-bg: #0f172a;
+            --wa-bg: #0b141a;
+            --wa-header: #202c33;
+            --wa-bubble: #005c4b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #25d366, #4ade80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #25d366;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-top {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT CONTROLS PANEL */
+        .controls-panel {
+            width: 450px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.85);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-header::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+            padding: 12px 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .tab-item.active {
+            color: #25d366;
+            background: rgba(37, 211, 102, 0.08);
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #25d366, #16a34a);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-item i {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .tab-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 40px 20px;
+            display: none;
+        }
+
+        .tab-body.active { display: block; }
+
+        /* FORM CONTROLS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option { background: #1e293b; color: #fff; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #25d366;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .preset-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #cbd5e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0 6px 8px 0;
+        }
+
+        .preset-chip:hover {
+            background: #25d366;
+            color: #fff;
+            border-color: #25d366;
+        }
+
+        .action-btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #25d366, #16a34a);
+            color: #fff;
+            height: 46px;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+            transition: transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn-main:active { transform: scale(0.98); }
+
+        .code-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 12px;
+            color: #4ade80;
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+
+        /* RIGHT PREVIEW PANEL (WHATSAPP SMARTPHONE MOCKUP) */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .phone-frame {
+            width: 360px;
+            height: 680px;
+            background: var(--wa-bg);
+            border-radius: 40px;
+            border: 10px solid #334155;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(37, 211, 102, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wa-top-bar {
+            height: 60px;
+            background: var(--wa-header);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .wa-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #25d366;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .wa-contact-info {
+            flex: 1;
+        }
+        .wa-contact-name { font-size: 14px; font-weight: 700; color: #e9edef; }
+        .wa-status { font-size: 11px; color: #8696a0; }
+
+        .wa-chat-area {
+            flex: 1;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+
+        .wa-msg-bubble {
+            background: var(--wa-bubble);
+            color: #e9edef;
+            padding: 12px 14px;
+            border-radius: 12px 12px 0 12px;
+            max-width: 85%;
+            align-self: flex-end;
+            font-size: 13px;
+            line-height: 1.5;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            position: relative;
+            word-break: break-word;
+        }
+
+        .wa-msg-time {
+            font-size: 10px;
+            color: #8696a0;
+            text-align: right;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+
+        @media (max-width: 900px) {
+            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            .controls-panel { width: 100%; height: auto; border-right: none; }
+            .preview-panel { padding: 20px; }
+            .phone-frame { scale: 0.9; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fab fa-whatsapp"></i>
+            <span>RAJU CRAFTER STUDIO (WhatsApp)</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="btn-top" onclick="copyWALink()"><i class="fas fa-copy"></i> Copy Link</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#25d366,#16a34a); color:#fff" onclick="openWAChat()"><i class="fab fa-whatsapp"></i> Open Chat Now</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-comments"></i> Chat & Link</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-bolt"></i> Templates</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-code"></i> Website Button</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-qrcode"></i> QR Code</div>
+            </div>
+
+            <!-- TAB 1: CHAT & LINK -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">1. WhatsApp Phone Number</div>
+                <div class="grid-2">
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Country Code</label>
+                        <select id="in-cc" onchange="render()">
+                            <option value="91">+91 (India)</option>
+                            <option value="1">+1 (USA / Canada)</option>
+                            <option value="44">+44 (UK)</option>
+                            <option value="971">+971 (UAE)</option>
+                            <option value="61">+61 (Australia)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Mobile Number</label>
+                        <input type="text" id="in-phone" value="9876543210" oninput="render()" placeholder="10 Digit Number">
+                    </div>
+                </div>
+
+                <div class="grp-label">2. Pre-filled Message Text</div>
+                <textarea id="in-msg" rows="4" oninput="render()" placeholder="Type message to auto-fill when chat opens...">Hi! I saw your services on your website and would like to get a price quote.</textarea>
+
+                <button class="action-btn-main" onclick="openWAChat()"><i class="fab fa-whatsapp"></i> Open Direct Chat Now</button>
+
+                <div class="grp-label" style="margin-top:20px">Generated wa.me Short Link</div>
+                <div class="code-box" id="code-wa-link">https://wa.me/919876543210</div>
+                <button class="action-btn-main" style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.12); box-shadow:none" onclick="copyWALink()"><i class="fas fa-copy"></i> Copy Short Link</button>
+            </div>
+
+            <!-- TAB 2: TEMPLATES -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label">Quick Business Message Templates</div>
+                <div class="preset-chip" onclick="applyTpl('inquiry')"><i class="fas fa-shopping-cart"></i> Product Inquiry</div>
+                <div class="preset-chip" onclick="applyTpl('quote')"><i class="fas fa-file-invoice"></i> Price Quote Request</div>
+                <div class="preset-chip" onclick="applyTpl('appointment')"><i class="fas fa-calendar-check"></i> Appointment Booking</div>
+                <div class="preset-chip" onclick="applyTpl('support')"><i class="fas fa-headset"></i> Customer Support</div>
+                <div class="preset-chip" onclick="applyTpl('order')"><i class="fas fa-box"></i> Order Placement</div>
+            </div>
+
+            <!-- TAB 3: WEBSITE BUTTON CODE -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">HTML Button Code for Your Website</div>
+                <div class="code-box" id="code-html-btn">&lt;a href="..." target="_blank" class="wa-btn"&gt;&lt;i class="fab fa-whatsapp"&gt;&lt;/i&gt; Chat on WhatsApp&lt;/a&gt;</div>
+                <button class="action-btn-main" onclick="copyHTMLCode()"><i class="fas fa-code"></i> Copy HTML Embed Code</button>
+            </div>
+
+            <!-- TAB 4: QR CODE -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">Live Scan-to-Chat QR Code</div>
+                <div style="text-align:center; background:rgba(255,255,255,0.05); padding:20px; border-radius:14px; border:1px solid rgba(255,255,255,0.08)">
+                    <img id="qr-img-share" src="" style="width:160px; height:160px; background:#fff; padding:8px; border-radius:12px; margin-bottom:10px">
+                    <div style="font-size:11px; color:#94a3b8">Scan QR code to start direct WhatsApp chat!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL (WHATSAPP CHAT MOCKUP) -->
+        <div class="preview-panel">
+            <div class="phone-frame">
+                <div class="wa-top-bar">
+                    <div class="wa-avatar"><i class="fab fa-whatsapp"></i></div>
+                    <div class="wa-contact-info">
+                        <div class="wa-contact-name" id="d-contact-name">+91 98765 43210</div>
+                        <div class="wa-status">online</div>
+                    </div>
+                </div>
+
+                <div class="wa-chat-area">
+                    <div class="wa-msg-bubble">
+                        <span id="d-msg-text">Hi! I saw your services on your website and would like to get a price quote.</span>
+                        <div class="wa-msg-time"><span>10:42 AM</span> <i class="fas fa-check-double" style="color:#53bdeb"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#25d366"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => { render(); };
+
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+        }
+
+        function applyTpl(type) {
+            const num = _('in-phone').value;
+            if (type === 'inquiry') _('in-msg').value = "Hi! I am interested in your products. Can you please send details?";
+            else if (type === 'quote') _('in-msg').value = "Hello! I would like to get a formal price quote for my upcoming project.";
+            else if (type === 'appointment') _('in-msg').value = "Hi! I want to book an appointment slot. Please let me know available times.";
+            else if (type === 'support') _('in-msg').value = "Hello Support Team, I need assistance with my recent order.";
+            else if (type === 'order') _('in-msg').value = "Hi! I want to place an order. Please confirm delivery timeline.";
+            render();
+            showToast('Template applied!', 'fa-bolt');
+        }
+
+        function render() {
+            const cc = _('in-cc').value;
+            const phoneRaw = _('in-phone').value.replace(/[^0-9]/g, '');
+            const fullPhone = cc + phoneRaw;
+            const msg = _('in-msg').value;
+
+            _('d-contact-name').innerText = '+' + cc + ' ' + phoneRaw;
+            _('d-msg-text').innerText = msg || 'Hi!';
+
+            const waLink = `https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`;
+            _('code-wa-link').innerText = waLink;
+
+            // Embed HTML Button Code
+            const htmlCode = `<a href="${waLink}" target="_blank" style="background:#25d366; color:#fff; padding:12px 24px; border-radius:30px; font-weight:700; text-decoration:none; display:inline-flex; align-items:center; gap:8px;"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>`;
+            _('code-html-btn').innerText = htmlCode;
+
+            // QR Code
+            _('qr-img-share').src = `https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(waLink)}`;
+        }
+
+        function openWAChat() {
+            const waLink = _('code-wa-link').innerText;
+            window.open(waLink, '_blank');
+        }
+
+        function copyWALink() {
+            const waLink = _('code-wa-link').innerText;
+            navigator.clipboard.writeText(waLink).then(() => {
+                showToast('✨ Short Link copied!', 'fa-copy');
+            });
+        }
+
+        function copyHTMLCode() {
+            const code = _('code-html-btn').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('✨ HTML Embed Code copied!', 'fa-code');
+            });
+        }
+    </script>
+</body>
+
+</html>

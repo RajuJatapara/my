@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Restaurant & Food Menu Crafter - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #ef4444;
+            --primary-hover: #dc2626;
+            --page-bg: #0f172a;
+            --menu-bg: #1e1e1e;
+            --menu-text: #f8fafc;
+            --menu-accent: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #f87171;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-top {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT CONTROLS PANEL */
+        .controls-panel {
+            width: 480px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.85);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-header::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex: 1;
+            min-width: 85px;
+            text-align: center;
+            padding: 12px 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .tab-item.active {
+            color: #f87171;
+            background: rgba(248, 113, 113, 0.08);
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f87171, #ef4444);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-item i {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .tab-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 40px 20px;
+            display: none;
+        }
+
+        .tab-body.active { display: block; }
+
+        /* FORM CONTROLS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option { background: #1e293b; color: #fff; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #f87171;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .opt-box.active {
+            background: rgba(248, 113, 113, 0.15);
+            border-color: rgba(248, 113, 113, 0.5);
+            color: #fca5a5;
+            box-shadow: 0 0 12px rgba(248, 113, 113, 0.2);
+        }
+
+        .opt-box i { font-size: 18px; }
+
+        .cat-box-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .cat-box-card .btn-del-cat {
+            position: absolute;
+            top: 12px; right: 12px;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .dish-row-item {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .dish-row-item .btn-del-dish {
+            position: absolute;
+            top: 8px; right: 8px;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-add-cat {
+            width: 100%;
+            background: rgba(248, 113, 113, 0.12);
+            color: #f87171;
+            border: 1px dashed rgba(248, 113, 113, 0.4);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            margin-bottom: 15px;
+        }
+
+        .action-btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+            height: 46px;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.35);
+            transition: transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn-main:active { transform: scale(0.98); }
+
+        /* RIGHT PREVIEW PANEL (A4 MENU CANVAS MOCKUP) */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .menu-sheet {
+            width: 580px;
+            min-height: 840px;
+            background: var(--menu-bg);
+            color: var(--menu-text);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            padding: 40px 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .menu-logo-img {
+            max-height: 55px;
+            max-width: 160px;
+            object-fit: contain;
+            margin-bottom: 6px;
+        }
+
+        .menu-rest-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--menu-accent);
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        .menu-rest-tagline {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 4px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .menu-divider-line {
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--menu-accent), transparent);
+            margin-bottom: 25px;
+        }
+
+        .menu-category-block {
+            width: 100%;
+            margin-bottom: 24px;
+        }
+
+        .menu-cat-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--menu-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            padding-bottom: 4px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .menu-item-info {
+            max-width: 80%;
+        }
+
+        .menu-item-name {
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-veg {
+            width: 12px; height: 12px;
+            border: 1.5px solid #22c55e;
+            padding: 1.5px;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+        }
+        .badge-veg::after { content: ''; width: 5px; height: 5px; background: #22c55e; border-radius: 50%; }
+
+        .badge-nonveg {
+            width: 12px; height: 12px;
+            border: 1.5px solid #ef4444;
+            padding: 1.5px;
+            display: inline-flex;
+            align-items: center; justify-content: center;
+        }
+        .badge-nonveg::after { content: ''; width: 0; height: 0; border-left: 3px solid transparent; border-right: 3px solid transparent; border-bottom: 5px solid #ef4444; }
+
+        .menu-item-desc {
+            font-size: 11px;
+            opacity: 0.75;
+            margin-top: 2px;
+        }
+
+        .menu-item-price {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--menu-accent);
+        }
+
+        .menu-footer-row {
+            margin-top: auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            font-size: 11px;
+            opacity: 0.85;
+        }
+
+        .menu-qr-img {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            padding: 3px;
+            border-radius: 6px;
+        }
+
+        /* MENU THEMES */
+        .t-bistro-dark {
+            --menu-bg: #111827;
+            --menu-text: #f9fafb;
+            --menu-accent: #fbbf24;
+        }
+        .t-italian-white {
+            --menu-bg: #ffffff;
+            --menu-text: #1e293b;
+            --menu-accent: #dc2626;
+        }
+        .t-golden-luxury {
+            --menu-bg: #0f172a;
+            --menu-text: #fffdf5;
+            --menu-accent: #d97706;
+        }
+        .t-earthy-cafe {
+            --menu-bg: #292524;
+            --menu-text: #f5f5f4;
+            --menu-accent: #f97316;
+        }
+
+        /* PRINT STYLING (@media print) */
+        @media print {
+            body { background: #fff !important; color: #000 !important; height: auto !important; overflow: visible !important; }
+            .app-header, .controls-panel, #toast-container { display: none !important; }
+            .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; }
+            .menu-sheet { box-shadow: none !important; border-radius: 0 !important; width: 100% !important; min-height: 100vh !important; scale: 1 !important; transform: none !important; }
+        }
+
+        @media (max-width: 900px) {
+            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            .controls-panel { width: 100%; height: auto; border-right: none; }
+            .preview-panel { padding: 15px; overflow-x: auto; }
+            .menu-sheet { scale: 0.85; transform-origin: top center; margin-bottom: -100px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-utensils"></i>
+            <span>RAJU CRAFTER STUDIO (Food Menu)</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="btn-top" onclick="printMenu()"><i class="fas fa-print"></i> Print Menu</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-store"></i> Restaurant</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-list"></i> Menu Items</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-palette"></i> Themes & QR</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-download"></i> Export</div>
+            </div>
+
+            <!-- TAB 1: RESTAURANT INFO -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">Restaurant Logo</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()"><i class="fas fa-upload"></i> Upload Logo <input type="file" id="up-logo" hidden onchange="loadLogo(this)"></div>
+                    <button type="button" class="opt-box" onclick="removeLogo()"><i class="fas fa-trash"></i> Remove Logo</button>
+                </div>
+
+                <div class="grp-label">Restaurant Name</div>
+                <input type="text" id="in-rest-name" value="Spice Garden Bistro & Cafe" style="font-weight:700" oninput="render()" placeholder="Restaurant Name">
+
+                <div class="grp-label">Cuisine / Tagline</div>
+                <input type="text" id="in-rest-tagline" value="Authentic Punjabi, Chinese & Italian Delicacies" oninput="render()" placeholder="Tagline">
+
+                <div class="grp-label">Address & Contact Info</div>
+                <textarea id="in-rest-addr" rows="2" oninput="render()" placeholder="Address">SG Highway, Satellite, Ahmedabad • Ph: +91 98765 43210</textarea>
+            </div>
+
+            <!-- TAB 2: MENU ITEMS EDITOR -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label">Food Menu Categories & Dish Items</div>
+                <div id="categories-container"></div>
+                <button type="button" class="btn-add-cat" onclick="addCategory()"><i class="fas fa-plus-circle"></i> Add New Category</button>
+            </div>
+
+            <!-- TAB 3: THEMES & QR -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">Menu Theme</div>
+                <div class="grid-2">
+                    <div class="opt-box active" onclick="setTheme('t-bistro-dark', this)"><i class="fas fa-utensils" style="color:#fbbf24"></i> Bistro Dark</div>
+                    <div class="opt-box" onclick="setTheme('t-italian-white', this)"><i class="fas fa-utensils" style="color:#ef4444"></i> Italian White</div>
+                    <div class="opt-box" onclick="setTheme('t-golden-luxury', this)"><i class="fas fa-utensils" style="color:#d97706"></i> Golden Luxury</div>
+                    <div class="opt-box" onclick="setTheme('t-earthy-cafe', this)"><i class="fas fa-utensils" style="color:#f97316"></i> Earthy Cafe</div>
+                </div>
+
+                <div class="grp-label">Scan-to-Order Table QR Code</div>
+                <div class="ct-edit-row">
+                    <input type="checkbox" id="k-qr" checked onchange="render()">
+                    <i class="fas fa-qrcode" style="color:#ef4444"></i>
+                    <input type="text" id="in-qr-link" value="https://menu.order-online.com" oninput="render()" placeholder="Order Online Link">
+                </div>
+            </div>
+
+            <!-- TAB 4: EXPORT & PRINT -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">1. Download High-Res PNG</div>
+                <button class="action-btn-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download High-Res PNG Menu</button>
+
+                <div class="grp-label" style="margin-top:20px">2. Print Menu Card</div>
+                <button class="action-btn-main" style="background:linear-gradient(135deg, #10b981, #059669)" onclick="printMenu()"><i class="fas fa-print"></i> Print / Save PDF</button>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL (A4 MENU CANVAS) -->
+        <div class="preview-panel">
+            <div class="menu-sheet t-bistro-dark" id="menu-sheet-root">
+                <div id="d-logo-wrap"></div>
+                <div class="menu-rest-name" id="d-rest-name">Spice Garden Bistro</div>
+                <div class="menu-rest-tagline" id="d-rest-tagline">Authentic Punjabi & Chinese</div>
+
+                <div class="menu-divider-line"></div>
+
+                <div id="d-categories-list" style="width:100%"></div>
+
+                <div class="menu-footer-row">
+                    <div id="d-rest-addr">SG Highway, Ahmedabad • Ph: +91 98765 43210</div>
+                    <div id="d-qr-wrap" style="display:none">
+                        <img id="d-qr-img" class="menu-qr-img" src="" alt="Table QR">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        const app = {
+            theme: 't-bistro-dark',
+            logoUrl: '',
+            categories: [
+                {
+                    title: 'Starters & Appetizers',
+                    items: [
+                        { name: 'Paneer Tikka Angaara', price: 280, veg: true, desc: 'Cottage cheese marinated in spicy tandoori masala' },
+                        { name: 'Crispy Veg Spring Rolls', price: 220, veg: true, desc: 'Golden fried rolls filled with Asian veggies' }
+                    ]
+                },
+                {
+                    title: 'Main Course',
+                    items: [
+                        { name: 'Paneer Butter Masala', price: 340, veg: true, desc: 'Rich tomato gravy with fresh butter & cream' },
+                        { name: 'Butter Naan / Roti', price: 60, veg: true, desc: 'Clay oven baked Indian bread' }
+                    ]
+                }
+            ]
+        };
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#ef4444"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            renderCatEditor();
+            render();
+        };
+
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+        }
+
+        function setTheme(t, b) {
+            app.theme = t;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+        }
+
+        function loadLogo(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    app.logoUrl = x.target.result;
+                    render();
+                    showToast('Logo uploaded!', 'fa-image');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function removeLogo() {
+            app.logoUrl = '';
+            _('up-logo').value = '';
+            render();
+            showToast('Logo removed', 'fa-trash');
+        }
+
+        function addCategory() {
+            app.categories.push({
+                title: 'New Category',
+                items: [{ name: 'New Dish Item', price: 150, veg: true, desc: '' }]
+            });
+            renderCatEditor();
+            render();
+        }
+
+        function delCategory(cIdx) {
+            if (app.categories.length > 1) {
+                app.categories.splice(cIdx, 1);
+                renderCatEditor();
+                render();
+            } else {
+                showToast('At least 1 category required', 'fa-exclamation-triangle');
+            }
+        }
+
+        function addDish(cIdx) {
+            app.categories[cIdx].items.push({ name: 'Delicious Dish', price: 200, veg: true, desc: '' });
+            renderCatEditor();
+            render();
+        }
+
+        function delDish(cIdx, dIdx) {
+            if (app.categories[cIdx].items.length > 1) {
+                app.categories[cIdx].items.splice(dIdx, 1);
+                renderCatEditor();
+                render();
+            }
+        }
+
+        function updateCatName(cIdx, val) {
+            app.categories[cIdx].title = val;
+            render();
+        }
+
+        function updateDish(cIdx, dIdx, key, val) {
+            if (key === 'price') app.categories[cIdx].items[dIdx].price = parseFloat(val) || 0;
+            else if (key === 'veg') app.categories[cIdx].items[dIdx].veg = (val === 'true');
+            else app.categories[cIdx].items[dIdx][key] = val;
+            render();
+        }
+
+        function renderCatEditor() {
+            const container = _('categories-container');
+            container.innerHTML = '';
+
+            app.categories.forEach((cat, cIdx) => {
+                const catCard = document.createElement('div');
+                catCard.className = 'cat-box-card';
+                let dishesHtml = '';
+
+                cat.items.forEach((item, dIdx) => {
+                    dishesHtml += `
+                        <div class="dish-row-item">
+                            <i class="fas fa-times btn-del-dish" onclick="delDish(${cIdx}, ${dIdx})" title="Delete Item"></i>
+                            <input type="text" value="${item.name}" oninput="updateDish(${cIdx}, ${dIdx}, 'name', this.value)" placeholder="Dish Name">
+                            <div class="grid-2">
+                                <input type="number" value="${item.price}" oninput="updateDish(${cIdx}, ${dIdx}, 'price', this.value)" placeholder="Price ₹">
+                                <select onchange="updateDish(${cIdx}, ${dIdx}, 'veg', this.value)">
+                                    <option value="true" ${item.veg ? 'selected' : ''}>🟢 Veg</option>
+                                    <option value="false" ${!item.veg ? 'selected' : ''}>🔴 Non-Veg</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                catCard.innerHTML = `
+                    <i class="fas fa-trash btn-del-cat" onclick="delCategory(${cIdx})" title="Delete Category"></i>
+                    <div style="font-size:11px; font-weight:700; color:#f87171; margin-bottom:4px">Category ${cIdx + 1}</div>
+                    <input type="text" value="${cat.title}" oninput="updateCatName(${cIdx}, this.value)" placeholder="Category Title" style="font-weight:700">
+                    <div style="margin-top:8px">${dishesHtml}</div>
+                    <button type="button" class="btn-top" style="width:100%; justify-content:center; margin-top:6px" onclick="addDish(${cIdx})"><i class="fas fa-plus"></i> Add Dish to ${cat.title}</button>
+                `;
+                container.appendChild(catCard);
+            });
+        }
+
+        function render() {
+            const sheet = _('menu-sheet-root');
+            sheet.className = 'menu-sheet ' + app.theme;
+
+            const logoWrap = _('d-logo-wrap');
+            if (app.logoUrl) logoWrap.innerHTML = `<img src="${app.logoUrl}" class="menu-logo-img">`;
+            else logoWrap.innerHTML = '';
+
+            _('d-rest-name').innerText = _('in-rest-name').value;
+            _('d-rest-tagline').innerText = _('in-rest-tagline').value;
+            _('d-rest-addr').innerText = _('in-rest-addr').value;
+
+            // Render Categories
+            const catList = _('d-categories-list');
+            let catHtml = '';
+
+            app.categories.forEach(cat => {
+                let itemsHtml = '';
+                cat.items.forEach(item => {
+                    const badgeClass = item.veg ? 'badge-veg' : 'badge-nonveg';
+                    itemsHtml += `
+                        <div class="menu-item-row">
+                            <div class="menu-item-info">
+                                <div class="menu-item-name"><span class="${badgeClass}"></span> ${item.name}</div>
+                                ${item.desc ? `<div class="menu-item-desc">${item.desc}</div>` : ''}
+                            </div>
+                            <div class="menu-item-price">₹${item.price}</div>
+                        </div>
+                    `;
+                });
+
+                catHtml += `
+                    <div class="menu-category-block">
+                        <div class="menu-cat-title"><span>${cat.title}</span></div>
+                        ${itemsHtml}
+                    </div>
+                `;
+            });
+
+            catList.innerHTML = catHtml;
+
+            // QR Code
+            const kQr = _('k-qr').checked;
+            const qrWrap = _('d-qr-wrap');
+            if (kQr) {
+                qrWrap.style.display = 'block';
+                const link = _('in-qr-link').value;
+                _('d-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(link)}`;
+            } else {
+                qrWrap.style.display = 'none';
+            }
+        }
+
+        function downloadPNG() {
+            showToast('Generating High-Res PNG...', 'fa-spinner fa-spin');
+            const card = _('menu-sheet-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `Food-Menu-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ High-Res PNG Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function printMenu() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>

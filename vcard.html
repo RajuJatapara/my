@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digital vCard Crafter Pro - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- html2pdf.js Bundle -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --page-bg: #0b0f19;
+            --card-theme-color: #a855f7;
+            --card-bg-gradient: linear-gradient(135deg, #1e1b4b, #0f172a);
+            --card-text-color: #f8fafc;
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #c084fc, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #c084fc;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-top {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT CONTROLS PANEL */
+        .controls-panel {
+            width: 450px;
+            background: #0b0f19;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            flex-shrink: 0;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.95);
+            overflow-x: auto;
+            scrollbar-width: none;
+            flex-shrink: 0;
+        }
+
+        .tabs-header::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex: 1;
+            min-width: 75px;
+            text-align: center;
+            padding: 12px 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tab-item.active {
+            color: #c084fc;
+            background: rgba(192, 132, 252, 0.1);
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #c084fc, #8b5cf6);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-item i {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .tab-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 40px 20px;
+            display: none;
+        }
+
+        .tab-body.active { display: block; }
+
+        /* FORM CONTROLS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        .link-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 6px 10px;
+            border-radius: 10px;
+        }
+
+        .link-input-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #c084fc;
+            cursor: pointer;
+        }
+
+        .link-input-row input[type="text"],
+        .link-input-row input[type="tel"],
+        .link-input-row input[type="email"],
+        .link-input-row input[type="url"] {
+            flex: 1;
+            margin-bottom: 0;
+            border: none;
+            background: transparent;
+            padding: 6px 4px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option { background: #1e293b; color: #fff; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #c084fc;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(192, 132, 252, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .opt-box.active {
+            background: rgba(192, 132, 252, 0.15);
+            border-color: rgba(192, 132, 252, 0.5);
+            color: #e9d5ff;
+            box-shadow: 0 0 12px rgba(192, 132, 252, 0.2);
+        }
+
+        .opt-box i { font-size: 18px; }
+
+        .action-btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #c084fc, #7c3aed);
+            color: #fff;
+            height: 46px;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(192, 132, 252, 0.35);
+            transition: transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn-main:active { transform: scale(0.98); }
+
+        /* CUSTOM LINK BUILDER ITEM */
+        .custom-link-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .btn-del-link {
+            position: absolute;
+            top: 8px; right: 8px;
+            color: #f87171;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* RIGHT PREVIEW PANEL (SMARTPHONE MOCKUP - 100% FULL HEIGHT) */
+        .preview-panel {
+            flex: 1;
+            background: #0b0f19;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 30px 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* BASE SMARTPHONE FRAME (FULL HEIGHT COMPLETE CARD) */
+        .phone-frame {
+            width: 100%;
+            max-width: 380px;
+            height: auto;
+            background: #090d16;
+            border-radius: 36px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(192, 132, 252, 0.25);
+            border: 8px solid #1e293b;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .phone-notch {
+            width: 120px;
+            height: 20px;
+            background: #1e293b;
+            border-radius: 0 0 14px 14px;
+            margin: 0 auto;
+            z-index: 50;
+            flex-shrink: 0;
+        }
+
+        .phone-screen {
+            height: auto;
+            background: var(--card-bg-gradient);
+            color: var(--card-text-color);
+            font-family: var(--font-family);
+            padding: 24px 20px 30px 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: visible;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .vc-header-cover {
+            height: 105px;
+            margin: -24px -20px 0 -20px;
+            background: linear-gradient(135deg, var(--card-theme-color), #3b82f6);
+            border-radius: 0 0 24px 24px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .vc-profile-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 4px solid #0f172a;
+            margin: -48px auto 12px auto;
+            overflow: hidden;
+            background: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 36px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .vc-profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .vc-person-name {
+            font-size: 22px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+
+        .vc-person-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            color: var(--card-theme-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .vc-company-name {
+            font-size: 12px;
+            text-align: center;
+            opacity: 0.8;
+            margin-bottom: 12px;
+        }
+
+        .vc-bio-text {
+            font-size: 11px;
+            text-align: center;
+            opacity: 0.85;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* ACTION GRID */
+        .vc-action-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .vc-act-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            padding: 10px 4px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 9px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .vc-act-btn:hover { background: rgba(255, 255, 255, 0.15); }
+
+        .vc-act-btn i {
+            font-size: 16px;
+            color: var(--card-theme-color);
+        }
+
+        .vc-save-btn {
+            background: linear-gradient(135deg, var(--card-theme-color), #7c3aed);
+            color: #fff;
+            padding: 12px;
+            border-radius: 25px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 13px;
+            cursor: pointer;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+        }
+
+        /* PRODUCTS CATALOG */
+        .vc-products-wrap {
+            margin-bottom: 16px;
+        }
+        .vc-sec-title {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--card-theme-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .vc-prod-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .vc-prod-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 8px;
+            font-size: 10px;
+        }
+        .vc-prod-name { font-weight: 700; margin-bottom: 2px; }
+        .vc-prod-price { color: #f59e0b; font-weight: 800; font-size: 11px; }
+
+        /* BUSINESS HOURS & ADDRESS BADGE */
+        .vc-info-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 16px;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .vc-info-row { display: flex; align-items: center; gap: 8px; }
+        .vc-info-row i { color: var(--card-theme-color); width: 16px; }
+
+        /* LINKS LIST */
+        .vc-link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .vc-link-item {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 14px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .vc-link-item i {
+            font-size: 16px;
+            color: var(--card-theme-color);
+            width: 20px;
+            text-align: center;
+        }
+
+        .vc-upi-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .vc-upi-box img {
+            width: 120px;
+            height: 120px;
+            background: #fff;
+            padding: 6px;
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+
+        .vc-footer-stamp {
+            text-align: center;
+            font-size: 9px;
+            opacity: 0.6;
+            margin-top: auto;
+            padding-top: 10px;
+        }
+
+        /* --- 5 STRUCTURAL CARD LAYOUT SHAPES --- */
+
+        /* LAYOUT 1: SMARTPHONE APP VIEW */
+        .ly-phone-notch .phone-notch { display: block; }
+
+        /* LAYOUT 2: HORIZONTAL WALLET CARD */
+        .ly-wallet-card .phone-frame {
+            max-width: 440px;
+            border-radius: 24px;
+        }
+        .ly-wallet-card .phone-notch { display: none; }
+        .ly-wallet-card .vc-header-cover {
+            height: 70px;
+            margin: -24px -20px 10px -20px;
+            border-radius: 0 0 16px 16px;
+        }
+        .ly-wallet-card .vc-profile-avatar {
+            width: 80px; height: 80px;
+            margin: -40px auto 10px auto;
+        }
+
+        /* LAYOUT 3: EXECUTIVE SIDE BAR */
+        .ly-executive-sidebar .phone-screen {
+            padding-left: 36px;
+            position: relative;
+        }
+        .cert-left-pillar-strip {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 26px;
+            background: var(--card-theme-color);
+            color: #fff;
+            writing-mode: vertical-rl;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-transform: uppercase;
+        }
+        .ly-executive-sidebar .cert-left-pillar-strip { display: flex; }
+
+        /* LAYOUT 4: GLASSMORPHISM FLOATING FRAME */
+        .ly-glass-frame .phone-screen {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.05);
+        }
+
+        /* LAYOUT 5: LUXURY GOLD FOIL FRAME */
+        .ly-gold-luxury .phone-screen {
+            border: 4px double #fbbf24;
+            outline: 1px solid #b45309;
+            outline-offset: -6px;
+            background: radial-gradient(circle, #1c1917 0%, #0c0a09 100%);
+        }
+
+        /* --- 6 COLOR PALETTES --- */
+        .t-cyber-neon {
+            --card-theme-color: #c084fc;
+            --card-bg-gradient: linear-gradient(135deg, #090d16, #2e1065);
+            --card-text-color: #f8fafc;
+        }
+        .t-corp-dark {
+            --card-theme-color: #3b82f6;
+            --card-bg-gradient: linear-gradient(135deg, #1e293b, #0f172a);
+            --card-text-color: #f8fafc;
+        }
+        .t-lux-gold {
+            --card-theme-color: #fbbf24;
+            --card-bg-gradient: linear-gradient(135deg, #1c1917, #0c0a09);
+            --card-text-color: #fef08a;
+        }
+        .t-sunset {
+            --card-theme-color: #fb7185;
+            --card-bg-gradient: linear-gradient(135deg, #31121d, #11060a);
+            --card-text-color: #f8fafc;
+        }
+        .t-slate-minimal {
+            --card-theme-color: #0284c7;
+            --card-bg-gradient: linear-gradient(135deg, #ffffff, #f1f5f9);
+            --card-text-color: #0f172a;
+        }
+        .t-pastel-rose {
+            --card-theme-color: #e11d48;
+            --card-bg-gradient: linear-gradient(135deg, #fff1f2, #ffe4e6);
+            --card-text-color: #881337;
+        }
+
+        @media (max-width: 900px) {
+            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            .controls-panel { width: 100%; height: auto; border-right: none; }
+            .preview-panel { padding: 15px; }
+            .phone-frame { scale: 0.95; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-address-card"></i>
+            <span>RAJU CRAFTER STUDIO (Digital vCard)</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="btn-top" onclick="downloadVCF()"><i class="fas fa-address-book"></i> Save .VCF</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#c084fc,#7c3aed); color:#fff" onclick="exportHTML()"><i class="fas fa-file-code"></i> Download HTML Webpage</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-user-gear"></i> Profile</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-share-nodes"></i> Links & Media</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-box-open"></i> Catalog & Hours</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-layer-group"></i> Layout & Themes</div>
+                <div class="tab-item" onclick="nav('5',this)"><i class="fas fa-download"></i> Export</div>
+            </div>
+
+            <!-- TAB 1: PROFILE INFO -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">Profile Avatar Photo</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-avatar').click()"><i class="fas fa-upload"></i> Upload Photo <input type="file" id="up-avatar" hidden onchange="loadAvatar(this)"></div>
+                    <button type="button" class="opt-box" onclick="removeAvatar()"><i class="fas fa-trash"></i> Remove Photo</button>
+                </div>
+
+                <div class="grp-label">Full Name</div>
+                <input type="text" id="in-name" value="Raju Jatapara" style="font-weight:700; color:#c084fc" oninput="render()" placeholder="Your Full Name">
+
+                <div class="grp-label">Designation / Title</div>
+                <input type="text" id="in-title" value="Founder & Lead UI Crafter" oninput="render()" placeholder="Designation">
+
+                <div class="grp-label">Company / Business Name</div>
+                <input type="text" id="in-company" value="Apex Digital Crafters Studio" oninput="render()" placeholder="Company Name">
+
+                <div class="grp-label">About / Bio Description</div>
+                <textarea id="in-bio" rows="2" oninput="render()" placeholder="Short bio description...">Building high-performance mobile apps, digital vCards, GST invoices, and brand posters.</textarea>
+
+                <div class="grp-label">UPI Payment PhonePe / GPay Number or VPA</div>
+                <input type="text" id="in-upi" value="9876543210@paytm" oninput="render()" placeholder="UPI ID (e.g. 9876543210@paytm)">
+            </div>
+
+            <!-- TAB 2: SOCIAL & MEDIA LINKS (WITH CHECKBOXES & CUSTOM EXTRA LINKS) -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label"><i class="fas fa-phone"></i> Phone Call Number</div>
+                <div class="link-input-row">
+                    <input type="checkbox" id="k-phone" checked onchange="render()">
+                    <input type="tel" id="v-phone" value="+91 98765 43210" oninput="render()" placeholder="Call Number">
+                </div>
+
+                <div class="grp-label"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp Chat Number</div>
+                <div class="link-input-row">
+                    <input type="checkbox" id="k-wa" checked onchange="render()">
+                    <input type="tel" id="v-wa" value="9876543210" oninput="render()" placeholder="WhatsApp Number">
+                </div>
+
+                <div class="grp-label"><i class="fas fa-envelope"></i> Email Address</div>
+                <div class="link-input-row">
+                    <input type="checkbox" id="k-email" checked onchange="render()">
+                    <input type="email" id="v-email" value="contact@rajucrafter.com" oninput="render()" placeholder="Email">
+                </div>
+
+                <div class="grp-label"><i class="fas fa-location-dot" style="color:#f87171"></i> Google Maps Address Link</div>
+                <div class="link-input-row">
+                    <input type="checkbox" id="k-map" checked onchange="render()">
+                    <input type="url" id="v-map" value="https://maps.google.com" oninput="render()" placeholder="Google Map Link">
+                </div>
+
+                <div class="grp-label"><i class="fas fa-globe"></i> Website URL</div>
+                <div class="link-input-row">
+                    <input type="checkbox" id="k-web" checked onchange="render()">
+                    <input type="url" id="v-web" value="https://rajucrafter.com" oninput="render()" placeholder="Website URL">
+                </div>
+
+                <div class="grp-label"><i class="fab fa-instagram" style="color:#e1306c"></i> Instagram Profile URL</div>
+                <div class="link-input-row">
+                    <input type="checkbox" id="k-insta" checked onchange="render()">
+                    <input type="url" id="v-insta" value="https://instagram.com" oninput="render()" placeholder="Instagram Link">
+                </div>
+
+                <div class="grp-label"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook Page URL</div>
+                <div class="link-input-row">
+                    <input type="checkbox" id="k-fb" checked onchange="render()">
+                    <input type="url" id="v-fb" value="https://facebook.com" oninput="render()" placeholder="Facebook Link">
+                </div>
+
+                <div class="grp-label"><i class="fab fa-linkedin" style="color:#0a66c2"></i> LinkedIn Profile URL</div>
+                <div class="link-input-row">
+                    <input type="checkbox" id="k-li" checked onchange="render()">
+                    <input type="url" id="v-li" value="https://linkedin.com" oninput="render()" placeholder="LinkedIn Link">
+                </div>
+
+                <!-- DYNAMIC CUSTOM EXTRA LINKS BUILDER -->
+                <div class="grp-label" style="margin-top:20px; color:#c084fc">➕ Custom Extra Links (YouTube, Telegram, Portfolio, etc.)</div>
+                <div id="custom-links-container"></div>
+                <button type="button" class="btn-top" style="width:100%; justify-content:center; margin-top:8px; background:rgba(192,132,252,0.15); color:#e9d5ff; border-color:rgba(192,132,252,0.3)" onclick="addCustomLink()"><i class="fas fa-plus"></i> Add New Custom Link</button>
+            </div>
+
+            <!-- TAB 3: PRODUCTS & BUSINESS HOURS -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">Business Operating Hours</div>
+                <input type="text" id="in-hours" value="Mon - Sat: 9:00 AM - 8:30 PM" oninput="render()" placeholder="Operating Hours">
+
+                <div class="grp-label">Shop / Office Address</div>
+                <input type="text" id="in-address" value="Main Street Market, City Center" oninput="render()" placeholder="Address">
+
+                <div class="grp-label">Products & Services Catalog (Top 2 Items)</div>
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px; margin-bottom:10px">
+                    <input type="text" id="p1-name" value="Web Design & Branding" oninput="render()" placeholder="Product 1 Name">
+                    <input type="text" id="p1-price" value="₹ 4,999" oninput="render()" placeholder="Price (e.g. ₹ 4,999)">
+                </div>
+
+                <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:10px; margin-bottom:10px">
+                    <input type="text" id="p2-name" value="GST Invoice & vCard Suite" oninput="render()" placeholder="Product 2 Name">
+                    <input type="text" id="p2-price" value="₹ 2,499" oninput="render()" placeholder="Price (e.g. ₹ 2,499)">
+                </div>
+            </div>
+
+            <!-- TAB 4: LAYOUT & THEMES -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">5 Structural Card Layout Shapes</div>
+                <div class="grid-auto" style="margin-bottom:15px">
+                    <div class="opt-box active" onclick="setLayout('ly-phone-notch', this)"><i class="fas fa-mobile-alt" style="color:#c084fc"></i> Smartphone</div>
+                    <div class="opt-box" onclick="setLayout('ly-wallet-card', this)"><i class="fas fa-credit-card" style="color:#38bdf8"></i> Wallet Card</div>
+                    <div class="opt-box" onclick="setLayout('ly-executive-sidebar', this)"><i class="fas fa-columns" style="color:#fbbf24"></i> Side Bar</div>
+                    <div class="opt-box" onclick="setLayout('ly-glass-frame', this)"><i class="fas fa-cube" style="color:#34d399"></i> Glassmorphism</div>
+                    <div class="opt-box" onclick="setLayout('ly-gold-luxury', this)"><i class="fas fa-crown" style="color:#f59e0b"></i> Gold Luxury</div>
+                </div>
+
+                <div class="grp-label">6 Color Palette Themes</div>
+                <div class="grid-3">
+                    <div class="opt-box active" onclick="setTheme('t-cyber-neon', this)"><i class="fas fa-bolt" style="color:#c084fc"></i> Cyber Neon</div>
+                    <div class="opt-box" onclick="setTheme('t-corp-dark', this)"><i class="fas fa-briefcase" style="color:#3b82f6"></i> Corp Dark</div>
+                    <div class="opt-box" onclick="setTheme('t-lux-gold', this)"><i class="fas fa-crown" style="color:#fbbf24"></i> Luxury Gold</div>
+                    <div class="opt-box" onclick="setTheme('t-sunset', this)"><i class="fas fa-fire" style="color:#fb7185"></i> Sunset Rose</div>
+                    <div class="opt-box" onclick="setTheme('t-slate-minimal', this)"><i class="fas fa-sun" style="color:#0284c7"></i> Minimal Light</div>
+                    <div class="opt-box" onclick="setTheme('t-pastel-rose', this)"><i class="fas fa-heart" style="color:#e11d48"></i> Pastel Rose</div>
+                </div>
+
+                <div class="grp-label">Typography Font</div>
+                <select id="font-select" onchange="setFont(this.value)">
+                    <option value="'Poppins', sans-serif">Poppins (Modern)</option>
+                    <option value="'Outfit', sans-serif">Outfit (Clean Tech)</option>
+                    <option value="'Playfair Display', serif">Playfair (Luxury Serif)</option>
+                </select>
+            </div>
+
+            <!-- TAB 5: EXPORT & SHARE -->
+            <div id="tab-5" class="tab-body">
+                <div class="grp-label" style="color:#c084fc">1. Download Standalone HTML Webpage (Primary)</div>
+                <button class="action-btn-main" onclick="exportHTML()"><i class="fas fa-file-code"></i> Download HTML Webpage (.HTML)</button>
+
+                <div class="grp-label" style="margin-top:20px">2. Download Contact File (.VCF)</div>
+                <button class="action-btn-main" style="background:linear-gradient(135deg, #10b981, #059669)" onclick="downloadVCF()"><i class="fas fa-address-book"></i> Download .VCF Contact File</button>
+
+                <div class="grp-label" style="margin-top:20px">3. Download Interactive PDF Card</div>
+                <button class="action-btn-main" style="background:linear-gradient(135deg, #ef4444, #dc2626)" onclick="downloadPDF()"><i class="fas fa-file-pdf"></i> Download Interactive PDF Card</button>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL (SMARTPHONE MOCKUP - 100% COMPLETE DISPLAY) -->
+        <div class="preview-panel">
+            <div class="phone-frame ly-phone-notch t-cyber-neon" id="phone-frame-root">
+                <div class="phone-notch"></div>
+                <div class="phone-screen" id="phone-screen-root">
+                    <div class="cert-left-pillar-strip">DIGITAL VCARD</div>
+                    <div class="vc-header-cover"></div>
+
+                    <div class="vc-profile-avatar" id="d-avatar-box">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+                    <div class="vc-person-name" id="d-name">Raju Jatapara</div>
+                    <div class="vc-person-title" id="d-title">Founder & Lead UI Crafter</div>
+                    <div class="vc-company-name" id="d-company">Apex Digital Crafters Studio</div>
+
+                    <div class="vc-bio-text" id="d-bio">Building high-performance mobile apps, digital vCards, GST invoices, and brand posters.</div>
+
+                    <!-- ACTION BUTTONS GRID -->
+                    <div class="vc-action-grid" id="d-action-grid"></div>
+
+                    <!-- SAVE CONTACT VCF BUTTON -->
+                    <div class="vc-save-btn" onclick="downloadVCF()"><i class="fas fa-address-book"></i> Save Contact to Phone</div>
+
+                    <!-- PRODUCTS & SERVICES CATALOG -->
+                    <div class="vc-products-wrap" id="d-prod-wrap">
+                        <div class="vc-sec-title"><i class="fas fa-box-open"></i> Products & Services</div>
+                        <div class="vc-prod-grid">
+                            <div class="vc-prod-card">
+                                <div class="vc-prod-name" id="d-p1-name">Web Design & Branding</div>
+                                <div class="vc-prod-price" id="d-p1-price">₹ 4,999</div>
+                            </div>
+                            <div class="vc-prod-card">
+                                <div class="vc-prod-name" id="d-p2-name">GST Invoice & vCard Suite</div>
+                                <div class="vc-prod-price" id="d-p2-price">₹ 2,499</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BUSINESS HOURS & ADDRESS BADGE -->
+                    <div class="vc-info-box" id="d-info-box">
+                        <div class="vc-info-row">
+                            <i class="fas fa-clock"></i>
+                            <span id="d-hours">Mon - Sat: 9:00 AM - 8:30 PM</span>
+                        </div>
+                        <div class="vc-info-row">
+                            <i class="fas fa-location-dot"></i>
+                            <span id="d-address">Main Street Market, City Center</span>
+                        </div>
+                    </div>
+
+                    <!-- LINKS LIST -->
+                    <div class="vc-link-list" id="d-link-list"></div>
+
+                    <!-- UPI PAYMENT QR -->
+                    <div class="vc-upi-box" id="d-upi-box"></div>
+
+                    <div class="vc-footer-stamp">Powered by <b>Raju Crafter Studio</b></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const app = {
+            layout: 'ly-phone-notch',
+            theme: 't-cyber-neon',
+            font: "'Poppins', sans-serif",
+            avatarUrl: '',
+            customLinks: [
+                { title: 'YouTube Portfolio', url: 'https://youtube.com' }
+            ]
+        };
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#c084fc"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            renderCustomLinkEditors();
+            render();
+        };
+
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+        }
+
+        function setLayout(l, b) {
+            app.layout = l;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast('Card Layout updated!', 'fa-layer-group');
+        }
+
+        function setTheme(t, b) {
+            app.theme = t;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast('Theme updated!', 'fa-palette');
+        }
+
+        function setFont(f) {
+            app.font = f;
+            render();
+        }
+
+        function loadAvatar(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    app.avatarUrl = x.target.result;
+                    render();
+                    showToast('Profile photo uploaded!', 'fa-camera');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function removeAvatar() {
+            app.avatarUrl = '';
+            _('up-avatar').value = '';
+            render();
+            showToast('Photo removed', 'fa-trash');
+        }
+
+        /* CUSTOM EXTRA LINKS BUILDER */
+        function renderCustomLinkEditors() {
+            const container = _('custom-links-container');
+            container.innerHTML = '';
+            app.customLinks.forEach((item, idx) => {
+                container.innerHTML += `
+                    <div class="custom-link-card">
+                        <i class="fas fa-trash btn-del-link" onclick="deleteCustomLink(${idx})"></i>
+                        <input type="text" value="${item.title}" placeholder="Link Title (e.g. YouTube)" oninput="app.customLinks[${idx}].title=this.value; render()">
+                        <input type="url" value="${item.url}" placeholder="URL (e.g. https://...)" oninput="app.customLinks[${idx}].url=this.value; render()">
+                    </div>
+                `;
+            });
+        }
+
+        function addCustomLink() {
+            app.customLinks.push({ title: 'New Custom Link', url: 'https://' });
+            renderCustomLinkEditors();
+            render();
+            showToast('Custom Link Added', 'fa-plus');
+        }
+
+        function deleteCustomLink(idx) {
+            app.customLinks.splice(idx, 1);
+            renderCustomLinkEditors();
+            render();
+            showToast('Link Removed', 'fa-trash');
+        }
+
+        function render() {
+            const frame = _('phone-frame-root');
+            frame.className = `phone-frame ${app.layout} ${app.theme}`;
+
+            const screen = _('phone-screen-root');
+            screen.style.setProperty('--font-family', app.font);
+
+            // Avatar
+            const avatarBox = _('d-avatar-box');
+            if (app.avatarUrl) {
+                avatarBox.innerHTML = `<img src="${app.avatarUrl}">`;
+            } else {
+                avatarBox.innerHTML = `<i class="fas fa-user"></i>`;
+            }
+
+            _('d-name').innerText = _('in-name').value;
+            _('d-title').innerText = _('in-title').value;
+            _('d-company').innerText = _('in-company').value;
+            // Bio Text (Hide if empty)
+            const bioVal = _('in-bio').value.trim();
+            const bioBox = _('d-bio');
+            if (bioVal) {
+                bioBox.style.display = 'block';
+                bioBox.innerText = bioVal;
+            } else {
+                bioBox.style.display = 'none';
+            }
+
+            // Action Grid (With Checkboxes & Dynamic Centering)
+            const actionGrid = _('d-action-grid');
+            actionGrid.innerHTML = '';
+            const phone = _('v-phone').value.trim();
+            const wa = _('v-wa').value.trim();
+            const email = _('v-email').value.trim();
+            const map = _('v-map').value.trim();
+
+            let count = 0;
+            if (_('k-phone').checked && phone) { actionGrid.innerHTML += `<a href="tel:${phone}" class="vc-act-btn" target="_blank"><i class="fas fa-phone"></i> Call</a>`; count++; }
+            if (_('k-wa').checked && wa) { actionGrid.innerHTML += `<a href="https://api.whatsapp.com/send?phone=${wa.replace(/[^0-9]/g, '')}" class="vc-act-btn" target="_blank"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp</a>`; count++; }
+            if (_('k-email').checked && email) { actionGrid.innerHTML += `<a href="mailto:${email}" class="vc-act-btn" target="_blank"><i class="fas fa-envelope"></i> Email</a>`; count++; }
+            if (_('k-map').checked && map) { actionGrid.innerHTML += `<a href="${map}" class="vc-act-btn" target="_blank"><i class="fas fa-location-dot" style="color:#f87171"></i> Location</a>`; count++; }
+
+            if (count > 0) {
+                actionGrid.style.display = 'grid';
+                actionGrid.style.gridTemplateColumns = `repeat(${count}, minmax(0, 1fr))`;
+                actionGrid.style.justifyContent = 'center';
+            } else {
+                actionGrid.style.display = 'none';
+            }
+
+            // Products Catalog (Hide if empty)
+            const p1 = _('p1-name').value.trim();
+            const p2 = _('p2-name').value.trim();
+            const prodWrap = _('d-prod-wrap');
+
+            if (p1 || p2) {
+                prodWrap.style.display = 'block';
+                _('d-p1-name').innerText = p1;
+                _('d-p1-price').innerText = _('p1-price').value;
+                _('d-p2-name').innerText = p2;
+                _('d-p2-price').innerText = _('p2-price').value;
+            } else {
+                prodWrap.style.display = 'none';
+            }
+
+            // Hours & Address (Hide if empty)
+            const hoursVal = _('in-hours').value.trim();
+            const addrVal = _('in-address').value.trim();
+            const infoBox = _('d-info-box');
+
+            if (hoursVal || addrVal) {
+                infoBox.style.display = 'flex';
+                _('d-hours').innerText = hoursVal;
+                _('d-address').innerText = addrVal;
+            } else {
+                infoBox.style.display = 'none';
+            }
+
+            // Link List (With Checkboxes & Custom Links)
+            const linkList = _('d-link-list');
+            linkList.innerHTML = '';
+            const web = _('v-web').value.trim();
+            const insta = _('v-insta').value.trim();
+            const fb = _('v-fb').value.trim();
+            const li = _('v-li').value.trim();
+
+            if (_('k-web').checked && web) linkList.innerHTML += `<a href="${web}" target="_blank" class="vc-link-item"><i class="fas fa-globe"></i> ${web.replace('https://', '')}</a>`;
+            if (_('k-insta').checked && insta) linkList.innerHTML += `<a href="${insta}" target="_blank" class="vc-link-item"><i class="fab fa-instagram" style="color:#e1306c"></i> Instagram Profile</a>`;
+            if (_('k-fb').checked && fb) linkList.innerHTML += `<a href="${fb}" target="_blank" class="vc-link-item"><i class="fab fa-facebook" style="color:#1877f2"></i> Facebook Page</a>`;
+            if (_('k-li').checked && li) linkList.innerHTML += `<a href="${li}" target="_blank" class="vc-link-item"><i class="fab fa-linkedin" style="color:#0a66c2"></i> LinkedIn Profile</a>`;
+
+            // Custom Extra Links
+            app.customLinks.forEach(c => {
+                if (c.title && c.url) {
+                    linkList.innerHTML += `<a href="${c.url}" target="_blank" class="vc-link-item"><i class="fas fa-arrow-up-right-from-square" style="color:#c084fc"></i> ${c.title}</a>`;
+                }
+            });
+
+            // UPI QR (Hide if empty)
+            const upi = _('in-upi').value.trim();
+            const upiBox = _('d-upi-box');
+            if (upi) {
+                upiBox.style.display = 'block';
+                const upiUrl = `upi://pay?pa=${encodeURIComponent(upi)}&pn=${encodeURIComponent(_('in-name').value)}`;
+                upiBox.innerHTML = `
+                    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px">Scan & Pay via UPI</div>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUrl)}" alt="UPI QR">
+                    <div style="font-size:10px; opacity:0.8">${upi}</div>
+                `;
+            } else {
+                upiBox.style.display = 'none';
+            }
+        }
+
+        function downloadVCF() {
+            const name = _('in-name').value || 'Contact';
+            const title = _('in-title').value || '';
+            const company = _('in-company').value || '';
+            const phone = _('v-phone').value || '';
+            const wa = _('v-wa').value || '';
+            const email = _('v-email').value || '';
+            const web = _('v-web').value || '';
+            const bio = _('in-bio').value || '';
+
+            const vcardContent = 
+`BEGIN:VCARD
+VERSION:3.0
+FN:${name}
+ORG:${company}
+TITLE:${title}
+TEL;TYPE=CELL:${phone}
+TEL;TYPE=WORK,VOICE:${wa}
+EMAIL:${email}
+URL:${web}
+NOTE:${bio}
+END:VCARD`;
+
+            const blob = new Blob([vcardContent], { type: 'text/vcard;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${name.replace(/\s+/g, '_')}_vCard.vcf`;
+            link.click();
+            showToast('✨ Contact .VCF file downloaded!', 'fa-address-book');
+        }
+
+        function exportHTML() {
+            const frameHtml = _('phone-frame-root').outerHTML;
+            const name = _('in-name').value || 'Digital vCard';
+
+            const fullHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${name} - Digital Business Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Playfair+Display:wght@600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #0b0f19; font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: #fff; padding: 20px; }
+        .phone-frame { width: 100%; max-width: 420px; height: auto; background: #090d16; border-radius: 36px; box-shadow: 0 25px 60px rgba(0,0,0,0.8); border: 8px solid #1e293b; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+        .phone-notch { width: 120px; height: 20px; background: #1e293b; border-radius: 0 0 14px 14px; margin: 0 auto; z-index: 50; flex-shrink: 0; }
+        .phone-screen { height: auto; background: linear-gradient(135deg, #1e1b4b, #0f172a); color: #f8fafc; padding: 24px 20px 30px 20px; display: flex; flex-direction: column; overflow: visible; position: relative; }
+        .vc-header-cover { height: 105px; margin: -24px -20px 0 -20px; background: linear-gradient(135deg, #c084fc, #3b82f6); border-radius: 0 0 24px 24px; position: relative; flex-shrink: 0; }
+        .vc-profile-avatar { width: 96px; height: 96px; border-radius: 50%; border: 4px solid #0f172a; margin: -48px auto 12px auto; overflow: hidden; background: #334155; display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 36px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); z-index: 10; flex-shrink: 0; }
+        .vc-profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .vc-person-name { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 2px; }
+        .vc-person-title { font-size: 12px; font-weight: 600; text-align: center; color: #c084fc; text-transform: uppercase; margin-bottom: 2px; }
+        .vc-company-name { font-size: 12px; text-align: center; opacity: 0.8; margin-bottom: 12px; }
+        .vc-bio-text { font-size: 11px; text-align: center; opacity: 0.85; line-height: 1.5; margin-bottom: 16px; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; }
+        .vc-action-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+        .vc-act-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 10px 4px; text-align: center; text-decoration: none; color: #fff; display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 9px; font-weight: 700; }
+        .vc-act-btn i { font-size: 16px; color: #c084fc; }
+        .vc-save-btn { background: linear-gradient(135deg, #c084fc, #7c3aed); color: #fff; padding: 12px; border-radius: 25px; text-align: center; font-weight: 800; font-size: 13px; cursor: pointer; margin-bottom: 16px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .vc-products-wrap { margin-bottom: 16px; }
+        .vc-sec-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: #c084fc; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .vc-prod-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .vc-prod-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 8px; font-size: 10px; }
+        .vc-prod-name { font-weight: 700; margin-bottom: 2px; }
+        .vc-prod-price { color: #f59e0b; font-weight: 800; font-size: 11px; }
+        .vc-info-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 10px 12px; margin-bottom: 16px; font-size: 11px; display: flex; flex-direction: column; gap: 6px; }
+        .vc-info-row { display: flex; align-items: center; gap: 8px; }
+        .vc-info-row i { color: #c084fc; width: 16px; }
+        .vc-link-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+        .vc-link-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 10px 14px; border-radius: 12px; display: flex; align-items: center; gap: 10px; font-size: 12px; font-weight: 600; text-decoration: none; color: #fff; }
+        .vc-link-item i { font-size: 16px; color: #c084fc; width: 20px; text-align: center; }
+        .vc-upi-box { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; padding: 12px; text-align: center; margin-bottom: 16px; }
+        .vc-upi-box img { width: 120px; height: 120px; background: #fff; padding: 6px; border-radius: 10px; margin: 8px 0; }
+        .vc-footer-stamp { text-align: center; font-size: 9px; opacity: 0.6; margin-top: auto; padding-top: 10px; }
+
+        /* STRUCTURAL LAYOUTS */
+        .ly-phone-notch .phone-notch { display: block; }
+        .ly-wallet-card .phone-notch { display: none; }
+        .cert-left-pillar-strip { position: absolute; left: 0; top: 0; bottom: 0; width: 26px; background: #c084fc; color: #fff; writing-mode: vertical-rl; font-size: 9px; font-weight: 800; letter-spacing: 2px; display: none; align-items: center; justify-content: center; text-transform: uppercase; }
+        .ly-executive-sidebar .cert-left-pillar-strip { display: flex; }
+        .ly-glass-frame .phone-screen { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15); }
+        .ly-gold-luxury .phone-screen { border: 4px double #fbbf24; outline: 1px solid #b45309; outline-offset: -6px; background: radial-gradient(circle, #1c1917 0%, #0c0a09 100%); }
+
+        /* THEMES */
+        .t-cyber-neon { --card-theme-color: #c084fc; --card-bg-gradient: linear-gradient(135deg, #090d16, #2e1065); }
+        .t-corp-dark { --card-theme-color: #3b82f6; --card-bg-gradient: linear-gradient(135deg, #1e293b, #0f172a); }
+        .t-lux-gold { --card-theme-color: #fbbf24; --card-bg-gradient: linear-gradient(135deg, #1c1917, #0c0a09); }
+        .t-sunset { --card-theme-color: #fb7185; --card-bg-gradient: linear-gradient(135deg, #31121d, #11060a); }
+        .t-slate-minimal { --card-theme-color: #0284c7; --card-bg-gradient: linear-gradient(135deg, #ffffff, #f1f5f9); color: #0f172a; }
+        .t-pastel-rose { --card-theme-color: #e11d48; --card-bg-gradient: linear-gradient(135deg, #fff1f2, #ffe4e6); color: #881337; }
+    </style>
+</head>
+<body>
+    ${frameHtml}
+</body>
+</html>`;
+
+            const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `${(name).replace(/\s+/g, '_')}_Digital_Card.html`;
+            link.click();
+            showToast('✨ Standalone HTML webpage downloaded!', 'fa-file-code');
+        }
+
+        function downloadPDF() {
+            showToast('Generating Interactive PDF Card...', 'fa-spinner fa-spin');
+            const element = _('phone-frame-root');
+            const name = _('in-name').value || 'Digital_vCard';
+            
+            const opt = {
+                margin: 0,
+                filename: `${name.replace(/\s+/g, '_')}_Interactive_Card.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true, logging: false },
+                jsPDF: { unit: 'mm', format: [110, 180], orientation: 'portrait' }
+            };
+
+            if (typeof html2pdf !== 'undefined') {
+                html2pdf().set(opt).from(element).save().then(() => {
+                    showToast('✨ Interactive PDF Card Downloaded!', 'fa-file-pdf');
+                }).catch(err => {
+                    console.error('PDF error:', err);
+                    showToast('PDF Export Error', 'fa-circle-exclamation');
+                });
+            } else {
+                showToast('html2pdf library loading...', 'fa-spinner fa-spin');
+            }
+        }
+    </script>
+</body>
+
+</html>

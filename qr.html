@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Custom Logo QR Code Studio - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --page-bg: #0f172a;
+            --qr-fg: #0f172a;
+            --qr-bg: #ffffff;
+            --frame-bg: #38bdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #38bdf8;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-top {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT CONTROLS PANEL */
+        .controls-panel {
+            width: 440px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.85);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-header::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+            padding: 12px 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .tab-item.active {
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.08);
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #0284c7);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-item i {
+            display: block;
+            font-size: 15px;
+            margin-bottom: 3px;
+        }
+
+        .tab-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 40px 20px;
+            display: none;
+        }
+
+        .tab-body.active { display: block; }
+
+        /* FORM CONTROLS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option { background: #1e293b; color: #fff; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #38bdf8;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .grid-auto { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .opt-box.active {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.5);
+            color: #7dd3fc;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
+        }
+
+        .opt-box i { font-size: 18px; }
+
+        .color-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .color-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 4px 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .color-input-wrap input[type="color"] {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 50%;
+            background: transparent;
+            cursor: pointer;
+        }
+
+        .action-btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff;
+            height: 46px;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
+            transition: transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn-main:active { transform: scale(0.98); }
+
+        /* RIGHT PREVIEW PANEL (QR STAND MOCKUP) */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* QR COUNTER STAND SHEET MOCKUP */
+        .qr-stand-card {
+            width: 380px;
+            background: #fff;
+            color: #0f172a;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(56, 189, 248, 0.2);
+            padding: 30px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .qr-header-badge {
+            background: var(--frame-bg);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .qr-image-wrapper {
+            width: 240px;
+            height: 240px;
+            position: relative;
+            background: #fff;
+            padding: 12px;
+            border-radius: 16px;
+            border: 2px dashed #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .qr-image-wrapper img.qr-main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qr-center-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            background: #fff;
+            border-radius: 50%;
+            padding: 4px;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .qr-center-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .qr-sub-text {
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 6px;
+        }
+
+        .qr-icons-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 20px;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        /* PRINT STYLING (@media print) */
+        @media print {
+            body { background: #fff !important; color: #000 !important; height: auto !important; overflow: visible !important; }
+            .app-header, .controls-panel, #toast-container { display: none !important; }
+            .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; }
+            .qr-stand-card { box-shadow: none !important; border-radius: 0 !important; scale: 1 !important; transform: none !important; border: 2px solid #0f172a !important; margin: 30px auto !important; }
+        }
+
+        @media (max-width: 900px) {
+            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            .controls-panel { width: 100%; height: auto; border-right: none; }
+            .preview-panel { padding: 20px; }
+            .qr-stand-card { scale: 0.9; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-qrcode"></i>
+            <span>RAJU CRAFTER STUDIO (QR Code)</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="btn-top" onclick="printStand()"><i class="fas fa-print"></i> Print Stand</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#38bdf8,#0284c7); color:#fff" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-sliders"></i> Type & Data</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-palette"></i> Logo & Colors</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-layer-group"></i> Stand Frame</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-download"></i> Export</div>
+            </div>
+
+            <!-- TAB 1: TYPE & DATA -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">1. Select QR Code Purpose</div>
+                <div class="grid-auto grp">
+                    <div class="opt-box active" onclick="setQRType('upi', this)"><i class="fas fa-wallet" style="color:#38bdf8"></i> UPI Payment</div>
+                    <div class="opt-box" onclick="setQRType('wifi', this)"><i class="fas fa-wifi" style="color:#22c55e"></i> WiFi Connect</div>
+                    <div class="opt-box" onclick="setQRType('google', this)"><i class="fas fa-star" style="color:#f59e0b"></i> 5★ Review</div>
+                    <div class="opt-box" onclick="setQRType('wa', this)"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp</div>
+                    <div class="opt-box" onclick="setQRType('url', this)"><i class="fas fa-globe" style="color:#c084fc"></i> Website URL</div>
+                </div>
+
+                <!-- DYNAMIC TYPE FORMS -->
+                <div id="type-form-upi">
+                    <div class="grp-label">UPI Payment Data</div>
+                    <input type="text" id="in-upi-vpa" value="9876543210@paytm" oninput="render()" placeholder="UPI ID (e.g. 9876543210@paytm)">
+                    <input type="text" id="in-upi-name" value="Raju Store" oninput="render()" placeholder="Payee / Shop Name">
+                    <input type="number" id="in-upi-amt" value="" oninput="render()" placeholder="Preset Amount (Optional)">
+                </div>
+
+                <div id="type-form-wifi" style="display:none">
+                    <div class="grp-label">WiFi Network Credentials</div>
+                    <input type="text" id="in-wifi-ssid" value="MyHome_5G" oninput="render()" placeholder="WiFi Network Name (SSID)">
+                    <input type="text" id="in-wifi-pass" value="password123" oninput="render()" placeholder="WiFi Password">
+                    <select id="in-wifi-enc" onchange="render()">
+                        <option value="WPA">WPA / WPA2 / WPA3 (Default)</option>
+                        <option value="WEP">WEP Encryption</option>
+                        <option value="nopass">Open Network (No Password)</option>
+                    </select>
+                </div>
+
+                <div id="type-form-google" style="display:none">
+                    <div class="grp-label">Google Maps Review Link</div>
+                    <input type="text" id="in-google-url" value="https://g.page/r/your-google-review-link" oninput="render()" placeholder="Google Business Profile Review Link">
+                </div>
+
+                <div id="type-form-wa" style="display:none">
+                    <div class="grp-label">WhatsApp Direct Chat Data</div>
+                    <input type="text" id="in-wa-num" value="+919876543210" oninput="render()" placeholder="WhatsApp Phone Number">
+                    <textarea id="in-wa-msg" rows="2" oninput="render()" placeholder="Pre-filled Message">Hi! I want to inquire about your products.</textarea>
+                </div>
+
+                <div id="type-form-url" style="display:none">
+                    <div class="grp-label">Website URL or Link</div>
+                    <input type="text" id="in-url-link" value="https://www.google.com" oninput="render()" placeholder="Website Link (https://...)">
+                </div>
+            </div>
+
+            <!-- TAB 2: LOGO & COLORS -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label">Center Logo Overlay</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()"><i class="fas fa-upload"></i> Upload Logo <input type="file" id="up-logo" hidden onchange="loadLogo(this)"></div>
+                    <button type="button" class="opt-box" onclick="removeLogo()"><i class="fas fa-trash"></i> Remove Logo</button>
+                </div>
+
+                <div class="grp-label">Preset Logo Icons</div>
+                <div class="grid-auto">
+                    <div class="opt-box" onclick="setPresetLogo('gpay')"><i class="fab fa-google-pay" style="color:#4285f4"></i> GPay</div>
+                    <div class="opt-box" onclick="setPresetLogo('phonepe')"><i class="fas fa-mobile-alt" style="color:#5f259f"></i> PhonePe</div>
+                    <div class="opt-box" onclick="setPresetLogo('wifi')"><i class="fas fa-wifi" style="color:#22c55e"></i> WiFi</div>
+                    <div class="opt-box" onclick="setPresetLogo('google')"><i class="fab fa-google" style="color:#ea4335"></i> Google</div>
+                    <div class="opt-box" onclick="setPresetLogo('wa')"><i class="fab fa-whatsapp" style="color:#25d366"></i> WhatsApp</div>
+                </div>
+
+                <div class="grp-label">Custom Hex Colors</div>
+                <div class="color-row">
+                    <div class="color-input-wrap">
+                        <input type="color" id="picker-fg" value="#0f172a" onchange="render()">
+                        <span style="font-size:11px; font-weight:600">QR Dots Color</span>
+                    </div>
+                    <div class="color-input-wrap">
+                        <input type="color" id="picker-bg" value="#ffffff" onchange="render()">
+                        <span style="font-size:11px; font-weight:600">Background</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: STAND FRAME -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">Callout Frame Badge Color</div>
+                <div class="color-row">
+                    <div class="color-input-wrap">
+                        <input type="color" id="picker-frame-bg" value="#0284c7" onchange="render()">
+                        <span style="font-size:11px; font-weight:600">Frame Badge Color</span>
+                    </div>
+                </div>
+
+                <div class="grp-label">Stand Callout Header Text</div>
+                <input type="text" id="in-callout-text" value="SCAN TO PAY WITH ANY UPI APP" style="font-weight:700" oninput="render()" placeholder="Header Badge Text">
+
+                <div class="grp-label">Sub-Text Label</div>
+                <input type="text" id="in-sub-text" value="Google Pay • PhonePe • Paytm • BHIM" oninput="render()" placeholder="Sub Text Label">
+            </div>
+
+            <!-- TAB 4: EXPORT & PRINT -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">1. Download High-Res PNG</div>
+                <button class="action-btn-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG Image</button>
+
+                <div class="grp-label" style="margin-top:20px">2. Print QR Counter Stand</div>
+                <button class="action-btn-main" style="background:linear-gradient(135deg, #10b981, #059669)" onclick="printStand()"><i class="fas fa-print"></i> Print QR Stand / Sticker</button>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL (QR STAND MOCKUP) -->
+        <div class="preview-panel">
+            <div class="qr-stand-card" id="qr-stand-card-root">
+                <div class="qr-header-badge" id="d-callout-badge">SCAN TO PAY WITH ANY UPI APP</div>
+
+                <div class="qr-image-wrapper">
+                    <img id="d-qr-img" class="qr-main-img" src="" alt="QR Code">
+                    <div class="qr-center-logo" id="d-center-logo" style="display:none">
+                        <img id="d-logo-img" src="">
+                    </div>
+                </div>
+
+                <div class="qr-sub-text" id="d-sub-text">Google Pay • PhonePe • Paytm • BHIM</div>
+                <div class="qr-icons-row" id="d-icons-row"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        const app = {
+            qrType: 'upi',
+            logoUrl: ''
+        };
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#38bdf8"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => { render(); };
+
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+        }
+
+        function setQRType(type, b) {
+            app.qrType = type;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+
+            const forms = ['upi', 'wifi', 'google', 'wa', 'url'];
+            forms.forEach(f => _('type-form-' + f).style.display = (f === type) ? 'block' : 'none');
+
+            // Set preset callouts & default logos
+            if (type === 'upi') {
+                _('in-callout-text').value = "SCAN TO PAY WITH ANY UPI APP";
+                _('in-sub-text').value = "Google Pay • PhonePe • Paytm • BHIM";
+                _('picker-frame-bg').value = "#0284c7";
+            } else if (type === 'wifi') {
+                _('in-callout-text').value = "SCAN FOR FREE WIFI CONNECT";
+                _('in-sub-text').value = "Auto-Connect High Speed WiFi";
+                _('picker-frame-bg').value = "#059669";
+            } else if (type === 'google') {
+                _('in-callout-text').value = "LEAVE US A 5★ REVIEW ON GOOGLE";
+                _('in-sub-text').value = "Scan & Share Your Experience";
+                _('picker-frame-bg').value = "#d97706";
+            } else if (type === 'wa') {
+                _('in-callout-text').value = "CHAT WITH US ON WHATSAPP";
+                _('in-sub-text').value = "Instant Support & Inquiry";
+                _('picker-frame-bg').value = "#16a34a";
+            } else if (type === 'url') {
+                _('in-callout-text').value = "SCAN TO VISIT WEBSITE";
+                _('in-sub-text').value = "Official Online Store & Portal";
+                _('picker-frame-bg').value = "#7c3aed";
+            }
+            render();
+        }
+
+        function loadLogo(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    app.logoUrl = x.target.result;
+                    render();
+                    showToast('Center logo uploaded!', 'fa-image');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function removeLogo() {
+            app.logoUrl = '';
+            _('up-logo').value = '';
+            render();
+            showToast('Logo removed', 'fa-trash');
+        }
+
+        function setPresetLogo(key) {
+            if (key === 'gpay') app.logoUrl = 'https://cdn-icons-png.flaticon.com/512/6124/6124998.png';
+            else if (key === 'phonepe') app.logoUrl = 'https://cdn-icons-png.flaticon.com/512/825/825508.png';
+            else if (key === 'wifi') app.logoUrl = 'https://cdn-icons-png.flaticon.com/512/93/93158.png';
+            else if (key === 'google') app.logoUrl = 'https://cdn-icons-png.flaticon.com/512/300/300221.png';
+            else if (key === 'wa') app.logoUrl = 'https://cdn-icons-png.flaticon.com/512/733/733585.png';
+            render();
+            showToast('Preset logo applied!', 'fa-bolt');
+        }
+
+        function render() {
+            // Build Payload
+            let rawData = '';
+            if (app.qrType === 'upi') {
+                const vpa = _('in-upi-vpa').value;
+                const name = _('in-upi-name').value;
+                const amt = _('in-upi-amt').value;
+                rawData = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}${amt ? '&am=' + amt : ''}`;
+            } else if (app.qrType === 'wifi') {
+                const ssid = _('in-wifi-ssid').value;
+                const pass = _('in-wifi-pass').value;
+                const enc = _('in-wifi-enc').value;
+                rawData = `WIFI:S:${ssid};T:${enc};P:${pass};;`;
+            } else if (app.qrType === 'google') {
+                rawData = _('in-google-url').value;
+            } else if (app.qrType === 'wa') {
+                const num = _('in-wa-num').value.replace(/[^0-9]/g, '');
+                const msg = _('in-wa-msg').value;
+                rawData = `https://api.whatsapp.com/send?phone=${num}&text=${encodeURIComponent(msg)}`;
+            } else if (app.qrType === 'url') {
+                rawData = _('in-url-link').value;
+            }
+
+            const fgColor = _('picker-fg').value.replace('#', '');
+            const bgColor = _('picker-bg').value.replace('#', '');
+            const frameBg = _('picker-frame-bg').value;
+
+            document.documentElement.style.setProperty('--frame-bg', frameBg);
+
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(rawData || 'https://google.com')}&color=${fgColor}&bgcolor=${bgColor}`;
+            _('d-qr-img').src = qrUrl;
+
+            // Logo Overlay
+            const logoBox = _('d-center-logo');
+            if (app.logoUrl) {
+                logoBox.style.display = 'flex';
+                _('d-logo-img').src = app.logoUrl;
+            } else {
+                logoBox.style.display = 'none';
+            }
+
+            _('d-callout-badge').innerText = _('in-callout-text').value;
+            _('d-sub-text').innerText = _('in-sub-text').value;
+
+            // Dynamic Bottom Icons based on QR Type
+            const iconsRow = _('d-icons-row');
+            if (app.qrType === 'upi') {
+                iconsRow.innerHTML = `<i class="fab fa-google-pay" title="GPay"></i> <i class="fas fa-mobile-alt" title="PhonePe"></i> <i class="fas fa-wallet" title="Paytm / BHIM"></i>`;
+            } else if (app.qrType === 'wifi') {
+                iconsRow.innerHTML = `<i class="fas fa-wifi" style="color:#059669"></i> <i class="fas fa-lock" style="font-size:14px"></i> <i class="fas fa-signal" style="font-size:14px"></i>`;
+            } else if (app.qrType === 'google') {
+                iconsRow.innerHTML = `<i class="fab fa-google" style="color:#ea4335"></i> <div style="color:#f59e0b; font-size:14px; display:inline-flex; gap:2px"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>`;
+            } else if (app.qrType === 'wa') {
+                iconsRow.innerHTML = `<i class="fab fa-whatsapp" style="color:#25d366; font-size:24px"></i> <span style="font-size:12px; font-weight:700; color:#16a34a">Direct WhatsApp</span>`;
+            } else if (app.qrType === 'url') {
+                iconsRow.innerHTML = `<i class="fas fa-globe" style="color:#7c3aed"></i> <i class="fas fa-link" style="font-size:14px"></i> <span style="font-size:12px; font-weight:700; color:#7c3aed">Website</span>`;
+            }
+        }
+
+        function downloadPNG() {
+            showToast('Generating High-Res PNG...', 'fa-spinner fa-spin');
+            const card = _('qr-stand-card-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `QR-Stand-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ High-Res PNG Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function printStand() {
+            window.print();
+        }
+    </script>
+</body>
+
+</html>
