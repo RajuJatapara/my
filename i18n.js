@@ -47,7 +47,14 @@ const i18nData = {
         t11_desc: "Create professional job resumes and traditional marriage bio-data with family background, education, photo, and printable A4 PDF.",
 
         t12_title: "365-Day Indian Festival Calendar",
-        t12_desc: "Explore 365 days of Indian festivals, national days, and daily suvichar quotes with 1-click custom banner crafting."
+        t12_desc: "Explore 365 days of Indian festivals, national days, and daily suvichar quotes with 1-click custom banner crafting.",
+
+        creator_tag: "👑 FOUNDER & LEAD DEVELOPER",
+        creator_name: "Raju Jatapara",
+        creator_role: "Creator of Raju Crafter Studio",
+        creator_bio: "Empowering small businesses, shopkeepers, and creators across India with 100% free, powerful, and easy-to-use digital tools.",
+        btn_whatsapp_creator: "Chat on WhatsApp",
+        btn_call_creator: "Direct Call"
     },
     gu: {
         suite_title: "રાજુ ક્રાફ્ટર સ્ટુડિયો",
@@ -97,7 +104,14 @@ const i18nData = {
         t11_desc: "કુટુંબની વિગતો, શિક્ષણ, ફોટો અને પ્રિન્ટેબલ A4 PDF સાથે વ્યાવસાયિક જોબ રિઝ્યૂમે અને પરંપરાગત લગ્ન બાયો-ડેટા બનાવો.",
 
         t12_title: "૩૬૫ દિવસીય ભારતીય તહેવાર કેલેન્ડર",
-        t12_desc: "૧-ક્લિક બેનર ક્રાફ્ટિંગ સાથે ભારતીય તહેવારો અને સુવિચાર કેલેન્ડર મેળવો."
+        t12_desc: "૧-ક્લિક બેનર ક્રાફ્ટિંગ સાથે ભારતીય તહેવારો અને સુવિચાર કેલેન્ડર મેળવો.",
+
+        creator_tag: "👑 સ્થાપક અને મુખ્ય ડેવલપર",
+        creator_name: "રાજુ જટાપરા",
+        creator_role: "સ્થાપક - રાજુ ક્રાફ્ટર સ્ટુડિયો",
+        creator_bio: "નાના વ્યવસાયો અને દુકાનદારો માટે 100% મફત અને સરળ ડિજિટલ બિઝનેસ સાધનો બનાવવાનું લક્ષ્ય.",
+        btn_whatsapp_creator: "વોટ્સએપ ચેટ કરો",
+        btn_call_creator: "ડાયરેક્ટ કોલ કરો"
     },
     hi: {
         suite_title: "राजू क्राफ्टर स्टूडियो",
@@ -147,7 +161,14 @@ const i18nData = {
         t11_desc: "पारिवारिक विवरण, शिक्षा, फोटो और प्रिंटेबल A4 PDF के साथ प्रोफेशनल जॉब रिज्यूमे और पारंपरिक विवाह बायो-डाटा बनाएं।",
 
         t12_title: "365-दिवसीय भारतीय त्योहार कैलेंडर",
-        t12_desc: "1-क्लिक बैनर क्राफ्टिंग के साथ भारतीय त्योहारों और सुविचार कैलेंडर का आनंद लें।"
+        t12_desc: "1-क्लिक बैनर क्राफ्टिंग के साथ भारतीय त्योहारों और सुविचार कैलेंडर का आनंद लें।",
+
+        creator_tag: "👑 संस्थापक एवं मुख्य डेवलपर",
+        creator_name: "राजू जटापरा",
+        creator_role: "संस्थापक - राजू क्राफ्टर स्टूडियो",
+        creator_bio: "छोटे व्यवसायों और दुकानदारों के लिए 100% मुफ्त, आसान और शक्तिशाली डिजिटल टूल्स बनाने का संकल्प।",
+        btn_whatsapp_creator: "व्हाट्सएप पर चैट करें",
+        btn_call_creator: "डायरेक्ट कॉल करें"
     }
 };
 
