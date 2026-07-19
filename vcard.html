@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital vCard Crafter Pro - Raju Crafter Studio</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- html2pdf.js Bundle -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
 
     <style>
         :root {
@@ -21,6 +23,33 @@
             --card-bg-gradient: linear-gradient(135deg, #1e1b4b, #0f172a);
             --card-text-color: #f8fafc;
             --font-family: 'Poppins', sans-serif;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
         }
 
         * {
@@ -717,10 +746,11 @@
         }
 
         @media (max-width: 900px) {
-            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-body { flex-direction: column-reverse; overflow: visible; }
             .controls-panel { width: 100%; height: auto; border-right: none; }
-            .preview-panel { padding: 15px; }
-            .phone-frame { scale: 0.95; }
+            .preview-panel { padding: 15px 10px; width: 100%; box-sizing: border-box; }
+            .phone-frame { width: 100%; max-width: 100%; scale: 1; border-width: 4px; border-radius: 24px; }
         }
     </style>
 </head>
@@ -739,6 +769,11 @@
         </a>
 
         <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
             <div class="btn-top" onclick="downloadVCF()"><i class="fas fa-address-book"></i> Save .VCF</div>
             <div class="btn-top" style="background:linear-gradient(135deg,#c084fc,#7c3aed); color:#fff" onclick="exportHTML()"><i class="fas fa-file-code"></i> Download HTML Webpage</div>
         </div>
@@ -993,6 +1028,7 @@
         window.onload = () => {
             renderCustomLinkEditors();
             render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
         };
 
         function nav(n, b) {

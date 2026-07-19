@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>365-Day Indian Festival & Suvichar Calendar - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Great+Vibes&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-hover: #d97706;
+            --page-bg: #0f172a;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px 20px;
+            width: 100%;
+        }
+
+        .hero-sec {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .hero-sub {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        /* FILTER & SEARCH */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #1e293b;
+            color: #fff;
+            font-size: 13px;
+            font-family: inherit;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+        }
+
+        .cat-pills {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .pill {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .pill.active, .pill:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        /* FESTIVAL CARDS GRID */
+        .fest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .fest-card {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .fest-card:hover {
+            transform: translateY(-4px);
+            border-color: #fbbf24;
+            box-shadow: 0 12px 30px rgba(251, 191, 36, 0.15);
+        }
+
+        .fest-date {
+            font-size: 11px;
+            font-weight: 800;
+            color: #fbbf24;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .fest-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .fest-desc {
+            font-size: 12px;
+            color: #94a3b8;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .btn-create {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #000;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-create:hover { opacity: 0.9; transform: scale(1.02); }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-calendar-alt"></i>
+            <span data-i18n="suite_title">RAJU CRAFTER STUDIO</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hero-sec">
+            <div class="hero-title">📅 365-Day Indian Festival & Suvichar Directory</div>
+            <div class="hero-sub">Click any festival or greeting to instantly open and craft your custom poster!</div>
+        </div>
+
+        <div class="filter-bar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="fest-search" placeholder="Search festival (e.g. Diwali, Republic Day, Suvichar)..." oninput="filterFestivals()">
+            </div>
+
+            <div class="cat-pills">
+                <div class="pill active" onclick="setFilter('all', this)">All (365 Days)</div>
+                <div class="pill" onclick="setFilter('festival', this)">🪔 Major Festivals</div>
+                <div class="pill" onclick="setFilter('national', this)">🇮🇳 National Days</div>
+                <div class="pill" onclick="setFilter('greetings', this)">☀️ Good Morning / Suvichar</div>
+            </div>
+        </div>
+
+        <!-- FESTIVALS GRID -->
+        <div class="fest-grid" id="fest-grid-container"></div>
+    </div>
+
+    <script>
+        const festivalList = [
+            { id: 1, cat: 'national', date: '26th January', title: '🇮🇳 Republic Day (પ્રજાસત્તાક દિવસ)', desc: 'Honor the Constitution of India with patriotic greetings and posters.', tag: 'HAPPY REPUBLIC DAY', h1: 'Wishing You A Very Happy 77th Republic Day!', sub: 'Let us celebrate the glory of our nation & honor the Constitution of India with pride.' },
+            { id: 2, cat: 'festival', date: 'March / Phalguna', title: '🎨 Holi & Dhuleti (હોળી-ધૂળેટી)', desc: 'Celebrate the vibrant festival of colors and joy with friends and family.', tag: 'HAPPY HOLI', h1: 'Wishing You A Joyful & Vibrant Happy Holi!', sub: 'May your life be painted with colors of happiness, prosperity, love, and laughter.' },
+            { id: 3, cat: 'greetings', date: 'Daily Essential', title: '☀️ Daily Good Morning & Suvichar', desc: 'Share uplifting morning thoughts and quotes with your business contact branding.', tag: 'GOOD MORNING & SUVICHAR', h1: 'Good Morning & Have A Peaceful Blessed Day', sub: 'Every new sunrise brings new opportunities. Believe in your hard work & keep shining!' },
+            { id: 4, cat: 'national', date: '15th August', title: '🇮🇳 Independence Day (સ્વાતંત્ર્ય દિવસ)', desc: 'Celebrate Indian Independence Day with high-resolution patriotic banners.', tag: 'HAPPY INDEPENDENCE DAY', h1: 'Wishing You A Very Happy Independence Day!', sub: 'Saluting the heroes who fought for our freedom. Vande Mataram & Jai Hind!' },
+            { id: 5, cat: 'festival', date: 'October / Navratri', title: '💃 Navratri & Garba (નવરાત્રી)', desc: 'Celebrate 9 nights of Garba & Goddess Durga worship with colorful posters.', tag: 'HAPPY NAVRATRI', h1: 'આપ સૌને પાવન નવરાત્રી ઉત્સવની હાર્દિક શુભેચ્છાઓ!', sub: 'માઁ અંબા આપના પરિવારમાં સુખ, શાંતિ અને સમૃદ્ધિ અર્પે એવી પ્રાર્થના.' },
+            { id: 6, cat: 'festival', date: 'November / Kartik', title: '🪔 Diwali & New Year (દિવાળી)', desc: 'Wish happy lights & prosperity with luxury double-gold VIP greeting banners.', tag: 'HAPPY DIWALI & NEW YEAR', h1: 'Wishing You A Happy & Prosperous Diwali!', sub: 'May the divine lights of Diwali illuminate your life with health, wealth & success.' },
+            { id: 7, cat: 'festival', date: 'August / Shravan', title: '🎗️ Raksha Bandhan (રક્ષાબંધન)', desc: 'Celebrate the bond of love between brothers and sisters.', tag: 'HAPPY RAKSHA BANDHAN', h1: 'Wishing You A Very Happy Raksha Bandhan!', sub: 'Celebrating the eternal bond of love, care & protection between brothers and sisters.' },
+            { id: 8, cat: 'festival', date: 'August / Shravan', title: '🪈 Janmashtami (જન્માષ્ટમી)', desc: 'Celebrate Lord Krishna birth with divine festive greeting cards.', tag: 'HAPPY JANMASTHAMI', h1: 'આપ સૌને શ્રી કૃષ્ણ જન્માષ્ટમીની હાર્દિક શુભેચ્છાઓ!', sub: 'ભગવાન શ્રી કૃષ્ણની કૃપા આપના અને આપના પરિવાર પર સદા બનેલી રહે.' },
+            { id: 9, cat: 'festival', date: 'Shawwal 1st', title: '🌙 Eid-ul-Fitr (ઈદ મુબારક)', desc: 'Share warm Eid Mubarak wishes and blessings with loved ones.', tag: 'EID MUBARAK', h1: 'Wishing You A Blessed & Joyful Eid Mubarak!', sub: 'May Allah bless your home with peace, happiness, good health & prosperity.' },
+            { id: 10, cat: 'greetings', date: 'Every Birthday', title: '🎉 Happy Birthday Wishes', desc: 'Craft personalized birthday cards with photo, name, and warm wishes.', tag: 'HAPPY BIRTHDAY', h1: 'Wishing You A Very Happy Birthday!', sub: 'May your special day be filled with joy, laughter, love & endless success!' }
+        ];
+
+        let activeCategory = 'all';
+
+        window.onload = () => {
+            renderGrid();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+
+        function setFilter(cat, b) {
+            activeCategory = cat;
+            document.querySelectorAll('.pill').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+            renderGrid();
+        }
+
+        function filterFestivals() {
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const query = document.getElementById('fest-search').value.toLowerCase();
+            const container = document.getElementById('fest-grid-container');
+
+            const filtered = festivalList.filter(item => {
+                const matchCat = activeCategory === 'all' || item.cat === activeCategory;
+                const matchSearch = item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query) || item.date.toLowerCase().includes(query);
+                return matchCat && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding: 40px; color:#64748b;">No festivals found for your search query.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(f => {
+                const url = `festival.html?tag=${encodeURIComponent(f.tag)}&h1=${encodeURIComponent(f.h1)}&sub=${encodeURIComponent(f.sub)}`;
+                return `
+                <div class="fest-card">
+                    <div>
+                        <div class="fest-date"><i class="fas fa-calendar-day"></i> ${f.date}</div>
+                        <div class="fest-title">${f.title}</div>
+                        <div class="fest-desc">${f.desc}</div>
+                    </div>
+                    <a href="${url}" class="btn-create">
+                        <i class="fas fa-paint-brush"></i> Craft ${f.tag} Poster Now
+                    </a>
+                </div>
+            `}).join('');
+        }
+    </script>
+</body>
+
+</html>

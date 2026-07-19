@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Poster & Banner Crafter Studio - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Great+Vibes&family=Cinzel:wght@700;900&family=Rozha+One&family=Montserrat:wght@800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-hover: #d97706;
+            --page-bg: #0f172a;
+            --theme-color: #f59e0b;
+            --overlay-darkness: 0.4;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-top {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-top:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* LEFT CONTROLS PANEL */
+        .controls-panel {
+            width: 450px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            flex-shrink: 0;
+        }
+
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(15, 23, 42, 0.95);
+            overflow-x: auto;
+            scrollbar-width: none;
+            flex-shrink: 0;
+        }
+
+        .tabs-header::-webkit-scrollbar { display: none; }
+
+        .tab-item {
+            flex: 1;
+            min-width: 75px;
+            text-align: center;
+            padding: 12px 6px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .tab-item.active {
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .tab-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #fbbf24, #d97706);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-item i {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .tab-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 20px 40px 20px;
+            display: none;
+        }
+
+        .tab-body.active { display: block; }
+
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 13px;
+            background: #1e293b;
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 10px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #fbbf24;
+            background: #334155;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+
+        .opt-box.active {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: rgba(251, 191, 36, 0.5);
+            color: #fef08a;
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.2);
+        }
+
+        .action-btn-main {
+            width: 100%;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #000;
+            height: 46px;
+            border-radius: 23px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.35);
+            transition: transform 0.1s ease;
+            margin-top: 10px;
+        }
+
+        .action-btn-main:active { transform: scale(0.98); }
+
+        /* RIGHT PREVIEW PANEL */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* BASE POSTER CARD */
+        .poster-card {
+            width: 100%;
+            max-width: 480px;
+            aspect-ratio: 1 / 1;
+            background: #0f172a;
+            border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .poster-card.ratio-story {
+            aspect-ratio: 9 / 16;
+            max-width: 380px;
+        }
+
+        .poster-bg-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .poster-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, var(--overlay-darkness));
+            z-index: 2;
+        }
+
+        .poster-top-header {
+            position: relative;
+            z-index: 3;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .fest-badge {
+            background: var(--theme-color);
+            color: #000;
+            font-weight: 800;
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .sticker-badge {
+            font-size: 28px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+        }
+
+        .poster-content-body {
+            position: relative;
+            z-index: 3;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .poster-h1 {
+            font-size: 26px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            line-height: 1.2;
+            margin-bottom: 6px;
+            transition: all 0.2s ease;
+        }
+
+        /* HEADING TEXT GLOW & METALLIC EFFECTS */
+        .poster-h1.glow-gold-glow {
+            text-shadow: 0 0 12px #fbbf24, 0 0 24px #d97706, 0 4px 15px rgba(0,0,0,0.9);
+        }
+
+        .poster-h1.glow-neon-cyan {
+            text-shadow: 0 0 10px #06b6d4, 0 0 25px #0891b2, 0 0 35px #0e7490;
+        }
+
+        .poster-h1.glow-fire-red {
+            text-shadow: 0 0 10px #ef4444, 0 0 20px #dc2626, 0 0 30px #991b1b;
+        }
+
+        .poster-h1.glow-royal-purple {
+            text-shadow: 0 0 10px #a855f7, 0 0 20px #9333ea, 0 0 30px #7e22ce;
+        }
+
+        .poster-h1.glow-crisp-shadow {
+            text-shadow: 3px 3px 0px #000, -2px -2px 0px #000, 2px -2px 0px #000;
+        }
+
+        .poster-sub {
+            font-size: 13px;
+            color: #fef08a;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .branding-strip {
+            position: relative;
+            z-index: 4;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 3px solid var(--theme-color);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            transition: all 0.2s ease;
+        }
+
+        /* AVATAR FRAME SHAPE STYLES */
+        .user-avatar-box {
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--theme-color);
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #94a3b8;
+            transition: all 0.2s ease;
+        }
+
+        .user-avatar-box.av-circle { border-radius: 50%; }
+        .user-avatar-box.av-rounded { border-radius: 12px; }
+        .user-avatar-box.av-square { border-radius: 0; }
+        .user-avatar-box.av-diamond { transform: rotate(45deg); }
+        .user-avatar-box.av-diamond img { transform: rotate(-45deg) scale(1.3); }
+
+        .user-avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .user-info-text {
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 800;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-desig {
+            font-size: 11px;
+            color: var(--theme-color);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-contact-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 10px;
+            color: #cbd5e1;
+            margin-top: 2px;
+        }
+
+        .shop-logo-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #fff;
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shop-logo-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 6 DISTINCT STRUCTURAL LAYOUT THEMES                  */
+        /* ---------------------------------------------------- */
+
+        /* LAYOUT 1: POLAROID CARD (t-polaroid) */
+        .poster-card.t-polaroid {
+            background: #ffffff;
+            padding: 16px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            color: #0f172a;
+        }
+
+        .poster-card.t-polaroid .poster-bg-img {
+            top: 16px; left: 16px; width: calc(100% - 32px); height: 58%;
+            border-radius: 12px;
+        }
+
+        .poster-card.t-polaroid .poster-overlay { display: none; }
+        .poster-card.t-polaroid .poster-top-header { position: absolute; top: 24px; left: 24px; z-index: 10; }
+        .poster-card.t-polaroid .poster-content-body { margin-top: auto; padding: 10px 0; }
+        .poster-card.t-polaroid .poster-h1 { color: #0f172a; text-shadow: none; font-size: 22px; }
+        .poster-card.t-polaroid .poster-sub { color: #475569; text-shadow: none; }
+        .poster-card.t-polaroid .branding-strip {
+            background: #f1f5f9;
+            border-radius: 12px;
+            border-top: none;
+            color: #0f172a;
+        }
+        .poster-card.t-polaroid .user-name { color: #0f172a; }
+        .poster-card.t-polaroid .user-contact-row { color: #475569; }
+
+        /* LAYOUT 2: ROYAL GOLD VIP BANNER (t-gold-vip) */
+        .poster-card.t-gold-vip {
+            border: 12px double #fbbf24;
+            background: #09090b;
+        }
+        .poster-card.t-gold-vip .fest-badge {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+            font-family: 'Cinzel', serif;
+        }
+        .poster-card.t-gold-vip .poster-h1 {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, #fff, #fbbf24, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .poster-card.t-gold-vip .branding-strip {
+            background: #000;
+            border-top: 2px solid #fbbf24;
+        }
+
+        /* LAYOUT 3: CYBER NEON GLASS (t-cyber-neon) */
+        .poster-card.t-cyber-neon {
+            border: 2px solid #06b6d4;
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.5);
+        }
+        .poster-card.t-cyber-neon .poster-content-body {
+            background: rgba(6, 182, 212, 0.15);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(6, 182, 212, 0.4);
+            margin: auto 20px;
+            border-radius: 20px;
+            padding: 20px;
+        }
+        .poster-card.t-cyber-neon .branding-strip {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 3px solid #06b6d4;
+        }
+
+        /* LAYOUT 4: MAGAZINE SPLIT LAYOUT (t-split-mag) */
+        .poster-card.t-split-mag {
+            flex-direction: row;
+        }
+        .poster-card.t-split-mag .poster-bg-img {
+            width: 55%; left: 45%; height: 100%;
+        }
+        .poster-card.t-split-mag .poster-overlay {
+            width: 55%; left: 45%; height: 100%;
+            background: linear-gradient(90deg, rgba(15,23,42,1) 0%, rgba(15,23,42,0.2) 100%);
+        }
+        .poster-card.t-split-mag .branding-strip {
+            width: 45%; height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            border-top: none;
+            border-right: 3px solid var(--theme-color);
+            background: #0f172a;
+            padding: 24px;
+        }
+        .poster-card.t-split-mag .poster-content-body {
+            width: 55%;
+            padding: 20px;
+        }
+        .poster-card.t-split-mag .poster-top-header { display: none; }
+
+        /* LAYOUT 5: MINIMAL STORY BADGE (t-minimal-story) */
+        .poster-card.t-minimal-story .poster-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.85) 100%);
+        }
+        .poster-card.t-minimal-story .poster-h1 {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+        .poster-card.t-minimal-story .branding-strip {
+            background: transparent;
+            border-top: none;
+        }
+
+        /* LAYOUT 6: FESTIVE RIBBON BANNER (t-ribbon-festive) */
+        .poster-card.t-ribbon-festive .poster-top-header {
+            background: linear-gradient(90deg, #ef4444, #b91c1c);
+            padding: 10px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+        .poster-card.t-ribbon-festive .branding-strip {
+            background: #b91c1c;
+            border-top: 3px solid #fef08a;
+        }
+
+        @media (max-width: 900px) {
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-body { flex-direction: column-reverse; overflow: visible; }
+            .controls-panel { width: 100%; height: auto; border-right: none; }
+            .preview-panel { padding: 15px 10px; width: 100%; box-sizing: border-box; }
+            .poster-card { width: 100%; max-width: 380px; }
+            .poster-card.t-split-mag { flex-direction: column; }
+            .poster-card.t-split-mag .poster-bg-img, .poster-card.t-split-mag .poster-overlay { width: 100%; left: 0; height: 60%; }
+            .poster-card.t-split-mag .branding-strip { width: 100%; height: 40%; border-right: none; border-top: 3px solid var(--theme-color); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- TOPBAR HEADER -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-bullhorn"></i>
+            <span data-i18n="suite_title">RAJU CRAFTER STUDIO</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#fbbf24,#d97706); color:#000" onclick="downloadPNG()"><i class="fas fa-download"></i> Download HD Poster</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-edit"></i> Text & Content</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-user-gear"></i> My Branding</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-palette"></i> Style & Themes</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-download"></i> Export</div>
+            </div>
+
+            <!-- TAB 1: TEXT & CONTENT -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">📜 Select Ready Wish Message Library</div>
+                <select id="in-ready-wish" onchange="applyReadyWish(this.value)">
+                    <option value="">-- Choose A Ready Message --</option>
+                    <optgroup label="🎂 Birthday Wishes">
+                        <option value="bday-1">🎂 Happy Birthday - Wishing You Success & Joy (EN)</option>
+                        <option value="bday-2">🎂 જન્મદિન મુબારક - આપનું જીવન ખુશીઓથી ભરેલું રહે (GU)</option>
+                        <option value="bday-3">🎂 जन्मदिन की हार्दिक शुभकामनाएं - आपका दिन मंगलमय हो (HI)</option>
+                    </optgroup>
+                    <optgroup label="🪔 Festive Greetings">
+                        <option value="fest-1">🪔 Happy Diwali - Festival of Lights & Prosperity (EN)</option>
+                        <option value="fest-2">🪔 શુભ દીપાવલી - આપના જીવનમાં સુખ, શાંતિ અને સમૃદ્ધિ આવે (GU)</option>
+                        <option value="fest-3">🪔 शुभ दीपावली - सुख, समृद्धि और शांति की मंगलकामनाएं (HI)</option>
+                        <option value="fest-4">🎨 Happy Holi - Festival of Vibrant Colors (EN)</option>
+                        <option value="fest-5">🌙 Eid Mubarak - May Allah Bless Your Family (EN)</option>
+                    </optgroup>
+                    <optgroup label="☀️ Daily Suvichar & Greetings">
+                        <option value="suv-1">☀️ Good Morning & Have A Blessed Day (EN)</option>
+                        <option value="suv-2">☀️ શુભ સવાર - તમારો દિવસ મંગલમય અને સફળ રહે (GU)</option>
+                        <option value="suv-3">💡 कर्म ही पूजा है - सफलता मेहनत की मोहताज होती है (HI)</option>
+                    </optgroup>
+                    <optgroup label="📢 Business Offer & Sales">
+                        <option value="sale-1">📢 MEGA SALE OFFER - Flat 50% OFF On All Items (EN)</option>
+                        <option value="sale-2">📢 વિશેષ ધમાકા ઓફર - પધારો અને લાભ લો (GU)</option>
+                    </optgroup>
+                </select>
+
+                <div class="grp-label" style="margin-top:14px">1. Upload Background Image</div>
+                <div class="opt-box" onclick="_('up-bg-img').click()" style="background:rgba(251, 191, 36, 0.1); border-color:rgba(251, 191, 36, 0.4); color:#fbbf24">
+                    <i class="fas fa-upload" style="font-size:18px"></i> 
+                    <span style="font-weight:700">Upload Your Poster Background Photo</span> 
+                    <input type="file" id="up-bg-img" hidden onchange="loadBgImg(this)">
+                </div>
+
+                <div class="grp-label" style="margin-top:20px">2. Edit Poster Text & Messages</div>
+                <div class="grp-label">Badge Tag Text</div>
+                <input type="text" id="in-fest-tag" value="SPECIAL OFFER / GREETINGS" oninput="render()" placeholder="Tag (e.g. HAPPY BIRTHDAY / HAPPY NAVRATRI / SALE)">
+
+                <div class="grp-label">Main Heading Text (H1)</div>
+                <textarea id="in-fest-h1" rows="2" oninput="render()" placeholder="Main Heading Wishes">Enter Your Main Heading or Greeting Here...</textarea>
+
+                <div class="grp-label">Subtitle / Wish Message</div>
+                <textarea id="in-fest-sub" rows="2" oninput="render()" placeholder="Wish Message">Enter your custom sub-text or wish message here...</textarea>
+            </div>
+
+            <!-- TAB 2: MY BRANDING -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label">Your Avatar Photo</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-avatar').click()"><i class="fas fa-upload"></i> Upload Photo <input type="file" id="up-avatar" hidden onchange="loadAvatar(this)"></div>
+                    <button type="button" class="opt-box" onclick="removeAvatar()"><i class="fas fa-trash"></i> Remove Photo</button>
+                </div>
+
+                <div class="grp-label" style="margin-top:14px">Avatar Frame Shape</div>
+                <div class="grid-3">
+                    <div class="opt-box active" onclick="setAvatarShape('av-circle', this)"><i class="fas fa-circle"></i> Circle</div>
+                    <div class="opt-box" onclick="setAvatarShape('av-rounded', this)"><i class="fas fa-square-full" style="border-radius:4px"></i> Rounded</div>
+                    <div class="opt-box" onclick="setAvatarShape('av-square', this)"><i class="fas fa-square"></i> Square</div>
+                    <div class="opt-box" onclick="setAvatarShape('av-diamond', this)"><i class="fas fa-gem"></i> Diamond</div>
+                </div>
+
+                <div class="grp-label" style="margin-top:14px">Full Name (Leave blank to hide)</div>
+                <input type="text" id="in-name" value="Raju Jatapara" style="font-weight:700; color:#fbbf24" oninput="render()" placeholder="Your Full Name">
+
+                <div class="grp-label">Designation / Title (Leave blank to hide)</div>
+                <input type="text" id="in-title" value="Owner & Director" oninput="render()" placeholder="Designation">
+
+                <div class="grp-label">Shop / Business Name (Leave blank to hide)</div>
+                <input type="text" id="in-shop" value="Raju Crafter Studio" oninput="render()" placeholder="Shop Name">
+
+                <div class="grp-label">Mobile Number (Leave blank to hide)</div>
+                <input type="text" id="in-phone" value="+91 98765 43210" oninput="render()" placeholder="Phone">
+
+                <div class="grp-label">Upload Business Logo</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()"><i class="fas fa-building"></i> Upload Logo <input type="file" id="up-logo" hidden onchange="loadLogo(this)"></div>
+                    <button type="button" class="opt-box" onclick="removeLogo()"><i class="fas fa-trash"></i> Remove Logo</button>
+                </div>
+            </div>
+
+            <!-- TAB 3: STYLE & THEMES -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">Heading Text Effects & Glow</div>
+                <select id="in-text-glow" onchange="render()">
+                    <option value="">Standard Clean Text</option>
+                    <option value="glow-gold-glow">👑 3D Gold Glow</option>
+                    <option value="glow-neon-cyan">⚡ Cyber Neon Glow</option>
+                    <option value="glow-fire-red">🔥 Radiant Fire Red Glow</option>
+                    <option value="glow-royal-purple">💜 Royal Purple Glow</option>
+                    <option value="glow-crisp-shadow">🖤 High-Contrast Crisp Shadow</option>
+                </select>
+
+                <div class="grp-label" style="margin-top:14px">Poster Canvas Size (Aspect Ratio)</div>
+                <div class="grid-2">
+                    <div class="opt-box active" onclick="setRatio('ratio-square', this)"><i class="fas fa-square" style="font-size:16px"></i> 1:1 Square Post</div>
+                    <div class="opt-box" onclick="setRatio('ratio-story', this)"><i class="fas fa-mobile-alt" style="font-size:16px"></i> 9:16 Story/Reel</div>
+                </div>
+
+                <div class="grp-label" style="margin-top:14px">Sticker & Stamp Overlay</div>
+                <select id="in-sticker" onchange="render()">
+                    <option value="">None (No Sticker)</option>
+                    <option value="👑">👑 Royal Crown Stamp</option>
+                    <option value="⭐">⭐ VIP Premium Badge</option>
+                    <option value="🏷️">🏷️ 50% OFF Offer Stamp</option>
+                    <option value="🪔">🪔 Golden Diya Festive</option>
+                    <option value="🎉">🎉 Celebration Ribbon</option>
+                    <option value="💯">💯 100% Quality Seal</option>
+                    <option value="🇮🇳">🇮🇳 Jai Hind Flag Stamp</option>
+                </select>
+
+                <div class="grp-label" style="margin-top:14px">Visual Layout Templates</div>
+                <div class="grid-3">
+                    <div class="opt-box active" onclick="setTemplate('t-polaroid', this)"><i class="fas fa-camera" style="color:#fbbf24"></i> Polaroid Card</div>
+                    <div class="opt-box" onclick="setTemplate('t-gold-vip', this)"><i class="fas fa-crown" style="color:#eab308"></i> Gold VIP</div>
+                    <div class="opt-box" onclick="setTemplate('t-cyber-neon', this)"><i class="fas fa-bolt" style="color:#06b6d4"></i> Cyber Neon</div>
+                    <div class="opt-box" onclick="setTemplate('t-split-mag', this)"><i class="fas fa-columns" style="color:#a855f7"></i> Magazine Split</div>
+                    <div class="opt-box" onclick="setTemplate('t-minimal-story', this)"><i class="fas fa-mobile-alt" style="color:#10b981"></i> Minimal Story</div>
+                    <div class="opt-box" onclick="setTemplate('t-ribbon-festive', this)"><i class="fas fa-ribbon" style="color:#ef4444"></i> Festive Ribbon</div>
+                </div>
+
+                <div class="grp-label" style="margin-top:16px">Heading Font Family</div>
+                <select id="in-font" onchange="render()">
+                    <option value="'Poppins', sans-serif">Poppins (Modern Clean)</option>
+                    <option value="'Dancing Script', cursive">Dancing Script (Stylish Cursive)</option>
+                    <option value="'Great Vibes', cursive">Great Vibes (Elegant Royal)</option>
+                    <option value="'Cinzel', serif">Cinzel (Luxury Serif)</option>
+                    <option value="'Rozha One', serif">Rozha One (Traditional Bold)</option>
+                    <option value="'Montserrat', sans-serif">Montserrat (Ultra Bold Banner)</option>
+                </select>
+
+                <div class="grp-label">Primary Accent Color</div>
+                <div class="grid-3">
+                    <div class="opt-box active" onclick="setColor('#f59e0b', this)"><i class="fas fa-circle" style="color:#f59e0b"></i> Gold</div>
+                    <div class="opt-box" onclick="setColor('#ef4444', this)"><i class="fas fa-circle" style="color:#ef4444"></i> Crimson</div>
+                    <div class="opt-box" onclick="setColor('#10b981', this)"><i class="fas fa-circle" style="color:#10b981"></i> Emerald</div>
+                    <div class="opt-box" onclick="setColor('#3b82f6', this)"><i class="fas fa-circle" style="color:#3b82f6"></i> Royal Blue</div>
+                    <div class="opt-box" onclick="setColor('#a855f7', this)"><i class="fas fa-circle" style="color:#a855f7"></i> Purple</div>
+                    <div class="opt-box" onclick="setColor('#06b6d4', this)"><i class="fas fa-circle" style="color:#06b6d4"></i> Cyan</div>
+                </div>
+
+                <div class="grp-label" style="margin-top:14px">Background Overlay Darkness</div>
+                <input type="range" id="in-darkness" min="0" max="0.9" step="0.05" value="0.4" oninput="setDarkness(this.value)">
+
+                <div class="grp-label" style="margin-top:14px">Heading Text Color</div>
+                <input type="color" id="in-h1-color" value="#ffffff" style="height:40px; cursor:pointer;" onchange="render()">
+
+                <div class="grp-label">Subtitle Text Color</div>
+                <input type="color" id="in-sub-color" value="#fef08a" style="height:40px; cursor:pointer;" onchange="render()">
+            </div>
+
+            <!-- TAB 4: EXPORT -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">Export High-Res Banner</div>
+                <button type="button" class="action-btn-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download HD Poster (PNG)</button>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="poster-card t-polaroid" id="poster-canvas-root">
+                <img id="d-bg-img" class="poster-bg-img" src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1000&auto=format&fit=crop" alt="Background">
+                <div class="poster-overlay"></div>
+
+                <div class="poster-top-header">
+                    <div class="fest-badge" id="d-fest-tag">SPECIAL OFFER / GREETINGS</div>
+                    <div class="sticker-badge" id="d-sticker-stamp" style="display:none"></div>
+                </div>
+
+                <div class="poster-content-body">
+                    <div class="poster-h1" id="d-fest-h1">Enter Your Main Heading or Greeting Here...</div>
+                    <div class="poster-sub" id="d-fest-sub">Enter your custom sub-text or wish message here...</div>
+                </div>
+
+                <!-- DYNAMIC BOTTOM BRANDING STRIP -->
+                <div class="branding-strip" id="d-branding-strip">
+                    <div class="user-avatar-box av-circle" id="d-avatar-box">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+                    <div class="user-info-text" id="d-user-info-text">
+                        <div class="user-name" id="d-user-name">Raju Jatapara</div>
+                        <div class="user-desig" id="d-user-desig">Owner & Director • Raju Crafter Studio</div>
+                        <div class="user-contact-row" id="d-user-phone">
+                            <span><i class="fas fa-phone"></i> +91 98765 43210</span>
+                        </div>
+                    </div>
+
+                    <div class="shop-logo-box" id="d-logo-box" style="display:none">
+                        <img id="d-logo-img" src="" alt="Logo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        const app = {
+            avatarUrl: '',
+            logoUrl: '',
+            color: '#f59e0b',
+            template: 't-polaroid',
+            ratio: 'ratio-square',
+            avatarShape: 'av-circle'
+        };
+
+        const readyWishes = {
+            'bday-1': { tag: 'HAPPY BIRTHDAY', h1: 'Wishing You A Very Happy Birthday!', sub: 'May your day be filled with joy, laughter & endless success!' },
+            'bday-2': { tag: 'જન્મદિન મુબારક', h1: 'આપને જન્મદિવસની હાર્દિક શુભેચ્છાઓ!', sub: 'આપનું જીવન સુખ, શાંતિ અને સમૃદ્ધિથી સદા ભરપૂર રહે એવી પ્રાર્થના.' },
+            'bday-3': { tag: 'जन्मदिन मुबारक', h1: 'जन्मदिन की हार्दिक शुभकामनाएं!', sub: 'ईश्वर आपको दीर्घायु, उत्तम स्वास्थ्य और अपार सफलता प्रदान करे।' },
+            'fest-1': { tag: 'HAPPY DIWALI', h1: 'Wishing You A Happy & Prosperous Diwali', sub: 'May the festival of lights illuminate your home with wealth & happiness!' },
+            'fest-2': { tag: 'શુભ દીપાવલી', h1: 'આપ સૌને દીપાવલીની હાર્દિક શુભેચ્છાઓ!', sub: 'આ નવું વર્ષ આપના જીવનમાં સુખ, શાંતિ અને સમૃદ્ધિ લાવે.' },
+            'fest-3': { tag: 'शुभ दीपावली', h1: 'दीपावली की हार्दिक शुभकामनाएं!', sub: 'माँ लक्ष्मी की कृपा आप और आपके परिवार पर सदा बनी रहे।' },
+            'fest-4': { tag: 'HAPPY HOLI', h1: 'Wishing You A Joyful & Colorful Holi', sub: 'May your life be filled with vibrant colors of love & joy!' },
+            'fest-5': { tag: 'EID MUBARAK', h1: 'Wishing You A Blessed Eid Mubarak', sub: 'May Allah bless your home with peace, health & happiness!' },
+            'suv-1': { tag: 'GOOD MORNING', h1: 'Good Morning & Have A Blessed Day', sub: 'Every new morning brings new opportunities to achieve your dreams!' },
+            'suv-2': { tag: 'શુભ સવાર', h1: 'શુભ સવાર - આપનો દિવસ મંગલમય રહે', sub: 'સતત મહેનત અને હકારાત્મક વિચાર જ સફળતાની ચાવી છે.' },
+            'suv-3': { tag: 'शुभ विचार', h1: 'कर्म ही सबसे बड़ी पूजा है', sub: 'अपनी मेहनत पर विश्वास रखो, सफलता एक दिन कदम चूमेगी।' },
+            'sale-1': { tag: 'MEGA SALE OFFER', h1: 'Flat 50% OFF On All Items', sub: 'Visit our shop today and grab the best deals of the season!' },
+            'sale-2': { tag: 'ધમાકા ઓફર', h1: 'ખાસ ધમાકા ઓફર - પધારો અને લાભ લો', sub: 'સીમિત સમય માટેની બમ્પર ઓફર! આજે જ મુલાકાત લો.' }
+        };
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#fbbf24"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('tag')) {
+                _('in-fest-tag').value = urlParams.get('tag') || '';
+                if (urlParams.has('h1')) _('in-fest-h1').value = urlParams.get('h1') || '';
+                if (urlParams.has('sub')) _('in-fest-sub').value = urlParams.get('sub') || '';
+                showToast(`Pre-loaded ${urlParams.get('tag')} poster!`, 'fa-magic');
+            }
+            render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+
+        function applyReadyWish(val) {
+            if (val && readyWishes[val]) {
+                const w = readyWishes[val];
+                _('in-fest-tag').value = w.tag;
+                _('in-fest-h1').value = w.h1;
+                _('in-fest-sub').value = w.sub;
+                render();
+                showToast('Ready Wish Message applied!', 'fa-magic');
+            }
+        }
+
+        function setAvatarShape(shapeClass, b) {
+            app.avatarShape = shapeClass;
+            const box = _('d-avatar-box');
+            box.className = `user-avatar-box ${shapeClass}`;
+
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            showToast(`Avatar Shape: ${shapeClass.replace('av-','').toUpperCase()} applied!`, 'fa-user');
+        }
+
+        function setRatio(ratioClass, b) {
+            app.ratio = ratioClass;
+            const root = _('poster-canvas-root');
+            if (ratioClass === 'ratio-story') {
+                root.classList.add('ratio-story');
+            } else {
+                root.classList.remove('ratio-story');
+            }
+
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            showToast(`Aspect Ratio: ${ratioClass === 'ratio-story' ? '9:16 Story' : '1:1 Square'} applied!`, 'fa-mobile-alt');
+        }
+
+        function setDarkness(val) {
+            document.documentElement.style.setProperty('--overlay-darkness', val);
+        }
+
+        function setTemplate(tplClass, b) {
+            app.template = tplClass;
+            const root = _('poster-canvas-root');
+            root.className = `poster-card ${tplClass} ${app.ratio === 'ratio-story' ? 'ratio-story' : ''}`;
+
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast(`Layout Style: ${tplClass.replace('t-','').toUpperCase()} applied!`, 'fa-palette');
+        }
+
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
+        }
+
+        function setColor(hex, b) {
+            app.color = hex;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+        }
+
+        function loadAvatar(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    app.avatarUrl = x.target.result;
+                    render();
+                    showToast('Avatar Photo uploaded!', 'fa-user');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function removeAvatar() {
+            app.avatarUrl = '';
+            _('up-avatar').value = '';
+            render();
+            showToast('Avatar Photo removed', 'fa-trash');
+        }
+
+        function loadLogo(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    app.logoUrl = x.target.result;
+                    render();
+                    showToast('Logo uploaded!', 'fa-building');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function removeLogo() {
+            app.logoUrl = '';
+            _('up-logo').value = '';
+            render();
+            showToast('Logo removed', 'fa-trash');
+        }
+
+        function loadBgImg(e) {
+            if (e.files[0]) {
+                const r = new FileReader();
+                r.onload = x => {
+                    _('d-bg-img').src = x.target.result;
+                    showToast('Custom Poster Background uploaded!', 'fa-image');
+                };
+                r.readAsDataURL(e.files[0]);
+            }
+        }
+
+        function render() {
+            // Tag, Heading & Subtitle
+            const tag = _('in-fest-tag').value.trim();
+            const h1 = _('in-fest-h1').value.trim();
+            const sub = _('in-fest-sub').value.trim();
+
+            const festBadge = _('d-fest-tag');
+            if (tag) {
+                festBadge.style.display = 'inline-block';
+                festBadge.innerText = tag;
+            } else {
+                festBadge.style.display = 'none';
+            }
+
+            _('d-fest-h1').innerText = h1 || '';
+            _('d-fest-sub').innerText = sub || '';
+
+            // Heading Text Glow Effects
+            const h1El = _('d-fest-h1');
+            const glowVal = _('in-text-glow').value;
+            h1El.className = `poster-h1 ${glowVal}`;
+
+            // Sticker Overlay
+            const sticker = _('in-sticker').value;
+            const stickerEl = _('d-sticker-stamp');
+            if (sticker) {
+                stickerEl.style.display = 'block';
+                stickerEl.innerText = sticker;
+            } else {
+                stickerEl.style.display = 'none';
+            }
+
+            // Custom Typography & Text Colors
+            const font = _('in-font').value;
+            const h1Color = _('in-h1-color').value;
+            const subColor = _('in-sub-color').value;
+
+            h1El.style.fontFamily = font;
+            h1El.style.color = h1Color;
+            _('d-fest-sub').style.color = subColor;
+
+            // Theme color
+            document.documentElement.style.setProperty('--theme-color', app.color);
+
+            // DYNAMIC BRANDING HIDE/SHOW LOGIC
+            const name = _('in-name').value.trim();
+            const title = _('in-title').value.trim();
+            const shop = _('in-shop').value.trim();
+            const phone = _('in-phone').value.trim();
+
+            const strip = _('d-branding-strip');
+            const avBox = _('d-avatar-box');
+            const logoBox = _('d-logo-box');
+            const uNameEl = _('d-user-name');
+            const uDesigEl = _('d-user-desig');
+            const uPhoneEl = _('d-user-phone');
+
+            // Avatar Box
+            if (app.avatarUrl) {
+                avBox.style.display = 'flex';
+                avBox.innerHTML = `<img src="${app.avatarUrl}" alt="Avatar">`;
+            } else {
+                avBox.style.display = 'none';
+            }
+
+            // Logo Box
+            if (app.logoUrl) {
+                logoBox.style.display = 'flex';
+                _('d-logo-img').src = app.logoUrl;
+            } else {
+                logoBox.style.display = 'none';
+            }
+
+            // Text Info
+            if (name) {
+                uNameEl.style.display = 'block';
+                uNameEl.innerText = name;
+            } else {
+                uNameEl.style.display = 'none';
+            }
+
+            if (title || shop) {
+                uDesigEl.style.display = 'block';
+                uDesigEl.innerText = title && shop ? `${title} • ${shop}` : (title || shop);
+            } else {
+                uDesigEl.style.display = 'none';
+            }
+
+            if (phone) {
+                uPhoneEl.style.display = 'block';
+                uPhoneEl.innerHTML = `<span><i class="fas fa-phone"></i> ${phone}</span>`;
+            } else {
+                uPhoneEl.style.display = 'none';
+            }
+
+            // Hide entire branding strip if NO details are present
+            const hasAnyBranding = app.avatarUrl || app.logoUrl || name || title || shop || phone;
+            if (hasAnyBranding) {
+                strip.style.display = 'flex';
+            } else {
+                strip.style.display = 'none';
+            }
+        }
+
+        function downloadPNG() {
+            showToast('Generating HD Poster Banner...', 'fa-spinner fa-spin');
+            const card = _('poster-canvas-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `Custom-Poster-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ HD Poster Downloaded!', 'fa-circle-check');
+            });
+        }
+    </script>
+</body>
+
+</html>

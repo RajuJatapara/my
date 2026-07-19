@@ -3,12 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raju Crafter Studio - All-in-One Digital Business Suite</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- FontAwesome 6.4.2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
 
     <style>
         :root {
@@ -20,6 +22,33 @@
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #f8fafc;
             --text-sub: #94a3b8;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 20px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
         }
 
         * {
@@ -326,9 +355,12 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .navbar { padding: 0 16px; }
-            .hero-title { font-size: 28px; }
-            .hero-subtitle { font-size: 14px; }
+            .navbar { padding: 0 12px; height: 60px; }
+            .brand-logo { font-size: 15px; }
+            .nav-badge { display: none; }
+            .lang-btn { padding: 4px 6px; font-size: 10px; }
+            .hero-title { font-size: 24px; }
+            .hero-subtitle { font-size: 13px; }
             .grid-tools { grid-template-columns: 1fr; }
         }
     </style>
@@ -343,6 +375,11 @@
             <span>RAJU CRAFTER STUDIO</span>
         </div>
         <div class="nav-links">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">🇬🇧 English</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">🇮🇳 ગુજરાતી</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">🇮🇳 हिंदी</button>
+            </div>
             <div class="nav-badge"><i class="fas fa-sparkles"></i> 100% Free Suite</div>
         </div>
     </div>
@@ -377,99 +414,132 @@
             <div class="tool-card" data-cat="design" data-name="ad poster banner crafter graphic post">
                 <div class="card-top">
                     <div class="icon-box"><i class="fas fa-wand-magic-sparkles"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">Ad & Poster Crafter Pro</div>
-                <div class="tool-desc">Design 4K/HD Ad Banners, Festival Wishes, E-Commerce Offer Posters, and Business Cards with custom QR code integration.</div>
-                <a href="ad.html" class="card-btn btn-live">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t1_title">Ad & Poster Crafter Pro</div>
+                <div class="tool-desc" data-i18n="t1_desc">Design 4K/HD Ad Banners, Festival Wishes, E-Commerce Offer Posters, and Business Cards with custom QR code integration.</div>
+                <a href="ad.html" class="card-btn btn-live" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 2: DIGITAL VCARD BUILDER -->
             <div class="tool-card" data-cat="business" data-name="vcard visiting card digital contact page">
                 <div class="card-top">
                     <div class="icon-box" style="color:#c084fc"><i class="fas fa-address-card"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">Digital vCard Crafter</div>
-                <div class="tool-desc">Create interactive, mobile-friendly digital business cards with Click-to-Call, WhatsApp link, Google Map location, and VCF download.</div>
-                <a href="vcard.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #c084fc, #9333ea)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t2_title">Digital vCard Crafter</div>
+                <div class="tool-desc" data-i18n="t2_desc">Create interactive, mobile-friendly digital business cards with Click-to-Call, WhatsApp link, Google Map location, and VCF download.</div>
+                <a href="vcard.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #c084fc, #9333ea)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 3: GST INVOICE & ESTIMATE MAKER -->
             <div class="tool-card" data-cat="billing" data-name="invoice bill estimate gst rate card quote">
                 <div class="card-top">
                     <div class="icon-box" style="color:#22c55e"><i class="fas fa-receipt"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">GST Invoice & Estimate Maker</div>
-                <div class="tool-desc">Generate professional price quotes and PDF bills on mobile in 1 minute to share directly with clients on WhatsApp.</div>
-                <a href="estimate.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #10b981, #059669)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t3_title">GST Invoice & Estimate Maker</div>
+                <div class="tool-desc" data-i18n="t3_desc">Generate professional price quotes and PDF bills on mobile in 1 minute to share directly with clients on WhatsApp.</div>
+                <a href="estimate.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #10b981, #059669)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 4: CUSTOM QR CODE STUDIO -->
             <div class="tool-card" data-cat="utility" data-name="qr code studio upi payment wifi google review">
                 <div class="card-top">
                     <div class="icon-box" style="color:#38bdf8"><i class="fas fa-qrcode"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">Custom QR Code Studio</div>
-                <div class="tool-desc">Create customized UPI payment QRs, WiFi auto-connect QRs, Google Review QRs, and WhatsApp links with brand logos.</div>
-                <a href="qr.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #0284c7, #0369a1)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t4_title">Custom QR Code Studio</div>
+                <div class="tool-desc" data-i18n="t4_desc">Create customized UPI payment QRs, WiFi auto-connect QRs, Google Review QRs, and WhatsApp links with brand logos.</div>
+                <a href="qr.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #0284c7, #0369a1)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 5: WHATSAPP DIRECT CHAT CRAFTER -->
             <div class="tool-card" data-cat="utility" data-name="whatsapp direct chat link generator wa click">
                 <div class="card-top">
                     <div class="icon-box" style="color:#25d366"><i class="fab fa-whatsapp"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">WhatsApp Direct Chat Crafter</div>
-                <div class="tool-desc">Start WhatsApp chats without saving phone numbers, and generate pre-filled WhatsApp inquiry links for your products.</div>
-                <a href="wa.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #25d366, #16a34a)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t5_title">WhatsApp Direct Chat Crafter</div>
+                <div class="tool-desc" data-i18n="t5_desc">Start WhatsApp chats without saving phone numbers, and generate pre-filled WhatsApp inquiry links for your products.</div>
+                <a href="wa.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #25d366, #16a34a)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 6: CERTIFICATE & AWARD CRAFTER -->
             <div class="tool-card" data-cat="design" data-name="certificate award diploma completion school institute appreciation">
                 <div class="card-top">
                     <div class="icon-box" style="color:#fbbf24"><i class="fas fa-certificate"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">Certificate & Award Crafter</div>
-                <div class="tool-desc">Create HD A4 Certificates of Completion, Appreciation, Excellence Awards, and Diplomas with Gold Seals & Signatures.</div>
-                <a href="cert.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #d97706, #b45309)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t6_title">Certificate & Award Crafter</div>
+                <div class="tool-desc" data-i18n="t6_desc">Create HD A4 Certificates of Completion, Appreciation, Excellence Awards, and Diplomas with Gold Seals & Signatures.</div>
+                <a href="cert.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #d97706, #b45309)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 7: RESTAURANT & FOOD MENU CRAFTER -->
             <div class="tool-card" data-cat="billing" data-name="restaurant food menu card cafe hotel rate list dishes veg nonveg">
                 <div class="card-top">
                     <div class="icon-box" style="color:#ef4444"><i class="fas fa-utensils"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">Restaurant & Food Menu Crafter</div>
-                <div class="tool-desc">Design luxury food menu cards for cafes, hotels, and restaurants with Veg/Non-Veg badges, price lists, and Table QR codes.</div>
-                <a href="menu.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #ef4444, #dc2626)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t7_title">Restaurant & Food Menu Crafter</div>
+                <div class="tool-desc" data-i18n="t7_desc">Design luxury food menu cards for cafes, hotels, and restaurants with Veg/Non-Veg badges, price lists, and Table QR codes.</div>
+                <a href="menu.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #ef4444, #dc2626)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 8: EMPLOYEE & STUDENT ID CARD CRAFTER -->
             <div class="tool-card" data-cat="business" data-name="id card badge student employee school office gate pass barcode">
                 <div class="card-top">
                     <div class="icon-box" style="color:#2563eb"><i class="fas fa-id-card-clip"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">Employee & Student ID Card Crafter</div>
-                <div class="tool-desc">Create printable CR80 standard ID badges for offices, schools, and events with photo, blood group, and barcode QR code.</div>
-                <a href="idcard.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #2563eb, #1d4ed8)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t8_title">Employee & Student ID Card Crafter</div>
+                <div class="tool-desc" data-i18n="t8_desc">Create printable CR80 standard ID badges for offices, schools, and events with photo, blood group, and barcode QR code.</div>
+                <a href="idcard.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #2563eb, #1d4ed8)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 9: QUICK CASH MEMO & RECEIPT MAKER -->
             <div class="tool-card" data-cat="billing" data-name="cash memo receipt bill payment rent retail kirana shop receipt">
                 <div class="card-top">
                     <div class="icon-box" style="color:#10b981"><i class="fas fa-file-invoice-dollar"></i></div>
-                    <span class="tag-status st-live">✨ READY / LIVE</span>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
                 </div>
-                <div class="tool-title">Quick Cash Memo & Receipt Maker</div>
-                <div class="tool-desc">Generate instant Cash Memos, Payment Receipts, Rent Receipts, and Retail Bills with Paid/Due stamps, item totals, and UPI QR code.</div>
-                <a href="bill.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #10b981, #059669)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t9_title">Quick Cash Memo & Receipt Maker</div>
+                <div class="tool-desc" data-i18n="t9_desc">Generate instant Cash Memos, Payment Receipts, Rent Receipts, and Retail Bills with Paid/Due stamps, item totals, and UPI QR code.</div>
+                <a href="bill.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #10b981, #059669)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 10: DAILY FESTIVAL WISHES & SUVICHAR CRAFTER -->
+            <div class="tool-card" data-cat="design" data-name="festival wish daily suvichar good morning greeting poster diwali holi navratri banner status">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#fbbf24"><i class="fas fa-bullhorn"></i></div>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                </div>
+                <div class="tool-title" data-i18n="t10_title">Daily Festival Wishes & Suvichar Crafter</div>
+                <div class="tool-desc" data-i18n="t10_desc">Create instant branded festival greeting banners, Good Morning wishes, and daily Suvichar posts with your photo, name, phone, and logo.</div>
+                <a href="festival.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #fbbf24, #d97706); color:#000" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 11: JOB RESUME & MARRIAGE BIO-DATA MAKER -->
+            <div class="tool-card" data-cat="business" data-name="job resume cv curriculum vitae marriage biodata family details pdf biodata maker">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#e11d48"><i class="fas fa-file-invoice"></i></div>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                </div>
+                <div class="tool-title" data-i18n="t11_title">Job Resume & Marriage Bio-Data Maker</div>
+                <div class="tool-desc" data-i18n="t11_desc">Create professional job resumes and traditional marriage bio-data with family background, education, photo, and printable A4 PDF.</div>
+                <a href="resume.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #e11d48, #be123c)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 12: 365-DAY INDIAN FESTIVAL & SUVICHAR CALENDAR -->
+            <div class="tool-card" data-cat="design" data-name="365 day indian festival calendar suvichar quotes daily wishes republic day diwali navratri">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#8b5cf6"><i class="fas fa-calendar-alt"></i></div>
+                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                </div>
+                <div class="tool-title" data-i18n="t12_title">365-Day Indian Festival Calendar</div>
+                <div class="tool-desc" data-i18n="t12_desc">Explore 365 days of Indian festivals, national days, and daily suvichar quotes with 1-click custom banner crafting.</div>
+                <a href="calendar.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #8b5cf6, #6d28d9)" data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
         </div>
@@ -481,6 +551,10 @@
     </div>
 
     <script>
+        window.onload = () => {
+            setLanguage(getSavedLanguage());
+        };
+
         function filterTools() {
             const query = document.getElementById('search-input').value.toLowerCase();
             const cards = document.querySelectorAll('.tool-card');

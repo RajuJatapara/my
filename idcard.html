@@ -3,12 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee & Student ID Card Crafter - Raju Crafter Studio</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome 6.4.2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
 
     <style>
         :root {
@@ -18,6 +20,33 @@
             --id-theme-color: #2563eb;
             --id-bg-color: #ffffff;
             --id-text-color: #0f172a;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
         }
 
         * {
@@ -562,10 +591,11 @@
         }
 
         @media (max-width: 900px) {
-            .app-body { flex-direction: column-reverse; overflow-y: auto; }
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-body { flex-direction: column-reverse; overflow: visible; }
             .controls-panel { width: 100%; height: auto; border-right: none; }
-            .preview-panel { padding: 20px; }
-            .id-badge-card { scale: 0.9; }
+            .preview-panel { padding: 15px 10px; width: 100%; box-sizing: border-box; }
+            .id-badge-card { width: 100%; max-width: 330px; scale: 1; margin: 0 auto; }
         }
     </style>
 </head>
@@ -584,6 +614,11 @@
         </a>
 
         <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
             <div class="btn-top" onclick="printID()"><i class="fas fa-print"></i> Print ID Badge</div>
             <div class="btn-top" style="background:linear-gradient(135deg,#60a5fa,#2563eb); color:#fff" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG</div>
         </div>
@@ -763,6 +798,7 @@
         window.onload = () => {
             _('in-person-date').valueAsDate = new Date();
             render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
         };
 
         function nav(n, b) {
