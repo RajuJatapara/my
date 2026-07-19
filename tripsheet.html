@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Driver & Goods Transport Duty Slip - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Sans+Gujarati:wght@400;600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --page-bg: #0f172a;
+            --th: #0284c7;
+            --font-main: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            gap: 10px;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #38bdf8;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-top-main {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
+            transition: transform 0.1s ease;
+        }
+
+        .btn-top-sec {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* CONTROLS PANEL */
+        .controls-panel {
+            width: 440px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            flex-shrink: 0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 13px;
+            background: #1e293b;
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+
+        select option { background: #0f172a; color: #f8fafc; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box.active {
+            background: rgba(2, 132, 199, 0.15);
+            border-color: rgba(56, 189, 248, 0.5);
+            color: #38bdf8;
+        }
+
+        /* DYNAMIC TRIP ROW INPUT */
+        .trip-item-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 6px 8px;
+        }
+
+        .trip-item-row input {
+            margin-bottom: 0;
+            padding: 6px 8px;
+        }
+
+        .btn-del-trip-row {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* PREVIEW PANEL */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* TRIP SHEET CANVAS */
+        .trip-canvas {
+            background: #fff;
+            color: #0f172a;
+            width: 440px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #0284c7;
+            font-family: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .trip-header { text-align: center; border-bottom: 2px solid #0284c7; padding-bottom: 10px; margin-bottom: 14px; }
+        .trip-title { font-size: 22px; font-weight: 900; color: #0f172a; line-height: 1.1; }
+        .trip-sub { font-size: 11px; font-weight: 700; color: #0284c7; margin-top: 2px; }
+        .trip-tag { background: #0284c7; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 14px; border-radius: 12px; display: inline-block; margin-top: 6px; text-transform: uppercase; }
+
+        .trip-purpose-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 12px; font-weight: 800; color: #0369a1; }
+
+        .trip-km-badge-row { display: flex; justify-content: space-between; background: #0f172a; color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 11px; font-weight: 800; margin-bottom: 12px; }
+
+        .trip-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px; margin-bottom: 12px; font-size: 11px; font-weight: 700; color: #334155; }
+        .trip-meta-item span { color: #0f172a; font-weight: 900; }
+
+        .trip-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+        .trip-table th { background: #f1f5f9; font-size: 11px; font-weight: 800; color: #334155; padding: 8px; border-bottom: 2px solid #cbd5e1; text-align: left; }
+        .trip-table th:last-child { text-align: right; }
+        .trip-table td { padding: 8px; font-size: 12px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
+        .trip-table td:last-child { text-align: right; font-weight: 900; }
+
+        .trip-net-box {
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #fff;
+            border-radius: 10px;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+        }
+
+        .trip-stamp-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 10px; }
+        .trip-stamp { font-size: 11px; font-weight: 900; border: 2px solid #16a34a; color: #16a34a; padding: 2px 10px; border-radius: 6px; text-transform: uppercase; transform: rotate(-5deg); display: inline-block; }
+
+        #print-trip-container { display: none; }
+
+        /* PRINT STYLES - SINGLE A4 TRIP SLIP */
+        @media print {
+            body { background: #fff !important; color: #000 !important; margin: 0 !important; padding: 0 !important; }
+            .app-header, .app-body, #toast-container { display: none !important; }
+            #print-trip-container {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                width: 100% !important;
+                padding: 15mm;
+                background: #fff !important;
+            }
+            #print-trip-container .trip-canvas {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 480px;
+                border: 2px solid #0f172a !important;
+            }
+        }
+
+        /* MOBILE RESPONSIVE STYLES */
+        @media (max-width: 900px) {
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-body { flex-direction: column; }
+            .preview-panel { width: 100%; min-height: 440px; position: sticky; top: 0; z-index: 40; border-bottom: 2px solid rgba(255,255,255,0.1); padding: 16px 12px; }
+            .trip-canvas { width: 100%; }
+            .controls-panel { width: 100%; border-right: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- HEADER TOPBAR -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-truck-fast"></i>
+            <span data-i18n="suite_title">RAJU CRAFTER STUDIO</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <div class="btn-top-sec" onclick="printSingleTrip()"><i class="fas fa-print"></i> Print A4 Slip</div>
+            <div class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download Trip PNG</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP BODY -->
+    <div class="app-body">
+        <!-- CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="grp-label">1. Transport Presets</div>
+            <div class="grid-2" style="margin-bottom:8px">
+                <div class="opt-box active" onclick="loadPreset('taxi', this)"><i class="fas fa-taxi"></i> ટેક્સી & કાર ભાડું રસીદ</div>
+                <div class="opt-box" onclick="loadPreset('pickup', this)"><i class="fas fa-truck-pickup"></i> પિકઅપ સામાન ભાડું</div>
+                <div class="opt-box" onclick="loadPreset('auto', this)"><i class="fas fa-motorcycle"></i> ઓટો રિક્ષા ભાડું રસીદ</div>
+                <div class="opt-box" onclick="loadPreset('bus', this)"><i class="fas fa-bus"></i> બસ & વાન મંથલી પાસ</div>
+            </div>
+            <div class="opt-box" style="margin-bottom:12px; background:rgba(239,68,68,0.15); color:#f87171; border-color:rgba(239,68,68,0.4)" onclick="loadPreset('blank', this)">
+                <i class="fas fa-file-circle-plus"></i> ✨ Custom Blank Trip Sheet (ખાલી પહોંચ)
+            </div>
+
+            <div class="grp-label">2. Transport & Vehicle Details</div>
+            <input type="text" id="in-comp" value="શ્રીનાથજી ટૂર & ટ્રાવેલ્સ" oninput="render()" placeholder="Transport / Travel Name">
+            <input type="text" id="in-purpose" value="લગ્ન પ્રસંગ બહાર ગામ ટ્રિપ & સામાન હેરફેર" oninput="render()" placeholder="Trip Purpose / Work Description">
+            <div class="grid-2">
+                <input type="text" id="in-vno" value="GJ-03-AB-1234" oninput="render()" placeholder="Vehicle No. (ગાડી નં)">
+                <input type="text" id="in-vtype" value="Swift Dzire (AC)" oninput="render()" placeholder="Vehicle Type">
+            </div>
+            <div class="grid-2">
+                <input type="text" id="in-driver" value="રમેશભાઈ ડ્રાઇવર" oninput="render()" placeholder="Driver Name">
+                <input type="tel" id="in-dphone" value="9876543210" oninput="render()" placeholder="Driver Mobile">
+            </div>
+
+            <div class="grp-label">3. Customer Details & Date</div>
+            <div class="grid-2">
+                <input type="text" id="in-cust" value="સંજયભાઈ પટેલ" oninput="render()" placeholder="Customer Name">
+                <input type="date" id="in-date" onchange="render()" style="cursor:pointer">
+            </div>
+
+            <div class="grp-label">4. Meter Odometer Reading (Start & End KM)</div>
+            <div class="grid-2">
+                <div>
+                    <span style="font-size:10px; color:#94a3b8; font-weight:700">શરૂઆત KM (Start KM)</span>
+                    <input type="number" id="in-startkm" value="12400" oninput="render()" placeholder="Start KM">
+                </div>
+                <div>
+                    <span style="font-size:10px; color:#94a3b8; font-weight:700">અંતિમ KM (End KM)</span>
+                    <input type="number" id="in-endkm" value="12630" oninput="render()" placeholder="End KM">
+                </div>
+            </div>
+
+            <div class="grp-label">5. Dynamic Multiple Trip Rows (+ / -)</div>
+            <div id="trip-item-input-container"></div>
+            <button type="button" style="width:100%; background:rgba(255,255,255,0.08); color:#38bdf8; border:1px dashed rgba(56,189,248,0.4); height:38px; border-radius:8px; font-weight:700; cursor:pointer; margin-bottom:14px" onclick="addTripRow()">
+                <i class="fas fa-plus-circle"></i> Add Trip Row (+ નવી ટ્રિપ ઉમેરો)
+            </button>
+
+            <div class="grp-label">6. Toll & Advance Adjustment</div>
+            <div class="grid-2">
+                <div>
+                    <span style="font-size:10px; color:#94a3b8; font-weight:700">ટોલ ટેક્ષ & પાર્કિંગ (+ Toll ₹)</span>
+                    <input type="number" id="in-toll" value="250" oninput="render()" placeholder="Toll Tax ₹">
+                </div>
+                <div>
+                    <span style="font-size:10px; color:#ef4444; font-weight:800">અગાઉ જમા અડવાન્સ (- Advance ₹)</span>
+                    <input type="number" id="in-advance" value="1000" oninput="render()" placeholder="Advance Paid ₹">
+                </div>
+            </div>
+
+            <button type="button" style="width:100%; background:linear-gradient(135deg, #0284c7, #0369a1); color:#fff; height:46px; border-radius:23px; border:none; font-weight:800; cursor:pointer; margin-top:10px" onclick="downloadPNG()">
+                <i class="fas fa-download"></i> Download Trip PNG
+            </button>
+            <button type="button" style="width:100%; background:rgba(255,255,255,0.1); color:#fff; height:46px; border-radius:23px; border:1px solid rgba(255,255,255,0.2); font-weight:800; cursor:pointer; margin-top:10px" onclick="printSingleTrip()">
+                <i class="fas fa-print"></i> Print A4 Trip Slip
+            </button>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="trip-canvas" id="trip-card">
+                <div class="trip-header">
+                    <div class="trip-title" id="out-comp">શ્રીનાથજી ટૂર & ટ્રાવેલ્સ</div>
+                    <div class="trip-sub">ડ્રાઇવર & ટ્રાન્સપોર્ટ ભાડું ડ્યુટી સ્લિપ</div>
+                    <div class="trip-tag">TRIP DUTY SLIP</div>
+                </div>
+
+                <div class="trip-purpose-box">
+                    <i class="fas fa-route" style="color:#0284c7; margin-right:6px"></i> <span id="out-purpose">લગ્ન પ્રસંગ બહાર ગામ ટ્રિપ & સામાન હેરફેર</span>
+                </div>
+
+                <div class="trip-km-badge-row" id="out-km-badge-row">
+                    <div>શરૂઆત KM: <span id="out-startkm" style="color:#fbbf24">12,400</span></div>
+                    <div>અંતિમ KM: <span id="out-endkm" style="color:#fbbf24">12,630</span></div>
+                    <div>કુલ અંતર: <span id="out-totalkm" style="color:#38bdf8">230 KM</span></div>
+                </div>
+
+                <div class="trip-meta-grid">
+                    <div class="trip-meta-item">ગાડી નં: <span id="out-vno">GJ-03-AB-1234</span></div>
+                    <div class="trip-meta-item">ગાડી ટાઇપ: <span id="out-vtype">Swift Dzire</span></div>
+                    <div class="trip-meta-item">ડ્રાઇવર: <span id="out-driver">રમેશભાઈ</span></div>
+                    <div class="trip-meta-item">ગ્રાહક: <span id="out-cust">સંજયભાઈ</span></div>
+                    <div class="trip-meta-item">તારીખ: <span id="out-date">19/07/2026</span></div>
+                    <div class="trip-meta-item">ડ્રાઇવર ફોન: <span id="out-dphone">9876543210</span></div>
+                </div>
+
+                <table class="trip-table">
+                    <thead>
+                        <tr>
+                            <th>રૂટ / ટ્રિપ વિગત (Route & Purpose)</th>
+                            <th>વિગત</th>
+                            <th>ભાડું રકમ (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="out-table-body"></tbody>
+                </table>
+
+                <div class="trip-net-box">
+                    <div>ચૂકવવાપાત્ર ચોખ્ખું ભાડું (Net Payable Fare):</div>
+                    <div id="out-net-fare">₹0</div>
+                </div>
+
+                <div class="trip-stamp-row">
+                    <div class="trip-stamp">PAID / ભાડું જમા</div>
+                    <div style="text-align:right">
+                        <div style="font-size:11px; font-weight:800; color:#0f172a">ડ્રાઇવર / માલિક સહી</div>
+                        <div style="font-size:9px; color:#64748b">Driver Signature</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIRECT BODY CHILD FOR SINGLE PRINT CONTAINER -->
+    <div id="print-trip-container"></div>
+
+    <!-- HTML2CANVAS SCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script>
+        let tripRows = [
+            { id: 1, route: "રાજકોટ -> અમદાવાદ (Outstation)", detail: "Swift Dzire Trip", amt: 2990 }
+        ];
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-circle-check') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#38bdf8"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            if (!_('in-date').value) {
+                const today = new Date().toISOString().split('T')[0];
+                _('in-date').value = today;
+            }
+            renderForms();
+            render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+
+        function loadPreset(type, b) {
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+
+            if (type === 'blank') {
+                _('in-comp').value = "";
+                _('in-purpose').value = "";
+                _('in-vno').value = "";
+                _('in-vtype').value = "";
+                _('in-driver').value = "";
+                _('in-dphone').value = "";
+                _('in-cust').value = "";
+                _('in-startkm').value = "0";
+                _('in-endkm').value = "0";
+                _('in-toll').value = "0";
+                _('in-advance').value = "0";
+                tripRows = [{ id: 1, route: "", detail: "", amt: 0 }];
+                showToast('✨ Custom Blank Trip Sheet Loaded!', 'fa-file-circle-plus');
+            } else if (type === 'taxi') {
+                _('in-comp').value = "શ્રીનાથજી ટૂર & ટ્રાવેલ્સ";
+                _('in-purpose').value = "લગ્ન પ્રસંગ બહાર ગામ ટ્રિપ";
+                _('in-vno').value = "GJ-03-AB-1234";
+                _('in-vtype').value = "Swift Dzire (AC)";
+                _('in-driver').value = "રમેશભાઈ ડ્રાઇવર";
+                _('in-dphone').value = "9876543210";
+                _('in-cust').value = "સંજયભાઈ પટેલ";
+                _('in-startkm').value = "12400";
+                _('in-endkm').value = "12630";
+                _('in-toll').value = "250";
+                _('in-advance').value = "1000";
+                tripRows = [
+                    { id: 1, route: "રાજકોટ -> અમદાવાદ (Outstation)", detail: "Swift Dzire Trip", amt: 2990 }
+                ];
+                showToast('Loaded Taxi Outstation Preset', 'fa-taxi');
+            } else if (type === 'pickup') {
+                _('in-comp').value = "ખોડિયાર ગુડ્સ ટ્રાન્સપોર્ટ પિકઅપ";
+                _('in-purpose').value = "કપાસ & માલ સામાન ટ્રાન્સપોર્ટ હેરફેર";
+                _('in-vno').value = "GJ-10-TX-5678";
+                _('in-vtype').value = "Bolero Pickup";
+                _('in-driver').value = "પ્રવીણભાઈ";
+                _('in-dphone').value = "9988776655";
+                _('in-cust').value = "જયસુખભાઈ વેપારી";
+                _('in-startkm').value = "45000";
+                _('in-endkm').value = "45420";
+                _('in-toll').value = "500";
+                _('in-advance').value = "3000";
+                tripRows = [
+                    { id: 1, route: "ગોંડલ મંડી -> સુરત માર્કેટ", detail: "420 KM Goods Load", amt: 7560 }
+                ];
+                showToast('Loaded Pickup Goods Preset', 'fa-truck-pickup');
+            } else if (type === 'auto') {
+                _('in-comp').value = "જય અંબે ઓટો રિક્ષા સર્વિસ";
+                _('in-purpose').value = "લોકલ પેસેન્જર ટ્રિપ ભાડું";
+                _('in-vno').value = "GJ-03-AU-9012";
+                _('in-vtype').value = "CNG Auto";
+                _('in-driver').value = "મહેશભાઈ";
+                _('in-dphone').value = "9123456789";
+                _('in-cust').value = "ભાવેશભાઈ";
+                _('in-startkm').value = "150";
+                _('in-endkm').value = "165";
+                _('in-toll').value = "0";
+                _('in-advance').value = "0";
+                tripRows = [
+                    { id: 1, route: "બસ સ્ટેશન -> હોસ્પિટલ ચોક", detail: "15 KM Local", amt: 225 }
+                ];
+                showToast('Loaded Auto Rickshaw Preset', 'fa-motorcycle');
+            } else if (type === 'bus') {
+                _('in-comp').value = "સરસ્વતી સ્કૂલ વાન & બસ સર્વિસ";
+                _('in-purpose').value = "સ્કૂલ વાન માસિક ભાડું પાસ";
+                _('in-vno').value = "GJ-03-V-7788";
+                _('in-vtype').value = "School Van";
+                _('in-driver').value = "દિનેશભાઈ";
+                _('in-dphone').value = "9898989898";
+                _('in-cust').value = "રોહન પટેલ (વાલી)";
+                _('in-startkm').value = "0";
+                _('in-endkm').value = "0";
+                _('in-toll').value = "0";
+                _('in-advance').value = "0";
+                tripRows = [
+                    { id: 1, route: "ઘર -> સ્કૂલ (માસિક પાસ)", detail: "July 2026 Pass", amt: 1500 }
+                ];
+                showToast('Loaded Bus / School Van Preset', 'fa-bus');
+            }
+            renderForms();
+            render();
+        }
+
+        function addTripRow() {
+            tripRows.push({ id: Date.now(), route: "", detail: "", amt: 0 });
+            renderForms();
+            render();
+        }
+
+        function delTripRow(id) {
+            tripRows = tripRows.filter(x => x.id !== id);
+            renderForms();
+            render();
+        }
+
+        function updateTripRow(id, field, val) {
+            const row = tripRows.find(x => x.id === id);
+            if (row) {
+                row[field] = val;
+                render();
+            }
+        }
+
+        function renderForms() {
+            const container = _('trip-item-input-container');
+            let h = '';
+            tripRows.forEach((row, idx) => {
+                h += `
+                <div class="trip-item-row">
+                    <input type="text" value="${row.route}" oninput="updateTripRow(${row.id}, 'route', this.value)" placeholder="Trip #${idx+1} Route (e.g. Rajkot -> Morbi)">
+                    <input type="text" value="${row.detail}" style="width:100px" oninput="updateTripRow(${row.id}, 'detail', this.value)" placeholder="Details">
+                    <input type="number" value="${row.amt}" style="width:85px" oninput="updateTripRow(${row.id}, 'amt', parseFloat(this.value)||0)" placeholder="₹ Fare">
+                    <button class="btn-del-trip-row" onclick="delTripRow(${row.id})"><i class="fas fa-times"></i></button>
+                </div>`;
+            });
+            container.innerHTML = h;
+        }
+
+        function render() {
+            _('out-comp').innerText = _('in-comp').value.trim() || 'YOUR TRAVEL NAME';
+            _('out-purpose').innerText = _('in-purpose').value.trim() || 'Trip Details';
+            _('out-vno').innerText = _('in-vno').value.trim() || 'GJ-00-XX-0000';
+            _('out-vtype').innerText = _('in-vtype').value.trim() || 'Vehicle';
+            _('out-driver').innerText = _('in-driver').value.trim() || 'Driver';
+            _('out-dphone').innerText = _('in-dphone').value.trim() || '';
+            _('out-cust').innerText = _('in-cust').value.trim() || 'Customer';
+
+            const rawDate = _('in-date').value;
+            if (rawDate) {
+                const parts = rawDate.split('-');
+                if (parts.length === 3) _('out-date').innerText = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                else _('out-date').innerText = rawDate;
+            } else {
+                _('out-date').innerText = '';
+            }
+
+            const startKm = parseFloat(_('in-startkm').value) || 0;
+            const endKm = parseFloat(_('in-endkm').value) || 0;
+            const totalKm = Math.max(0, endKm - startKm);
+
+            _('out-startkm').innerText = startKm.toLocaleString();
+            _('out-endkm').innerText = endKm.toLocaleString();
+            _('out-totalkm').innerText = `${totalKm.toLocaleString()} KM`;
+
+            let totalTripFare = 0;
+            let h = '';
+
+            // Render trip rows
+            tripRows.forEach(row => {
+                const amt = parseFloat(row.amt) || 0;
+                totalTripFare += amt;
+                h += `
+                <tr>
+                    <td>${row.route || '---'}</td>
+                    <td style="color:#64748b">${row.detail || ''}</td>
+                    <td>₹${amt.toLocaleString()}</td>
+                </tr>`;
+            });
+
+            const toll = parseFloat(_('in-toll').value) || 0;
+            const advance = parseFloat(_('in-advance').value) || 0;
+
+            if (toll > 0) {
+                h += `
+                <tr>
+                    <td>ટોલ ટેક્ષ & પાર્કિંગ ખર્ચ (Toll & Parking)</td>
+                    <td style="color:#0284c7">Extra Toll</td>
+                    <td style="color:#0284c7">+₹${toll.toLocaleString()}</td>
+                </tr>`;
+            }
+
+            if (advance > 0) {
+                h += `
+                <tr style="background:#fff1f2">
+                    <td style="color:#e11d48">અગાઉ જમા એડવાન્સ (- Advance)</td>
+                    <td style="color:#e11d48">Advance Paid</td>
+                    <td style="color:#e11d48">-₹${advance.toLocaleString()}</td>
+                </tr>`;
+            }
+
+            _('out-table-body').innerHTML = h;
+
+            const netFare = totalTripFare + toll - advance;
+            _('out-net-fare').innerText = `₹${Math.max(0, netFare).toLocaleString()}`;
+        }
+
+        function printSingleTrip() {
+            showToast('Preparing Single A4 Trip Slip...', 'fa-print');
+            const container = _('print-trip-container');
+            container.innerHTML = '';
+            const card = _('trip-card');
+            container.innerHTML = card.outerHTML;
+
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+
+        function downloadPNG() {
+            showToast('Generating HD Trip Slip PNG...', 'fa-spinner fa-spin');
+            const card = _('trip-card');
+            html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `Trip-Slip-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ Ultra-HD Trip Slip Downloaded!', 'fa-circle-check');
+            });
+        }
+    </script>
+</body>
+
+</html>

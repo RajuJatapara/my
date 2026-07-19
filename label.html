@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Price Tag & Barcode Crafter Pro - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --page-bg: #0f172a;
+            --th: #10b981;
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            gap: 10px;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #34d399;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-top-main {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.1s ease;
+        }
+
+        .btn-top-main:active { transform: scale(0.96); }
+
+        .btn-top-sec {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* CONTROLS PANEL */
+        .controls-panel {
+            width: 440px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            flex-shrink: 0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        /* CONTACT/FIELD INPUT GROUP WITH CHECKBOX & ICON */
+        .field-input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 4px 10px;
+        }
+
+        .field-input-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            cursor: pointer;
+            flex-shrink: 0;
+            width: 115px;
+        }
+
+        .field-input-group label i {
+            color: #34d399;
+            font-size: 13px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .field-input-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .field-input-group input[type="text"] {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: #fff;
+            padding: 6px 0;
+            margin-bottom: 0;
+            font-size: 13px;
+        }
+
+        .field-input-group input[type="text"]:focus {
+            box-shadow: none;
+            background: transparent;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 13px;
+            background: #1e293b;
+            color: #f8fafc;
+            margin-bottom: 10px;
+        }
+
+        select option { background: #0f172a; color: #f8fafc; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+
+        .opt-box.active {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(52, 211, 153, 0.5);
+            color: #6ee7b7;
+        }
+
+        /* PREVIEW PANEL */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* PRICE TAG CANVAS VARIANTS */
+        .tag-canvas {
+            background: #fff;
+            color: #0f172a;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        /* SHAPE 1: CLOTHING HANG TAG */
+        .tag-canvas.shape-clothing {
+            width: 260px;
+            padding: 24px 20px 20px 20px;
+            border-radius: 16px 16px 8px 8px;
+            border: 2px solid #e2e8f0;
+            border-top: 10px solid var(--th);
+        }
+
+        .tag-canvas.shape-clothing::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            width: 14px;
+            height: 14px;
+            background: #1e293b;
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        /* SHAPE 2: SUPERMARKET SHELF STICKER */
+        .tag-canvas.shape-shelf {
+            width: 340px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            border-left: 12px solid var(--th);
+        }
+
+        /* SHAPE 3: JAR & BOTTLE OVAL LABEL */
+        .tag-canvas.shape-oval {
+            width: 290px;
+            height: 290px;
+            border-radius: 50%;
+            padding: 30px;
+            justify-content: center;
+            border: 4px double var(--th);
+            background: #fffdf5;
+        }
+
+        /* SHAPE 4: MINIMAL BARCODE TAG */
+        .tag-canvas.shape-minimal {
+            width: 280px;
+            padding: 14px;
+            border-radius: 6px;
+            border: 2px solid #0f172a;
+        }
+
+        /* TAG THEMES */
+        .tag-canvas.theme-emerald { --th: #10b981; }
+        .tag-canvas.theme-gold { --th: #fbbf24; }
+        .tag-canvas.theme-red { --th: #ef4444; }
+        .tag-canvas.theme-dark { --th: #0f172a; }
+
+        /* TAG TYPOGRAPHY & ELEMENTS */
+        .tag-brand { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; letter-spacing: 0.8px; margin-bottom: 2px; }
+        .tag-name { font-size: clamp(16px, 4vw, 20px); font-weight: 800; margin: 4px 0; color: #0f172a; line-height: 1.2; }
+        
+        .tag-price-row { display: flex; align-items: baseline; justify-content: center; gap: 8px; margin: 6px 0; flex-wrap: wrap; }
+        .tag-sale-price { font-size: clamp(24px, 5.5vw, 34px); font-weight: 900; color: var(--th); line-height: 1; }
+        .tag-mrp-price { font-size: 13px; text-decoration: line-through; color: #94a3b8; font-weight: 600; }
+        .tag-discount { background: #22c55e; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; }
+
+        .tag-badge-info { display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 11px; font-weight: 700; color: #475569; margin: 4px 0; }
+        .tag-badge-info span { background: #f1f5f9; padding: 2px 8px; border-radius: 6px; }
+
+        .tag-barcode { margin-top: 6px; }
+        .tag-barcode svg { max-width: 100%; height: 48px; }
+
+        #print-sheet-grid { display: none; }
+
+        /* PRINT STYLES - A4 STICKER SHEET GRID */
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                overflow: visible !important;
+            }
+            .app-header, .app-body, #toast-container {
+                display: none !important;
+            }
+            #print-sheet-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                padding: 8mm;
+                width: 100% !important;
+                background: #fff !important;
+            }
+            #print-sheet-grid .tag-canvas {
+                box-shadow: none !important;
+                margin: 0 !important;
+                break-inside: avoid;
+                page-break-inside: avoid;
+                width: 100% !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #000 !important;
+            }
+        }
+
+        /* MOBILE RESPONSIVE STYLES */
+        @media (max-width: 900px) {
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-body { flex-direction: column; overflow: visible; }
+            .preview-panel { width: 100%; min-height: 340px; position: sticky; top: 0; z-index: 40; border-bottom: 2px solid rgba(255,255,255,0.1); padding: 16px 12px; }
+            .controls-panel { width: 100%; border-right: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- HEADER TOPBAR -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-barcode"></i>
+            <span data-i18n="suite_title">RAJU CRAFTER STUDIO</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <div class="btn-top-sec" onclick="printSheet()"><i class="fas fa-print"></i> Print A4 Sticker Sheet</div>
+            <div class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download HD</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP BODY -->
+    <div class="app-body">
+        <!-- CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="grp-label">1. Product & Brand Information</div>
+            <div class="field-input-group">
+                <label><input type="checkbox" id="k-brand" checked onchange="render()"><i class="fas fa-copyright"></i> Brand Name</label>
+                <input type="text" id="in-brand" value="ROYAL FASHION & CRAFT" oninput="render()" placeholder="Brand / Shop Name">
+            </div>
+
+            <div class="field-input-group">
+                <label><input type="checkbox" id="k-name" checked onchange="render()"><i class="fas fa-box"></i> Product Name</label>
+                <input type="text" id="in-name" value="Men Premium Cotton Shirt" oninput="render()" placeholder="Product Name">
+            </div>
+
+            <div class="grp-label">2. Pricing Details & Currency</div>
+            <div class="field-input-group">
+                <label><input type="checkbox" id="k-sale" checked onchange="render()"><i class="fas fa-tag"></i> Sale Price</label>
+                <input type="text" id="in-sale" value="799" oninput="render()" placeholder="Sale Price (e.g. 799)">
+            </div>
+
+            <div class="field-input-group">
+                <label><input type="checkbox" id="k-mrp" checked onchange="render()"><i class="fas fa-money-bill"></i> MRP Price</label>
+                <input type="text" id="in-mrp" value="1,499" oninput="render()" placeholder="MRP Price (e.g. 1499)">
+            </div>
+
+            <div class="field-input-group">
+                <label><input type="checkbox" id="k-disc" checked onchange="render()"><i class="fas fa-bolt"></i> Discount Tag</label>
+                <input type="text" id="in-disc" value="45% OFF" oninput="render()" placeholder="Discount Tag (e.g. 45% OFF)">
+            </div>
+
+            <div class="field-input-group">
+                <label><i class="fas fa-coins"></i> Currency Symbol</label>
+                <input type="text" id="in-curr" value="₹" oninput="render()" placeholder="₹ / $ / € / £">
+            </div>
+
+            <div class="grp-label">3. Net Qty & Expiry / Batch Meta</div>
+            <div class="field-input-group">
+                <label><input type="checkbox" id="k-weight" checked onchange="render()"><i class="fas fa-weight-hanging"></i> Weight / Qty</label>
+                <input type="text" id="in-weight" value="Size: L (40cm)" oninput="render()" placeholder="Net Qty / Size (e.g. 500g / Size L)">
+            </div>
+
+            <div class="field-input-group">
+                <label><input type="checkbox" id="k-date" checked onchange="render()"><i class="fas fa-calendar-alt"></i> Expiry / Batch</label>
+                <input type="text" id="in-date" value="Batch: B-2026 | Exp: 2028" oninput="render()" placeholder="Expiry / Batch No.">
+            </div>
+
+            <div class="grp-label">4. Barcode Code 128</div>
+            <div class="field-input-group">
+                <label><input type="checkbox" id="k-barcode" checked onchange="render()"><i class="fas fa-barcode"></i> Barcode</label>
+                <input type="text" id="in-barcode" value="890123456789" oninput="render()" placeholder="Barcode Number">
+            </div>
+
+            <div class="grp-label">5. Retail Tag Shape Variant</div>
+            <div class="grid-2" style="margin-bottom:12px">
+                <div class="opt-box active" onclick="setShape('clothing', this)"><i class="fas fa-shirt"></i> Clothing Hang Tag</div>
+                <div class="opt-box" onclick="setShape('shelf', this)"><i class="fas fa-store"></i> Supermarket Shelf</div>
+                <div class="opt-box" onclick="setShape('oval', this)"><i class="fas fa-circle"></i> Jar & Bottle Oval</div>
+                <div class="opt-box" onclick="setShape('minimal', this)"><i class="fas fa-barcode"></i> Minimal Barcode</div>
+            </div>
+
+            <div class="grp-label">6. Tag Theme Color</div>
+            <div class="grid-4" style="margin-bottom:16px">
+                <div class="opt-box active" onclick="setTheme('emerald', this)">Emerald</div>
+                <div class="opt-box" onclick="setTheme('gold', this)">Gold</div>
+                <div class="opt-box" onclick="setTheme('red', this)">Red Sale</div>
+                <div class="opt-box" onclick="setTheme('dark', this)">Dark Mono</div>
+            </div>
+
+            <button type="button" style="width:100%; background:linear-gradient(135deg, #10b981, #059669); color:#fff; height:46px; border-radius:23px; border:none; font-weight:800; cursor:pointer; margin-top:10px" onclick="downloadPNG()">
+                <i class="fas fa-download"></i> Download Price Tag PNG
+            </button>
+            <button type="button" style="width:100%; background:rgba(255,255,255,0.1); color:#fff; height:46px; border-radius:23px; border:1px solid rgba(255,255,255,0.2); font-weight:800; cursor:pointer; margin-top:10px" onclick="printSheet()">
+                <i class="fas fa-print"></i> Print A4 Sticker Sheet (24 Labels)
+            </button>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="tag-canvas shape-clothing theme-emerald" id="tag-card">
+                <!-- DYNAMIC CONTENT GENERATED BY RENDER() -->
+            </div>
+        </div>
+    </div>
+
+    <!-- DYNAMIC A4 PRINT STICKER SHEET GRID (DIRECT BODY CHILD) -->
+    <div id="print-sheet-grid"></div>
+
+    <!-- JSBARCODE & HTML2CANVAS SCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script>
+        const app = {
+            shape: 'clothing',
+            theme: 'emerald'
+        };
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-circle-check') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#34d399"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+
+        function setShape(sh, b) {
+            app.shape = sh;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast(`Tag Shape: ${sh.toUpperCase()}`, 'fa-shapes');
+        }
+
+        function setTheme(th, b) {
+            app.theme = th;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast(`Theme: ${th.toUpperCase()}`, 'fa-palette');
+        }
+
+        function render() {
+            const card = _('tag-card');
+            card.className = `tag-canvas shape-${app.shape} theme-${app.theme}`;
+
+            const showBrand = _('k-brand').checked;
+            const showName = _('k-name').checked;
+            const showSale = _('k-sale').checked;
+            const showMrp = _('k-mrp').checked;
+            const showDisc = _('k-disc').checked;
+            const showWeight = _('k-weight').checked;
+            const showDate = _('k-date').checked;
+            const showBarcode = _('k-barcode').checked;
+
+            const brand = _('in-brand').value.trim();
+            const name = _('in-name').value.trim();
+            const sale = _('in-sale').value.trim();
+            const mrp = _('in-mrp').value.trim();
+            const disc = _('in-disc').value.trim();
+            const curr = _('in-curr').value.trim() || '₹';
+            const weight = _('in-weight').value.trim();
+            const date = _('in-date').value.trim();
+            const barcodeVal = _('in-barcode').value.trim();
+
+            let h = '';
+
+            if (showBrand && brand) h += `<div class="tag-brand">${brand}</div>`;
+            if (showName && name) h += `<div class="tag-name">${name}</div>`;
+
+            if ((showSale && sale) || (showMrp && mrp) || (showDisc && disc)) {
+                h += `<div class="tag-price-row">`;
+                if (showSale && sale) h += `<div class="tag-sale-price">${curr}${sale}</div>`;
+                if (showMrp && mrp) h += `<div class="tag-mrp-price">M.R.P: ${curr}${mrp}</div>`;
+                if (showDisc && disc) h += `<div class="tag-discount">${disc}</div>`;
+                h += `</div>`;
+            }
+
+            if ((showWeight && weight) || (showDate && date)) {
+                h += `<div class="tag-badge-info">`;
+                if (showWeight && weight) h += `<span>${weight}</span>`;
+                if (showDate && date) h += `<span>${date}</span>`;
+                h += `</div>`;
+            }
+
+            if (showBarcode && barcodeVal) {
+                h += `<div class="tag-barcode"><svg id="barcode-svg"></svg></div>`;
+            }
+
+            card.innerHTML = h;
+
+            if (showBarcode && barcodeVal) {
+                try {
+                    JsBarcode("#barcode-svg", barcodeVal, {
+                        format: "CODE128",
+                        width: 2,
+                        height: 42,
+                        displayValue: true,
+                        fontSize: 11,
+                        margin: 2
+                    });
+                } catch(e) {}
+            }
+        }
+
+        function printSheet() {
+            showToast('Preparing 24-Sticker A4 Print Sheet...', 'fa-print');
+            const grid = _('print-sheet-grid');
+            grid.innerHTML = '';
+            
+            const brand = _('in-brand').value.trim();
+            const name = _('in-name').value.trim();
+            const sale = _('in-sale').value.trim();
+            const mrp = _('in-mrp').value.trim();
+            const disc = _('in-disc').value.trim();
+            const curr = _('in-curr').value.trim() || '₹';
+            const weight = _('in-weight').value.trim();
+            const date = _('in-date').value.trim();
+            const barcodeVal = _('in-barcode').value.trim();
+
+            const showBrand = _('k-brand').checked;
+            const showName = _('k-name').checked;
+            const showSale = _('k-sale').checked;
+            const showMrp = _('k-mrp').checked;
+            const showDisc = _('k-disc').checked;
+            const showWeight = _('k-weight').checked;
+            const showDate = _('k-date').checked;
+            const showBarcode = _('k-barcode').checked;
+
+            let singleTagHtml = `<div class="tag-canvas shape-${app.shape} theme-${app.theme}">`;
+            if (showBrand && brand) singleTagHtml += `<div class="tag-brand">${brand}</div>`;
+            if (showName && name) singleTagHtml += `<div class="tag-name">${name}</div>`;
+            if ((showSale && sale) || (showMrp && mrp) || (showDisc && disc)) {
+                singleTagHtml += `<div class="tag-price-row">`;
+                if (showSale && sale) singleTagHtml += `<div class="tag-sale-price">${curr}${sale}</div>`;
+                if (showMrp && mrp) singleTagHtml += `<div class="tag-mrp-price">M.R.P: ${curr}${mrp}</div>`;
+                if (showDisc && disc) singleTagHtml += `<div class="tag-discount">${disc}</div>`;
+                singleTagHtml += `</div>`;
+            }
+            if ((showWeight && weight) || (showDate && date)) {
+                singleTagHtml += `<div class="tag-badge-info">`;
+                if (showWeight && weight) singleTagHtml += `<span>${weight}</span>`;
+                if (showDate && date) singleTagHtml += `<span>${date}</span>`;
+                singleTagHtml += `</div>`;
+            }
+            if (showBarcode && barcodeVal) {
+                singleTagHtml += `<div class="tag-barcode"><svg class="print-svg"></svg></div>`;
+            }
+            singleTagHtml += `</div>`;
+
+            let fullGridHtml = '';
+            for (let i = 0; i < 24; i++) {
+                fullGridHtml += singleTagHtml;
+            }
+            grid.innerHTML = fullGridHtml;
+
+            if (showBarcode && barcodeVal) {
+                grid.querySelectorAll('.print-svg').forEach(svg => {
+                    try {
+                        JsBarcode(svg, barcodeVal, {
+                            format: "CODE128",
+                            width: 2,
+                            height: 38,
+                            displayValue: true,
+                            fontSize: 10,
+                            margin: 2
+                        });
+                    } catch(e) {}
+                });
+            }
+
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+
+        function downloadPNG() {
+            showToast('Generating HD Price Tag PNG...', 'fa-spinner fa-spin');
+            const card = _('tag-card');
+            html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `Price-Tag-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ Ultra-HD Price Tag Downloaded!', 'fa-circle-check');
+            });
+        }
+    </script>
+</body>
+
+</html>

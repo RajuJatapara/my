@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ad Crafter Pro - Design By Raju Jatapara</title>
-    <!-- Premium Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Montserrat:wght@400;600;800;900&family=Open+Sans:wght@400;600&family=Great+Vibes&family=Oswald:wght@500;700&family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet">
+    <title>Executive Visiting Card Crafter Pro - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Cinzel:wght@700&family=Montserrat:wght@400;600;800;900&display=swap" rel="stylesheet">
     <!-- FontAwesome 6.4.2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- i18n Translation Engine -->
@@ -17,14 +17,11 @@
             --primary: #6366f1;
             --primary-hover: #4f46e5;
             --page-bg: #0f172a;
-            --card-w: 1080px;
-            --card-h: 600px;
             --th: #6366f1;
             --font-main: 'Poppins', sans-serif;
             --overlay-op: 0;
             --text-align: left;
-            --tx-xl-size: 44px;
-            --tx-xl-lh: 1.1;
+            --card-radius: 12px;
         }
 
         .lang-selector {
@@ -56,23 +53,23 @@
 
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            margin: 0;
-            padding: 0;
             background: var(--page-bg);
+            color: #f8fafc;
             font-family: 'Poppins', sans-serif;
             height: 100vh;
             height: 100dvh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            color: #f8fafc;
         }
 
-        /* --- TOAST NOTIFICATIONS --- */
+        /* TOAST NOTIFICATIONS */
         #toast-container {
             position: fixed;
             top: 16px;
@@ -106,16 +103,16 @@
             to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        /* --- HEADER NAVBAR --- */
+        /* HEADER NAVBAR */
         .app-header {
-            min-height: 56px;
+            height: 56px;
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 16px;
+            padding: 0 16px;
             z-index: 100;
             gap: 10px;
         }
@@ -123,14 +120,13 @@
         .brand-logo-title {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-weight: 800;
             font-size: 15px;
-            letter-spacing: 0.5px;
-            background: linear-gradient(135deg, #818cf8, #c084fc);
+            background: linear-gradient(135deg, #6366f1, #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            flex-shrink: 0;
+            text-decoration: none;
         }
 
         .brand-logo-title i {
@@ -139,153 +135,108 @@
             font-size: 18px;
         }
 
-        .ratio-selector {
+        .size-selector {
             display: flex;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 3px;
-            border-radius: 10px;
+            align-items: center;
             gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px;
+            border-radius: 12px;
             overflow-x: auto;
             scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
         }
 
-        .ratio-selector::-webkit-scrollbar { display: none; }
-
-        .ratio-btn {
-            padding: 6px 10px;
-            border-radius: 7px;
+        .size-btn {
+            padding: 5px 10px;
+            border-radius: 8px;
             font-size: 11px;
             font-weight: 700;
             color: #94a3b8;
             cursor: pointer;
             transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
             white-space: nowrap;
-            flex-shrink: 0;
         }
 
-        .ratio-btn.active {
+        .size-btn.active {
             background: var(--primary);
             color: #fff;
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 3px 10px rgba(99, 102, 241, 0.4);
         }
 
         .header-actions {
             display: flex;
             align-items: center;
             gap: 8px;
-            flex-shrink: 0;
+        }
+
+        .btn-top-vcf {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-top-vcf:hover {
+            background: #22c55e;
+            color: #fff;
         }
 
         .btn-top-main {
-            padding: 7px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             background: linear-gradient(135deg, #6366f1, #4f46e5);
             color: #fff;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
             transition: transform 0.1s ease;
         }
 
         .btn-top-main:active { transform: scale(0.96); }
 
-        .btn-top-sec {
-            padding: 7px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            background: rgba(255, 255, 255, 0.08);
-            color: #cbd5e1;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .btn-top-sec:hover {
-            background: rgba(239, 68, 68, 0.2);
-            color: #fca5a5;
-            border-color: rgba(239, 68, 68, 0.4);
-        }
-
-        /* --- PREVIEW ZONE --- */
-        .preview-zone {
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
             flex: 1;
-            background: #1e293b;
             display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
-            position: relative;
-            background-image:
-                linear-gradient(45deg, rgba(255,255,255,0.03) 25%, transparent 25%),
-                linear-gradient(-45deg, rgba(255,255,255,0.03) 25%, transparent 25%),
-                linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.03) 75%),
-                linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.03) 75%);
-            background-size: 24px 24px;
-            background-position: 0 0, 0 12px, 12px -12px, -12px 0px;
-            padding: 16px;
         }
 
-        #scaler-wrap {
-            width: var(--card-w);
-            height: var(--card-h);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-            background: #fff;
-            transform-origin: center;
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 4px;
-        }
-
-        #artboard, #artboard * {
-            word-break: break-word;
-            overflow-wrap: break-word;
-        }
-
-        #artboard {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            font-family: var(--font-main);
-        }
-
-        /* --- CONTROLS PANEL --- */
-        .controls-wrap {
-            height: 46vh;
+        /* CONTROLS PANEL */
+        .controls-panel {
+            width: 440px;
             background: #0f172a;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             flex-direction: column;
-            z-index: 50;
+            z-index: 20;
+            flex-shrink: 0;
         }
 
         .tabs-header {
             display: flex;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.95);
             overflow-x: auto;
             scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
+            flex-shrink: 0;
         }
-
-        .tabs-header::-webkit-scrollbar { display: none; }
 
         .tab-item {
             flex: 1;
-            min-width: 90px;
+            min-width: 85px;
             text-align: center;
             padding: 12px 6px;
             cursor: pointer;
@@ -301,15 +252,13 @@
 
         .tab-item.active {
             color: #818cf8;
-            background: rgba(99, 102, 241, 0.08);
+            background: rgba(99, 102, 241, 0.1);
         }
 
         .tab-item.active::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             height: 3px;
             background: linear-gradient(90deg, #6366f1, #a855f7);
             border-radius: 3px 3px 0 0;
@@ -317,20 +266,19 @@
 
         .tab-item i {
             display: block;
-            font-size: 15px;
+            font-size: 14px;
             margin-bottom: 3px;
         }
 
         .tab-body {
             flex: 1;
             overflow-y: auto;
-            padding: 16px 20px 30px 20px;
+            padding: 18px 20px 40px 20px;
             display: none;
         }
 
         .tab-body.active { display: block; }
 
-        /* UI ELEMENTS */
         .grp-label {
             font-size: 11px;
             font-weight: 800;
@@ -345,22 +293,97 @@
 
         .grp-label:first-child { margin-top: 0; }
 
-        .grid-auto {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+        /* CONTACT ROW WITH CHECKBOX & ICON */
+        .contact-input-group {
+            display: flex;
+            align-items: center;
             gap: 8px;
+            margin-bottom: 10px;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 8px;
+            padding: 4px 10px;
         }
 
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
+        .contact-input-group label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            cursor: pointer;
+            flex-shrink: 0;
+            width: 110px;
         }
+
+        .contact-input-group label i {
+            color: #818cf8;
+            font-size: 13px;
+            width: 16px;
+            text-align: center;
+        }
+
+        .contact-input-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .contact-input-group input[type="text"],
+        .contact-input-group input[type="tel"],
+        .contact-input-group input[type="email"] {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: #fff;
+            padding: 6px 0;
+            margin-bottom: 0;
+            font-size: 13px;
+        }
+
+        .contact-input-group input[type="text"]:focus,
+        .contact-input-group input[type="tel"]:focus,
+        .contact-input-group input[type="email"]:focus {
+            box-shadow: none;
+            background: transparent;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 13px;
+            background: #1e293b;
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+            transition: all 0.2s ease;
+        }
+
+        select option { background: #0f172a; color: #f8fafc; }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #818cf8;
+            background: #334155;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+        }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 
         .opt-box {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 9px 5px;
+            padding: 10px 6px;
             border-radius: 10px;
             text-align: center;
             font-size: 11px;
@@ -374,627 +397,179 @@
             transition: all 0.2s ease;
         }
 
-        .opt-box:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: #f1f5f9;
-        }
+        .opt-box:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
 
         .opt-box.active {
             background: rgba(99, 102, 241, 0.15);
-            border-color: rgba(99, 102, 241, 0.5);
+            border-color: rgba(129, 140, 248, 0.5);
             color: #a5b4fc;
             box-shadow: 0 0 12px rgba(99, 102, 241, 0.2);
         }
 
-        .opt-box i { font-size: 16px; }
-
-        .preset-chip {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #cbd5e1;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .preset-chip:hover {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-        }
-
-        .preset-chip.active {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
-        }
-
-        .preset-row {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding-bottom: 6px;
-            margin-bottom: 12px;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .preset-row::-webkit-scrollbar { display: none; }
-
-        input[type="text"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 8px;
-            font-size: 13px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #f8fafc;
-            font-family: inherit;
-            margin-bottom: 10px;
-            transition: all 0.2s ease;
-        }
-
-        select { cursor: pointer; color: #f8fafc; }
-        select option { background: #1e293b; color: #f8fafc; }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        .color-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 4px 0 12px 0;
-            scrollbar-width: none;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .color-row::-webkit-scrollbar { display: none; }
-
-        .color-dot {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            flex-shrink: 0;
-            cursor: pointer;
-            transition: transform 0.15s ease, border-color 0.15s ease;
-        }
-
-        .color-dot:hover {
-            transform: scale(1.15);
-            border-color: #fff;
-        }
-
-        .color-input-wrap {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 4px 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .color-input-wrap input[type="color"] {
-            width: 28px;
-            height: 28px;
-            border: none;
-            border-radius: 50%;
-            background: transparent;
-            cursor: pointer;
-        }
-
-        .ct-edit-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 8px 12px;
-            margin-bottom: 8px;
-        }
-
-        .ct-edit-row i {
-            width: 20px;
-            text-align: center;
-            font-size: 16px;
-            color: #818cf8;
-        }
-
-        .ct-edit-row input[type="text"] {
-            border: none;
-            background: transparent;
-            padding: 0;
-            margin: 0;
-            width: 100%;
-            font-weight: 500;
-        }
-
-        .ct-edit-row input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary);
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .btn-sec {
-            background: rgba(255, 255, 255, 0.1);
-            color: #f1f5f9;
-            height: 46px;
-            padding: 0 18px;
-            border-radius: 23px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: background 0.2s ease;
-        }
-
-        .btn-sec:hover { background: rgba(255, 255, 255, 0.18); }
-
-        .app-footer {
-            width: 100%;
-            text-align: center;
-            padding: 6px;
-            font-size: 11px;
-            color: #64748b;
-            background: #090d16;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .app-footer span { color: #818cf8; font-weight: 600; }
-
-        /* RANGE SLIDER */
-        .range-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 10px;
-        }
-        .range-wrap input[type="range"] { flex: 1; accent-color: var(--primary); }
-
-        /* STOCK BACKGROUND PATTERNS */
-        .pattern-default { background: inherit; }
-        .pattern-mesh {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        .pattern-gold {
-            background: linear-gradient(135deg, #451a03 0%, #78350f 40%, #b45309 70%, #d97706 100%) !important;
-        }
-        .pattern-festive {
-            background: radial-gradient(circle at 50% 30%, #7c2d12, #451a03 70%) !important;
-        }
-        .pattern-neon {
-            background: linear-gradient(135deg, #090d16 0%, #1e1b4b 50%, #311042 100%) !important;
-        }
-        .pattern-studio {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
-            color: #0f172a !important;
-        }
-        .pattern-pastel {
-            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fecdd3 100%) !important;
-            color: #881337 !important;
-        }
-
-        /* PHOTO SHAPE MASKS */
-        .shape-rect { border-radius: 0 !important; clip-path: none !important; }
-        .shape-rounded { border-radius: 24px !important; clip-path: none !important; }
-        .shape-circle { border-radius: 50% !important; width: 300px !important; height: 300px !important; margin: auto; clip-path: none !important; }
-        .shape-hexagon { clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%) !important; border-radius: 0 !important; }
-
-        /* URGENCY COUNTDOWN TIMER BADGE */
-        .timer-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #ef4444, #b91c1c);
-            color: #fff;
-            padding: 8px 18px;
-            border-radius: 25px;
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-            margin-bottom: 15px;
-            animation: pulseTimer 2s infinite;
-        }
-
-        @keyframes pulseTimer {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-
-        /* --- THEME RENDERING INSIDE ARTBOARD --- */
-        .img-cover-wrap {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .img-cover {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .img-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: #000;
-            opacity: var(--overlay-op);
-            pointer-events: none;
-        }
-
-        .brand-block {
+        /* PREVIEW PANEL */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
             display: flex;
             flex-direction: column;
-            align-items: var(--text-align);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* CARD SIDE TOGGLE BAR */
+        .side-toggle-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 4px 6px;
+            border-radius: 20px;
             margin-bottom: 20px;
+            z-index: 30;
         }
 
-        .brand-logo {
-            max-height: 70px;
-            max-width: 220px;
-            object-fit: contain;
-            margin-bottom: 6px;
-        }
-
-        .brand-name {
-            font-size: 26px;
+        .side-btn {
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 11px;
             font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.5px;
-        }
-
-        .brand-tag {
-            font-size: 14px;
-            opacity: 0.8;
-            font-weight: 500;
-        }
-
-        /* VISITING CARD SPECIAL STYLES */
-        .person-name {
-            font-size: 38px;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 4px;
-        }
-
-        .person-desig {
-            font-size: 18px;
-            font-weight: 600;
-            opacity: 0.85;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-            color: var(--th);
-        }
-
-        .qr-card-box {
-            width: 130px;
-            height: 130px;
-            background: #fff;
-            padding: 8px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .qr-card-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        /* Sticker Badges */
-        .sticker {
-            position: absolute;
-            width: 110px;
-            height: 110px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-weight: 800;
-            font-size: 13px;
-            line-height: 1.2;
-            color: #fff;
-            transform: rotate(12deg);
-            z-index: 20;
-            text-transform: uppercase;
-            filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.4));
+            color: #94a3b8;
+            cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .st-none { display: none; }
-        .st-sale { top: 20px; right: 20px; background: #dc2626; border-radius: 50%; border: 3px dashed #fff; }
-        .st-new { top: 20px; right: 20px; background: #2563eb; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); width: 120px; height: 120px; padding: 25px; }
-        .st-best { top: 20px; right: 20px; background: #ca8a04; border-radius: 12px; transform: rotate(-10deg); border: 2px solid #fff; }
-        .st-hot { top: 20px; right: 20px; background: linear-gradient(135deg, #f97316, #ef4444); border-radius: 50px; width: 130px; height: 50px; transform: rotate(5deg); border: 2px solid #fff; }
-        .st-custom { top: 20px; right: 20px; background: #9333ea; border-radius: 12px; transform: rotate(-8deg); border: 2px solid #fff; padding: 10px; }
+        .side-btn.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
 
-        .ct-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+        /* VISITING CARD CANVAS CONTAINER */
+        .vcard-container {
             width: 100%;
-            margin-top: auto;
+            max-width: 500px;
+            aspect-ratio: 3.5 / 2;
+            background: #0f172a;
+            border-radius: var(--card-radius);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            transition: all 0.3s ease;
+            margin: auto;
         }
 
-        .ct-chip {
+        .vcard-container.size-vertical { aspect-ratio: 2 / 3.5; max-width: 310px; flex-direction: column; }
+        .vcard-container.size-square { aspect-ratio: 2.5 / 2.5; max-width: 380px; }
+        .vcard-container.size-slim { aspect-ratio: 3.5 / 1.5; max-width: 520px; }
+
+        /* CORNER RADIUS VARIANTS */
+        .vcard-container.corner-square { border-radius: 0px !important; }
+        .vcard-container.corner-rounded { border-radius: 14px !important; }
+        .vcard-container.corner-capsule { border-radius: 28px !important; }
+        .vcard-container.corner-cut { clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px); border-radius: 0 !important; }
+
+        /* 5 LUXURY PAPER TEXTURE BACKGROUNDS */
+        .vcard-container.tex-none { background-image: none; }
+        
+        .vcard-container.tex-gold-foil {
+            background-image: radial-gradient(circle at 50% 30%, rgba(251, 191, 36, 0.25), transparent 70%), linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.2), 0 25px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .vcard-container.tex-linen {
+            background-image: 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+
+        .vcard-container.tex-carbon {
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 16%),
+                radial-gradient(rgba(255, 255, 255, 0.1) 15%, transparent 16%);
+            background-size: 12px 12px;
+            background-position: 0 0, 6px 6px;
+            background-color: #0b0f19;
+        }
+
+        .vcard-container.tex-marble {
+            background-image: radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .vcard-container.tex-leather {
+            background-image: radial-gradient(rgba(0, 0, 0, 0.4) 20%, transparent 20%);
+            background-size: 6px 6px;
+            background-color: #1c1917;
+        }
+
+        /* 12 MODERN TEMPLATES */
+        .t-corp-gold { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff; border-left: clamp(8px, 2vw, 14px) solid #fbbf24; }
+        .t-modern-min { background: #ffffff; color: #0f172a; border-top: clamp(6px, 1.5vw, 10px) solid var(--th); }
+        .t-cyber-neon { background: #090d16; color: #fff; border: 1px solid rgba(6, 182, 212, 0.4); box-shadow: inset 0 0 20px rgba(6,182,212,0.15); }
+        .t-diamond-vip { background: radial-gradient(circle at 50% 30%, #311042, #0f172a 90%); color: #fff; border: 3px double #fbbf24; }
+        .t-eco-emerald { background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); color: #14532d; }
+        .t-legal-navy { background: #0a192f; color: #f8fafc; border-bottom: clamp(6px, 1.5vw, 10px) solid #64ffda; }
+        .t-retail-shop { background: #fffdf5; color: #1e293b; border-left: clamp(8px, 2vw, 14px) solid #ef4444; }
+        .t-creative-gradient { background: linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #ec4899 100%); color: #fff; }
+        .t-realestate-gold { background: #18181b; color: #f4f4f5; border-right: clamp(8px, 2vw, 14px) solid #d97706; }
+        .t-auto-cab { background: #111827; color: #f9fafb; border-top: clamp(6px, 1.5vw, 10px) solid #f59e0b; }
+        .t-doctor-cyan { background: #f0fdf4; color: #0f172a; border-left: clamp(8px, 2vw, 14px) solid #06b6d4; }
+        .t-hotel-burgundy { background: linear-gradient(135deg, #451a03 0%, #78350f 100%); color: #fef3c7; border: 2px solid #f59e0b; }
+
+        .card-inner-layout {
+            padding: clamp(14px, 3.5vw, 28px);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            font-weight: 500;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 6px 12px;
-            border-radius: 20px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
         }
 
-        .ct-ico {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
+        .card-inner-layout .L { flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+        .card-inner-layout .R { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; height: 100%; padding-left: 12px; flex-shrink: 0; }
+
+        /* CARD TYPOGRAPHY */
+        .v-person-name { font-size: clamp(18px, 4.5vw, 28px); font-weight: 800; line-height: 1.1; letter-spacing: -0.5px; margin-bottom: 2px; }
+        .v-person-desig { font-size: clamp(10px, 2.2vw, 14px); font-weight: 600; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+        .v-shop-block { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .v-shop-logo { max-height: 36px; max-width: 110px; object-fit: contain; }
+        .v-shop-name { font-size: clamp(13px, 3vw, 18px); font-weight: 800; }
+        .v-contacts-list { display: flex; flex-direction: column; gap: 4px; margin-top: auto; }
+        .v-contact-row { display: flex; align-items: center; gap: 8px; font-size: clamp(10px, 2.2vw, 12px); font-weight: 500; }
+        .v-contact-row i { width: 18px; height: 18px; border-radius: 50%; background: rgba(99, 102, 241, 0.15); color: var(--th); display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+        .v-qr-box { width: clamp(70px, 18vw, 100px); height: clamp(70px, 18vw, 100px); background: #fff; padding: 6px; border-radius: 8px; box-shadow: 0 6px 15px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .v-qr-box img { width: 100%; height: 100%; object-fit: contain; }
+        .v-avatar-photo { width: clamp(50px, 13vw, 80px); height: clamp(50px, 13vw, 80px); border-radius: 50%; border: 2px solid var(--th); object-fit: cover; margin-bottom: 8px; flex-shrink: 0; }
+
+        /* BACK SIDE STYLING */
+        .back-side-layout {
+            padding: clamp(20px, 4vw, 36px);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            font-size: 13px;
-            flex-shrink: 0;
-        }
-
-        .bg-wa { background: #25d366 !important; }
-        .bg-fb { background: #1877f2 !important; }
-        .bg-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%) !important; }
-        .bg-ph { background: #3b82f6 !important; }
-        .bg-wb { background: #06b6d4 !important; }
-        .bg-em { background: #ea580c !important; }
-        .bg-ad { background: #64748b !important; }
-        .bg-nm { background: #475569 !important; }
-
-        /* E-COMMERCE PRODUCT STYLES */
-        .price-box {
-            display: flex;
-            align-items: baseline;
-            gap: 14px;
-            margin: 12px 0;
-        }
-
-        .sale-price {
-            font-size: 46px;
-            font-weight: 900;
-            color: #ef4444;
-            line-height: 1;
-        }
-
-        .orig-price {
-            font-size: 24px;
-            color: #94a3b8;
-            text-decoration: line-through;
-            font-weight: 600;
-        }
-
-        .discount-badge {
-            background: #22c55e;
-            color: #fff;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .rating-box {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #f59e0b;
-            font-weight: 700;
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-
-        .stock-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(34, 197, 94, 0.15);
-            color: #15803d;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
+            width: 100%;
+            height: 100%;
             gap: 10px;
-            background: var(--th);
-            color: #fff;
-            padding: 14px 28px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 800;
-            text-transform: uppercase;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            margin-top: 15px;
         }
 
-        /* THEMES RENDERING */
-        .t-vcard-corp { background: #fff; display: flex; padding: 45px; text-align: var(--text-align); align-items: center; }
-        .t-vcard-corp .L { flex: 1; display: flex; flex-direction: column; height: 100%; justify-content: center; }
-        .t-vcard-corp .R { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; height: 100%; padding-left: 20px; }
-
-        .t-vcard-lux { background: #0f172a; color: #fff; display: flex; padding: 45px; text-align: var(--text-align); align-items: center; border-left: 20px solid var(--th); }
-        .t-vcard-lux .L { flex: 1; display: flex; flex-direction: column; height: 100%; justify-content: center; }
-        .t-vcard-lux .R { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; height: 100%; }
-        .t-vcard-lux .ct-chip { background: rgba(255, 255, 255, 0.12); color: #fff; }
-
-        .t-modern { background: #fff; text-align: var(--text-align); }
-        .t-modern .side { width: 38%; background: var(--th); color: #fff; padding: 40px; display: flex; flex-direction: column; }
-        .t-modern .main { flex: 1; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .t-modern .ct-chip { background: rgba(255, 255, 255, 0.18); color: #fff; border: none; box-shadow: none; }
-
-        .t-corp { background: #fff; flex-direction: column; text-align: var(--text-align); }
-        .t-corp .head { height: 25%; background: var(--th); display: flex; align-items: center; justify-content: space-between; padding: 0 40px; color: #fff; }
-        .t-corp .body { flex: 1; padding: 40px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; }
-        .t-corp .ct-chip { background: #f1f5f9; color: #333; width: 100%; }
-
-        .t-poster { flex-direction: column; text-align: var(--text-align); }
-        .t-poster .hero { height: 60%; background: #eee; position: relative; overflow: hidden; }
-        .t-poster .dets { flex: 1; background: #fff; padding: 25px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .t-poster .ct-chip { background: transparent; padding: 0; box-shadow: none; }
-        .t-poster .ct-ico { width: 32px; height: 32px; font-size: 15px; }
-
-        .t-diag { background: #fff; position: relative; overflow: hidden; text-align: var(--text-align); }
-        .t-diag .slash { position: absolute; top: 0; left: 0; width: 60%; height: 100%; background: var(--th); clip-path: polygon(0 0, 100% 0, 75% 100%, 0 100%); z-index: 1; }
-        .t-diag .content { position: relative; z-index: 2; width: 100%; height: 100%; display: flex; }
-        .t-diag .L { width: 50%; padding: 40px; color: #fff; display: flex; flex-direction: column; justify-content: center; }
-        .t-diag .R { flex: 1; display: flex; align-items: center; justify-content: center; }
-        .t-diag .ct-chip { background: rgba(0, 0, 0, 0.25); color: #fff; width: 100%; }
-
-        .t-fest { background: #fffdf5; padding: 20px; text-align: center; }
-        .t-fest .frame { border: 4px double var(--th); width: 100%; height: 100%; display: flex; padding: 25px; align-items: center; gap: 30px; }
-        .t-fest .pic { width: 45%; height: 100%; background: #eee; border-radius: 50% 50% 0 0; overflow: hidden; }
-        .t-fest .ct-chip { background: transparent; padding: 0; box-shadow: none; color: #444; }
-
-        .t-store { display: grid; grid-template-columns: 380px 1fr; background: #fff; text-align: var(--text-align); }
-        .t-store .pan { background: #f8fafc; padding: 40px; display: flex; flex-direction: column; border-right: 2px solid #eee; }
-        .t-store .grid { padding: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-content: center; }
-        .t-store .item { background: #fff; border: 1px solid #e2e8f0; padding: 20px; font-weight: 700; text-align: center; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03); border-radius: 8px; }
-        .t-store .ct-chip { width: 100%; background: #fff; border: 1px solid #e2e8f0; }
-
-        .t-circ { background: #0f172a; color: #fff; position: relative; overflow: hidden; text-align: var(--text-align); }
-        .t-circ .orb { position: absolute; top: -150px; right: -150px; width: 800px; height: 800px; border-radius: 50%; border: 40px solid var(--th); overflow: hidden; z-index: 1; }
-        .t-circ .txt { position: relative; z-index: 2; width: 55%; height: 100%; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
-        .t-circ .ct-chip { background: rgba(255, 255, 255, 0.12); color: #ddd; width: 100%; }
-
-        .t-frame { background: #f1f5f9; padding: 30px; text-align: var(--text-align); }
-        .t-frame .card { background: #fff; width: 100%; height: 100%; border: 10px solid var(--th); padding: 35px; display: flex; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15); align-items: center; gap: 30px; border-radius: 8px; }
-        .t-frame .pic { width: 280px; height: 280px; border-radius: 50%; border: 5px solid #f0f0f0; overflow: hidden; flex-shrink: 0; }
-        .t-frame .ct-list { border-top: 1px solid #eee; padding-top: 20px; margin-top: 20px; }
-
-        .t-offer { background: var(--th); color: #fff; display: flex; text-align: var(--text-align); }
-        .t-offer .shp { background: #fff; color: #333; width: 65%; clip-path: polygon(0 0, 90% 0, 100% 100%, 0 100%); padding: 45px; display: flex; flex-direction: column; justify-content: center; }
-        .t-offer .img { flex: 1; display: flex; align-items: center; justify-content: center; }
-        .t-offer .ct-chip { background: #f4f4f5; color: #333; }
-
-        .t-neon { background: #0b0f19; color: #fff; display: flex; position: relative; overflow: hidden; text-align: var(--text-align); }
-        .t-neon .glow { position: absolute; top: 0; left: 50%; width: 5px; height: 100%; background: var(--th); box-shadow: 0 0 60px 25px var(--th); transform: skew(-20deg); opacity: 0.6; }
-        .t-neon .L { flex: 1; padding: 45px; display: flex; flex-direction: column; justify-content: center; z-index: 2; }
-        .t-neon .R { flex: 1; display: flex; align-items: center; justify-content: center; z-index: 2; padding: 45px; }
-        .t-neon .ct-chip { background: #1e293b; color: #fff; border: 1px solid #334155; }
-
-        .t-stripe { background: #fff; display: flex; flex-direction: column; text-align: var(--text-align); }
-        .t-stripe .top { height: 20px; background: var(--th); }
-        .t-stripe .main { flex: 1; display: flex; padding: 40px; align-items: center; gap: 40px; }
-        .t-stripe .bot { height: 20px; background: #1e293b; }
-        .t-stripe .ct-chip { border: 1px solid #ddd; width: auto; }
-
-        .t-type { background: #fff; padding: 50px; display: flex; flex-direction: column; justify-content: center; border-left: 30px solid var(--th); text-align: var(--text-align); }
-        .t-type .ct-list { border-top: 2px solid #eee; padding-top: 20px; margin-top: 30px; }
-        .t-type .ct-chip { background: #fff; padding: 0; }
-
-        .t-head { background: #0b0f19; color: var(--th); padding: 20px; display: flex; flex-direction: column; text-align: center; border: 10px solid #1e293b; }
-        .t-head .mid { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .t-head .ct-list { justify-content: center; background: #1e293b; padding: 15px; border-radius: 10px; }
-        .t-head .ct-chip { background: #334155; color: #fff; }
-
-        .t-curve { background: #fff; position: relative; text-align: var(--text-align); }
-        .t-curve .b1 { position: absolute; top: -100px; right: -100px; background: var(--th); width: 600px; height: 600px; border-radius: 0 0 0 100%; opacity: 0.12; }
-        .t-curve .b2 { position: absolute; bottom: -100px; left: -100px; background: var(--th); width: 400px; height: 400px; border-radius: 0 100% 0 0; opacity: 0.06; }
-        .t-curve .con { position: relative; z-index: 2; padding: 50px; height: 100%; display: flex; flex-direction: column; justify-content: center; }
-
-        .t-art { background: #fff; position: relative; text-align: var(--text-align); }
-        .t-art .ptt { position: absolute; right: 0; bottom: 0; width: 60%; height: 100%; background: var(--th); clip-path: polygon(40% 0, 100% 0, 100% 100%, 0% 100%); opacity: 0.18; }
-        .t-art .in { position: relative; z-index: 2; padding: 50px; height: 100%; display: flex; flex-direction: column; justify-content: center; }
-
-        /* E-COMMERCE THEMES */
-        .t-ecom-hero { background: #fff; display: flex; text-align: var(--text-align); }
-        .t-ecom-hero .L { flex: 1; padding: 45px; display: flex; flex-direction: column; justify-content: center; }
-        .t-ecom-hero .R { width: 45%; background: #f8fafc; display: flex; align-items: center; justify-content: center; border-left: 2px solid #eee; }
-
-        .t-ecom-flash { background: #0f172a; color: #fff; display: flex; text-align: var(--text-align); }
-        .t-ecom-flash .L { flex: 1; padding: 45px; display: flex; flex-direction: column; justify-content: center; }
-        .t-ecom-flash .R { width: 45%; display: flex; align-items: center; justify-content: center; }
-        .t-ecom-flash .ct-chip { background: rgba(255,255,255,0.1); color: #fff; }
-
-        /* TXT STYLES WITH DYNAMIC FONT SCALING */
-        .tx-XXL { font-size: calc(var(--tx-xl-size) * 1.25); font-weight: 900; line-height: var(--tx-xl-lh); margin-bottom: 6px; }
-        .tx-XL { font-size: var(--tx-xl-size); font-weight: 800; line-height: var(--tx-xl-lh); margin-bottom: 8px; }
-        .tx-LG { font-size: calc(var(--tx-xl-size) * 0.7); font-weight: 700; opacity: 0.95; margin-bottom: 10px; }
-        .tx-MD { font-size: 20px; font-weight: 600; opacity: 0.85; margin-bottom: 6px; }
-        .tx-SM { font-size: 15px; color: #475569; line-height: 1.6; }
-
-        .tag-pill { display: inline-block; background: #0f172a; color: #fff; padding: 6px 16px; font-size: 12px; font-weight: 700; transform: skew(-10deg); margin: 6px 6px 6px 0; border-radius: 2px; }
+        .back-big-qr { width: clamp(90px, 22vw, 130px); height: clamp(90px, 22vw, 130px); background: #fff; padding: 8px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .back-big-qr img { width: 100%; height: 100%; object-fit: contain; }
 
         /* MOBILE RESPONSIVE STYLES */
-        @media (max-width: 768px) {
-            .app-header {
-                padding: 8px 12px;
-                flex-wrap: wrap;
-                gap: 8px;
-            }
-            .brand-logo-title span { display: inline; font-size: 14px; }
-            .ratio-selector {
-                order: 3;
-                width: 100%;
-                overflow-x: auto;
-                padding: 4px;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-            }
-            .ratio-btn {
-                flex-shrink: 0;
-                padding: 5px 10px;
-                font-size: 11px;
-            }
-            .ratio-btn i { display: inline-block; }
-            .preview-zone {
-                justify-content: flex-start;
-                -webkit-overflow-scrolling: touch;
-            }
-            .tab-item { flex: none; padding: 12px 14px; }
-            .tab-body { padding: 12px 14px 30px 14px; }
-            .grid-auto { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
-            .btn-top-main { padding: 6px 12px; font-size: 11px; }
+        @media (max-width: 900px) {
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-body { flex-direction: column; overflow: visible; }
+            .preview-panel { width: 100%; min-height: 340px; position: sticky; top: 0; z-index: 40; border-bottom: 2px solid rgba(255, 255, 255, 0.1); padding: 16px 12px; }
+            .controls-panel { width: 100%; border-right: none; }
         }
     </style>
 </head>
@@ -1004,20 +579,19 @@
     <!-- TOAST CONTAINER -->
     <div id="toast-container"></div>
 
-    <!-- TOPBAR HEADER -->
+    <!-- HEADER TOPBAR -->
     <div class="app-header">
-        <div class="brand-logo-title">
-            <i class="fas fa-wand-magic-sparkles"></i>
-            <span>RAJU CRAFTER STUDIO</span>
-        </div>
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-id-card"></i>
+            <span data-i18n="suite_title">RAJU CRAFTER STUDIO</span>
+        </a>
 
-        <div class="ratio-selector">
-            <div class="ratio-btn active" onclick="setRatio('16:9', this)"><i class="fas fa-desktop"></i> 16:9 Banner</div>
-            <div class="ratio-btn" onclick="setRatio('1:1', this)"><i class="fas fa-square"></i> 1:1 Square</div>
-            <div class="ratio-btn" onclick="setRatio('4:5', this)"><i class="fas fa-mobile-alt"></i> 4:5 Feed</div>
-            <div class="ratio-btn" onclick="setRatio('9:16', this)"><i class="fas fa-mobile"></i> 9:16 Story</div>
-            <div class="ratio-btn" onclick="setRatio('3.5:2', this)"><i class="fas fa-id-card"></i> Card H</div>
-            <div class="ratio-btn" onclick="setRatio('2:3.5', this)"><i class="fas fa-address-card"></i> Card V</div>
+        <div class="size-selector">
+            <div class="size-btn active" id="btn-s-horiz" onclick="setCardSize('horiz')">Horizontal (3.5×2)</div>
+            <div class="size-btn" id="btn-s-vert" onclick="setCardSize('vert')">Vertical (2×3.5)</div>
+            <div class="size-btn" id="btn-s-sq" onclick="setCardSize('sq')">Square (2.5×2.5)</div>
+            <div class="size-btn" id="btn-s-slim" onclick="setCardSize('slim')">Slim Mini</div>
         </div>
 
         <div class="header-actions">
@@ -1026,288 +600,184 @@
                 <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
                 <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
             </div>
-            <div class="btn-top-main" onclick="saveHD()"><i class="fas fa-download"></i> Download HD</div>
-            <div class="btn-top-sec" onclick="resetAll()"><i class="fas fa-rotate-right"></i> Reset</div>
+            <div class="btn-top-vcf" onclick="downloadVCF()"><i class="fas fa-address-book"></i> .VCF Contact</div>
+            <div class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download HD</div>
         </div>
     </div>
 
-    <!-- MAIN PREVIEW CANVAS -->
-    <div class="preview-zone" id="pv-root">
-        <div id="scaler-wrap">
-            <div id="artboard" class="t-modern"></div>
+    <!-- MAIN APP BODY -->
+    <div class="app-body">
+        <!-- CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-user-gear"></i> Personal Info</div>
+                <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-palette"></i> Templates & Style</div>
+                <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-qrcode"></i> QR & Media</div>
+                <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-download"></i> HD Export</div>
+            </div>
+
+            <!-- TAB 1: PERSONAL INFO WITH CHECKBOXES & ICONS -->
+            <div id="tab-1" class="tab-body active">
+                <div class="grp-label">1. Card Owner Information</div>
+                <div class="contact-input-group">
+                    <label><input type="checkbox" id="k-nm" checked onchange="render()"><i class="fas fa-user"></i> Name</label>
+                    <input type="text" id="in-name" value="Raju Jatapara" oninput="render()" placeholder="Full Name">
+                </div>
+
+                <div class="contact-input-group">
+                    <label><input type="checkbox" id="k-desig" checked onchange="render()"><i class="fas fa-briefcase"></i> Job Title</label>
+                    <input type="text" id="in-desig" value="Founder & Chief Executive" oninput="render()" placeholder="Designation">
+                </div>
+
+                <div class="grp-label">2. Company & Business Info</div>
+                <input type="text" id="in-company" value="Raju Crafter Studio" oninput="render()" placeholder="Company / Business Name">
+                <input type="text" id="in-tagline" value="Digital Business Solutions & Crafting" oninput="render()" placeholder="Tagline / Subtitle">
+
+                <div class="grp-label">3. Contact Details (Check to Show on Card)</div>
+                <div class="contact-input-group">
+                    <label><input type="checkbox" id="k-ph" checked onchange="render()"><i class="fas fa-phone"></i> Phone</label>
+                    <input type="tel" id="in-phone" value="+91 63562 39260" oninput="render()" placeholder="Mobile Number">
+                </div>
+
+                <div class="contact-input-group">
+                    <label><input type="checkbox" id="k-wa" checked onchange="render()"><i class="fab fa-whatsapp"></i> WhatsApp</label>
+                    <input type="tel" id="in-wa" value="+91 63562 39260" oninput="render()" placeholder="WhatsApp Number">
+                </div>
+
+                <div class="contact-input-group">
+                    <label><input type="checkbox" id="k-em" checked onchange="render()"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="in-email" value="raju@example.com" oninput="render()" placeholder="Email Address">
+                </div>
+
+                <div class="contact-input-group">
+                    <label><input type="checkbox" id="k-wb" checked onchange="render()"><i class="fas fa-globe"></i> Website</label>
+                    <input type="text" id="in-web" value="www.rajucrafter.com" oninput="render()" placeholder="Website URL">
+                </div>
+
+                <div class="contact-input-group">
+                    <label><input type="checkbox" id="k-ad" checked onchange="render()"><i class="fas fa-map-marker-alt"></i> Address</label>
+                    <input type="text" id="in-addr" value="Main Road, Rajkot, Gujarat" oninput="render()" placeholder="Office / Shop Address">
+                </div>
+            </div>
+
+            <!-- TAB 2: TEMPLATES & STYLE -->
+            <div id="tab-2" class="tab-body">
+                <div class="grp-label">🎨 12 Industry Templates</div>
+                <div class="grid-2" style="margin-bottom:16px">
+                    <div class="opt-box active" onclick="setTheme('corp-gold', this)"><i class="fas fa-crown" style="color:#fbbf24"></i> Executive Gold</div>
+                    <div class="opt-box" onclick="setTheme('modern-min', this)"><i class="fas fa-square" style="color:#6366f1"></i> Modern Minimal</div>
+                    <div class="opt-box" onclick="setTheme('cyber-neon', this)"><i class="fas fa-bolt" style="color:#06b6d4"></i> Cyber Neon Tech</div>
+                    <div class="opt-box" onclick="setTheme('diamond-vip', this)"><i class="fas fa-gem" style="color:#e11d48"></i> Diamond VIP</div>
+                    <div class="opt-box" onclick="setTheme('eco-emerald', this)"><i class="fas fa-leaf" style="color:#22c55e"></i> Eco Emerald</div>
+                    <div class="opt-box" onclick="setTheme('legal-navy', this)"><i class="fas fa-balance-scale" style="color:#64ffda"></i> CA / Legal Crest</div>
+                    <div class="opt-box" onclick="setTheme('retail-shop', this)"><i class="fas fa-store" style="color:#ef4444"></i> Retail Shopkeeper</div>
+                    <div class="opt-box" onclick="setTheme('creative-gradient', this)"><i class="fas fa-paint-brush" style="color:#ec4899"></i> Creative Artist</div>
+                    <div class="opt-box" onclick="setTheme('realestate-gold', this)"><i class="fas fa-city" style="color:#d97706"></i> Real Estate Builder</div>
+                    <div class="opt-box" onclick="setTheme('auto-cab', this)"><i class="fas fa-car" style="color:#f59e0b"></i> Taxi & Auto Service</div>
+                    <div class="opt-box" onclick="setTheme('doctor-cyan', this)"><i class="fas fa-user-md" style="color:#06b6d4"></i> Doctor Healthcare</div>
+                    <div class="opt-box" onclick="setTheme('hotel-burgundy', this)"><i class="fas fa-utensils" style="color:#f59e0b"></i> Hotel & Restaurant</div>
+                </div>
+
+                <div class="grp-label">🎨 5 Luxury Paper Textures</div>
+                <div class="grid-2" style="margin-bottom:16px">
+                    <div class="opt-box active" onclick="setTexture('none', this)">Plain Flat</div>
+                    <div class="opt-box" onclick="setTexture('gold-foil', this)"><i class="fas fa-sun" style="color:#fbbf24"></i> Gold Foil Shimmer</div>
+                    <div class="opt-box" onclick="setTexture('linen', this)"><i class="fas fa-scroll"></i> Linen Craft Paper</div>
+                    <div class="opt-box" onclick="setTexture('carbon', this)"><i class="fas fa-braille"></i> Carbon Fiber</div>
+                    <div class="opt-box" onclick="setTexture('marble', this)"><i class="fas fa-gem"></i> Royal Marble</div>
+                    <div class="opt-box" onclick="setTexture('leather', this)"><i class="fas fa-wallet"></i> Dark Leather</div>
+                </div>
+
+                <div class="grp-label">🔲 Corner Radius Variant</div>
+                <div class="grid-2" style="margin-bottom:16px">
+                    <div class="opt-box" onclick="setCornerStyle('square', this)">Sharp Square</div>
+                    <div class="opt-box active" onclick="setCornerStyle('rounded', this)">Soft Rounded</div>
+                    <div class="opt-box" onclick="setCornerStyle('capsule', this)">Capsule Oval</div>
+                    <div class="opt-box" onclick="setCornerStyle('cut', this)">Cut Corner</div>
+                </div>
+
+                <div class="grp-label">🎨 Accent Color</div>
+                <div class="grid-3" style="margin-bottom:16px">
+                    <div class="opt-box" style="background:#6366f1; color:#fff" onclick="setColor('#6366f1')">Indigo</div>
+                    <div class="opt-box" style="background:#fbbf24; color:#000" onclick="setColor('#fbbf24')">Gold</div>
+                    <div class="opt-box" style="background:#22c55e; color:#fff" onclick="setColor('#22c55e')">Emerald</div>
+                    <div class="opt-box" style="background:#e11d48; color:#fff" onclick="setColor('#e11d48')">Rose Red</div>
+                    <div class="opt-box" style="background:#06b6d4; color:#fff" onclick="setColor('#06b6d4')">Cyan</div>
+                    <div class="opt-box" style="background:#0f172a; color:#fff" onclick="setColor('#0f172a')">Dark Slate</div>
+                </div>
+
+                <div class="grp-label">🔤 Font Family</div>
+                <select id="in-font" onchange="setFont(this.value)">
+                    <option value="'Poppins', sans-serif">Poppins (Modern Professional)</option>
+                    <option value="'Playfair Display', serif">Playfair (Luxury Serif)</option>
+                    <option value="'Cinzel', serif">Cinzel (Royal Vintage)</option>
+                    <option value="'Montserrat', sans-serif">Montserrat (Bold Impact)</option>
+                </select>
+            </div>
+
+            <!-- TAB 3: QR & MEDIA -->
+            <div id="tab-3" class="tab-body">
+                <div class="grp-label">📸 Company Logo & Owner Photo</div>
+                <div class="grid-2" style="margin-bottom:16px">
+                    <div class="opt-box" onclick="_('up-logo').click()"><i class="fas fa-upload"></i> Upload Logo <input type="file" id="up-logo" hidden onchange="loadMedia('logo', this)"></div>
+                    <div class="opt-box" onclick="_('up-photo').click()"><i class="fas fa-user-circle"></i> Upload Photo <input type="file" id="up-photo" hidden onchange="loadMedia('photo', this)"></div>
+                </div>
+
+                <div class="grp-label">📱 Dynamic QR Code Settings</div>
+                <div class="contact-input-group">
+                    <label><input type="checkbox" id="k-qr" checked onchange="render()"><i class="fas fa-qrcode"></i> Show QR</label>
+                    <input type="text" id="in-qr-data" value="https://wa.me/916356239260" oninput="render()" placeholder="QR Link / WhatsApp / UPI ID">
+                </div>
+            </div>
+
+            <!-- TAB 4: HD EXPORT -->
+            <div id="tab-4" class="tab-body">
+                <div class="grp-label">✨ Export & Print Options</div>
+                <button type="button" style="margin-bottom:10px; width:100%; background:linear-gradient(135deg, #22c55e, #16a34a); color:#fff; height:46px; border-radius:23px; border:none; font-weight:800; cursor:pointer" onclick="downloadVCF()">
+                    <i class="fas fa-address-book"></i> Download Mobile .VCF Contact File
+                </button>
+                <button type="button" style="margin-bottom:10px; width:100%; background:linear-gradient(135deg, #6366f1, #4f46e5); color:#fff; height:46px; border-radius:23px; border:none; font-weight:800; cursor:pointer" onclick="downloadPNG()">
+                    <i class="fas fa-download"></i> Download HD Visiting Card PNG
+                </button>
+                <button type="button" style="width:100%; background:rgba(255,255,255,0.1); color:#fff; height:46px; border-radius:23px; border:1px solid rgba(255,255,255,0.2); font-weight:800; cursor:pointer" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print A4 Card Sheet (10-Cards)
+                </button>
+            </div>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL -->
+        <div class="preview-panel">
+            <!-- CARD SIDE TOGGLE BAR -->
+            <div class="side-toggle-bar">
+                <div class="side-btn active" id="btn-side-front" onclick="setCardSide('front')"><i class="fas fa-address-card"></i> Card Front</div>
+                <div class="side-btn" id="btn-side-back" onclick="setCardSide('back')"><i class="fas fa-qrcode"></i> Card Back</div>
+            </div>
+
+            <div class="vcard-container corner-rounded tex-none" id="vcard-canvas">
+                <!-- CANVAS CONTENT GENERATED BY RENDER() -->
+            </div>
         </div>
     </div>
 
-    <!-- CONTROLS PANEL -->
-    <div class="controls-wrap">
-        <div class="tabs-header">
-            <div class="tab-item active" onclick="nav('1',this)"><i class="fas fa-layer-group"></i> Layout & Presets</div>
-            <div class="tab-item" onclick="nav('2',this)"><i class="fas fa-pen-nib"></i> Content & Fonts</div>
-            <div class="tab-item" onclick="nav('3',this)"><i class="fas fa-address-book"></i> Contact Badges</div>
-            <div class="tab-item" onclick="nav('4',this)"><i class="fas fa-download"></i> HD Export</div>
-        </div>
-
-        <!-- TAB 1: LAYOUT & PRESETS -->
-        <div id="tab-1" class="tab-body active">
-            <div class="grp-label">⚡ Quick Presets (One Click)</div>
-            <div class="preset-row">
-                <div class="preset-chip" onclick="loadPreset('vcard')"><i class="fas fa-id-card"></i> Executive Visiting Card</div>
-                <div class="preset-chip" onclick="loadPreset('ecom_phone')"><i class="fas fa-mobile-screen"></i> Smartphone Deal</div>
-                <div class="preset-chip" onclick="loadPreset('sale')"><i class="fas fa-tags"></i> Mega Sale</div>
-                <div class="preset-chip" onclick="loadPreset('diwali')"><i class="fas fa-lamp-desk"></i> Festival Wish</div>
-                <div class="preset-chip" onclick="loadPreset('agency')"><i class="fas fa-rocket"></i> Tech Agency</div>
-                <div class="preset-chip" onclick="loadPreset('food')"><i class="fas fa-utensils"></i> Restaurant Combo</div>
-                <div class="preset-chip" onclick="loadPreset('bill')"><i class="fas fa-receipt"></i> Thank You Card</div>
-            </div>
-
-            <div class="grp-label">1. Select Mode</div>
-            <div class="grid-auto grp">
-                <div class="opt-box active" onclick="setMode('gen',this)"><i class="fas fa-briefcase"></i> General</div>
-                <div class="opt-box" onclick="setMode('vcard',this)"><i class="fas fa-id-card"></i> Visiting Card</div>
-                <div class="opt-box" onclick="setMode('ecom',this)"><i class="fas fa-shopping-bag"></i> E-Commerce</div>
-                <div class="opt-box" onclick="setMode('ad',this)"><i class="fas fa-percent"></i> Offer / Ad</div>
-                <div class="opt-box" onclick="setMode('fest',this)"><i class="fas fa-glass-cheers"></i> Festival</div>
-                <div class="opt-box" onclick="setMode('bill',this)"><i class="fas fa-receipt"></i> Bill / Card</div>
-            </div>
-
-            <div class="grp-label">2. Select Theme Layout</div>
-            <div class="grid-auto grp" id="layout-grid"></div>
-
-            <div class="grp-label">🖼️ Stock Background Patterns</div>
-            <div class="preset-row">
-                <div class="preset-chip active" onclick="setPattern('default', this)"><i class="fas fa-ban"></i> Solid / Default</div>
-                <div class="preset-chip" onclick="setPattern('mesh', this)"><i class="fas fa-grip-lines"></i> Tech Mesh</div>
-                <div class="preset-chip" onclick="setPattern('gold', this)"><i class="fas fa-crown"></i> Luxury Gold</div>
-                <div class="preset-chip" onclick="setPattern('festive', this)"><i class="fas fa-sparkles"></i> Warm Festive</div>
-                <div class="preset-chip" onclick="setPattern('neon', this)"><i class="fas fa-bolt"></i> Cyber Neon</div>
-                <div class="preset-chip" onclick="setPattern('studio', this)"><i class="fas fa-palette"></i> Minimal Studio</div>
-                <div class="preset-chip" onclick="setPattern('pastel', this)"><i class="fas fa-heart"></i> Soft Pastel</div>
-            </div>
-
-            <div class="grp-label">3. Theme Accent Color</div>
-            <div class="color-row" id="extracted-colors-row" style="display:none; padding-bottom:8px">
-                <span style="font-size:10px; font-weight:800; color:#818cf8; text-transform:uppercase; margin-right:4px">Auto Extracted:</span>
-            </div>
-            <div class="color-row">
-                <div class="color-dot" style="background:#6366f1" onclick="setColor('#6366f1')"></div>
-                <div class="color-dot" style="background:#dc2626" onclick="setColor('#dc2626')"></div>
-                <div class="color-dot" style="background:#16a34a" onclick="setColor('#16a34a')"></div>
-                <div class="color-dot" style="background:#ca8a04" onclick="setColor('#ca8a04')"></div>
-                <div class="color-dot" style="background:#0f172a" onclick="setColor('#0f172a')"></div>
-                <div class="color-dot" style="background:#ec4899" onclick="setColor('#ec4899')"></div>
-                <div class="color-dot" style="background:#0891b2" onclick="setColor('#0891b2')"></div>
-
-                <div class="color-input-wrap">
-                    <input type="color" id="custom-color-picker" value="#6366f1" onchange="setColor(this.value)">
-                    <span style="font-size:11px; font-weight:600; color:#cbd5e1">Custom</span>
-                </div>
-            </div>
-
-            <div class="color-row" style="padding-top:0">
-                <div class="color-dot" style="background:linear-gradient(135deg, #6366f1, #a855f7)" onclick="setColor('linear-gradient(135deg, #6366f1, #a855f7)')"></div>
-                <div class="color-dot" style="background:linear-gradient(135deg, #f97316, #dc2626)" onclick="setColor('linear-gradient(135deg, #f97316, #dc2626)')"></div>
-                <div class="color-dot" style="background:linear-gradient(135deg, #10b981, #059669)" onclick="setColor('linear-gradient(135deg, #10b981, #059669)')"></div>
-                <div class="color-dot" style="background:linear-gradient(135deg, #ec4899, #be185d)" onclick="setColor('linear-gradient(135deg, #ec4899, #be185d)')"></div>
-                <div class="color-dot" style="background:linear-gradient(135deg, #3b82f6, #1e40af)" onclick="setColor('linear-gradient(135deg, #3b82f6, #1e40af)')"></div>
-                <div class="color-dot" style="background:linear-gradient(135deg, #1e293b, #0f172a)" onclick="setColor('linear-gradient(135deg, #1e293b, #0f172a)')"></div>
-            </div>
-
-            <div class="grp-label">4. Sticker Badge</div>
-            <div class="grid-auto grp">
-                <div class="opt-box active" onclick="setSticker('none',this)">None</div>
-                <div class="opt-box" onclick="setSticker('sale',this)">Sale</div>
-                <div class="opt-box" onclick="setSticker('new',this)">New</div>
-                <div class="opt-box" onclick="setSticker('best',this)">Best</div>
-                <div class="opt-box" onclick="setSticker('hot',this)">Hot Deal</div>
-                <div class="opt-box" onclick="setSticker('custom',this)">Custom Text</div>
-            </div>
-            <input type="text" id="in-custom-badge" value="LIMITED TIME" placeholder="Custom Badge Text" oninput="render()" style="margin-top:8px">
-        </div>
-
-        <!-- TAB 2: CONTENT & FONTS -->
-        <div id="tab-2" class="tab-body">
-            <div class="grid-2 grp" style="margin-bottom:8px">
-                <div class="opt-box" onclick="_('up-logo').click()"><i class="fas fa-upload"></i> Upload Logo <input type="file" id="up-logo" hidden onchange="loadImg('logo',this)"></div>
-                <div class="opt-box" onclick="_('up-hero').click()"><i class="fas fa-image"></i> Upload Product/Hero Photo <input type="file" id="up-hero" hidden onchange="loadImg('hero',this)"></div>
-            </div>
-            <div class="grid-2 grp" style="margin-bottom:14px">
-                <button type="button" class="btn-top-sec" style="justify-content:center" onclick="removeImg('logo')"><i class="fas fa-trash"></i> Remove Logo</button>
-                <button type="button" class="btn-top-sec" style="justify-content:center" onclick="removeImg('hero')"><i class="fas fa-trash"></i> Remove Photo</button>
-            </div>
-
-            <!-- PHOTO SHAPE & CROP FRAME MASK -->
-            <div class="grp-label" style="color:#818cf8">✂️ Photo Shape & Crop Frame</div>
-            <div class="grid-auto grp">
-                <div class="opt-box active" onclick="setImgShape('rect', this)"><i class="fas fa-square"></i> Full Cover</div>
-                <div class="opt-box" onclick="setImgShape('rounded', this)"><i class="fas fa-square-full"></i> Rounded Card</div>
-                <div class="opt-box" onclick="setImgShape('circle', this)"><i class="fas fa-circle"></i> Circle</div>
-                <div class="opt-box" onclick="setImgShape('hexagon', this)"><i class="fas fa-draw-polygon"></i> Hexagon</div>
-            </div>
-
-            <!-- COUNTDOWN TIMER URGENCY BADGE -->
-            <div class="grp-label" style="color:#ef4444">⏱️ Offer Urgency Timer Badge</div>
-            <div class="ct-edit-row">
-                <input type="checkbox" id="k-timer" onchange="render()">
-                <i class="fas fa-clock" style="color:#ef4444"></i>
-                <input type="text" id="in-timer-text" value="OFFER ENDS IN 02 DAYS : 14 HOURS" oninput="render()" placeholder="Urgency Text (e.g. OFFER ENDS SUNDAY)">
-            </div>
-
-            <!-- FONT & ALIGNMENT & SIZE SLIDERS -->
-            <div class="grp-label" style="color:#818cf8">Typography & Headline Scaling</div>
-            <div class="grid-2 grp">
-                <div>
-                    <label style="font-size:11px; color:#94a3b8">Font Family</label>
-                    <select id="font-family-select" onchange="setFont(this.value)">
-                        <option value="'Poppins', sans-serif">Poppins (Modern)</option>
-                        <option value="'Playfair Display', serif">Playfair (Luxury)</option>
-                        <option value="'Montserrat', sans-serif">Montserrat (Bold)</option>
-                        <option value="'Oswald', sans-serif">Oswald (Impact)</option>
-                        <option value="'Great Vibes', cursive">Great Vibes (Script)</option>
-                        <option value="'Roboto Condensed', sans-serif">Roboto Condensed</option>
-                    </select>
-                </div>
-                <div>
-                    <label style="font-size:11px; color:#94a3b8">Text Alignment</label>
-                    <select id="text-align-select" onchange="setTextAlign(this.value)">
-                        <option value="left">Left Align</option>
-                        <option value="center">Center Align</option>
-                        <option value="right">Right Align</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="grp-label" style="color:#94a3b8">Headline Font Size: <span id="font-size-val" style="color:#818cf8; font-weight:800">44px</span></div>
-            <div class="range-wrap">
-                <input type="range" id="font-size-range" min="28" max="90" value="44" oninput="setFontSize(this.value)">
-            </div>
-
-            <div class="grp-label" style="color:#94a3b8">Headline Line Spacing: <span id="line-height-val" style="color:#818cf8; font-weight:800">1.1</span></div>
-            <div class="range-wrap">
-                <input type="range" id="line-height-range" min="9" max="20" value="11" oninput="setLineHeight(this.value)">
-            </div>
-
-            <!-- VISITING CARD SPECIFIC SECTION -->
-            <div id="vcard-section" style="display:none">
-                <div class="grp-label" style="color:#818cf8">📇 Visiting Card Personal Info</div>
-                <input type="text" id="in-desig" value="Founder & Chief Designer" oninput="render()" placeholder="Job Designation / Title (e.g. CEO)">
-                <div class="ct-edit-row">
-                    <input type="checkbox" id="k-qr" checked onchange="render()">
-                    <i class="fas fa-qrcode"></i>
-                    <input type="text" id="in-qr" value="https://wa.me/919876543210" oninput="render()" placeholder="QR Code Link / WhatsApp Number">
-                </div>
-            </div>
-
-            <!-- E-COMMERCE SPECIFIC SECTION -->
-            <div id="ecom-section" style="display:none">
-                <div class="grp-label" style="color:#22c55e">🛍️ E-Commerce Product Price & Offer</div>
-                <div class="grid-2 grp">
-                    <input type="text" id="in-orig-price" value="₹2,999" oninput="render()" placeholder="Original Price (<s>₹2,999</s>)">
-                    <input type="text" id="in-sale-price" value="₹1,199" style="font-weight:700; color:#ef4444" oninput="render()" placeholder="Sale Price (₹1,199)">
-                </div>
-                <div class="grid-2 grp">
-                    <input type="text" id="in-discount-tag" value="SAVE 60% OFF" oninput="render()" placeholder="Discount Tag">
-                    <input type="text" id="in-rating" value="4.9 ★★★★★ (240+ Reviews)" oninput="render()" placeholder="Rating Stars">
-                </div>
-                <div class="grid-2 grp">
-                    <input type="text" id="in-stock" value="In Stock - Free Shipping" oninput="render()" placeholder="Stock Status">
-                    <input type="text" id="in-cta" value="ORDER NOW ON WHATSAPP" oninput="render()" placeholder="CTA Button Text">
-                </div>
-            </div>
-
-            <!-- PHOTO OVERLAY OPACITY -->
-            <div class="grp-label" style="color:#818cf8">Main Photo Dark Overlay Opacity</div>
-            <div class="range-wrap">
-                <input type="range" id="overlay-range" min="0" max="80" value="0" oninput="setOverlayOpacity(this.value)">
-                <span id="overlay-val" style="font-size:12px; font-weight:700">0%</span>
-            </div>
-
-            <!-- BRANDING -->
-            <div class="grp-label" style="color:#818cf8">Shop / Business Info</div>
-            <input type="text" id="in-shop" value="My Business" style="font-weight:700" oninput="render()" placeholder="Shop Name">
-            <input type="text" id="in-tag" value="Quality Services & Products" oninput="render()" placeholder="Tagline">
-
-            <!-- CAMPAIGN -->
-            <div class="grp-label" id="lbl-h1" style="color:#f8fafc">Main Headline</div>
-            <input type="text" id="in-h1" oninput="render()">
-
-            <div class="grp-label" id="lbl-h2">Sub Headline</div>
-            <input type="text" id="in-h2" oninput="render()">
-
-            <div class="grp-label" id="lbl-desc">Body Description</div>
-            <textarea id="in-desc" rows="3" oninput="render()"></textarea>
-
-            <div class="grp-label" id="lbl-ext">Feature Tags (Comma Separated)</div>
-            <input type="text" id="in-ext" oninput="render()">
-        </div>
-
-        <!-- TAB 3: CONTACT BADGES -->
-        <div id="tab-3" class="tab-body">
-            <div class="grp-label" style="text-align:center; display:block">Select & Edit Contact Information</div>
-
-            <div class="ct-edit-row"><input type="checkbox" id="k-nm" checked onchange="render()"><i class="fas fa-user-circle"></i><input type="text" id="v-nm" value="Raju Jatapara" oninput="render()"></div>
-            <div class="ct-edit-row"><input type="checkbox" id="k-ph" checked onchange="render()"><i class="fas fa-phone"></i><input type="text" id="v-ph" value="+91 98765 43210" oninput="render()"></div>
-            <div class="ct-edit-row"><input type="checkbox" id="k-wa" checked onchange="render()"><i class="fab fa-whatsapp" style="color:#25d366"></i><input type="text" id="v-wa" value="+91 98765 43210" oninput="render()"></div>
-            <div class="ct-edit-row"><input type="checkbox" id="k-fb" checked onchange="render()"><i class="fab fa-facebook" style="color:#1877f2"></i><input type="text" id="v-fb" value="Facebook Page" oninput="render()"></div>
-            <div class="ct-edit-row"><input type="checkbox" id="k-ig" checked onchange="render()"><i class="fab fa-instagram" style="color:#c13584"></i><input type="text" id="v-ig" value="@insta_handle" oninput="render()"></div>
-            <div class="ct-edit-row"><input type="checkbox" id="k-em" checked onchange="render()"><i class="fas fa-envelope"></i><input type="text" id="v-em" value="mail@domain.com" oninput="render()"></div>
-            <div class="ct-edit-row"><input type="checkbox" id="k-wb" checked onchange="render()"><i class="fas fa-globe"></i><input type="text" id="v-wb" value="www.website.com" oninput="render()"></div>
-            <div class="ct-edit-row"><input type="checkbox" id="k-ad" checked onchange="render()"><i class="fas fa-map-marker-alt"></i><input type="text" id="v-ad" value="City, Country" oninput="render()"></div>
-        </div>
-
-        <!-- TAB 4: HD EXPORT OPTIONS -->
-        <div id="tab-4" class="tab-body">
-            <div class="grp-label">Export Quality Multiplier</div>
-            <div class="grid-2 grp">
-                <div class="opt-box active" onclick="setExportScale(1, this)"><i class="fas fa-desktop"></i> 1x Standard HD</div>
-                <div class="opt-box" onclick="setExportScale(2, this)"><i class="fas fa-crown"></i> 2x 4K Ultra HD</div>
-            </div>
-
-            <div class="grp-label">Image File Format</div>
-            <div class="grid-2 grp">
-                <div class="opt-box active" onclick="setExportFormat('png', this)"><i class="fas fa-file-image"></i> PNG (Crisp)</div>
-                <div class="opt-box" onclick="setExportFormat('jpeg', this)"><i class="fas fa-file-jpg"></i> JPEG (Compact)</div>
-            </div>
-
-            <div style="margin-top:20px" class="grid-2">
-                <div class="btn-sec" onclick="copyToClipboard()"><i class="fas fa-copy"></i> Copy Image</div>
-                <div class="btn-sec" style="background:var(--primary)" onclick="saveHD()"><i class="fas fa-download"></i> Download Image</div>
-            </div>
-        </div>
-    </div>
-    <div class="app-footer">Developed with ❤️ by <span>Raju Jatapara</span></div>
-
+    <!-- HTML2CANVAS SCRIPT -->
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
     <script>
         const app = {
-            mode: 'gen',
-            theme: 'modern',
+            cardSize: 'horiz',
+            cardSide: 'front',
+            cornerStyle: 'rounded',
+            textureStyle: 'none',
+            theme: 'corp-gold',
             color: '#6366f1',
-            sticker: 'none',
-            ratio: '16:9',
-            bgPattern: 'default',
-            imgShape: 'rect',
-            exportScale: 1,
-            exportFormat: 'png',
             font: "'Poppins', sans-serif",
-            fontSize: 44,
-            lineHeight: 1.1,
-            textAlign: 'left',
-            overlayOpacity: 0,
-            img: { logo: '', hero: '' }
-        };
-
-        const ratios = {
-            '16:9': { w: 1080, h: 600 },
-            '1:1': { w: 1080, h: 1080 },
-            '4:5': { w: 1080, h: 1350 },
-            '9:16': { w: 1080, h: 1920 },
-            '3.5:2': { w: 1050, h: 600 },
-            '2:3.5': { w: 600, h: 1050 }
+            logoUrl: '',
+            photoUrl: ''
         };
 
         const _ = id => document.getElementById(id);
 
-        function showToast(msg, icon = 'fa-check-circle') {
+        function showToast(msg, icon = 'fa-circle-check') {
             const container = _('toast-container');
             const toast = document.createElement('div');
             toast.className = 'toast-msg';
@@ -1321,272 +791,29 @@
             }, 3000);
         }
 
-        /* --- THEME REGISTRY --- */
-        const themes = [
-            { id: 'vcard-corp', name: 'Corporate Visiting Card', m: ['vcard'] },
-            { id: 'vcard-lux', name: 'Luxury Gold Card', m: ['vcard'] },
-            { id: 'ecom-hero', name: 'Product Spotlight', m: ['ecom'] },
-            { id: 'ecom-flash', name: 'Flash Deal Dark', m: ['ecom'] },
-            { id: 'modern', name: 'Modern Split', m: ['gen', 'ad', 'bill', 'ecom', 'vcard'] },
-            { id: 'store', name: 'Grid Store', m: ['gen', 'ad', 'bill', 'ecom'] },
-            { id: 'frame', name: 'Art Frame', m: ['gen', 'fest', 'bill'] },
-            { id: 'corp', name: 'Corporate', m: ['gen', 'bill', 'vcard'] },
-            { id: 'diag', name: 'Diagonal', m: ['gen', 'ad', 'bill'] },
-            { id: 'neon', name: 'Neon Dark', m: ['ad', 'gen', 'ecom', 'vcard'] },
-            { id: 'poster', name: 'Full Poster', m: ['ad', 'fest', 'ecom'] },
-            { id: 'circ', name: 'Circle Hero', m: ['gen', 'ad', 'ecom'] },
-            { id: 'stripe', name: 'Clean Stripe', m: ['gen', 'bill', 'vcard'] },
-            { id: 'offer', name: 'Mega Offer', m: ['ad', 'ecom'] },
-            { id: 'type', name: 'Minimal Type', m: ['gen', 'vcard'] },
-            { id: 'head', name: 'Big Head', m: ['ad'] },
-            { id: 'curve', name: 'Stylish Curve', m: ['gen', 'fest', 'bill'] },
-            { id: 'fest', name: 'Festive', m: ['fest', 'bill'] },
-            { id: 'art', name: 'Artistic', m: ['fest', 'bill'] }
-        ];
-
         window.onload = () => {
-            autoScale();
             render();
             if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
-            setMode('gen', document.querySelector('.opt-box'));
-            window.onresize = fit;
         };
 
-        function resetAll() {
-            app.img.logo = '';
-            app.img.hero = '';
-            _('up-logo').value = '';
-            _('up-hero').value = '';
-            setFontSize(44);
-            setLineHeight(11);
-            setRatio('16:9', document.querySelector('.ratio-btn'));
-            setPattern('default', document.querySelectorAll('.preset-chip')[7]);
-            loadPreset('agency');
-            showToast('All settings restored to defaults!', 'fa-rotate-right');
-        }
-
-        function removeImg(type) {
-            app.img[type] = '';
-            if (type === 'logo') _('up-logo').value = '';
-            if (type === 'hero') _('up-hero').value = '';
+        function setCardSize(sz) {
+            app.cardSize = sz;
+            document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+            _('btn-s-' + sz).classList.add('active');
             render();
-            showToast(`${type === 'logo' ? 'Logo' : 'Photo'} removed`, 'fa-trash');
+            showToast(`Card Size: ${sz.toUpperCase()}`, 'fa-expand');
         }
 
-        function setRatio(r, btn) {
-            app.ratio = r;
-            document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
-            if (btn) btn.classList.add('active');
-            
-            const dim = ratios[r];
-            const wrap = _('scaler-wrap');
-            wrap.style.width = dim.w + 'px';
-            wrap.style.height = dim.h + 'px';
-            fit();
-        }
-
-        function fit() {
-            const p = _('pv-root');
-            const dim = ratios[app.ratio];
-            const s = Math.min((p.clientWidth - 20) / dim.w, (p.clientHeight - 20) / dim.h);
-            _('scaler-wrap').style.transform = `scale(${s})`;
-        }
-
-        function nav(n, b) {
-            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
-            _('tab-' + n).classList.add('active');
-            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
-            b.classList.add('active');
-        }
-
-        function setPattern(pat, btn) {
-            app.bgPattern = pat;
-            if (btn) {
-                btn.parentNode.querySelectorAll('.preset-chip').forEach(e => e.classList.remove('active'));
-                btn.classList.add('active');
-            }
+        function setCardSide(sd) {
+            app.cardSide = sd;
+            _('btn-side-front').classList.toggle('active', sd === 'front');
+            _('btn-side-back').classList.toggle('active', sd === 'back');
             render();
+            showToast(`Viewing: ${sd === 'front' ? 'Card Front Side' : 'Card Back Side'}`, 'fa-repeat');
         }
 
-        function setImgShape(shape, btn) {
-            app.imgShape = shape;
-            if (btn) {
-                btn.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
-                btn.classList.add('active');
-            }
-            render();
-        }
-
-        function setFontSize(v) {
-            app.fontSize = parseInt(v);
-            _('font-size-val').innerText = v + 'px';
-            document.documentElement.style.setProperty('--tx-xl-size', v + 'px');
-            render();
-        }
-
-        function setLineHeight(v) {
-            app.lineHeight = (v / 10).toFixed(1);
-            _('line-height-val').innerText = app.lineHeight;
-            document.documentElement.style.setProperty('--tx-xl-lh', app.lineHeight);
-            render();
-        }
-
-        function setMode(m, b) {
-            app.mode = m;
-            if (b) {
-                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
-                b.classList.add('active');
-            }
-
-            _('ecom-section').style.display = (m === 'ecom') ? 'block' : 'none';
-            _('vcard-section').style.display = (m === 'vcard') ? 'block' : 'none';
-
-            const g = _('layout-grid'); g.innerHTML = '';
-            const list = themes.filter(t => t.m.includes(m));
-            list.forEach(t => {
-                const el = document.createElement('div');
-                el.className = `opt-box ${t.id === app.theme ? 'active' : ''}`;
-                el.innerHTML = `<i class="fas fa-layer-group"></i> ${t.name}`;
-                el.onclick = () => setTheme(t.id, el);
-                g.appendChild(el);
-            });
-
-            setTheme(list[0].id, g.firstChild);
-
-            const lblH1 = _('lbl-h1'); const lblH2 = _('lbl-h2'); const lblDesc = _('lbl-desc'); const lblExt = _('lbl-ext');
-
-            if (m === 'vcard') {
-                setRatio('3.5:2', document.querySelectorAll('.ratio-btn')[4]);
-                lblH1.innerText = "Full Name"; lblH2.innerText = "Company Name"; lblDesc.innerText = "Bio / Tagline"; lblExt.innerText = "Key Skills / Services";
-                _('in-h1').value = "Raju Jatapara";
-                _('in-h2').value = "Logic Systems & Tech";
-                _('in-desc').value = "Providing modern digital UI designs and web software solutions.";
-                _('in-ext').value = "Web Dev, UI/UX, Mobile Apps";
-            }
-            else if (m === 'ecom') {
-                lblH1.innerText = "Product Title"; lblH2.innerText = "Short Feature / Tagline"; lblDesc.innerText = "Product Description / Specifications"; lblExt.innerText = "Highlights (Comma Sep)";
-                _('in-h1').value = "Wireless Noise-Canceling Headphones";
-                _('in-h2').value = "Ultra Bass & 40H Battery Life";
-                _('in-desc').value = "Experience studio-grade audio quality with active noise cancellation and ergonomic memory foam cushion.";
-                _('in-ext').value = "Bluetooth 5.3, Fast Charging, Mic Included";
-            }
-            else if (m === 'gen') {
-                lblH1.innerText = "Business Headline"; lblH2.innerText = "Services / Highlights"; lblDesc.innerText = "Description"; lblExt.innerText = "Features / Keywords";
-                _('in-h1').value = "We Build Dreams"; _('in-h2').value = "Premium Quality Services"; _('in-desc').value = "We provide high quality digital solutions and premium products tailored for your growth."; _('in-ext').value = "Quality, Trust, Speed, Innovation";
-            }
-            else if (m === 'ad') {
-                lblH1.innerText = "Main Headline (Sale/Offer)"; lblH2.innerText = "Sub-Headline"; lblDesc.innerText = "Offer Details"; lblExt.innerText = "Categories";
-                _('in-h1').value = "MEGA SALE"; _('in-h2').value = "FLAT 50% OFF"; _('in-desc').value = "Don't miss out on our huge festive discounts! Visit our store or order online today."; _('in-ext').value = "Men, Women, Accessories, Gadgets";
-            }
-            else if (m === 'fest') {
-                lblH1.innerText = "Greeting Title"; lblH2.innerText = "Wishes"; lblDesc.innerText = "Message"; lblExt.innerText = "From / Family";
-                _('in-h1').value = "Happy Diwali"; _('in-h2').value = "Warmest Festival Greetings"; _('in-desc').value = "Wishing you joy, happiness, and prosperity in this auspicious festival of lights."; _('in-ext').value = "From: Raju Jatapara & Family";
-            }
-            else if (m === 'bill') {
-                lblH1.innerText = "Card Title"; lblH2.innerText = "Customer Name"; lblDesc.innerText = "Thank You Message"; lblExt.innerText = "Items Purchased (Comma Sep)";
-                _('in-h1').value = "Thank You!"; _('in-h2').value = "Valued Customer"; _('in-desc').value = "Thank you for shopping with us. We appreciate your business and hope to see you again soon!"; _('in-ext').value = "Laptop, Wireless Mouse, Premium Bag";
-            }
-            render();
-        }
-
-        function loadPreset(key) {
-            if (key === 'vcard') {
-                setMode('vcard');
-                setColor('#6366f1');
-                setPattern('mesh');
-                setSticker('none');
-                _('in-shop').value = "Apex Digital Labs";
-                _('in-tag').value = "Transforming Ideas into Reality";
-                _('in-desig').value = "Founder & Chief Architect";
-                _('in-h1').value = "Raju Jatapara";
-                _('in-h2').value = "Apex Digital Labs";
-                _('in-desc').value = "Delivering high quality software engineering and creative UI/UX designs for global clients.";
-                _('in-ext').value = "Web Software, UI/UX, Cloud Solution";
-                _('v-nm').value = "Raju Jatapara";
-                _('v-ph').value = "+91 98765 43210";
-                _('v-wa').value = "+91 98765 43210";
-                _('v-em').value = "raju@apexdigital.com";
-                _('v-wb').value = "www.apexdigital.com";
-                _('in-qr').value = "https://wa.me/919876543210";
-            } else if (key === 'ecom_phone') {
-                setMode('ecom');
-                setColor('#6366f1');
-                setPattern('neon');
-                setSticker('hot');
-                _('in-shop').value = "Gadget World";
-                _('in-tag').value = "Official Brand Store";
-                _('in-h1').value = "Pro Max 5G Smartphone";
-                _('in-h2').value = "108MP Camera • 5000mAh Battery";
-                _('in-desc').value = "Super AMOLED 120Hz display with ultra-fast charging processor. Limited stock available!";
-                _('in-ext').value = "12GB RAM, 256GB Storage, 1 Year Warranty";
-                _('in-orig-price').value = "₹34,999";
-                _('in-sale-price').value = "₹22,999";
-                _('in-discount-tag').value = "SAVE 34% OFF";
-                _('in-rating').value = "4.9 ★★★★★ (520+ Reviews)";
-                _('in-stock').value = "In Stock - Free Express Delivery";
-                _('in-cta').value = "BUY NOW ON WHATSAPP";
-            } else if (key === 'sale') {
-                setMode('ad');
-                setColor('linear-gradient(135deg, #f97316, #dc2626)');
-                setPattern('default');
-                setSticker('sale');
-                _('in-shop').value = "Urban Fashion Hub";
-                _('in-tag').value = "Style Redefined";
-                _('in-h1').value = "FESTIVE SALE";
-                _('in-h2').value = "FLAT 60% OFF";
-                _('in-desc').value = "Upgrade your wardrobe with premium collections at unbeatable prices. Offer valid till Sunday!";
-                _('in-ext').value = "Jackets, Denim, Shoes, Shirts";
-            } else if (key === 'diwali') {
-                setMode('fest');
-                setColor('linear-gradient(135deg, #ca8a04, #dc2626)');
-                setPattern('gold');
-                setSticker('best');
-                _('in-shop').value = "Bright Sweets & Gifts";
-                _('in-tag').value = "Spreading Happiness";
-                _('in-h1').value = "Happy Diwali";
-                _('in-h2').value = "Light, Joy & Prosperity";
-                _('in-desc').value = "May the divine light of Diwali illuminate your life with health, wealth, and grand success!";
-                _('in-ext').value = "Premium Sweets, Gift Boxes, Dry Fruits";
-            } else if (key === 'agency') {
-                setMode('gen');
-                setColor('linear-gradient(135deg, #6366f1, #a855f7)');
-                setPattern('mesh');
-                setSticker('new');
-                _('in-shop').value = "Apex Tech Agency";
-                _('in-tag').value = "Digital Growth Partners";
-                _('in-h1').value = "Transform Your Brand";
-                _('in-h2').value = "Web Apps & Marketing";
-                _('in-desc').value = "We craft cutting-edge digital experiences that scale your business to new heights.";
-                _('in-ext').value = "UI/UX Design, Web Dev, SEO, Branding";
-            } else if (key === 'food') {
-                setMode('ad');
-                setColor('#dc2626');
-                setPattern('default');
-                setSticker('hot');
-                _('in-shop').value = "The Gourmet Grill";
-                _('in-tag').value = "Deliciously Crafted";
-                _('in-h1').value = "SPECIAL COMBO";
-                _('in-h2').value = "BUY 1 GET 1 FREE";
-                _('in-desc').value = "Savor our freshly grilled artisanal burgers and fries. Available for dine-in and online delivery!";
-                _('in-ext').value = "Burgers, Pizza, Shakes, Pasta";
-            } else if (key === 'bill') {
-                setMode('bill');
-                setColor('#10b981');
-                setPattern('default');
-                setSticker('best');
-                _('in-shop').value = "Electronics Mart";
-                _('in-tag').value = "Your Trusted Tech Store";
-                _('in-h1').value = "Thank You!";
-                _('in-h2').value = "Dear Customer";
-                _('in-desc').value = "Thank you for your purchase. Your trust drives us to deliver excellence every day.";
-                _('in-ext').value = "Smart 4K TV, Soundbar, Warranty Card";
-            }
-            render();
-            showToast('Preset loaded successfully!', 'fa-bolt');
-        }
-
-        function setTheme(t, b) {
-            app.theme = t;
+        function setCornerStyle(st, b) {
+            app.cornerStyle = st;
             if (b) {
                 b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
                 b.classList.add('active');
@@ -1594,11 +821,29 @@
             render();
         }
 
-        function setColor(c) {
-            app.color = c;
-            if (c.startsWith('#')) {
-                _('custom-color-picker').value = c;
+        function setTexture(tex, b) {
+            app.textureStyle = tex;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
             }
+            render();
+            showToast(`Paper Texture: ${tex.toUpperCase()}`, 'fa-scroll');
+        }
+
+        function setTheme(tClass, b) {
+            app.theme = tClass;
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+            render();
+            showToast(`Theme: ${tClass.toUpperCase()}`, 'fa-palette');
+        }
+
+        function setColor(hex) {
+            app.color = hex;
+            document.documentElement.style.setProperty('--th', hex);
             render();
         }
 
@@ -1608,268 +853,146 @@
             render();
         }
 
-        function setTextAlign(a) {
-            app.textAlign = a;
-            document.documentElement.style.setProperty('--text-align', a);
-            render();
+        function nav(n, b) {
+            document.querySelectorAll('.tab-body').forEach(e => e.classList.remove('active'));
+            _('tab-' + n).classList.add('active');
+            document.querySelectorAll('.tab-item').forEach(e => e.classList.remove('active'));
+            b.classList.add('active');
         }
 
-        function setOverlayOpacity(v) {
-            app.overlayOpacity = v / 100;
-            document.documentElement.style.setProperty('--overlay-op', app.overlayOpacity);
-            _('overlay-val').innerText = v + '%';
-            render();
-        }
-
-        function setSticker(s, b) {
-            app.sticker = s;
-            if (b) {
-                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
-                b.classList.add('active');
-            }
-            render();
-        }
-
-        function setExportScale(sc, b) {
-            app.exportScale = sc;
-            if (b) {
-                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
-                b.classList.add('active');
-            }
-        }
-
-        function setExportFormat(fmt, b) {
-            app.exportFormat = fmt;
-            if (b) {
-                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
-                b.classList.add('active');
-            }
-        }
-
-        function loadImg(k, e) {
-            if (e.files[0]) {
-                const r = new FileReader();
-                r.onload = x => {
-                    app.img[k] = x.target.result;
-                    extractColor(x.target.result);
+        function loadMedia(type, input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    if (type === 'logo') app.logoUrl = e.target.result;
+                    if (type === 'photo') app.photoUrl = e.target.result;
                     render();
-                    showToast(`${k === 'logo' ? 'Logo' : 'Photo'} uploaded!`, 'fa-image');
+                    showToast(`${type === 'logo' ? 'Logo' : 'Photo'} uploaded successfully!`, 'fa-cloud-arrow-up');
                 };
-                r.readAsDataURL(e.files[0]);
+                reader.readAsDataURL(input.files[0]);
             }
-        }
-
-        function extractColor(imgDataUrl) {
-            const img = new Image();
-            img.crossOrigin = "Anonymous";
-            img.onload = () => {
-                try {
-                    const cv = document.createElement('canvas');
-                    const ctx = cv.getContext('2d');
-                    cv.width = 40; cv.height = 40;
-                    ctx.drawImage(img, 0, 0, 40, 40);
-                    const data = ctx.getImageData(5, 5, 30, 30).data;
-                    let r = 0, g = 0, b = 0, count = 0;
-                    for (let i = 0; i < data.length; i += 16) {
-                        r += data[i]; g += data[i+1]; b += data[i+2]; count++;
-                    }
-                    r = Math.floor(r / count); g = Math.floor(g / count); b = Math.floor(b / count);
-                    const hex = "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-                    
-                    const row = _('extracted-colors-row');
-                    row.style.display = 'flex';
-                    const dot = document.createElement('div');
-                    dot.className = 'color-dot';
-                    dot.style.background = hex;
-                    dot.title = 'Auto Extracted Color: ' + hex;
-                    dot.onclick = () => setColor(hex);
-                    row.appendChild(dot);
-                    setColor(hex);
-                    showToast('Extracted theme color from photo!', 'fa-palette');
-                } catch(e) {}
-            };
-            img.src = imgDataUrl;
         }
 
         function render() {
-            const b = _('artboard');
-            b.className = 't-' + app.theme + ' pattern-' + app.bgPattern;
-            b.style.setProperty('--th', app.color);
-            b.style.fontFamily = app.font;
+            const canvas = _('vcard-canvas');
+            canvas.className = `vcard-container t-${app.theme} size-${app.cardSize} corner-${app.cornerStyle} tex-${app.textureStyle}`;
+            canvas.style.fontFamily = app.font;
 
-            const d = {
-                shop: _('in-shop').value, tag: _('in-tag').value,
-                h1: _('in-h1').value, h2: _('in-h2').value, desc: _('in-desc').value, ext: _('in-ext').value,
-                nm: _('v-nm').value, ph: _('v-ph').value, wa: _('v-wa').value, fb: _('v-fb').value, ig: _('v-ig').value, em: _('v-em').value, wb: _('v-wb').value, ad: _('v-ad').value,
-                customBadge: _('in-custom-badge').value,
-                origPrice: _('in-orig-price').value, salePrice: _('in-sale-price').value,
-                discountTag: _('in-discount-tag').value, rating: _('in-rating').value,
-                stock: _('in-stock').value, cta: _('in-cta').value,
-                desig: _('in-desig').value, qr: _('in-qr').value,
-                timerText: _('in-timer-text').value
-            };
+            const showName = _('k-nm').checked;
+            const showDesig = _('k-desig').checked;
+            const showPh = _('k-ph').checked;
+            const showWa = _('k-wa').checked;
+            const showEm = _('k-em').checked;
+            const showWb = _('k-wb').checked;
+            const showAd = _('k-ad').checked;
+            const showQr = _('k-qr').checked;
 
-            const k = {
-                nm: _('k-nm').checked, ph: _('k-ph').checked, wa: _('k-wa').checked, fb: _('k-fb').checked,
-                ig: _('k-ig').checked, em: _('k-em').checked, wb: _('k-wb').checked, ad: _('k-ad').checked,
-                qr: _('k-qr').checked, timer: _('k-timer').checked
-            };
+            const name = _('in-name').value.trim();
+            const desig = _('in-desig').value.trim();
+            const company = _('in-company').value.trim();
+            const tagline = _('in-tagline').value.trim();
 
-            const logo = app.img.logo ? `<img src="${app.img.logo}" class="brand-logo">` : '';
-            const hero = app.img.hero ? `<div class="img-cover-wrap shape-${app.imgShape}"><img src="${app.img.hero}" class="img-cover"><div class="img-overlay"></div></div>` : `<div style="width:100%;height:100%;background:#e2e8f0;display:flex;align-items:center;justify-content:center;color:#94a3b8"><i class="fas fa-box-open fa-4x"></i></div>`;
+            const phone = _('in-phone').value.trim();
+            const wa = _('in-wa').value.trim();
+            const email = _('in-email').value.trim();
+            const web = _('in-web').value.trim();
+            const addr = _('in-addr').value.trim();
 
-            // Branding Block
-            const brand = `<div class="brand-block">${logo}<div class="brand-name">${d.shop}</div><div class="brand-tag">${d.tag}</div></div>`;
-            const brandCenter = `<div class="brand-block" style="align-items:center; text-align:center">${logo}<div class="brand-name">${d.shop}</div><div class="brand-tag">${d.tag}</div></div>`;
-            const brandLight = `<div class="brand-block" style="color:#fff">${logo}<div class="brand-name">${d.shop}</div><div class="brand-tag" style="opacity:0.8">${d.tag}</div></div>`;
+            const qrData = _('in-qr-data').value.trim() || `https://wa.me/916356239260`;
+            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrData)}`;
 
-            // Contacts
-            let cHtml = '';
-            const add = (chk, val, ico, bgCls) => { if (chk && val) cHtml += `<div class="ct-chip"><div class="ct-ico ${bgCls}"><i class="${ico}"></i></div><span>${val}</span></div>`; };
-            add(k.nm, d.nm, 'fas fa-user-circle', 'bg-nm'); add(k.ph, d.ph, 'fas fa-phone', 'bg-ph'); add(k.wa, d.wa, 'fab fa-whatsapp', 'bg-wa'); add(k.fb, d.fb, 'fab fa-facebook', 'bg-fb'); add(k.ig, d.ig, 'fab fa-instagram', 'bg-ig'); add(k.em, d.em, 'fas fa-envelope', 'bg-em'); add(k.wb, d.wb, 'fas fa-globe', 'bg-wb'); add(k.ad, d.ad, 'fas fa-map-marker-alt', 'bg-ad');
-            const cts = `<div class="ct-list">${cHtml}</div>`;
-
-            // QR Code & Urgency Timer
-            const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(d.qr || 'https://wa.me/919876543210')}`;
-            const qrCardHtml = k.qr ? `<div class="qr-card-box"><img src="${qrImgUrl}" alt="QR Code"></div>` : '';
-            const timerBadgeHtml = k.timer && d.timerText ? `<div class="timer-badge"><i class="fas fa-clock"></i> <span>${d.timerText}</span></div>` : '';
-
-            // Extras & ECom Highlights
-            const exPills = d.ext ? d.ext.split(',').map(x => `<span class="tag-pill">${x.trim()}</span>`).join(' ') : '';
-            const exGrid = d.ext ? d.ext.split(',').map(x => `<div class="item">${x.trim()}</div>`).join('') : '';
-
-            // E-Commerce Blocks
-            const ecomPriceBlock = `<div class="price-box"><div class="sale-price">${d.salePrice}</div><div class="orig-price">${d.origPrice}</div><div class="discount-badge">${d.discountTag}</div></div>`;
-            const ecomRatingBlock = d.rating ? `<div class="rating-box"><i class="fas fa-star"></i> <span>${d.rating}</span></div>` : '';
-            const ecomStockBlock = d.stock ? `<div class="stock-badge"><i class="fas fa-check-circle"></i> ${d.stock}</div>` : '';
-            const ecomCtaBtn = d.cta ? `<div class="cta-button"><i class="fab fa-whatsapp"></i> ${d.cta}</div>` : '';
-
-            // Sticker
-            let st = '';
-            if (app.sticker === 'sale') st = `<div class="sticker st-sale">Big<br>Sale</div>`;
-            else if (app.sticker === 'new') st = `<div class="sticker st-new">New<br>Arrival</div>`;
-            else if (app.sticker === 'best') st = `<div class="sticker st-best">Best<br>Choice</div>`;
-            else if (app.sticker === 'hot') st = `<div class="sticker st-hot">🔥 Hot Deal</div>`;
-            else if (app.sticker === 'custom') st = `<div class="sticker st-custom">${d.customBadge || 'SPECIAL'}</div>`;
-
-            let h = '';
-            if (app.theme === 'vcard-corp') {
-                h = `${st}<div class="L">${brand}<div class="person-name">${d.h1}</div><div class="person-desig">${d.desig}</div><div class="tx-SM" style="margin-bottom:20px">${d.desc}</div>${cts}</div><div class="R">${qrCardHtml}</div>`;
+            if (app.cardSide === 'back') {
+                canvas.innerHTML = `
+                    <div class="back-side-layout">
+                        ${app.logoUrl ? `<img src="${app.logoUrl}" style="max-height:40px; margin-bottom:4px">` : ''}
+                        <div class="v-shop-name" style="font-size:20px">${company}</div>
+                        <div style="font-size:12px; opacity:0.85; max-width:80%">${tagline}</div>
+                        ${showQr ? `<div class="back-big-qr"><img src="${qrUrl}" alt="QR Code"></div>` : ''}
+                        <div style="font-size:11px; opacity:0.75">${web || email || phone}</div>
+                    </div>
+                `;
+                return;
             }
-            else if (app.theme === 'vcard-lux') {
-                h = `${st}<div class="L">${brandLight}<div class="person-name">${d.h1}</div><div class="person-desig">${d.desig}</div><div class="tx-SM" style="color:#cbd5e1; margin-bottom:20px">${d.desc}</div>${cts}</div><div class="R">${qrCardHtml}</div>`;
+
+            // FRONT SIDE RENDER
+            const photoHtml = app.photoUrl ? `<img src="${app.photoUrl}" class="v-avatar-photo" alt="Photo">` : '';
+
+            let brandHtml = '';
+            if (app.logoUrl) {
+                brandHtml += `<div class="v-shop-block"><img src="${app.logoUrl}" class="v-shop-logo" alt="Logo"><div class="v-shop-name">${company}</div></div>`;
+            } else if (company) {
+                brandHtml += `<div class="v-shop-block"><div class="v-shop-name">${company}</div></div>`;
             }
-            else if (app.theme === 'ecom-hero') {
-                h = `${st}<div class="L">${brand}${timerBadgeHtml}<div class="tx-XL" style="color:#0f172a">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${d.h2}</div>${ecomRatingBlock}${ecomPriceBlock}${ecomStockBlock}<div class="tx-SM">${d.desc}</div><div>${ecomCtaBtn}</div><div style="margin-top:20px">${cts}</div></div><div class="R">${hero}</div>`;
-            }
-            else if (app.theme === 'ecom-flash') {
-                h = `${st}<div class="L">${brandLight}${timerBadgeHtml}<div class="tx-XL">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${d.h2}</div>${ecomRatingBlock}${ecomPriceBlock}${ecomStockBlock}<div class="tx-SM" style="color:#cbd5e1">${d.desc}</div><div>${ecomCtaBtn}</div><div style="margin-top:auto">${cts}</div></div><div class="R">${hero}</div>`;
-            }
-            else if (app.theme === 'modern') h = `${st}<div class="side">${brandLight}<div style="margin-top:auto">${cts}</div></div><div class="main">${timerBadgeHtml}<div class="tx-XL" style="color:#1e293b">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock + ecomCtaBtn : ''}<div class="tx-SM" style="margin-top:10px">${d.desc}</div><div style="margin-top:20px">${exPills}</div></div>`;
 
-            else if (app.theme === 'corp') h = `${st}<div class="head"><div style="display:flex;align-items:center;gap:20px">${logo}<div class="brand-name">${d.shop}</div></div><div class="tx-MD">${d.tag}</div></div><div class="body"><div>${timerBadgeHtml}<div class="tx-LG" style="color:var(--th)">${d.h1}</div><div class="tx-MD" style="color:#555">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="margin-top:10px">${d.desc}</div><div style="margin-top:20px">${exPills}</div></div><div style="background:#f8f9fa;padding:25px;border-radius:12px">${cts}</div></div>`;
+            let contactsHtml = '<div class="v-contacts-list">';
+            if (showPh && phone) contactsHtml += `<div class="v-contact-row"><i><i class="fas fa-phone"></i></i> <span>${phone}</span></div>`;
+            if (showWa && wa) contactsHtml += `<div class="v-contact-row"><i><i class="fab fa-whatsapp"></i></i> <span>${wa}</span></div>`;
+            if (showEm && email) contactsHtml += `<div class="v-contact-row"><i><i class="fas fa-envelope"></i></i> <span>${email}</span></div>`;
+            if (showWb && web) contactsHtml += `<div class="v-contact-row"><i><i class="fas fa-globe"></i></i> <span>${web}</span></div>`;
+            if (showAd && addr) contactsHtml += `<div class="v-contact-row"><i><i class="fas fa-map-marker-alt"></i></i> <span>${addr}</span></div>`;
+            contactsHtml += '</div>';
 
-            else if (app.theme === 'poster') h = `${st}<div class="hero">${hero}</div><div class="dets"><div>${brand}${timerBadgeHtml}<div class="tx-LG" style="color:var(--th); margin-top:10px">${d.h1}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="width:85%">${d.desc}</div></div><div style="width:45%; display:flex; flex-direction:column; align-items:flex-end">${cts}</div></div>`;
+            const qrBoxHtml = showQr ? `<div class="v-qr-box"><img src="${qrUrl}" alt="QR"></div>` : '';
 
-            else if (app.theme === 'diag') h = `${st}<div class="slash"></div><div class="content"><div class="L">${brandLight}${timerBadgeHtml}<div class="tx-XL" style="margin-top:20px">${d.h1}</div><div class="tx-MD">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="color:#eee">${d.desc}</div><div style="margin-top:auto">${cts}</div></div><div class="R">${hero}</div></div>`;
-
-            else if (app.theme === 'fest') h = `${st}<div class="frame"><div style="flex:1">${brandCenter}${timerBadgeHtml}<div class="tx-XXL" style="font-family:'Great Vibes', cursive;color:var(--th); margin-top:15px; text-align:center">${d.h1}</div><div class="tx-SM" style="margin-top:15px; text-align:center">${d.desc}</div><div style="margin-top:25px;border-top:1px solid #ddd;padding-top:15px">${cts}</div></div><div class="pic">${hero}</div></div>`;
-
-            else if (app.theme === 'store') h = `${st}<div class="pan">${brand}${timerBadgeHtml}<div class="tx-LG" style="color:var(--th); margin-top:20px">${d.h1}</div><div class="tx-SM" style="color:#555;margin-top:10px">${d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div style="margin-top:auto">${cts}</div></div><div class="grid">${exGrid}</div>`;
-
-            else if (app.theme === 'frame') h = `${st}<div class="card"><div style="flex:1">${brand}${timerBadgeHtml}<div class="tx-XL" style="margin-top:10px">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM">${d.desc}</div>${cts}</div><div class="pic">${hero}</div></div>`;
-
-            else if (app.theme === 'circ') h = `${st}<div class="orb">${hero}</div><div class="txt">${brandLight}${timerBadgeHtml}<div class="tx-XL" style="margin-top:20px">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="color:#ccc">${d.desc}</div><div style="margin-top:40px">${cts}</div></div>`;
-
-            else if (app.theme === 'offer') h = `${st}<div class="shp">${brand}${timerBadgeHtml}<div class="tx-XXL" style="color:var(--th); margin-top:10px">${d.h1}</div><div class="tag-pill" style="font-size:22px;margin:15px 0">${d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="margin-bottom:20px">${d.desc}</div>${cts}</div><div class="img">${hero}</div>`;
-
-            else if (app.theme === 'neon') h = `${st}<div class="glow"></div><div class="L">${brandLight}${timerBadgeHtml}<div class="tx-XL" style="margin-top:20px">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock + ecomCtaBtn : ''}<div class="tx-SM" style="color:#94a3b8; margin-top:10px">${d.desc}</div><div style="margin-top:auto">${cts}</div></div><div class="R">${app.mode === 'vcard' ? qrCardHtml : hero}</div>`;
-
-            else if (app.theme === 'stripe') h = `${st}<div class="top"></div><div class="main"><div style="flex:1">${brand}${timerBadgeHtml}<div class="tx-XL" style="margin-top:10px">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="margin-top:10px;width:80%">${d.desc}</div></div><div style="width:40%">${cts}</div></div><div class="bot"></div>`;
-
-            else if (app.theme === 'type') h = `${st}${brand}${timerBadgeHtml}<div class="tx-XXL" style="color:#1e293b; margin-top:20px">${d.h1}</div><div class="tx-MD" style="color:var(--th);letter-spacing:2px;text-transform:uppercase">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="width:65%">${d.desc}</div>${cts}`;
-
-            else if (app.theme === 'head') h = `${st}<div class="mid">${brandLight}${timerBadgeHtml}<div class="tx-XXL" style="font-size:75px; margin-top:20px">${d.h1}</div><div class="tx-MD">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="width:70%">${d.desc}</div></div>${cts}`;
-
-            else if (app.theme === 'curve') h = `${st}<div class="b1"></div><div class="b2"></div><div class="con">${brand}${timerBadgeHtml}<div class="tx-XL" style="margin-top:10px">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="width:55%">${d.desc}</div><div style="margin-top:auto">${cts}</div></div>`;
-
-            else if (app.theme === 'art') h = `${st}<div class="ptt"></div><div class="in">${brand}${timerBadgeHtml}<div class="tx-XL" style="margin-top:20px">${d.h1}</div><div class="tx-MD" style="color:var(--th)">${app.mode === 'vcard' ? d.desig : d.h2}</div>${app.mode === 'ecom' ? ecomPriceBlock : ''}<div class="tx-SM" style="width:65%">${d.desc}</div><div style="margin-top:40px;border-top:1px solid #eee;padding-top:20px">${cts}</div></div>`;
-
-            b.innerHTML = h;
+            canvas.innerHTML = `
+                <div class="card-inner-layout">
+                    <div class="L">
+                        ${photoHtml}
+                        ${brandHtml}
+                        ${showName && name ? `<div class="v-person-name">${name}</div>` : ''}
+                        ${showDesig && desig ? `<div class="v-person-desig">${desig}</div>` : ''}
+                        ${contactsHtml}
+                    </div>
+                    <div class="R">
+                        ${qrBoxHtml}
+                    </div>
+                </div>
+            `;
         }
 
-        function saveHD() {
-            showToast('Generating HD Image...', 'fa-spinner fa-spin');
-            const t = _('artboard');
-            const c = t.cloneNode(true);
-            const dim = ratios[app.ratio];
-            const w = document.createElement('div');
-            
-            w.style.width = dim.w + 'px';
-            w.style.height = dim.h + 'px';
-            w.style.position = 'fixed';
-            w.style.top = '0';
-            w.style.left = '-9999px';
-            w.appendChild(c);
-            document.body.appendChild(w);
+        function downloadVCF() {
+            const name = _('in-name').value.trim() || 'Visiting Card';
+            const desig = _('in-desig').value.trim();
+            const company = _('in-company').value.trim();
+            const phone = _('in-phone').value.trim();
+            const wa = _('in-wa').value.trim();
+            const email = _('in-email').value.trim();
+            const web = _('in-web').value.trim();
+            const addr = _('in-addr').value.trim();
 
-            html2canvas(c, {
-                scale: app.exportScale,
+            const vcardData = `BEGIN:VCARD
+VERSION:3.0
+FN:${name}
+TITLE:${desig}
+ORG:${company}
+TEL;TYPE=CELL:${phone}
+TEL;TYPE=WORK,VOICE:${wa || phone}
+EMAIL:${email}
+URL:${web}
+ADR:;;${addr};;;;
+END:VCARD`;
+
+            const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+            const a = document.createElement('a');
+            a.download = `${name.replace(/\s+/g, '_')}_Contact.vcf`;
+            a.href = URL.createObjectURL(blob);
+            a.click();
+            showToast('📱 Mobile .VCF Contact File Downloaded!', 'fa-address-book');
+        }
+
+        function downloadPNG() {
+            showToast(`Generating HD Visiting Card (${app.cardSide.toUpperCase()})...`, 'fa-spinner fa-spin');
+            const card = _('vcard-canvas');
+            html2canvas(card, {
+                scale: 3,
                 useCORS: true,
                 allowTaint: true
             }).then(cv => {
                 const a = document.createElement('a');
-                const ext = app.exportFormat === 'jpeg' ? 'jpg' : 'png';
-                const mime = app.exportFormat === 'jpeg' ? 'image/jpeg' : 'image/png';
-                
-                a.download = `Ad-Crafter-${app.ratio.replace(':', 'x')}-${Date.now()}.${ext}`;
-                a.href = cv.toDataURL(mime, 0.95);
+                a.download = `Visiting-Card-${app.cardSide}-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
                 a.click();
-                document.body.removeChild(w);
-                showToast('✨ HD Card/Banner downloaded!', 'fa-circle-check');
-            }).catch(err => {
-                showToast('Failed to download image', 'fa-triangle-exclamation');
-                document.body.removeChild(w);
-            });
-        }
-
-        function copyToClipboard() {
-            showToast('Copying to clipboard...', 'fa-spinner fa-spin');
-            const t = _('artboard');
-            const c = t.cloneNode(true);
-            const dim = ratios[app.ratio];
-            const w = document.createElement('div');
-            
-            w.style.width = dim.w + 'px';
-            w.style.height = dim.h + 'px';
-            w.style.position = 'fixed';
-            w.style.top = '0';
-            w.style.left = '-9999px';
-            w.appendChild(c);
-            document.body.appendChild(w);
-
-            html2canvas(c, {
-                scale: 1,
-                useCORS: true,
-                allowTaint: true
-            }).then(cv => {
-                cv.toBlob(blob => {
-                    if (navigator.clipboard && navigator.clipboard.write) {
-                        navigator.clipboard.write([
-                            new ClipboardItem({ 'image/png': blob })
-                        ]).then(() => {
-                            showToast('✨ Copied image to clipboard!', 'fa-copy');
-                        }).catch(err => {
-                            showToast('Image copied! Use download if restricted.', 'fa-info-circle');
-                        });
-                    } else {
-                        showToast('Clipboard API not supported. Click Download.', 'fa-circle-exclamation');
-                    }
-                    document.body.removeChild(w);
-                });
-            }).catch(err => {
-                showToast('Failed to copy image', 'fa-triangle-exclamation');
-                document.body.removeChild(w);
+                showToast('✨ Ultra-HD Visiting Card Downloaded!', 'fa-circle-check');
             });
         }
     </script>

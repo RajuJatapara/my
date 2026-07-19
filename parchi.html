@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Village Pisaai, Dairy & Service Parchi Crafter - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Sans+Gujarati:wght@400;600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --page-bg: #0f172a;
+            --th: #10b981;
+            --font-main: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            gap: 10px;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #34d399;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-top-main {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.1s ease;
+        }
+
+        .btn-top-sec {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* CONTROLS PANEL */
+        .controls-panel {
+            width: 440px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            flex-shrink: 0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 13px;
+            background: #1e293b;
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+
+        select option { background: #0f172a; color: #f8fafc; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box.active {
+            background: rgba(16, 185, 129, 0.15);
+            border-color: rgba(52, 211, 153, 0.5);
+            color: #34d399;
+        }
+
+        /* DYNAMIC PARCHI ITEM ROW */
+        .parchi-item-input-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 6px 8px;
+        }
+
+        .parchi-item-input-row input {
+            margin-bottom: 0;
+            padding: 6px 8px;
+        }
+
+        .btn-del-parchi-item {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* PREVIEW PANEL */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* PARCHI SLIP CANVAS */
+        .parchi-canvas {
+            background: #fffdf5;
+            color: #0f172a;
+            width: 380px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            border-radius: 10px;
+            padding: 20px 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 2px dashed #d97706;
+            font-family: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+            box-sizing: border-box;
+        }
+
+        .parchi-header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 10px; margin-bottom: 14px; }
+        .parchi-shop { font-size: 20px; font-weight: 900; color: #0f172a; line-height: 1.1; }
+        .parchi-title-tag { background: #0f172a; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 10px; border-radius: 10px; display: inline-block; margin-top: 4px; text-transform: uppercase; }
+
+        .parchi-meta { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #475569; margin-bottom: 12px; }
+
+        .parchi-cust-box { background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; font-size: 12px; font-weight: 700; color: #1e293b; }
+
+        .parchi-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+        .parchi-table th { background: #f1f5f9; font-size: 11px; font-weight: 800; color: #334155; padding: 6px 8px; border-bottom: 2px solid #cbd5e1; text-align: left; }
+        .parchi-table th:last-child { text-align: right; }
+        .parchi-table td { padding: 8px; font-size: 13px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
+        .parchi-table td:last-child { text-align: right; font-weight: 900; }
+
+        /* BREAKDOWN TOTAL / PAID / DUE BOXES */
+        .parchi-breakdown-box {
+            background: #fff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bd-row { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: #475569; }
+        .bd-row.bd-due { font-size: 15px; font-weight: 900; color: #ef4444; border-top: 1px dashed #cbd5e1; padding-top: 4px; margin-top: 2px; }
+        .bd-row.bd-paid { color: #16a34a; }
+
+        .parchi-stamp-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 6px; }
+        .parchi-stamp { font-size: 11px; font-weight: 900; border: 2px solid #16a34a; color: #16a34a; padding: 2px 10px; border-radius: 6px; text-transform: uppercase; transform: rotate(-5deg); display: inline-block; }
+        .parchi-stamp.st-due { border-color: #ef4444; color: #ef4444; }
+
+        /* DIRECT BODY CHILD FOR SINGLE PRINT CONTAINER */
+        #print-parchi-container { display: none; }
+
+        /* PRINT STYLES - SINGLE A4 PARCHI */
+        @media print {
+            body { background: #fff !important; color: #000 !important; margin: 0 !important; padding: 0 !important; }
+            .app-header, .app-body, #toast-container { display: none !important; }
+            #print-parchi-container {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                width: 100% !important;
+                padding: 15mm;
+                background: #fff !important;
+            }
+            #print-parchi-container .parchi-canvas {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 400px;
+                border: 2px solid #0f172a !important;
+            }
+        }
+
+        /* MOBILE RESPONSIVE STYLES */
+        @media (max-width: 900px) {
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-body { flex-direction: column; }
+            .preview-panel { width: 100%; min-height: 440px; position: sticky; top: 0; z-index: 40; border-bottom: 2px solid rgba(255,255,255,0.1); padding: 16px 12px; }
+            .parchi-canvas { width: 100%; }
+            .controls-panel { width: 100%; border-right: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- HEADER TOPBAR -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-receipt"></i>
+            <span data-i18n="suite_title">RAJU CRAFTER STUDIO</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <div class="btn-top-sec" onclick="printSingleParchi()"><i class="fas fa-print"></i> Print Single Parchi</div>
+            <div class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download Parchi PNG</div>
+        </div>
+    </div>
+
+    <!-- MAIN APP BODY -->
+    <div class="app-body">
+        <!-- CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="grp-label">1. Village Service Presets</div>
+            <div class="grid-2" style="margin-bottom:8px">
+                <div class="opt-box active" onclick="loadPreset('pisaai', this)"><i class="fas fa-wheat-awn"></i> લોટ પીસાઈ પહોંચ</div>
+                <div class="opt-box" onclick="loadPreset('dairy', this)"><i class="fas fa-glass-water"></i> દૂધ મંડળી પહોંચ</div>
+                <div class="opt-box" onclick="loadPreset('tractor', this)"><i class="fas fa-tractor"></i> ટ્રેક્ટર ભાડું પહોંચ</div>
+                <div class="opt-box" onclick="loadPreset('repair', this)"><i class="fas fa-wrench"></i> રિપેરિંગ પહોંચ</div>
+            </div>
+            <div class="opt-box" style="margin-bottom:12px; background:rgba(239,68,68,0.15); color:#f87171; border-color:rgba(239,68,68,0.4)" onclick="loadPreset('blank', this)">
+                <i class="fas fa-file-circle-plus"></i> ✨ Custom Blank Parchi (ખાલી પહોંચ)
+            </div>
+
+            <div class="grp-label">2. Shop & Parchi Header</div>
+            <input type="text" id="in-shop" value="શ્રી રામ લોટ દળવાની મિલ & Chakki" oninput="render()" placeholder="Shop / Mill Name">
+            <input type="text" id="in-tag" value="પીસાઈ રસીદ પહોંચ" oninput="render()" placeholder="Parchi Subtitle">
+            <div class="grid-2">
+                <input type="text" id="in-ref" value="પહોંચ નં: #P-104" oninput="render()" placeholder="Slip Ref No.">
+                <input type="date" id="in-date" onchange="render()" style="cursor:pointer">
+            </div>
+
+            <div class="grp-label">3. Customer Details</div>
+            <div class="grid-2">
+                <input type="text" id="in-cust" value="રમેશભાઈ પટેલ" oninput="render()" placeholder="Customer Name">
+                <input type="tel" id="in-phone" value="9876543210" oninput="render()" placeholder="Customer Mobile">
+            </div>
+
+            <div class="grp-label">4. Dynamic Service Items (+ / -)</div>
+            <div id="parchi-item-container"></div>
+
+            <button type="button" style="width:100%; background:rgba(255,255,255,0.08); color:#34d399; border:1px dashed rgba(52,211,153,0.4); height:38px; border-radius:8px; font-weight:700; cursor:pointer; margin-bottom:14px" onclick="addItem()">
+                <i class="fas fa-plus-circle"></i> Add New Item (+ વિગત ઉમેરો)
+            </button>
+
+            <div class="grp-label">5. Payment Amount Breakdown (જમા / બાકી)</div>
+            <div class="grid-2">
+                <input type="number" id="in-paid" value="120" oninput="render()" placeholder="Paid Amount ₹ (જમા રકમ)">
+                <select id="in-status" onchange="render()">
+                    <option value="PAID">PAID - ચૂકવેલ પહોંચ</option>
+                    <option value="DUE">DUE - બાકી પહોંચ</option>
+                    <option value="PARTIAL">PARTIAL - અડધા જમા</option>
+                </select>
+            </div>
+
+            <button type="button" style="width:100%; background:linear-gradient(135deg, #10b981, #059669); color:#fff; height:46px; border-radius:23px; border:none; font-weight:800; cursor:pointer; margin-top:10px" onclick="downloadPNG()">
+                <i class="fas fa-download"></i> Download Parchi PNG
+            </button>
+            <button type="button" style="width:100%; background:rgba(255,255,255,0.1); color:#fff; height:46px; border-radius:23px; border:1px solid rgba(255,255,255,0.2); font-weight:800; cursor:pointer; margin-top:10px" onclick="printSingleParchi()">
+                <i class="fas fa-print"></i> Print Single Parchi (A4)
+            </button>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="parchi-canvas" id="parchi-card">
+                <div class="parchi-header">
+                    <div class="parchi-shop" id="out-shop">શ્રી રામ લોટ દળવાની મિલ</div>
+                    <div class="parchi-title-tag" id="out-tag">પીસાઈ રસીદ પહોંચ</div>
+                </div>
+
+                <div class="parchi-meta">
+                    <div id="out-ref">પહોંચ નં: #P-104</div>
+                    <div id="out-date">તારીખ: 19/07/2026</div>
+                </div>
+
+                <div class="parchi-cust-box">
+                    <div>ગ્રાહકનું નામ: <span id="out-cust" style="font-weight:900; color:#0f172a">રમેશભાઈ પટેલ</span></div>
+                    <div style="font-size:11px; color:#64748b" id="out-phone">મોબાઈલ: +91 98765 43210</div>
+                </div>
+
+                <table class="parchi-table">
+                    <thead>
+                        <tr>
+                            <th>કામ / વિગત</th>
+                            <th>વજન / જથ્થો</th>
+                            <th>રકમ (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="out-table-body"></tbody>
+                </table>
+
+                <div class="parchi-breakdown-box">
+                    <div class="bd-row">
+                        <div>કુલ રકમ (Total Amount):</div>
+                        <div id="out-total-amt">₹170</div>
+                    </div>
+                    <div class="bd-row bd-paid">
+                        <div>જમા રકમ (Paid Amount):</div>
+                        <div id="out-paid-amt">₹120</div>
+                    </div>
+                    <div class="bd-row bd-due">
+                        <div>બાકી રકમ (Balance Due):</div>
+                        <div id="out-due-amt">₹50</div>
+                    </div>
+                </div>
+
+                <div class="parchi-stamp-row">
+                    <div class="parchi-stamp" id="out-stamp">PAID / ચૂકવેલ</div>
+                    <div style="font-size:10px; color:#64748b">સહી / સિક્કો</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIRECT BODY CHILD FOR SINGLE PRINT CONTAINER -->
+    <div id="print-parchi-container"></div>
+
+    <!-- HTML2CANVAS SCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script>
+        let items = [
+            { id: 1, name: "ઘઉં પીસાઈ (Wheat Grinding)", qty: "40 Kg (2 મણ)", amt: 120 },
+            { id: 2, name: "મસાલા / મરચું દળામણ", qty: "2 Kg", amt: 50 }
+        ];
+
+        const _ = id => document.getElementById(id);
+
+        function showToast(msg, icon = 'fa-circle-check') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#34d399"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            if (!_('in-date').value) {
+                const today = new Date().toISOString().split('T')[0];
+                _('in-date').value = today;
+            }
+            renderForms();
+            render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+
+        function loadPreset(type, b) {
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+
+            if (type === 'blank') {
+                _('in-shop').value = "";
+                _('in-tag').value = "";
+                _('in-ref').value = "";
+                _('in-date').value = "";
+                _('in-cust').value = "";
+                _('in-phone').value = "";
+                _('in-paid').value = "0";
+                items = [{ id: 1, name: "", qty: "", amt: 0 }];
+                showToast('✨ Custom Blank Parchi Loaded!', 'fa-file-circle-plus');
+            } else if (type === 'pisaai') {
+                _('in-shop').value = "શ્રી રામ લોટ દળવાની મિલ";
+                _('in-tag').value = "પીસાઈ રસીદ પહોંચ";
+                _('in-paid').value = "120";
+                items = [
+                    { id: 1, name: "ઘઉં પીસાઈ (Wheat Grinding)", qty: "40 Kg (2 મણ)", amt: 120 },
+                    { id: 2, name: "મસાલા દળામણ", qty: "2 Kg", amt: 50 }
+                ];
+                showToast('Loaded Pisaai Preset', 'fa-wheat-awn');
+            } else if (type === 'dairy') {
+                _('in-shop').value = "જય અંબે દૂધ ઉત્પાદક મંડળી";
+                _('in-tag').value = "દૂધ ભરાવ્યાની પહોંચ";
+                _('in-paid').value = "624";
+                items = [
+                    { id: 1, name: "ભેંસનું દૂધ (Fat 7.5)", qty: "12 Litre", amt: 624 }
+                ];
+                showToast('Loaded Dairy Collection Preset', 'fa-glass-water');
+            } else if (type === 'tractor') {
+                _('in-shop').value = "ખોડિયાર ટ્રેક્ટર & ખેત ઓજારો ભાડે";
+                _('in-tag').value = "ટ્રેક્ટર કામ પહોંચ";
+                _('in-paid').value = "2000";
+                items = [
+                    { id: 1, name: "રોટોવેટર કામ (Rotavator)", qty: "3 કલાક (Hours)", amt: 1800 },
+                    { id: 2, name: "ડીઝલ ખર્ચ", qty: "15 Litre", amt: 1400 }
+                ];
+                showToast('Loaded Tractor Rent Preset', 'fa-tractor');
+            } else if (type === 'repair') {
+                _('in-shop').value = "શ્રી હરિ મોબાઈલ & ઈલેક્ટ્રોનિક્સ";
+                _('in-tag').value = "રિપેરિંગ રસીદ પહોંચ";
+                _('in-paid').value = "500";
+                items = [
+                    { id: 1, name: "Samsung Mobile Display Repair", qty: "1 Pcs", amt: 1500 }
+                ];
+                showToast('Loaded Repair Slip Preset', 'fa-wrench');
+            }
+            renderForms();
+            render();
+        }
+
+        function addItem() {
+            items.push({ id: Date.now(), name: "", qty: "", amt: 0 });
+            renderForms();
+            render();
+        }
+
+        function deleteItem(id) {
+            if (items.length <= 1) return;
+            items = items.filter(x => x.id !== id);
+            renderForms();
+            render();
+        }
+
+        function updateItem(id, field, val) {
+            const it = items.find(x => x.id === id);
+            if (it) {
+                it[field] = val;
+                render();
+            }
+        }
+
+        function renderForms() {
+            const container = _('parchi-item-container');
+            let h = '';
+            items.forEach((it, idx) => {
+                h += `
+                <div class="parchi-item-input-row">
+                    <input type="text" value="${it.name}" oninput="updateItem(${it.id}, 'name', this.value)" placeholder="Item #${idx+1} Description">
+                    <input type="text" value="${it.qty}" style="width:90px" oninput="updateItem(${it.id}, 'qty', this.value)" placeholder="Qty / Weight">
+                    <input type="number" value="${it.amt}" style="width:80px" oninput="updateItem(${it.id}, 'amt', parseFloat(this.value)||0)" placeholder="₹ Amt">
+                    <button class="btn-del-parchi-item" onclick="deleteItem(${it.id})"><i class="fas fa-times"></i></button>
+                </div>`;
+            });
+            container.innerHTML = h;
+        }
+
+        function render() {
+            _('out-shop').innerText = _('in-shop').value.trim() || 'YOUR SHOP NAME';
+            _('out-tag').innerText = _('in-tag').value.trim() || 'PARCHI SLIP';
+            _('out-ref').innerText = _('in-ref').value.trim() || '';
+            const rawDate = _('in-date').value;
+            if (rawDate) {
+                const parts = rawDate.split('-');
+                if (parts.length === 3) {
+                    _('out-date').innerText = `તારીખ: ${parts[2]}/${parts[1]}/${parts[0]}`;
+                } else {
+                    _('out-date').innerText = `તારીખ: ${rawDate}`;
+                }
+            } else {
+                _('out-date').innerText = '';
+            }
+
+            _('out-cust').innerText = _('in-cust').value.trim() || 'Customer';
+            _('out-phone').innerText = `મોબાઈલ: ${_('in-phone').value.trim() || ''}`;
+
+            let totalAmt = 0;
+            let h = '';
+            items.forEach(it => {
+                const amt = parseFloat(it.amt) || 0;
+                totalAmt += amt;
+                h += `<tr><td>${it.name || '---'}</td><td style="color:#64748b; font-size:11px">${it.qty || ''}</td><td>₹${amt}</td></tr>`;
+            });
+            _('out-table-body').innerHTML = h;
+
+            const paidAmt = parseFloat(_('in-paid').value) || 0;
+            const dueAmt = totalAmt - paidAmt;
+
+            _('out-total-amt').innerText = `₹${totalAmt}`;
+            _('out-paid-amt').innerText = `₹${paidAmt}`;
+            _('out-due-amt').innerText = `₹${Math.max(0, dueAmt)}`;
+
+            const st = _('in-status').value;
+            const stamp = _('out-stamp');
+            if (dueAmt <= 0 || st === 'PAID') {
+                stamp.className = 'parchi-stamp';
+                stamp.innerText = 'PAID / ચૂકવેલ';
+            } else if (dueAmt > 0 && paidAmt > 0) {
+                stamp.className = 'parchi-stamp';
+                stamp.innerText = 'PARTIAL / જમા';
+            } else {
+                stamp.className = 'parchi-stamp st-due';
+                stamp.innerText = 'DUE / બાકી પહોંચ';
+            }
+        }
+
+        function printSingleParchi() {
+            showToast('Preparing Single Parchi Print...', 'fa-print');
+            const container = _('print-parchi-container');
+            container.innerHTML = '';
+            const card = _('parchi-card');
+            container.innerHTML = card.outerHTML;
+
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+
+        function downloadPNG() {
+            showToast('Generating HD Parchi PNG...', 'fa-spinner fa-spin');
+            const card = _('parchi-card');
+            html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `Parchi-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ Ultra-HD Parchi Downloaded!', 'fa-circle-check');
+            });
+        }
+    </script>
+</body>
+
+</html>
