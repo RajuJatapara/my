@@ -64,6 +64,12 @@ const i18nData = {
         t17_title: "Vehicle Driver & Goods Transport Duty Slip Crafter",
         t17_desc: "Create taxi outstation receipts, pickup goods transport slips, auto fare receipts, and meter KM trip vouchers with A4 print.",
 
+        t18_title: "Wedding Invitation & Kankotri Crafter",
+        t18_desc: "Design traditional Gujarati Kankotri, Marriage Cards, Sagai invitations, and Vastu Puja banners with A4 Print & HD PNG Download.",
+
+        t19_title: "Digital Product Catalog & Showcase Crafter",
+        t19_desc: "Create 1-Page Mobile Product Catalogs for clothing, hardware, kirana & sweets shops with MRP discount badges & Direct WhatsApp order buttons.",
+
         creator_tag: "👑 FOUNDER & LEAD DEVELOPER",
         creator_name: "Raju Jatapara",
         creator_role: "Creator of Raju Crafter Studio",
@@ -136,6 +142,12 @@ const i18nData = {
         t17_title: "વાહન ડ્રાઇવર & ટ્રાન્સપોર્ટ ભાડું ડ્યુટી સ્લિપ ક્રાફ્ટર",
         t17_desc: "ટેક્સી ભાડું રસીદ, પિકઅપ સામાન ભાડું સ્લિપ, ઓટો ભાડું અને મીટર KM ટ્રિપ પહોંચ A4 પ્રિન્ટ સાથે બનાવો.",
 
+        t18_title: "લગ્ન કંકોતરી & પ્રસંગ નિમંત્રણ પત્રિકા ક્રાફ્ટર",
+        t18_desc: "શુભ લગ્ન કંકોતરી, સગાઈ નિમંત્રણ, વાસ્તુ પૂજા અને જન્મદિન પત્રિકા શ્લોક અને તારીખ સાથે બનાવો.",
+
+        t19_title: "દુકાન પ્રોડક્ટ કેટલોગ & શોકેસ ક્રાફ્ટર",
+        t19_desc: "દુકાન માલ-સામાન પ્રોડક્ટ કેટલોગ ફોટો, ભાવ, ઑફર ડિસ્કાઉન્ટ અને ડાયરેક્ટ વોટ્સએપ ઓર્ડર બટન સાથે બનાવો.",
+
         creator_tag: "👑 સ્થાપક અને મુખ્ય ડેવલપર",
         creator_name: "રાજુ જતાપરા",
         creator_role: "સ્થાપક - રાજુ ક્રાફ્ટર સ્ટુડિયો",
@@ -207,6 +219,12 @@ const i18nData = {
 
         t17_title: "वाहन ड्राइवर & ट्रांसपोर्ट भाड़ा ड्यूटी स्लिप क्राफ्टर",
         t17_desc: "टैक्सी भाड़ा रसीद, पिकअप सामान भाड़ा स्लिप, ऑटो किराया और मीटर KM ट्रिप वाउचर A4 प्रिंट के साथ बनाएं।",
+
+        t18_title: "शादी विवाह निमंत्रण & कंकोतरी क्राफ्टर",
+        t18_desc: "शुभ विवाह कंकोतरी, सगाई निमंत्रण, वास्तु पूजा और जन्मदिन कार्ड मंत्र और तिथि के साथ बनाएं।",
+
+        t19_title: "दुकान डिजिटल प्रोडक्ट कैटलॉग क्राफ्टर",
+        t19_desc: "दुकान सामान प्रोडक्ट कैटलॉग फोटो, कीमत, ऑफर डिस्काउंट और डायरेक्ट व्हाट्सएप ऑर्डर बटन के साथ बनाएं।",
 
         creator_tag: "👑 संस्थापक एवं मुख्य डेवलपर",
         creator_name: "राजू जतापरा",

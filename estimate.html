@@ -633,15 +633,20 @@
 
         @media (max-width: 900px) {
             body { height: auto; min-height: 100vh; overflow-y: auto; }
-            .app-body { flex-direction: column-reverse; overflow: visible; }
+            .app-header { height: auto; padding: 10px 12px; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            .header-actions { flex-wrap: wrap; justify-content: center; width: 100%; gap: 6px; }
+            .btn-top-main, .btn-top-sec { padding: 6px 12px; font-size: 11px; }
+            .app-body { flex-direction: column; overflow: visible; }
             .controls-panel { width: 100%; height: auto; border-right: none; }
-            .preview-panel { padding: 15px 10px; width: 100%; box-sizing: border-box; }
+            .preview-panel { width: 100%; min-height: auto; position: sticky; top: 0; z-index: 50; border-bottom: 2px solid rgba(255, 255, 255, 0.15); padding: 14px 10px; background: #1e293b; }
             .invoice-paper { width: 100%; max-width: 100%; padding: 18px 12px; margin: 0; }
             .inv-header-grid { flex-direction: column; gap: 15px; }
             .inv-meta-grid { grid-template-columns: 1fr; gap: 10px; }
             .inv-summary-row { flex-direction: column; gap: 15px; }
             .inv-bank-box { width: 100%; }
             .inv-totals-box { width: 100%; }
+            input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select { font-size: 14px; padding: 12px; min-height: 44px; }
+            .item-row { flex-wrap: wrap; gap: 6px; }
         }
     </style>
 </head>

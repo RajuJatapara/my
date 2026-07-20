@@ -1,47 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raju Crafter Studio - All-in-One Digital Business Suite</title>
+    <!-- NO-CACHE META TAGS FOR INSTANT 1ST REFRESH UPDATES -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Raju Crafter Studio - Free Digital Utilities Suite</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Sans+Gujarati:wght@400;600;800&family=Inter:wght@400;600;800&display=swap"
         rel="stylesheet">
     <!-- FontAwesome 6.4.2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- i18n Translation Engine -->
-    <script src="i18n.js"></script>
+    <script src="i18n.js?v=1.3"></script>
 
     <style>
         :root {
             --primary: #6366f1;
             --primary-hover: #4f46e5;
-            --accent: #a855f7;
-            --bg-main: #0b0f19;
-            --card-bg: rgba(255, 255, 255, 0.04);
-            --card-border: rgba(255, 255, 255, 0.08);
+            --bg: #0b0f19;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
             --text-main: #f8fafc;
             --text-sub: #94a3b8;
+            --nav-bg: rgba(15, 23, 42, 0.9);
+            --font-main: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+        }
+
+        /* HIGH-CONTRAST LIGHT THEME OVERRIDES */
+        [data-theme="light"] {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --card-border: #cbd5e1;
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        /* GOLD LUXURY THEME OVERRIDES */
+        [data-theme="gold"] {
+            --primary: #d97706;
+            --primary-hover: #b45309;
+            --bg: #1c1917;
+            --card-bg: rgba(44, 36, 22, 0.9);
+            --card-border: rgba(245, 158, 11, 0.3);
+            --text-main: #fffbeb;
+            --text-sub: #f59e0b;
+            --nav-bg: rgba(28, 25, 23, 0.95);
         }
 
         .lang-selector {
             display: flex;
             align-items: center;
             gap: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 4px;
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        [data-theme="light"] .lang-selector {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
         }
 
         .lang-btn {
             background: transparent;
             border: none;
-            color: #94a3b8;
-            padding: 4px 10px;
-            border-radius: 14px;
-            font-size: 11px;
+            color: var(--text-sub);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -61,34 +96,26 @@
         }
 
         body {
-            background: var(--bg-main);
+            background: var(--bg);
             color: var(--text-main);
-            font-family: 'Poppins', sans-serif;
+            font-family: var(--font-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            background-image:
-                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.12) 0%, transparent 40%);
-            background-attachment: fixed;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* --- HEADER NAVBAR --- */
+        /* NAVBAR */
         .navbar {
-            height: 65px;
-            background: rgba(11, 15, 25, 0.85);
+            min-height: 64px;
+            background: var(--nav-bg);
             backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid var(--card-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 30px;
+            padding: 0 24px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -97,94 +124,103 @@
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 19px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            background: linear-gradient(135deg, #818cf8, #c084fc);
+            gap: 10px;
+            font-weight: 900;
+            font-size: 17px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-decoration: none;
         }
 
-        .brand-logo i {
-            -webkit-text-fill-color: initial;
-            color: #818cf8;
-            font-size: 22px;
-        }
-
-        .nav-links {
+        .nav-actions {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 8px;
         }
 
-        .nav-badge {
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            color: #a5b4fc;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
+        .theme-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 18px;
+            font-size: 11px;
             font-weight: 700;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 6px;
+            transition: all 0.2s ease;
         }
 
-        /* --- HERO SECTION --- */
+        [data-theme="light"] .theme-btn {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+
+        .theme-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-share-wa {
+            background: #25d366;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 18px;
+            font-size: 11px;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .btn-share-wa:hover {
+            transform: scale(1.05);
+        }
+
+        /* HERO SECTION */
         .hero-section {
             text-align: center;
-            padding: 50px 20px 30px 20px;
+            padding: 36px 20px 20px 20px;
             max-width: 900px;
             margin: 0 auto;
         }
 
-        .hero-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 6px 16px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #c084fc;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
         .hero-title {
-            font-size: 44px;
+            font-size: 36px;
             font-weight: 900;
             line-height: 1.2;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            color: var(--text-main);
         }
 
         .hero-subtitle {
-            font-size: 16px;
+            font-size: 14px;
             color: var(--text-sub);
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             line-height: 1.6;
+            font-weight: 500;
         }
 
-        /* --- SEARCH & CATEGORY FILTER --- */
+        /* SEARCH BAR */
         .search-wrap {
-            max-width: 500px;
-            margin: 0 auto 30px auto;
+            max-width: 520px;
+            margin: 0 auto 20px auto;
             position: relative;
         }
 
         .search-input {
             width: 100%;
-            padding: 14px 20px 14px 48px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 13px 20px 13px 44px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 30px;
-            color: #fff;
+            color: var(--text-main);
             font-size: 14px;
             font-family: inherit;
             outline: none;
@@ -193,8 +229,7 @@
 
         .search-input:focus {
             border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 25px rgba(99, 102, 241, 0.25);
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.3);
         }
 
         .search-icon {
@@ -202,26 +237,27 @@
             left: 18px;
             top: 50%;
             transform: translateY(-50%);
-            color: #64748b;
-            font-size: 16px;
+            color: var(--text-sub);
+            font-size: 15px;
         }
 
+        /* CATEGORY PILLS */
         .cat-pills {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 40px;
+            margin-bottom: 26px;
         }
 
         .pill-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 8px 18px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 7px 15px;
             border-radius: 20px;
             font-size: 12px;
-            font-weight: 600;
-            color: #94a3b8;
+            font-weight: 700;
+            color: var(--text-sub);
             cursor: pointer;
             transition: all 0.2s ease;
         }
@@ -231,181 +267,282 @@
             background: var(--primary);
             color: #fff;
             border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
         }
 
-        /* --- TOOLS GRID --- */
+        /* CONTAINER & TOOLS GRID */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px 60px 20px;
+            padding: 0 20px 90px 20px;
             flex: 1;
             width: 100%;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #f59e0b;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .grid-tools {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 24px;
+            gap: 20px;
+            margin-bottom: 30px;
         }
 
         .tool-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 20px;
-            padding: 28px;
+            padding: 22px;
             display: flex;
             flex-direction: column;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(12px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
         .tool-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(99, 102, 241, 0.4);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(99, 102, 241, 0.15);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 16px 35px rgba(0, 0, 0, 0.15);
         }
 
         .card-top {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
 
         .icon-box {
-            width: 56px;
-            height: 56px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+            border: 1px solid var(--card-border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: #818cf8;
+            font-size: 22px;
+            color: var(--primary);
         }
 
-        .tag-status {
-            font-size: 11px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        /* STAR BOOKMARK BUTTON */
+        .btn-star {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--card-border);
+            color: var(--text-sub);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .st-live {
-            background: rgba(34, 197, 94, 0.15);
-            color: #4ade80;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-
-        .st-next {
-            background: rgba(99, 102, 241, 0.15);
-            color: #818cf8;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
-
-        .st-plan {
-            background: rgba(148, 163, 184, 0.12);
-            color: #94a3b8;
-            border: 1px solid rgba(148, 163, 184, 0.2);
+        .btn-star.starred,
+        .btn-star:hover {
+            background: #f59e0b;
+            color: #fff;
+            border-color: #f59e0b;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
         }
 
         .tool-title {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 800;
-            margin-bottom: 10px;
-            color: #fff;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            line-height: 1.3;
         }
 
         .tool-desc {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-sub);
-            line-height: 1.6;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
+            line-height: 1.5;
             flex: 1;
         }
 
         .card-btn {
+            width: 100%;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            text-align: center;
+            text-decoration: none;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .btn-live {
-            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             color: #fff;
             box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            transition: all 0.2s ease;
         }
 
-        .btn-live:hover {
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.5);
+        .card-btn:hover {
             transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.45);
         }
 
-        .btn-upcoming {
-            background: rgba(255, 255, 255, 0.05);
-            color: #94a3b8;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            cursor: not-allowed;
+        /* COMPACT FLOATING WHATSAPP CHAT SUPPORT BUTTON */
+        .floating-wa-btn {
+            position: fixed;
+            bottom: 16px;
+            right: 14px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: all 0.2s ease;
         }
 
-        /* --- FOOTER --- */
+        .floating-wa-btn:hover {
+            transform: scale(1.06) translateY(-2px);
+        }
+
         .footer {
             text-align: center;
-            padding: 20px;
-            font-size: 12px;
-            color: #64748b;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            background: rgba(11, 15, 25, 0.95);
+            padding: 28px 20px 90px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            border-top: 1px solid var(--card-border);
+            background: var(--nav-bg);
+            position: relative;
+            z-index: 10;
         }
 
-        .footer span {
-            color: #818cf8;
-            font-weight: 700;
-        }
-
-        /* RESPONSIVE */
+        /* MOBILE RESPONSIVE NAVBAR & 2-COLUMN COMPACT GRID */
         @media (max-width: 768px) {
             .navbar {
-                padding: 0 12px;
-                height: 60px;
+                padding: 10px 12px;
+                flex-wrap: wrap;
+                gap: 8px;
             }
 
             .brand-logo {
-                font-size: 15px;
+                font-size: 14px;
             }
 
-            .nav-badge {
-                display: none;
+            .nav-actions {
+                width: 100%;
+                justify-content: space-between;
+                gap: 4px;
             }
 
-            .lang-btn {
-                padding: 4px 6px;
-                font-size: 10px;
+            .hero-section {
+                padding: 18px 10px 10px 10px;
             }
 
             .hero-title {
-                font-size: 24px;
+                font-size: 20px;
+                line-height: 1.3;
             }
 
             .hero-subtitle {
+                font-size: 11px;
+                margin-bottom: 14px;
+            }
+
+            .search-wrap {
+                margin-bottom: 14px;
+            }
+
+            .search-input {
+                padding: 9px 12px 9px 34px;
+                font-size: 12px;
+            }
+
+            .search-icon {
+                left: 12px;
                 font-size: 13px;
             }
 
+            .cat-pills {
+                gap: 6px;
+                margin-bottom: 16px;
+            }
+
+            .pill-btn {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+
+            .container {
+                padding: 0 10px 90px 10px;
+            }
+
             .grid-tools {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .tool-card {
+                padding: 12px 8px;
+                border-radius: 12px;
+            }
+
+            .card-top {
+                margin-bottom: 8px;
+            }
+
+            .icon-box {
+                width: 34px;
+                height: 34px;
+                font-size: 16px;
+                border-radius: 8px;
+            }
+
+            .btn-star {
+                width: 26px;
+                height: 26px;
+                font-size: 11px;
+            }
+
+            .tool-title {
+                font-size: 11px;
+                line-height: 1.3;
+                margin-bottom: 4px;
+            }
+
+            .tool-desc {
+                font-size: 9px;
+                line-height: 1.3;
+                margin-bottom: 8px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            .card-btn {
+                padding: 6px 8px;
+                font-size: 10px;
+                border-radius: 8px;
             }
         }
     </style>
@@ -415,344 +552,459 @@
 
     <!-- NAVBAR -->
     <div class="navbar">
-        <div class="brand-logo">
-            <i class="fas fa-cubes"></i>
-            <span>RAJU CRAFTER STUDIO</span>
-        </div>
-        <div class="nav-links">
+        <a href="index.html" class="brand-logo">
+            <i class="fas fa-cubes-stacked" style="color:var(--primary)"></i>
+            <span data-i18n="suite_title">RAJU CRAFTER STUDIO</span>
+        </a>
+
+        <div class="nav-actions">
             <div class="lang-selector">
-                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">🇬🇧 English</button>
-                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">🇮🇳 ગુજરાતી</button>
-                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">🇮🇳 हिंदी</button>
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
             </div>
-            <div class="nav-badge"><i class="fas fa-sparkles"></i> 100% Free Suite</div>
+            <div class="theme-btn" onclick="cycleTheme()"><i class="fas fa-moon" id="theme-icon"></i> <span
+                    id="theme-text">Dark</span></div>
+            <a href="https://api.whatsapp.com/send?text=%F0%9F%9A%80%20Create%20Free%20Banners%2C%20Digital%20Cards%2C%20Parchi%2C%20Rate%20Board%20%26%20Salary%20Slips%20in%20Seconds%20with%20Raju%20Crafter%20Studio%20http%3A%2F%2Flocalhost%2Fmy%2Findex.html"
+                target="_blank" class="btn-share-wa">
+                <i class="fab fa-whatsapp"></i> Share App
+            </a>
         </div>
     </div>
 
     <!-- HERO SECTION -->
     <div class="hero-section">
-        <div class="hero-chip"><i class="fas fa-bolt"></i> Digital Business Utilities & Content Suite</div>
-        <h1 class="hero-title">Create Banners, Digital Cards & Smart Utilities in Seconds</h1>
-        <p class="hero-subtitle">Powerful, fast, and easy-to-use digital tools designed for small businesses,
-            shopkeepers, and creators. No login required!</p>
+        <div class="hero-title" data-i18n="hero_title">Create Banners, Digital Cards & Smart Utilities in Seconds</div>
+        <div class="hero-subtitle" data-i18n="hero_desc">Powerful, fast, and easy-to-use digital tools designed for
+            small businesses, shopkeepers, and creators. No login required!</div>
 
         <!-- SEARCH BAR -->
         <div class="search-wrap">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" id="search-input" class="search-input"
-                placeholder="Search any tool (e.g., Poster, vCard, QR Code, Invoice)..." onkeyup="filterTools()">
+            <i class="fas fa-magnifying-glass search-icon"></i>
+            <input type="text" class="search-input" id="search-input" oninput="filterTools()"
+                placeholder="Search tools (e.g. પીસાઈ, ભાવ, પગાર, ભાડું, vCard, Invoice, QR)..." data-i18n="search_ph">
         </div>
 
         <!-- CATEGORY PILLS -->
         <div class="cat-pills">
-            <button class="pill-btn active" onclick="filterCat('all', this)">All Tools</button>
-            <button class="pill-btn" onclick="filterCat('design', this)">Design & Ads</button>
-            <button class="pill-btn" onclick="filterCat('business', this)">Business & Contacts</button>
-            <button class="pill-btn" onclick="filterCat('billing', this)">Invoice & Quotes</button>
-            <button class="pill-btn" onclick="filterCat('utility', this)">QR & Utilities</button>
+            <div class="pill-btn active" onclick="filterCat('all', this)" data-i18n="cat_all">All Tools (19)</div>
+            <div class="pill-btn" onclick="filterCat('village', this)"><i class="fas fa-wheat-awn"></i> Village Tools
+            </div>
+            <div class="pill-btn" onclick="filterCat('billing', this)" data-i18n="cat_billing">Invoice & Billing</div>
+            <div class="pill-btn" onclick="filterCat('business', this)" data-i18n="cat_business">Cards & Business</div>
+            <div class="pill-btn" onclick="filterCat('design', this)" data-i18n="cat_design">Design & Ads</div>
+            <div class="pill-btn" onclick="filterCat('utility', this)" data-i18n="cat_utility">QR & Utilities</div>
         </div>
     </div>
 
-    <!-- MAIN TOOLS GRID -->
+    <!-- MAIN CONTAINER -->
     <div class="container">
-        <div class="grid-tools" id="tools-grid">
 
-            <!-- CARD 1: AD & POSTER CRAFTER PRO -->
-            <div class="tool-card" data-cat="design" data-name="ad poster banner crafter graphic post">
+        <!-- ⭐ FAVORITE TOOLS SECTION (Only shown if user starred tools) -->
+        <div id="fav-section" style="display:none; margin-bottom:30px">
+            <div class="section-title"><i class="fas fa-star"></i> મારા મનપસંદ સાધનો (FAVORITE TOOLS)</div>
+            <div class="grid-tools" id="fav-grid"></div>
+        </div>
+
+        <!-- ALL TOOLS GRID -->
+        <div class="section-title"><i class="fas fa-grip"></i> તમામ 19 ડિજિટલ સાધનો (ALL TOOLS)</div>
+        <div class="grid-tools" id="all-grid">
+
+            <!-- CARD 18: WEDDING INVITATION & KANKOTRI CRAFTER -->
+            <div class="tool-card" data-cat="design" data-id="tool-18"
+                data-name="wedding invitation kankotri crafter marriage card sagai invitation vastu puja birthday banner print a4 png લગ્ન કંકોતરી સગાઈ વાસ્તુ આમંત્રણ">
                 <div class="card-top">
-                    <div class="icon-box"><i class="fas fa-wand-magic-sparkles"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                    <div class="icon-box" style="color:#f59e0b"><i class="fas fa-envelope-open-text"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-18', event)"><i class="fas fa-star"></i></div>
                 </div>
-                <div class="tool-title" data-i18n="t1_title">Ad & Poster Crafter Pro</div>
-                <div class="tool-desc" data-i18n="t1_desc">Design 4K/HD Ad Banners, Festival Wishes, E-Commerce Offer
-                    Posters, and Business Cards with custom QR code integration.</div>
-                <a href="ad.html" class="card-btn btn-live" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
+                <div class="tool-title" data-i18n="t18_title">Wedding Invitation & Kankotri Crafter</div>
+                <div class="tool-desc" data-i18n="t18_desc">Design traditional Gujarati Kankotri, Marriage Cards, Sagai invitations, and Vastu Puja banners with A4 Print & HD PNG Download.</div>
+                <a href="kankotri.html" class="card-btn" style="background:linear-gradient(135deg, #f59e0b, #d97706)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
-            <!-- CARD 2: DIGITAL VCARD BUILDER -->
-            <div class="tool-card" data-cat="business" data-name="vcard visiting card digital contact page">
+            <!-- CARD 19: DIGITAL PRODUCT CATALOG & SHOWCASE CRAFTER -->
+            <div class="tool-card" data-cat="business" data-id="tool-19"
+                data-name="digital product catalog showcase crafter product brochure clothing hardware kirana shop whatsapp order price discount પ્રોડક્ટ કેટલોગ શોકેસ">
                 <div class="card-top">
-                    <div class="icon-box" style="color:#c084fc"><i class="fas fa-address-card"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                    <div class="icon-box" style="color:#10b981"><i class="fas fa-store"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-19', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t19_title">Digital Product Catalog & Showcase Crafter</div>
+                <div class="tool-desc" data-i18n="t19_desc">Create 1-Page Mobile Product Catalogs for clothing, hardware, kirana & sweets shops with MRP discount badges & Direct WhatsApp order buttons.</div>
+                <a href="catalog.html" class="card-btn" style="background:linear-gradient(135deg, #10b981, #059669)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 1: EXECUTIVE VISITING CARD CRAFTER PRO -->
+            <div class="tool-card" data-cat="business" data-id="tool-1"
+                data-name="executive visiting card crafter pro business card designer custom qr code print a4 pdf વિઝિટિંગ કાર્ડ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#38bdf8"><i class="fas fa-id-card"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-1', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t1_title">Executive Visiting Card Crafter Pro</div>
+                <div class="tool-desc" data-i18n="t1_desc">Create HD professional visiting cards with QR code, company
+                    logo, photo, and 1-click printable A4 sheet.</div>
+                <a href="ad.html" class="card-btn" style="background:linear-gradient(135deg, #0284c7, #0369a1)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 2: DIGITAL VCARD CRAFTER -->
+            <div class="tool-card" data-cat="business" data-id="tool-2"
+                data-name="digital vcard crafter mobile business card web visiting card vcf download click to call map whatsapp link ડિજિટલ વિઝિટિંગ કાર્ડ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#a855f7"><i class="fas fa-address-card"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-2', event)"><i class="fas fa-star"></i></div>
                 </div>
                 <div class="tool-title" data-i18n="t2_title">Digital vCard Crafter</div>
                 <div class="tool-desc" data-i18n="t2_desc">Create interactive, mobile-friendly digital business cards
                     with Click-to-Call, WhatsApp link, Google Map location, and VCF download.</div>
-                <a href="vcard.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #c084fc, #9333ea)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 3: GST INVOICE & ESTIMATE MAKER -->
-            <div class="tool-card" data-cat="billing" data-name="invoice bill estimate gst rate card quote">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#22c55e"><i class="fas fa-receipt"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t3_title">GST Invoice & Estimate Maker</div>
-                <div class="tool-desc" data-i18n="t3_desc">Generate professional price quotes and PDF bills on mobile in
-                    1 minute to share directly with clients on WhatsApp.</div>
-                <a href="estimate.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #10b981, #059669)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 4: CUSTOM QR CODE STUDIO -->
-            <div class="tool-card" data-cat="utility" data-name="qr code studio upi payment wifi google review">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#38bdf8"><i class="fas fa-qrcode"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t4_title">Custom QR Code Studio</div>
-                <div class="tool-desc" data-i18n="t4_desc">Create customized UPI payment QRs, WiFi auto-connect QRs,
-                    Google Review QRs, and WhatsApp links with brand logos.</div>
-                <a href="qr.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #0284c7, #0369a1)"
+                <a href="vcard.html" class="card-btn" style="background:linear-gradient(135deg, #a855f7, #9333ea)"
                     data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 5: WHATSAPP DIRECT CHAT CRAFTER -->
-            <div class="tool-card" data-cat="utility" data-name="whatsapp direct chat link generator wa click">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#25d366"><i class="fab fa-whatsapp"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t5_title">WhatsApp Direct Chat Crafter</div>
-                <div class="tool-desc" data-i18n="t5_desc">Start WhatsApp chats without saving phone numbers, and
-                    generate pre-filled WhatsApp inquiry links for your products.</div>
-                <a href="wa.html" class="card-btn btn-live" style="background:linear-gradient(135deg, #25d366, #16a34a)"
-                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 6: CERTIFICATE & AWARD CRAFTER -->
-            <div class="tool-card" data-cat="design"
-                data-name="certificate award diploma completion school institute appreciation">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#fbbf24"><i class="fas fa-certificate"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t6_title">Certificate & Award Crafter</div>
-                <div class="tool-desc" data-i18n="t6_desc">Create HD A4 Certificates of Completion, Appreciation,
-                    Excellence Awards, and Diplomas with Gold Seals & Signatures.</div>
-                <a href="cert.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #d97706, #b45309)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 7: RESTAURANT & FOOD MENU CRAFTER -->
-            <div class="tool-card" data-cat="billing"
-                data-name="restaurant food menu card cafe hotel rate list dishes veg nonveg">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#ef4444"><i class="fas fa-utensils"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t7_title">Restaurant & Food Menu Crafter</div>
-                <div class="tool-desc" data-i18n="t7_desc">Design luxury food menu cards for cafes, hotels, and
-                    restaurants with Veg/Non-Veg badges, price lists, and Table QR codes.</div>
-                <a href="menu.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #ef4444, #dc2626)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 8: EMPLOYEE & STUDENT ID CARD CRAFTER -->
-            <div class="tool-card" data-cat="business"
-                data-name="id card badge student employee school office gate pass barcode">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#2563eb"><i class="fas fa-id-card-clip"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t8_title">Employee & Student ID Card Crafter</div>
-                <div class="tool-desc" data-i18n="t8_desc">Create printable CR80 standard ID badges for offices,
-                    schools, and events with photo, blood group, and barcode QR code.</div>
-                <a href="idcard.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #2563eb, #1d4ed8)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 9: QUICK CASH MEMO & RECEIPT MAKER -->
-            <div class="tool-card" data-cat="billing"
-                data-name="cash memo receipt bill payment rent retail kirana shop receipt">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#10b981"><i class="fas fa-file-invoice-dollar"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t9_title">Quick Cash Memo & Receipt Maker</div>
-                <div class="tool-desc" data-i18n="t9_desc">Generate instant Cash Memos, Payment Receipts, Rent Receipts,
-                    and Retail Bills with Paid/Due stamps, item totals, and UPI QR code.</div>
-                <a href="bill.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #10b981, #059669)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 10: DAILY FESTIVAL WISHES & SUVICHAR CRAFTER -->
-            <div class="tool-card" data-cat="design"
-                data-name="festival wish daily suvichar good morning greeting poster diwali holi navratri banner status">
+            <div class="tool-card" data-cat="design" data-id="tool-10"
+                data-name="daily festival wishes suvichar crafter good morning greeting banner photo name logo festive post તહેવાર શુભેચ્છા સુવિચાર">
                 <div class="card-top">
-                    <div class="icon-box" style="color:#fbbf24"><i class="fas fa-bullhorn"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                    <div class="icon-box" style="color:#f43f5e"><i class="fas fa-sun"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-10', event)"><i class="fas fa-star"></i></div>
                 </div>
                 <div class="tool-title" data-i18n="t10_title">Daily Festival Wishes & Suvichar Crafter</div>
                 <div class="tool-desc" data-i18n="t10_desc">Create instant branded festival greeting banners, Good
                     Morning wishes, and daily Suvichar posts with your photo, name, phone, and logo.</div>
-                <a href="festival.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #fbbf24, #d97706); color:#000"
+                <a href="festival.html" class="card-btn" style="background:linear-gradient(135deg, #f43f5e, #e11d48)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 15: VILLAGE PISAAI, DAIRY & SERVICE PARCHI CRAFTER -->
+            <div class="tool-card" data-cat="village" data-id="tool-15"
+                data-name="village pisaai dairy service parchi receipt atta chakki grinding slip milk collection voucher tractor rent repair bill whatsapp send a4 print લોટ પીસાઈ રસીદ દૂધ મંડળી ટ્રેક્ટર ભાડું રીપેરિંગ પહોંચ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#10b981"><i class="fas fa-receipt"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-15', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t15_title">Village Pisaai, Dairy & Service Parchi Crafter</div>
+                <div class="tool-desc" data-i18n="t15_desc">Create quick Atta Chakki pisaai receipts, Milk collection
+                    slips, Tractor rent slips, and repair parchis with 1-click WhatsApp send and A4 print.</div>
+                <a href="parchi.html" class="card-btn" style="background:linear-gradient(135deg, #10b981, #059669)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 14: DAILY MANDI & VILLAGE SHOP RATE BOARD CRAFTER -->
+            <div class="tool-card" data-cat="village" data-id="tool-14"
+                data-name="daily mandi village shop rate board mandi bhav kisan cotton milk fat chart wheat atta pisaai price list whatsapp status ઢોર ઘાસ મંડી ભાવ અનાજ કપાસ દૂધ ડેરી ફેટ લોટ પીસાઈ દર">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#f59e0b"><i class="fas fa-wheat-awn"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-14', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t14_title">Daily Mandi & Village Shop Rate Board Crafter</div>
+                <div class="tool-desc" data-i18n="t14_desc">Create daily Mandi crop rates, Milk Dairy fat charts, Atta
+                    Chakki grinding rates, and Kirana price list banners for WhatsApp status.</div>
+                <a href="rateboard.html" class="card-btn" style="background:linear-gradient(135deg, #f59e0b, #d97706)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 16: EMPLOYEE SALARY SLIP & WORKER WAGES CRAFTER -->
+            <div class="tool-card" data-cat="village" data-id="tool-16"
+                data-name="employee salary slip worker wage receipt staff attendance parchi factory worker garage salary advance upad overtime net salary print pdf કર્મચારી પગાર સ્લિપ રોજમદાર કારીગર રસીદ ઉપાડ ઓવરટાઇમ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#6366f1"><i class="fas fa-id-card-clip"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-16', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t16_title">Employee Salary Slip & Worker Wages Crafter</div>
+                <div class="tool-desc" data-i18n="t16_desc">Create monthly employee salary slips and daily worker wage
+                    receipts with present days, overtime, advance deductions, and A4 print.</div>
+                <a href="salary.html" class="card-btn" style="background:linear-gradient(135deg, #6366f1, #4f46e5)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 17: VEHICLE DRIVER & GOODS TRANSPORT DUTY SLIP CRAFTER -->
+            <div class="tool-card" data-cat="village" data-id="tool-17"
+                data-name="vehicle driver duty slip taxi fare receipt pickup goods transport bill auto rickshaw slip meter km trip voucher toll tax advance print pdf વાહન ડ્રાઇવર ટેક્સી ભાડું સ્લિપ પિકઅપ સામાન ભાડું ઓટો રિક્ષા પહોંચ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#0284c7"><i class="fas fa-truck-fast"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-17', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t17_title">Vehicle Driver & Goods Transport Duty Slip Crafter</div>
+                <div class="tool-desc" data-i18n="t17_desc">Create taxi outstation receipts, pickup goods transport
+                    slips, auto fare receipts, and meter KM trip vouchers with A4 print.</div>
+                <a href="tripsheet.html" class="card-btn" style="background:linear-gradient(135deg, #0284c7, #0369a1)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 3: GST INVOICE & ESTIMATE MAKER -->
+            <div class="tool-card" data-cat="billing" data-id="tool-3"
+                data-name="gst invoice estimate price quote pdf bill maker billing generator shopkeeper bill ઇનવોઇસ એસ્ટીમેટ બિલ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#ec4899"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-3', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t3_title">GST Invoice & Estimate Maker</div>
+                <div class="tool-desc" data-i18n="t3_desc">Generate professional price quotes and PDF bills on mobile in
+                    1 minute to share directly with clients on WhatsApp.</div>
+                <a href="estimate.html" class="card-btn" style="background:linear-gradient(135deg, #ec4899, #db2777)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 4: CUSTOM QR CODE STUDIO -->
+            <div class="tool-card" data-cat="utility" data-id="tool-4"
+                data-name="custom qr code studio upi payment qr wifi qr logo qr code google review review stand stand frame કસ્ટમ QR કોડ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#f59e0b"><i class="fas fa-qrcode"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-4', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t4_title">Custom QR Code Studio</div>
+                <div class="tool-desc" data-i18n="t4_desc">Create customized UPI payment QRs, WiFi auto-connect QRs,
+                    Google Review QRs, and WhatsApp links with brand logos.</div>
+                <a href="qr.html" class="card-btn" style="background:linear-gradient(135deg, #f59e0b, #d97706)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 5: WHATSAPP DIRECT CHAT CRAFTER -->
+            <div class="tool-card" data-cat="utility" data-id="tool-5"
+                data-name="whatsapp direct chat crafter unsaved number message Product Inquiry Link Generator વોટ્સએપ ડાયરેક્ટ ચેટ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#10b981"><i class="fab fa-whatsapp"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-5', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t5_title">WhatsApp Direct Chat Crafter</div>
+                <div class="tool-desc" data-i18n="t5_desc">Start WhatsApp chats without saving phone numbers, and
+                    generate pre-filled WhatsApp inquiry links for your products.</div>
+                <a href="wa.html" class="card-btn" style="background:linear-gradient(135deg, #10b981, #059669)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 6: CERTIFICATE & AWARD CRAFTER -->
+            <div class="tool-card" data-cat="design" data-id="tool-6"
+                data-name="certificate award maker completion appreciation gold seal diploma print a4 pdf સર્ટિફિકેટ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#eab308"><i class="fas fa-award"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-6', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t6_title">Certificate & Award Crafter</div>
+                <div class="tool-desc" data-i18n="t6_desc">Create HD A4 Certificates of Completion, Appreciation,
+                    Excellence Awards, and Diplomas with Gold Seals & Signatures.</div>
+                <a href="cert.html" class="card-btn" style="background:linear-gradient(135deg, #eab308, #ca8a04)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 7: RESTAURANT & FOOD MENU CRAFTER -->
+            <div class="tool-card" data-cat="design" data-id="tool-7"
+                data-name="restaurant food menu card crafter hotel menu cafe menu veg non veg table qr code રેસ્ટોરેન્ટ મેનૂ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#ef4444"><i class="fas fa-utensils"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-7', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t7_title">Restaurant & Food Menu Crafter</div>
+                <div class="tool-desc" data-i18n="t7_desc">Design menus for cafes and hotels with Veg/Non-Veg badges and
+                    Table QR code.</div>
+                <a href="menu.html" class="card-btn" style="background:linear-gradient(135deg, #ef4444, #dc2626)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 8: EMPLOYEE & STUDENT ID CARD CRAFTER -->
+            <div class="tool-card" data-cat="business" data-id="tool-8"
+                data-name="employee student id card maker printable id badge photo blood group barcode qr code આઈડી કાર્ડ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#06b6d4"><i class="fas fa-id-badge"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-8', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t8_title">Employee & Student ID Card Crafter</div>
+                <div class="tool-desc" data-i18n="t8_desc">Generate printable ID badges with photos, blood group, and
+                    barcode QR code.</div>
+                <a href="idcard.html" class="card-btn" style="background:linear-gradient(135deg, #06b6d4, #0891b2)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- CARD 9: QUICK CASH MEMO & RECEIPT MAKER -->
+            <div class="tool-card" data-cat="billing" data-id="tool-9"
+                data-name="quick cash memo payment receipt maker rent receipt retail bill paid due stamp upi qr કેશ મેમો રસીદ">
+                <div class="card-top">
+                    <div class="icon-box" style="color:#10b981"><i class="fas fa-receipt"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-9', event)"><i class="fas fa-star"></i></div>
+                </div>
+                <div class="tool-title" data-i18n="t9_title">Quick Cash Memo & Receipt Maker</div>
+                <div class="tool-desc" data-i18n="t9_desc">Generate instant Cash Memos, Payment Receipts, Rent Receipts,
+                    and Retail Bills with Paid/Due stamps, item totals, and UPI QR code.</div>
+                <a href="bill.html" class="card-btn" style="background:linear-gradient(135deg, #10b981, #059669)"
                     data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 11: JOB RESUME & MARRIAGE BIO-DATA MAKER -->
-            <div class="tool-card" data-cat="business"
-                data-name="job resume cv curriculum vitae marriage biodata family details pdf biodata maker">
+            <div class="tool-card" data-cat="design" data-id="tool-11"
+                data-name="job resume marriage bio data maker cv creator family education photo printable a4 pdf રિઝ્યૂમે બાયો-ડેટા">
                 <div class="card-top">
-                    <div class="icon-box" style="color:#e11d48"><i class="fas fa-file-invoice"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                    <div class="icon-box" style="color:#8b5cf6"><i class="fas fa-file-user"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-11', event)"><i class="fas fa-star"></i></div>
                 </div>
                 <div class="tool-title" data-i18n="t11_title">Job Resume & Marriage Bio-Data Maker</div>
                 <div class="tool-desc" data-i18n="t11_desc">Create professional job resumes and traditional marriage
                     bio-data with family background, education, photo, and printable A4 PDF.</div>
-                <a href="resume.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #e11d48, #be123c)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
+                <a href="resume.html" class="card-btn" style="background:linear-gradient(135deg, #8b5cf6, #7c3aed)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 12: PRODUCT PRICE TAG & BARCODE LABEL CRAFTER -->
-            <div class="tool-card" data-cat="utility"
-                data-name="product price tag barcode sticker mrp label expiry date discount batch retail clothing supermarket">
+            <div class="tool-card" data-cat="billing" data-id="tool-12"
+                data-name="product price tag barcode label crafter mrp tag offer label sticker sheet print a4 પ્રોડક્ટ પ્રાઇસ ટેગ">
                 <div class="card-top">
-                    <div class="icon-box" style="color:#10b981"><i class="fas fa-barcode"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                    <div class="icon-box" style="color:#14b8a6"><i class="fas fa-tags"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-12', event)"><i class="fas fa-star"></i></div>
                 </div>
                 <div class="tool-title" data-i18n="t12_title">Product Price Tag & Barcode Label Crafter</div>
-                <div class="tool-desc" data-i18n="t12_desc">Generate MRP price tags, barcode stickers, offer tags, and expiry date labels with 1-click printable A4 sticker sheet.</div>
-                <a href="label.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #10b981, #059669)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
+                <div class="tool-desc" data-i18n="t12_desc">Generate MRP price tags, barcode stickers, offer tags, and
+                    expiry date labels with 1-click printable A4 sticker sheet.</div>
+                <a href="label.html" class="card-btn" style="background:linear-gradient(135deg, #14b8a6, #0d9488)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- CARD 13: OFFICIAL BUSINESS LETTERHEAD & LETTER CRAFTER -->
-            <div class="tool-card" data-cat="business"
-                data-name="official business letterhead offer letter experience certificate declaration quotation memo memo pdf">
+            <div class="tool-card" data-cat="business" data-id="tool-13"
+                data-name="official business letterhead letter crafter company letterhead job offer letter experience certificate gstin signature લેટરહેડ">
                 <div class="card-top">
-                    <div class="icon-box" style="color:#6366f1"><i class="fas fa-file-invoice"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
+                    <div class="icon-box" style="color:#3b82f6"><i class="fas fa-file-lines"></i></div>
+                    <div class="btn-star" onclick="toggleStar('tool-13', event)"><i class="fas fa-star"></i></div>
                 </div>
                 <div class="tool-title" data-i18n="t13_title">Official Business Letterhead & Letter Crafter</div>
-                <div class="tool-desc" data-i18n="t13_desc">Create company letterheads, job offer letters, experience certificates, and business proposal letters with GSTIN, logo, and signature.</div>
-                <a href="letterhead.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #6366f1, #4f46e5)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 14: DAILY MANDI & VILLAGE SHOP RATE BOARD CRAFTER -->
-            <div class="tool-card" data-cat="utility"
-                data-name="daily mandi crop rate board village shop atta chakki grinding rates milk dairy fat chart kapas wheat price list whatsapp status banner">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#f59e0b"><i class="fas fa-wheat-awn"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t14_title">Daily Mandi & Village Shop Rate Board Crafter</div>
-                <div class="tool-desc" data-i18n="t14_desc">Create daily Mandi crop rates, Milk Dairy fat charts, Atta Chakki grinding rates, and Kirana price list banners for WhatsApp status.</div>
-                <a href="rateboard.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #f59e0b, #d97706); color:#000" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 15: VILLAGE PISAAI, DAIRY & SERVICE PARCHI CRAFTER -->
-            <div class="tool-card" data-cat="billing"
-                data-name="village pisaai receipt atta chakki slip milk dairy collection parchi tractor rent bill mobile repair parchi whatsapp print">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#10b981"><i class="fas fa-receipt"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t15_title">Village Pisaai, Dairy & Service Parchi Crafter</div>
-                <div class="tool-desc" data-i18n="t15_desc">Create quick Atta Chakki pisaai receipts, Milk collection slips, Tractor rent slips, and repair parchis with 1-click WhatsApp send and A4 print.</div>
-                <a href="parchi.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #10b981, #059669)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 16: EMPLOYEE SALARY SLIP & WORKER WAGES CRAFTER -->
-            <div class="tool-card" data-cat="billing"
-                data-name="employee salary slip worker wage receipt staff attendance parchi factory worker garage salary advance upad overtime net salary print pdf">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#6366f1"><i class="fas fa-id-card-clip"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t16_title">Employee Salary Slip & Worker Wages Crafter</div>
-                <div class="tool-desc" data-i18n="t16_desc">Create monthly employee salary slips and daily worker wage receipts with present days, overtime, advance deductions, and A4 print.</div>
-                <a href="salary.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #6366f1, #4f46e5)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
-            </div>
-
-            <!-- CARD 17: VEHICLE DRIVER & GOODS TRANSPORT DUTY SLIP CRAFTER -->
-            <div class="tool-card" data-cat="billing"
-                data-name="vehicle driver duty slip taxi fare receipt pickup goods transport bill auto rickshaw slip meter km trip voucher toll tax advance print pdf">
-                <div class="card-top">
-                    <div class="icon-box" style="color:#0284c7"><i class="fas fa-truck-fast"></i></div>
-                    <span class="tag-status st-live" data-i18n="tag_ready">✨ READY / LIVE</span>
-                </div>
-                <div class="tool-title" data-i18n="t17_title">Vehicle Driver & Goods Transport Duty Slip Crafter</div>
-                <div class="tool-desc" data-i18n="t17_desc">Create taxi outstation receipts, pickup goods transport slips, auto fare receipts, and meter KM trip vouchers with A4 print.</div>
-                <a href="tripsheet.html" class="card-btn btn-live"
-                    style="background:linear-gradient(135deg, #0284c7, #0369a1)" data-i18n="btn_launch">Launch Tool <i
-                        class="fas fa-arrow-right"></i></a>
+                <div class="tool-desc" data-i18n="t13_desc">Create company letterheads, job offer letters, experience
+                    certificates, and business proposal letters with GSTIN, logo, and signature.</div>
+                <a href="letterhead.html" class="card-btn" style="background:linear-gradient(135deg, #3b82f6, #2563eb)"
+                    data-i18n="btn_launch">Launch Tool <i class="fas fa-arrow-right"></i></a>
             </div>
 
         </div>
-    </div>
 
-    <!-- FOUNDER & CREATOR PROFILE SECTION -->
-    <div class="container" style="margin-top: 40px; margin-bottom: 40px;">
+        <!-- FOUNDER & CREATOR PROFILE SECTION -->
         <div
-            style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95)); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 24px; padding: 30px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
-            <div style="display: flex; align-items: center; gap: 20px;">
-                <div
-                    style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid #fbbf24; background: #0f172a; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #fbbf24; flex-shrink: 0;">
-                    <i class="fas fa-user-astronaut"></i>
+            style="background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.95)); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 24px; padding: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; box-shadow: 0 20px 50px rgba(0,0,0,0.5); margin-top:20px">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
+                        alt="Raju Jatapara"
+                        style="width: 65px; height: 65px; border-radius: 50%; border: 3px solid #f59e0b; object-fit: cover; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);">
+                    <span
+                        style="position: absolute; bottom: 0; right: 0; background: #10b981; color: #fff; width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; border: 2px solid #0f172a;"><i
+                            class="fas fa-check"></i></span>
                 </div>
                 <div>
-                    <div style="font-size: 11px; font-weight: 800; color: #fbbf24; text-transform: uppercase; letter-spacing: 1px;"
-                        data-i18n="creator_tag">👑 FOUNDER & LEAD DEVELOPER</div>
-                    <div style="font-size: 24px; font-weight: 800; color: #fff; margin-top: 2px;"
-                        data-i18n="creator_name">Raju Jatapara</div>
-                    <div style="font-size: 13px; color: #cbd5e1; font-weight: 600;" data-i18n="creator_role">Creator of
-                        Raju Crafter Studio</div>
-                    <div style="font-size: 12px; color: #94a3b8; margin-top: 6px; max-width: 500px;"
-                        data-i18n="creator_bio">Empowering small businesses, shopkeepers, and creators across India with
-                        100% free, powerful, and easy-to-use digital tools.</div>
+                    <span
+                        style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); padding: 3px 10px; border-radius: 12px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;"
+                        data-i18n="creator_tag">👑 FOUNDER & LEAD DEVELOPER</span>
+                    <h3 style="font-size: 17px; font-weight: 900; color: #fff; margin: 4px 0 2px 0;"
+                        data-i18n="creator_name">Raju Jatapara</h3>
+                    <p style="font-size: 11px; color: #94a3b8; font-weight: 600;" data-i18n="creator_role">Creator of
+                        Raju Crafter Studio</p>
                 </div>
             </div>
-
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <a href="https://wa.me/916356239260" target="_blank"
-                    style="background: #25d366; color: #fff; padding: 12px 20px; border-radius: 14px; font-size: 13px; font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 8px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);">
-                    <i class="fab fa-whatsapp" style="font-size:16px"></i> <span data-i18n="btn_whatsapp_creator">Chat
-                        on WhatsApp</span>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <a href="https://wa.me/916356239260?text=Hello%20Raju%20Jatapara,%20I%20am%20using%20Raju%20Crafter%20Studio!"
+                    target="_blank"
+                    style="background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; padding: 9px 15px; border-radius: 14px; font-size: 11px; font-weight: 800; text-decoration: none; display: flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);">
+                    <i class="fab fa-whatsapp"></i> <span data-i18n="btn_whatsapp_creator">Chat on WhatsApp</span>
                 </a>
                 <a href="tel:+916356239260"
-                    style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 12px 20px; border-radius: 14px; font-size: 13px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                    style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 9px 15px; border-radius: 14px; font-size: 11px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 6px;">
                     <i class="fas fa-phone"></i> <span data-i18n="btn_call_creator">Direct Call</span>
                 </a>
             </div>
         </div>
+
     </div>
+
+    <!-- COMPACT FLOATING WHATSAPP CHAT SUPPORT BUTTON -->
+    <a href="https://wa.me/916356239260?text=Hello%20Raju%20Jatapara,%20I%20need%20help%20with%20Raju%20Crafter%20Studio!"
+        target="_blank" class="floating-wa-btn">
+        <i class="fab fa-whatsapp" style="font-size:15px"></i> Chat Support
+    </a>
 
     <!-- FOOTER -->
     <div class="footer">
-        Designed & Developed with ❤️ by <span>Raju Jatapara</span>
+        Designed & Developed with ❤️ by <span
+            style="color:#fbbf24; font-weight:900; background:rgba(245,158,11,0.15); padding:4px 12px; border-radius:14px; border:1px solid rgba(245,158,11,0.3); display:inline-block; margin-left:4px">👑
+            Raju Jatapara</span>
     </div>
 
     <script>
+        let currentTheme = localStorage.getItem('rcs_theme') || 'dark';
+        let starredTools = JSON.parse(localStorage.getItem('rcs_starred') || '[]');
+
         window.onload = () => {
-            setLanguage(getSavedLanguage());
+            applyTheme(currentTheme);
+            renderStarred();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
         };
 
+        function cycleTheme() {
+            if (currentTheme === 'dark') currentTheme = 'light';
+            else if (currentTheme === 'light') currentTheme = 'gold';
+            else currentTheme = 'dark';
+
+            localStorage.setItem('rcs_theme', currentTheme);
+            applyTheme(currentTheme);
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-moon';
+                text.innerText = 'Dark';
+            } else if (theme === 'light') {
+                icon.className = 'fas fa-sun';
+                text.innerText = 'Light';
+            } else if (theme === 'gold') {
+                icon.className = 'fas fa-crown';
+                text.innerText = 'Gold';
+            }
+        }
+
+        function toggleStar(toolId, event) {
+            event.stopPropagation();
+            if (starredTools.includes(toolId)) {
+                starredTools = starredTools.filter(id => id !== toolId);
+            } else {
+                starredTools.push(toolId);
+            }
+            localStorage.setItem('rcs_starred', JSON.stringify(starredTools));
+            renderStarred();
+        }
+
+        function renderStarred() {
+            const favSection = document.getElementById('fav-section');
+            const favGrid = document.getElementById('fav-grid');
+            favGrid.innerHTML = '';
+
+            document.querySelectorAll('#all-grid .tool-card').forEach(card => {
+                const id = card.getAttribute('data-id');
+                const starBtn = card.querySelector('.btn-star');
+                if (starredTools.includes(id)) {
+                    if (starBtn) starBtn.classList.add('starred');
+                    const clone = card.cloneNode(true);
+                    const cloneStar = clone.querySelector('.btn-star');
+                    if (cloneStar) cloneStar.onclick = (e) => toggleStar(id, e);
+                    favGrid.appendChild(clone);
+                } else {
+                    if (starBtn) starBtn.classList.remove('starred');
+                }
+            });
+
+            if (starredTools.length > 0) {
+                favSection.style.display = 'block';
+            } else {
+                favSection.style.display = 'none';
+            }
+        }
+
         function filterTools() {
-            const query = document.getElementById('search-input').value.toLowerCase();
-            const cards = document.querySelectorAll('.tool-card');
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('#all-grid .tool-card');
             cards.forEach(card => {
-                const name = card.getAttribute('data-name').toLowerCase();
-                if (name.includes(query)) {
+                const name = (card.getAttribute('data-name') || '').toLowerCase();
+                const text = card.textContent.toLowerCase();
+                if (!query || name.includes(query) || text.includes(query)) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
@@ -764,7 +1016,7 @@
             document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            const cards = document.querySelectorAll('.tool-card');
+            const cards = document.querySelectorAll('#all-grid .tool-card');
             cards.forEach(card => {
                 if (cat === 'all' || card.getAttribute('data-cat') === cat) {
                     card.style.display = 'flex';

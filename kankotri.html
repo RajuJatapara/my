@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- NO-CACHE META TAGS -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Wedding Invitation & Kankotri Crafter - Raju Crafter Studio</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Sans+Gujarati:wght@400;600;800;900&family=Great+Vibes&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cinzel:wght@700;900&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js?v=1.3"></script>
+
+    <style>
+        :root {
+            --primary: #d97706;
+            --primary-hover: #b45309;
+            --page-bg: #0f172a;
+            --font-main: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+
+            /* DEFAULT THEME VARIABLES FOR 100% RELIABLE LIVE COLOR SWITCHING */
+            --k-bg: #7f1d1d;
+            --k-text: #fef3c7;
+            --k-accent: #fbbf24;
+            --k-box: rgba(153, 27, 27, 0.95);
+            --k-border: #f59e0b;
+            --k-subtext: #fef08a;
+        }
+
+        /* 🔴 12 COLOR THEMES DEFINED VIA CSS VARIABLES */
+        .theme-red {
+            --k-bg: #7f1d1d;
+            --k-text: #fef3c7;
+            --k-accent: #fbbf24;
+            --k-box: rgba(153, 27, 27, 0.95);
+            --k-border: #f59e0b;
+            --k-subtext: #fef08a;
+        }
+
+        .theme-burgundy {
+            --k-bg: #4c0519;
+            --k-text: #ffe4e6;
+            --k-accent: #fbbf24;
+            --k-box: #881337;
+            --k-border: #f43f5e;
+            --k-subtext: #fecdd3;
+        }
+
+        .theme-saffron {
+            --k-bg: #fffdf5;
+            --k-text: #78350f;
+            --k-accent: #b45309;
+            --k-box: #fffbeb;
+            --k-border: #fde68a;
+            --k-subtext: #92400e;
+        }
+
+        .theme-champagne {
+            --k-bg: #27272a;
+            --k-text: #fef08a;
+            --k-accent: #eab308;
+            --k-box: #3f3f46;
+            --k-border: #ca8a04;
+            --k-subtext: #fef9c3;
+        }
+
+        .theme-pink {
+            --k-bg: #831843;
+            --k-text: #fce7f3;
+            --k-accent: #f472b6;
+            --k-box: #9d174d;
+            --k-border: #be185d;
+            --k-subtext: #fbcfe8;
+        }
+
+        .theme-green {
+            --k-bg: #064e3b;
+            --k-text: #ecfdf5;
+            --k-accent: #34d399;
+            --k-box: rgba(6, 95, 70, 0.95);
+            --k-border: #047857;
+            --k-subtext: #a7f3d0;
+        }
+
+        .theme-mint {
+            --k-bg: #065f46;
+            --k-text: #f0fdf4;
+            --k-accent: #4ade80;
+            --k-box: #14532d;
+            --k-border: #22c55e;
+            --k-subtext: #bbf7d0;
+        }
+
+        .theme-gold {
+            --k-bg: #1c1917;
+            --k-text: #fffbeb;
+            --k-accent: #fbbf24;
+            --k-box: #292524;
+            --k-border: #78350f;
+            --k-subtext: #fde68a;
+        }
+
+        .theme-blue {
+            --k-bg: #0f172a;
+            --k-text: #f0f9ff;
+            --k-accent: #38bdf8;
+            --k-box: #1e293b;
+            --k-border: #0284c7;
+            --k-subtext: #7dd3fc;
+        }
+
+        .theme-turquoise {
+            --k-bg: #134e4a;
+            --k-text: #ccfbf1;
+            --k-accent: #2dd4bf;
+            --k-box: #115e59;
+            --k-border: #14b8a6;
+            --k-subtext: #99f6e4;
+        }
+
+        .theme-violet {
+            --k-bg: #3b0764;
+            --k-text: #faf5ff;
+            --k-accent: #c084fc;
+            --k-box: #581c87;
+            --k-border: #9333ea;
+            --k-subtext: #f0abfc;
+        }
+
+        .theme-pearl {
+            --k-bg: #f8fafc;
+            --k-text: #0f172a;
+            --k-accent: #d97706;
+            --k-box: #ffffff;
+            --k-border: #cbd5e1;
+            --k-subtext: #334155;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active,
+        .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: var(--font-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* TOAST NOTIFICATIONS */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            min-height: 56px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            gap: 10px;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 15px;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-top-main {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d97706, #b45309);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4);
+            transition: transform 0.1s ease;
+        }
+
+        .btn-top-sec {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* CONTROLS PANEL */
+        .controls-panel {
+            width: 440px;
+            background: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            flex-shrink: 0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+        }
+
+        .grp-label:first-child {
+            margin-top: 0;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 13px;
+            background: #1e293b;
+            color: #f8fafc;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+
+        select option {
+            background: #0f172a;
+            color: #f8fafc;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 6px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box.active {
+            background: rgba(217, 119, 6, 0.15);
+            border-color: rgba(251, 191, 36, 0.5);
+            color: #fbbf24;
+        }
+
+        .theme-pill {
+            padding: 8px 4px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 800;
+            text-align: center;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .theme-pill.active {
+            box-shadow: 0 0 0 2px #fff;
+            transform: scale(1.05);
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .toggle-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #d97706;
+            cursor: pointer;
+        }
+
+        /* PREVIEW PANEL */
+        .preview-panel {
+            flex: 1;
+            background: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 24px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* 🏰 BASE KANKOTRI CANVAS CONTAINER */
+        .kankotri-canvas {
+            width: 440px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            text-align: center;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            background: var(--k-bg);
+            color: var(--k-text);
+        }
+
+        /* FONT STYLES */
+        .font-serif {
+            font-family: 'Playfair Display', 'Noto Sans Gujarati', serif;
+        }
+
+        .font-cursive {
+            font-family: 'Great Vibes', 'Noto Sans Gujarati', cursive;
+        }
+
+        .font-sans {
+            font-family: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+        }
+
+        /* 🏰 1. ENGINE 1: ROYAL ARCH MANDAP */
+        .tmpl-mandap {
+            border: 5px double var(--k-border);
+            outline: 2px solid var(--k-accent);
+            outline-offset: 4px;
+        }
+
+        .tmpl-mandap .mandap-arch-banner {
+            border-bottom: 2px solid var(--k-border);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+            background: var(--k-box);
+            border-radius: 12px;
+            padding: 10px;
+        }
+
+        .tmpl-mandap .mandap-arch-toran {
+            font-size: 14px;
+            letter-spacing: 4px;
+            color: var(--k-accent);
+            margin-bottom: 4px;
+        }
+
+        /* 📜 2. ENGINE 2: ROYAL DECREE SCROLL FARMAN */
+        .tmpl-scroll {
+            border: 3px solid var(--k-border);
+            border-radius: 12px;
+            background: #fffbeb !important;
+            color: #78350f !important;
+            box-shadow: inset 0 0 30px rgba(180, 83, 9, 0.2), 0 25px 60px rgba(0, 0, 0, 0.7);
+        }
+
+        .tmpl-scroll .scroll-handle-top,
+        .tmpl-scroll .scroll-handle-bottom {
+            background: linear-gradient(90deg, #b45309, #fbbf24, #b45309);
+            color: #fff;
+            padding: 6px;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .tmpl-scroll .scroll-handle-bottom {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .tmpl-scroll .kankotri-names-box,
+        .tmpl-scroll .kankotri-event-card,
+        .tmpl-scroll .kankotri-venue-box,
+        .tmpl-scroll .kankotri-guest-badge {
+            background: #ffffff !important;
+            border: 1px solid #fde68a !important;
+            color: #78350f !important;
+        }
+
+        .tmpl-scroll .kankotri-title,
+        .tmpl-scroll .kankotri-couple,
+        .tmpl-scroll .kankotri-event-title {
+            color: #b45309 !important;
+        }
+
+        /* 🦚 3. ENGINE 3: PEACOCK BOTANICAL 2-COLUMN SPLIT */
+        .tmpl-peacock {
+            border: 4px solid var(--k-border);
+            border-radius: 24px;
+        }
+
+        .tmpl-peacock .peacock-top-banner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+            color: var(--k-accent);
+            margin-bottom: 8px;
+        }
+
+        /* 💎 4. ENGINE 4: ULTRA-MODERN FROSTED GLASS */
+        .tmpl-glass {
+            background: #090d16 !important;
+            color: #f8fafc !important;
+            border: 2px solid rgba(251, 191, 36, 0.4);
+            border-radius: 24px;
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .tmpl-glass .kankotri-names-box,
+        .tmpl-glass .kankotri-event-card,
+        .tmpl-glass .kankotri-venue-box,
+        .tmpl-glass .kankotri-guest-badge {
+            background: rgba(255, 255, 255, 0.06) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            color: #f8fafc !important;
+        }
+
+        .tmpl-glass .kankotri-title,
+        .tmpl-glass .kankotri-couple,
+        .tmpl-glass .kankotri-event-title {
+            color: #fbbf24 !important;
+        }
+
+        /* COMMON CANVAS ELEMENTS */
+        .kankotri-shloka {
+            color: var(--k-subtext);
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .kankotri-title {
+            color: var(--k-accent);
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--k-border);
+        }
+
+        .kankotri-names-box {
+            background: var(--k-box);
+            border: 1px solid var(--k-border);
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 14px;
+            color: var(--k-text);
+        }
+
+        .kankotri-couple {
+            color: var(--k-accent);
+            font-size: 21px;
+            font-weight: 900;
+            margin: 6px 0;
+        }
+
+        .kankotri-parents {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--k-subtext);
+        }
+
+        .kankotri-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            text-align: left;
+            margin-bottom: 14px;
+        }
+
+        .kankotri-event-card {
+            background: var(--k-box);
+            border: 1px solid var(--k-border);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .kankotri-event-title {
+            color: var(--k-accent);
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .kankotri-event-time {
+            color: var(--k-subtext);
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .kankotri-venue-box {
+            background: var(--k-box);
+            border: 1px solid var(--k-border);
+            color: var(--k-text);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .venue-qr-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            border: 2px solid #fff;
+            background: #fff;
+        }
+
+        .kankotri-guest-badge {
+            background: var(--k-box);
+            color: var(--k-accent);
+            border: 1px solid var(--k-border);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .kankotri-footer-inviter {
+            color: var(--k-subtext);
+            border-top: 1px dashed var(--k-border);
+            font-size: 11px;
+            font-weight: 900;
+            padding-top: 10px;
+        }
+
+        .logo-img-preview {
+            max-width: 65px;
+            max-height: 65px;
+            object-fit: contain;
+            margin: 0 auto 6px auto;
+            display: block;
+        }
+
+        .couple-photo-preview {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid var(--k-accent);
+            margin: 6px auto 10px auto;
+            display: block;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .kankotri-header-icon {
+            font-size: 36px;
+            margin-bottom: 6px;
+            color: var(--k-accent);
+        }
+
+        #print-kankotri-container {
+            display: none;
+        }
+
+        /* PRINT STYLES - SINGLE A4 KANKOTRI */
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .app-header,
+            .app-body,
+            #toast-container {
+                display: none !important;
+            }
+
+            #print-kankotri-container {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                width: 100% !important;
+                padding: 15mm;
+                background: #fff !important;
+            }
+
+            #print-kankotri-container .kankotri-canvas {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 480px;
+            }
+        }
+
+        /* MOBILE RESPONSIVE STYLES */
+        @media (max-width: 900px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+            }
+
+            .app-header {
+                height: auto;
+                padding: 10px 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .header-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+                gap: 6px;
+            }
+
+            .btn-top-main,
+            .btn-top-sec {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+
+            .app-body {
+                flex-direction: column;
+            }
+
+            .preview-panel {
+                width: 100%;
+                min-height: auto;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+                border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+                padding: 14px 10px;
+                background: #1e293b;
+            }
+
+            .kankotri-canvas {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .controls-panel {
+                width: 100%;
+                border-right: none;
+                padding: 16px 12px;
+            }
+
+            input[type="text"],
+            input[type="tel"],
+            input[type="number"],
+            input[type="date"],
+            select,
+            textarea {
+                font-size: 14px;
+                padding: 12px;
+                min-height: 44px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- HEADER TOPBAR -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left" style="font-size:14px; margin-right:4px"></i>
+            <i class="fas fa-envelope-open-text"></i>
+            <span data-i18n="suite_title">RAJU CRAFTER STUDIO</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <div class="btn-top-sec" onclick="printSingleKankotri()"><i class="fas fa-print"></i> Print A4 Kankotri
+            </div>
+            <div class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download Kankotri PNG
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APP BODY -->
+    <div class="app-body">
+        <!-- CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div class="grp-label">1. 4 Structural Card Engines</div>
+            <div class="grid-2" style="margin-bottom:8px">
+                <div class="opt-box active" onclick="setTmpl('tmpl-mandap', this)"><i class="fas fa-gopuram"></i> 🏛️ ૧.
+                    રજવાડી મંડપ</div>
+                <div class="opt-box" onclick="setTmpl('tmpl-scroll', this)"><i class="fas fa-scroll"></i> 📜 ૨. શાહી
+                    પરવાનો</div>
+                <div class="opt-box" onclick="setTmpl('tmpl-peacock', this)"><i class="fas fa-feather"></i> 🦚 ૩.
+                    મોર-પંખ સ્પ્લિટ</div>
+                <div class="opt-box" onclick="setTmpl('tmpl-glass', this)"><i class="fas fa-gem"></i> 💎 ૪. મોર્ડન ગ્લાસ
+                </div>
+            </div>
+
+            <div class="grp-label">2. 12 Royal Color Themes</div>
+            <div class="grid-4" style="margin-bottom:6px">
+                <div class="theme-pill active" style="background:#7f1d1d; color:#fef3c7"
+                    onclick="setTheme('red', this)">🔴 Red</div>
+                <div class="theme-pill" style="background:#4c0519; color:#ffe4e6" onclick="setTheme('burgundy', this)">
+                    🍷 Burgundy</div>
+                <div class="theme-pill" style="background:#d97706; color:#fff" onclick="setTheme('saffron', this)">🟠
+                    Saffron</div>
+                <div class="theme-pill" style="background:#27272a; color:#fef08a" onclick="setTheme('champagne', this)">
+                    🏆 Gold</div>
+            </div>
+            <div class="grid-4" style="margin-bottom:6px">
+                <div class="theme-pill" style="background:#831843; color:#fce7f3" onclick="setTheme('pink', this)">💗
+                    Pink</div>
+                <div class="theme-pill" style="background:#064e3b; color:#ecfdf5" onclick="setTheme('green', this)">🟢
+                    Emerald</div>
+                <div class="theme-pill" style="background:#065f46; color:#f0fdf4" onclick="setTheme('mint', this)">🌿
+                    Mint</div>
+                <div class="theme-pill" style="background:#1c1917; color:#fbbf24; border-color:#fbbf24"
+                    onclick="setTheme('gold', this)">💛 Luxury</div>
+            </div>
+            <div class="grid-4" style="margin-bottom:8px">
+                <div class="theme-pill" style="background:#0f172a; color:#38bdf8" onclick="setTheme('blue', this)">🔵
+                    Navy</div>
+                <div class="theme-pill" style="background:#134e4a; color:#ccfbf1" onclick="setTheme('turquoise', this)">
+                    💙 Ocean</div>
+                <div class="theme-pill" style="background:#3b0764; color:#c084fc" onclick="setTheme('violet', this)">💜
+                    Violet</div>
+                <div class="theme-pill" style="background:#f8fafc; color:#0f172a" onclick="setTheme('pearl', this)">⚪
+                    Pearl</div>
+            </div>
+
+            <div class="grp-label">3. 8 Top Religious & Royal Symbol Motifs</div>
+            <select id="sel-symbol" onchange="render()" style="margin-bottom:8px">
+                <option value="om">🕉️ Om (ૐ શ્રી ગણેશાય)</option>
+                <option value="swastik">卐 Swastik (શુભ સ્વસ્તિક)</option>
+                <option value="kalash">🏺 Kalash (મંગલ કળશ)</option>
+                <option value="ganesh">🐘 Ganesha (શ્રી ગણેશ)</option>
+                <option value="trishul">🔱 Trishul (ત્રિશૂળ)</option>
+                <option value="peacock">🦚 Peacock Feather (મોરપંખ)</option>
+                <option value="heart">💖 Royal Heart (હૃદય)</option>
+                <option value="ring">💍 Wedding Rings (વેડિંગ રિંગ)</option>
+            </select>
+
+            <select id="sel-font" onchange="render()" style="margin-bottom:12px">
+                <option value="font-serif">🖋️ Royal Gujarati Serif (શાહી ફોન્ટ)</option>
+                <option value="font-cursive">✒️ Calligraphy Script (કેલિગ્રાફી ફોન્ટ)</option>
+                <option value="font-sans">🅰️ Bold Modern Clean (બોલ્ડ ફોન્ટ)</option>
+            </select>
+
+            <div class="grp-label">4. Card Decoration Form Toggles (ON / OFF)</div>
+            <div class="toggle-row">
+                <span>Show Header Arch / Frame</span>
+                <input type="checkbox" id="chk-arch" checked onchange="render()">
+            </div>
+            <div class="toggle-row">
+                <span>Show Shloka & Mantra</span>
+                <input type="checkbox" id="chk-shloka" checked onchange="render()">
+            </div>
+            <div class="toggle-row">
+                <span>Show Groom/Bride Heart Icon</span>
+                <input type="checkbox" id="chk-heart" checked onchange="render()">
+            </div>
+            <div class="toggle-row">
+                <span>Show Event Cards Background Fill</span>
+                <input type="checkbox" id="chk-event-bg" checked onchange="render()">
+            </div>
+            <div class="toggle-row">
+                <span>Show Venue Google Map QR Code</span>
+                <input type="checkbox" id="chk-map-qr" checked onchange="render()">
+            </div>
+            <div class="toggle-row">
+                <span>Show Footer Contact Phone Icon</span>
+                <input type="checkbox" id="chk-phone" checked onchange="render()">
+            </div>
+
+            <div class="grp-label">5. Dynamic Guest / Invitee Badge</div>
+            <input type="text" id="in-guest-inviter" value="સસ્નેહ આમંત્રણ: રમણભાઈ પટેલ & પરિવાર" oninput="render()"
+                placeholder="Guest Name (e.g. સસ્નેહ આમંત્રણ: રમણભાઈ શાહ)">
+
+            <div class="grp-label">6. Multi-Photo Uploads (3 Slots)</div>
+            <input type="file" id="in-top-logo-file" accept="image/*" onchange="handleImageUpload('top', event)"
+                style="display:none">
+            <input type="file" id="in-couple-photo-file" accept="image/*" onchange="handleImageUpload('couple', event)"
+                style="display:none">
+            <input type="file" id="in-inviter-logo-file" accept="image/*" onchange="handleImageUpload('inviter', event)"
+                style="display:none">
+
+            <div class="grid-2" style="margin-bottom:6px">
+                <button type="button"
+                    style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:8px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer"
+                    onclick="_('in-top-logo-file').click()">
+                    <i class="fas fa-upload"></i> 1. Top Ganeshji Photo
+                </button>
+                <button type="button"
+                    style="background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:8px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer"
+                    onclick="_('in-couple-photo-file').click()">
+                    <i class="fas fa-upload"></i> 2. Center Couple Photo
+                </button>
+            </div>
+            <div style="display:flex; gap:8px; margin-bottom:12px">
+                <button type="button"
+                    style="flex:1; background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.2); padding:8px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer"
+                    onclick="_('in-inviter-logo-file').click()">
+                    <i class="fas fa-upload"></i> 3. Bottom Signature Logo
+                </button>
+                <button type="button"
+                    style="background:rgba(239,68,68,0.15); color:#ef4444; border:1px solid rgba(239,68,68,0.3); padding:8px 12px; border-radius:8px; font-size:11px; font-weight:700; cursor:pointer"
+                    onclick="clearAllPhotos()">
+                    Clear
+                </button>
+            </div>
+
+            <div class="grp-label">7. Event Presets</div>
+            <div class="grid-2" style="margin-bottom:6px">
+                <div class="opt-box active" onclick="loadPreset('lagna', this)"><i class="fas fa-om"></i> ૧. શુભ લગ્ન
+                    કંકોતરી</div>
+                <div class="opt-box" onclick="loadPreset('sagai', this)"><i class="fas fa-ring"></i> ૨. શુભ સગાઈ
+                    નિમંત્રણ</div>
+                <div class="opt-box" onclick="loadPreset('vastu', this)"><i class="fas fa-house-chimney"></i> ૩. વાસ્તુ
+                    પૂજા / સ્નેહ મિલન</div>
+                <div class="opt-box" onclick="loadPreset('birthday', this)"><i class="fas fa-cake-candles"></i> ૪.
+                    જન્મદિન ઉજવણી</div>
+            </div>
+            <div class="grid-2" style="margin-bottom:8px">
+                <div class="opt-box" onclick="loadPreset('srimant', this)"><i class="fas fa-baby"></i> ૫. શ્રીમંત &
+                    સીમંત</div>
+                <div class="opt-box" onclick="loadPreset('katha', this)"><i class="fas fa-book-open-reader"></i> ૬.
+                    ભાગવત કથા & સપ્તાહ</div>
+            </div>
+            <div class="grid-2" style="margin-bottom:12px">
+                <div class="opt-box" onclick="loadPreset('function', this)"><i class="fas fa-award"></i> ૭. વાર્ષિક
+                    સ્નેહ મિલન</div>
+                <div class="opt-box"
+                    style="background:rgba(239,68,68,0.15); color:#f87171; border-color:rgba(239,68,68,0.4)"
+                    onclick="loadPreset('blank', this)"><i class="fas fa-file-circle-plus"></i> ૮. Blank Custom</div>
+            </div>
+
+            <div class="grp-label">8. Shloka & Event Title</div>
+            <input type="text" id="in-shloka"
+                value="॥ ૐ શ્રી ગણેશાય નમઃ ॥ વક્રતુંડ મહાકાય સૂર્યકોટિ સમપ્રભ । નિવિઘ્નં કુરુ મે દેવ સર્વકાર્યેષુ સર્વદા ॥"
+                oninput="render()" placeholder="Shloka / Mantra (Leave empty to hide)">
+            <input type="text" id="in-title" value="શુભ લગ્ન કંકોતરી" oninput="render()"
+                placeholder="Invitation Title (Leave empty to hide)">
+
+            <div class="grp-label">9. Host / Couple Names</div>
+            <div class="grid-2">
+                <input type="text" id="in-groom" value="ચિ. રોહન" oninput="render()" placeholder="Groom / Host 1 Name">
+                <input type="text" id="in-bride" value="અ.સૌ. પૂજા" oninput="render()"
+                    placeholder="Bride / Host 2 Name">
+            </div>
+            <div class="grid-2">
+                <input type="text" id="in-gparents" value="સ્વ. મનસુખભાઈ & રમીલાબેન પટેલ" oninput="render()"
+                    placeholder="Groom Parents (Leave empty to hide)">
+                <input type="text" id="in-bparents" value="હસમુખભાઈ & ગીતાબેન શાહ" oninput="render()"
+                    placeholder="Bride Parents (Leave empty to hide)">
+            </div>
+
+            <div class="grp-label">10. Function Timings & Date</div>
+            <div class="grid-2">
+                <input type="text" id="in-ev1-title" value="ગણેશ સ્થાપના & મંડપ" oninput="render()"
+                    placeholder="Function 1 Title">
+                <input type="text" id="in-ev1-time" value="સવારે ૮:૩૦ કલાકે" oninput="render()"
+                    placeholder="Function 1 Time">
+            </div>
+            <div class="grid-2">
+                <input type="text" id="in-ev2-title" value="જાન પ્રસ્થાન & હસ્તમેળાપ" oninput="render()"
+                    placeholder="Function 2 Title">
+                <input type="text" id="in-ev2-time" value="બપોરે ૧૨:૧૫ કલાકે" oninput="render()"
+                    placeholder="Function 2 Time">
+            </div>
+            <div class="grid-2">
+                <input type="date" id="in-date" onchange="render()" style="cursor:pointer">
+                <input type="text" id="in-tithi" value="વૈશાખ સુદ ૫, સોમવાર" oninput="render()"
+                    placeholder="Tithi / Day (Leave empty to hide)">
+            </div>
+
+            <div class="grp-label">11. Venue, Google Map & Inviter Phone Info</div>
+            <input type="text" id="in-venue" value="શ્રીનાથજી પાર્ટી પ્લોટ, કાલાવડ રોડ, રાજકોટ" oninput="render()"
+                placeholder="Venue Address (Leave empty to hide)">
+            <input type="text" id="in-map-link" value="https://maps.google.com" oninput="render()"
+                placeholder="Venue Google Map Link (Auto GPS QR Code)">
+            <div class="grid-2">
+                <input type="text" id="in-inviter" value="લી. પટેલ પરિવાર & ખોડિયાર કૃપા" oninput="render()"
+                    placeholder="Inviter Family (Leave empty to hide)">
+                <input type="tel" id="in-inviter-phone" value="મો. 98765 43210" oninput="render()"
+                    placeholder="Contact Phone Number">
+            </div>
+            <input type="text" id="in-notes" value="ટચૂકડા નામ: કાનો & કાવ્યા" oninput="render()"
+                placeholder="Special Note / Touchukda Naam (Leave empty to hide)">
+
+            <button type="button"
+                style="width:100%; background:linear-gradient(135deg, #d97706, #b45309); color:#fff; height:46px; border-radius:23px; border:none; font-weight:800; cursor:pointer; margin-top:10px"
+                onclick="downloadPNG()">
+                <i class="fas fa-download"></i> Download Kankotri PNG
+            </button>
+            <button type="button"
+                style="width:100%; background:rgba(255,255,255,0.1); color:#fff; height:46px; border-radius:23px; border:1px solid rgba(255,255,255,0.2); font-weight:800; cursor:pointer; margin-top:10px"
+                onclick="printSingleKankotri()">
+                <i class="fas fa-print"></i> Print A4 Kankotri
+            </button>
+        </div>
+
+        <!-- RIGHT PREVIEW PANEL -->
+        <div class="preview-panel">
+            <div class="kankotri-canvas tmpl-mandap theme-red font-serif" id="kankotri-card">
+                <!-- SCROLL HANDLE TOP FOR TEMPLATE 2 -->
+                <div class="scroll-handle-top" id="out-scroll-top" style="display:none">📜 ROYAL KANKOTRI FARMAN 📜
+                </div>
+
+                <!-- PEACOCK TOP BANNER FOR TEMPLATE 3 -->
+                <div class="peacock-top-banner" id="out-peacock-top" style="display:none">
+                    <i class="fas fa-feather-pointed"></i> <span>🦚 શુભ મહોત્સવ 🦚</span> <i
+                        class="fas fa-feather-pointed"></i>
+                </div>
+
+                <!-- TOP GUEST INVITEE BADGE -->
+                <div id="out-guest-inviter-wrap" class="kankotri-guest-badge">
+                    <span id="out-guest-inviter">સસ્નેહ આમંત્રણ: રમણભાઈ પટેલ & પરિવાર</span>
+                </div>
+
+                <!-- MANDAP ARCH BANNER FOR TEMPLATE 1 -->
+                <div class="mandap-arch-banner" id="out-mandap-banner">
+                    <div class="mandap-arch-toran" id="out-arch-toran">❖ 🔔 ૐ 🔔 ❖</div>
+                    <!-- TOP LOGO / DEITY PHOTO SLOT -->
+                    <div id="out-top-logo-wrap">
+                        <div class="kankotri-header-icon" id="out-icon"><i class="fas fa-om"></i></div>
+                        <img src="" id="out-top-logo-img" class="logo-img-preview" style="display:none" alt="Top Logo">
+                    </div>
+
+                    <!-- SHLOKA & TITLE -->
+                    <div class="kankotri-shloka" id="out-shloka">॥ ૐ શ્રી ગણેશાય નમઃ ॥ વક્રતુંડ મહાકાય સૂર્યકોટિ સમપ્રભ
+                        । નિવિઘ્નં કુરુ મે દેવ સર્વકાર્યેષુ સર્વદા ॥</div>
+                    <div class="kankotri-title" id="out-title">શુભ લગ્ન કંકોતરી</div>
+                </div>
+
+                <!-- CENTER COUPLE PHOTO SLOT -->
+                <img src="" id="out-couple-photo-img" class="couple-photo-preview" style="display:none"
+                    alt="Couple Photo">
+
+                <!-- HOST / COUPLE NAMES BOX -->
+                <div class="kankotri-names-box" id="out-names-wrap">
+                    <!-- <div style="font-size:11px; font-weight:700; margin-bottom:4px" id="out-sub-header">શુભ પરિણય</div> -->
+                    <div class="kankotri-couple" id="out-couple-wrap">
+                        <span id="out-groom">ચિ. રોહન</span> <i class="fas fa-heart" id="out-heart-icon"
+                            style="font-size:14px"></i> <span id="out-bride">અ.સૌ. પૂજા</span>
+                    </div>
+                    <div class="kankotri-parents" id="out-parents-wrap">
+                        સંગત: <span id="out-gparents">સ્વ. મનસુખભાઈ પટેલ</span> <span id="out-and-span">&</span> <span
+                            id="out-bparents">હસમુખભાઈ શાહ</span>
+                    </div>
+                </div>
+
+                <!-- FUNCTIONS GRID -->
+                <div class="kankotri-grid" id="out-events-grid">
+                    <div class="kankotri-event-card" id="out-ev1-card">
+                        <div class="kankotri-event-title" id="out-ev1-title">ગણેશ સ્થાપના & મંડપ</div>
+                        <div class="kankotri-event-time" id="out-ev1-time">સવારે ૮:૩૦ કલાકે</div>
+                    </div>
+                    <div class="kankotri-event-card" id="out-ev2-card">
+                        <div class="kankotri-event-title" id="out-ev2-title">હસ્તમેળાપ</div>
+                        <div class="kankotri-event-time" id="out-ev2-time">બપોરે ૧૨:૧૫ કલાકે</div>
+                    </div>
+                </div>
+
+                <!-- DATE & VENUE BOX WITH AUTO GOOGLE MAP QR CODE -->
+                <div class="kankotri-venue-box" id="out-venue-wrap">
+                    <div style="text-align:left; flex:1">
+                        <div id="out-date-row"><i class="fas fa-calendar-day"></i> શુભ તારીખ: <span
+                                id="out-date">19/07/2026</span> (<span id="out-tithi">વૈશાખ સુદ ૫</span>)</div>
+                        <div id="out-venue-row" style="margin-top:4px"><i class="fas fa-location-dot"></i> સ્થળ: <span
+                                id="out-venue">શ્રીનાથજી પાર્ટી પ્લોટ, રાજકોટ</span></div>
+                    </div>
+                    <img src="" id="out-venue-qr-img" class="venue-qr-img" style="display:none" alt="Map QR">
+                </div>
+
+                <!-- SPECIAL NOTES -->
+                <div id="out-notes-wrap"
+                    style="font-size:11px; font-weight:700; margin-bottom:10px; display:none; opacity:0.9"></div>
+
+                <!-- BOTTOM INVITER FAMILY FOOTNOTE & PHONE -->
+                <div class="kankotri-footer-inviter" id="out-inviter-wrap">
+                    <img src="" id="out-inviter-logo-img" style="max-height:40px; margin:0 auto 6px auto; display:none"
+                        alt="Inviter Logo">
+                    <div id="out-inviter">લી. પટેલ પરિવાર & ખોડિયાર કૃપા</div>
+                    <div id="out-inviter-phone" style="font-size:10px; opacity:0.9; margin-top:2px"><i
+                            class="fas fa-phone" id="out-phone-icon"></i> <span id="out-phone-num">મો. 98765
+                            43210</span></div>
+                </div>
+
+                <!-- SCROLL HANDLE BOTTOM FOR TEMPLATE 2 -->
+                <div class="scroll-handle-bottom" id="out-scroll-bottom" style="display:none">📜 RAJU CRAFTER STUDIO 📜
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIRECT BODY CHILD FOR SINGLE PRINT CONTAINER -->
+    <div id="print-kankotri-container"></div>
+
+    <!-- HTML2CANVAS SCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+    <script>
+        const _ = id => document.getElementById(id);
+        let topLogoData = "";
+        let couplePhotoData = "";
+        let inviterLogoData = "";
+        let currentTmplName = "tmpl-mandap";
+        let currentThemeName = "red";
+
+        function showToast(msg, icon = 'fa-circle-check') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#fbbf24"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        window.onload = () => {
+            if (!_('in-date').value) {
+                const today = new Date().toISOString().split('T')[0];
+                _('in-date').value = today;
+            }
+            render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+
+        function setTmpl(tmplName, el) {
+            currentTmplName = tmplName;
+            if (el) {
+                el.parentNode.querySelectorAll('.opt-box').forEach(b => b.classList.remove('active'));
+                el.classList.add('active');
+            }
+            render();
+            showToast(`Card Engine Loaded: ${tmplName.toUpperCase()}`, 'fa-layer-group');
+        }
+
+        function setTheme(themeName, el) {
+            currentThemeName = themeName;
+            if (el) {
+                el.parentNode.parentNode.querySelectorAll('.theme-pill').forEach(b => b.classList.remove('active'));
+                el.classList.add('active');
+            }
+            render();
+            showToast(`Color Theme Switched: ${themeName.toUpperCase()}`, 'fa-palette');
+        }
+
+        function handleImageUpload(slot, e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                if (slot === 'top') topLogoData = event.target.result;
+                else if (slot === 'couple') couplePhotoData = event.target.result;
+                else if (slot === 'inviter') inviterLogoData = event.target.result;
+
+                render();
+                showToast(`${slot.toUpperCase()} Photo Uploaded!`, 'fa-image');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearAllPhotos() {
+            topLogoData = "";
+            couplePhotoData = "";
+            inviterLogoData = "";
+            _('in-top-logo-file').value = "";
+            _('in-couple-photo-file').value = "";
+            _('in-inviter-logo-file').value = "";
+            render();
+            showToast('All Custom Photos Cleared', 'fa-trash');
+        }
+
+        function loadPreset(type, b) {
+            if (b) {
+                b.parentNode.querySelectorAll('.opt-box').forEach(e => e.classList.remove('active'));
+                b.classList.add('active');
+            }
+
+            if (type === 'blank') {
+                _('in-guest-inviter').value = "";
+                _('in-shloka').value = "";
+                _('in-title').value = "";
+                _('in-groom').value = "";
+                _('in-bride').value = "";
+                _('in-gparents').value = "";
+                _('in-bparents').value = "";
+                _('in-ev1-title').value = "";
+                _('in-ev1-time').value = "";
+                _('in-ev2-title').value = "";
+                _('in-ev2-time').value = "";
+                _('in-tithi').value = "";
+                _('in-venue').value = "";
+                _('in-map-link').value = "";
+                _('in-inviter').value = "";
+                _('in-inviter-phone').value = "";
+                _('in-notes').value = "";
+                showToast('✨ Custom Blank Kankotri Loaded!', 'fa-file-circle-plus');
+            } else if (type === 'lagna') {
+                _('in-guest-inviter').value = "સસ્નેહ આમંત્રણ: રમણભાઈ પટેલ & પરિવાર";
+                _('in-shloka').value = "॥ ૐ શ્રી ગણેશાય નમઃ ॥ વક્રતુંડ મહાકાય સૂર્યકોટિ સમપ્રભ । નિવિઘ્નં કુરુ મે દેવ સર્વકાર્યેષુ સર્વદા ॥";
+                _('in-title').value = "શુભ લગ્ન કંકોતરી";
+                _('in-groom').value = "ચિ. રોહન";
+                _('in-bride').value = "અ.સૌ. પૂજા";
+                _('in-gparents').value = "સ્વ. મનસુખભાઈ & રમીલાબેન પટેલ";
+                _('in-bparents').value = "હસમુખભાઈ & ગીતાબેન શાહ";
+                _('in-ev1-title').value = "ગણેશ સ્થાપના & મંડપ";
+                _('in-ev1-time').value = "સવારે ૮:૩૦ કલાકે";
+                _('in-ev2-title').value = "જાન પ્રસ્થાન & હસ્તમેળાપ";
+                _('in-ev2-time').value = "બપોરે ૧૨:૧૫ કલાકે";
+                _('in-tithi').value = "વૈશાખ સુદ ૫, સોમવાર";
+                _('in-venue').value = "શ્રીનાથજી પાર્ટી પ્લોટ, કાલાવડ રોડ, રાજકોટ";
+                _('in-map-link').value = "https://maps.google.com";
+                _('in-inviter').value = "લી. પટેલ પરિવાર & ખોડિયાર કૃપા";
+                _('in-inviter-phone').value = "મો. 98765 43210";
+                _('in-notes').value = "ટચૂકડા નામ: કાનો & કાવ્યા";
+                showToast('Loaded Lagna Kankotri Preset', 'fa-om');
+            } else if (type === 'sagai') {
+                _('in-guest-inviter').value = "સસ્નેહ નિમંત્રણ";
+                _('in-shloka').value = "॥ ૐ શ્રી સદગુરુ દેવાય નમઃ ॥";
+                _('in-title').value = "શુભ સગાઈ નિમંત્રણ પત્રિકા";
+                _('in-groom').value = "ચિ. ભાવિન";
+                _('in-bride').value = "અ.સૌ. પાયલ";
+                _('in-gparents').value = "દિનેશભાઈ પટેલ";
+                _('in-bparents').value = "પ્રવીણભાઈ જોશી";
+                _('in-ev1-title').value = "સાંકળ મુહૂર્ત & Ring Ceremony";
+                _('in-ev1-time').value = "સાંજે ૫:૦૦ કલાકે";
+                _('in-ev2-title').value = "પ્રીતિ ભોજન";
+                _('in-ev2-time').value = "સાંજે ૭:૦૦ કલાકે";
+                _('in-tithi').value = "રવિવાર";
+                _('in-venue').value = "ખોડિયાર હોલ, ગોંડલ રોડ, રાજકોટ";
+                _('in-map-link').value = "https://maps.google.com";
+                _('in-inviter').value = "લી. જોશી પરિવાર";
+                _('in-inviter-phone').value = "મો. 98250 12345";
+                _('in-notes').value = "";
+                showToast('Loaded Sagai Invitation Preset', 'fa-ring');
+            } else if (type === 'vastu') {
+                _('in-guest-inviter').value = "";
+                _('in-shloka').value = "॥ ૐ નમો ભગવતે વાસુદેવાય ॥";
+                _('in-title').value = "ગૃહ પ્રવેશ & વાસ્તુ પૂજા નિમંત્રણ";
+                _('in-groom').value = "જયસુખભાઈ પટેલ";
+                _('in-bride').value = "ભાવનાબેન પટેલ";
+                _('in-gparents').value = "પરિવાર સહ";
+                _('in-bparents').value = "";
+                _('in-ev1-title').value = "વાસ્તુ પૂજન & કળશ સ્થાપના";
+                _('in-ev1-time').value = "સવારે ૯:૦૦ કલાકે";
+                _('in-ev2-title').value = "સ્નેહ મિલન & મહાપ્રસાદ";
+                _('in-ev2-time').value = "બપોરે ૧૨:૦૦ કલાકે";
+                _('in-tithi').value = "ગુરુવાર";
+                _('in-venue').value = "નિવાસસ્થાન: 'ખોડિયાર કૃપા', જુનાગઢ";
+                _('in-map-link').value = "";
+                _('in-inviter').value = "લી. પટેલ પરિવારના જય શ્રી કૃષ્ણ";
+                _('in-inviter-phone').value = "";
+                _('in-notes').value = "";
+                showToast('Loaded Vastu Puja Preset', 'fa-house-chimney');
+            } else if (type === 'birthday') {
+                _('in-guest-inviter').value = "";
+                _('in-shloka').value = "🎂 HAPPY BIRTHDAY CELEBRATION 🎂";
+                _('in-title').value = "પ્રથમ જન્મદિન ઉત્સવ નિમંત્રણ";
+                _('in-groom').value = "બાબા ધૈર્ય";
+                _('in-bride').value = "(1st Birthday)";
+                _('in-gparents').value = "માતા-પિતા: રોહિતભાઈ & સ્નેહાબેન";
+                _('in-bparents').value = "";
+                _('in-ev1-title').value = "Cake Cutting Ceremony";
+                _('in-ev1-time').value = "સાંજે ૬:૩૦ કલાકે";
+                _('in-ev2-title').value = "Dinner Party";
+                _('in-ev2-time').value = "સાંજે ૭:૩૦ કલાકે";
+                _('in-tithi').value = "શનિવાર";
+                _('in-venue').value = "રોયલ રેસ્ટોરન્ટ & પાર્ટી હોલ, અમદાવાદ";
+                _('in-map-link').value = "";
+                _('in-inviter').value = "લી. આશીર્વાદાભિલાષી પરિવાર";
+                _('in-inviter-phone').value = "";
+                _('in-notes').value = "";
+                showToast('Loaded Birthday Preset', 'fa-cake-candles');
+            } else if (type === 'srimant') {
+                _('in-guest-inviter').value = "";
+                _('in-shloka').value = "॥ ૐ શ્રી ખોડિયાર માયૈ નમઃ ॥";
+                _('in-title').value = "શુભ શ્રીમંત & સીમંત ઉત્સવ";
+                _('in-groom').value = "અ.સૌ. કાવ્યા";
+                _('in-bride').value = "(પટેલ પરિવાર)";
+                _('in-gparents').value = "પતિ: ચિ. રોહિતભાઈ પટેલ";
+                _('in-bparents').value = "";
+                _('in-ev1-title').value = "સીમંત વિધિ & ખોળો ભરવાનો પ્રસંગ";
+                _('in-ev1-time').value = "બપોરે ૨:૦૦ કલાકે";
+                _('in-ev2-title').value = "મહાપ્રસાદ & સ્નેહ મિલન";
+                _('in-ev2-time').value = "સાંજે ૬:૦૦ કલાકે";
+                _('in-tithi').value = "બુધવાર";
+                _('in-venue').value = "ખોડિયાર વાડી, કાલાવડ રોડ, રાજકોટ";
+                _('in-map-link').value = "";
+                _('in-inviter').value = "લી. ખોડિયાર કૃપા પરિવાર";
+                _('in-inviter-phone').value = "";
+                _('in-notes').value = "";
+                showToast('Loaded Srimant Babyshower Preset', 'fa-baby');
+            } else if (type === 'katha') {
+                _('in-guest-inviter').value = "";
+                _('in-shloka').value = "॥ ૐ નમો ભગવતે વાસુદેવાય ॥ શ્રીમદ્ ભાગવત સપ્તાહ જ્ઞાનયજ્ઞ";
+                _('in-title').value = "શ્રીમદ્ ભાગવત કથા આમંત્રણ";
+                _('in-groom').value = "વ્યાસપીઠ: શાસ્ત્રીજી શ્રી મુકેશભાઈ";
+                _('in-bride').value = "";
+                _('in-gparents').value = "મુખ્ય મનોરથી: પટેલ પરિવાર";
+                _('in-bparents').value = "";
+                _('in-ev1-title').value = "પોથી યાત્રા & કથા પ્રારંભ";
+                _('in-ev1-time').value = "સવારે ૮:૦૦ કલાકે";
+                _('in-ev2-title').value = "દૈનિક કથા શ્રવણ";
+                _('in-ev2-time').value = "બપોરે ૩:૦૦ થી ૬:૦૦";
+                _('in-tithi').value = "કાર્તિક સુદ એકમ થી સાતમ";
+                _('in-venue').value = "રામજી મંદિર ચોક, ગામ: જેતપુર";
+                _('in-map-link').value = "";
+                _('in-inviter').value = "લી. સમસ્ત ગ્રામજનો & મનોરથી પરિવાર";
+                _('in-inviter-phone').value = "";
+                _('in-notes').value = "";
+                showToast('Loaded Bhagwat Katha Preset', 'fa-book-open-reader');
+            } else if (type === 'function') {
+                _('in-guest-inviter').value = "";
+                _('in-shloka').value = "🎉 ANNUAL GET-TOGETHER & CELEBRATION 🎉";
+                _('in-title').value = "વાર્ષિક સ્નેહ મિલન & સન્માન સમારંભ";
+                _('in-groom').value = "સમસ્ત પરિવાર મહોત્સવ";
+                _('in-bride').value = "";
+                _('in-gparents').value = "આયોજક: શ્રી ખોડિયાર યુવા મંડળ";
+                _('in-bparents').value = "";
+                _('in-ev1-title').value = "સાંસ્કૃતિક કાર્યક્રમ & સન્માન";
+                _('in-ev1-time').value = "સાંજે ૫:૩૦ કલાકે";
+                _('in-ev2-title').value = "સમૂહ ભોજન";
+                _('in-ev2-time').value = "સાંજે ૭:૩૦ કલાકે";
+                _('in-tithi').value = "રવિવાર";
+                _('in-venue').value = "કમળ પાર્ટી પ્લોટ, હાઇવે રોડ, મોરબી";
+                _('in-map-link').value = "";
+                _('in-inviter').value = "લી. યુવા મંડળ કારોબારી સમિતિ";
+                _('in-inviter-phone').value = "";
+                _('in-notes').value = "";
+                showToast('Loaded Annual Function Preset', 'fa-award');
+            }
+            render();
+        }
+
+        function render() {
+            const card = _('kankotri-card');
+            const fontStyle = _('sel-font').value;
+            card.className = `kankotri-canvas ${currentTmplName} theme-${currentThemeName} ${fontStyle}`;
+
+            // TOP SYMBOL SWITCHER
+            const symbolVal = _('sel-symbol').value;
+            const iconDiv = _('out-icon');
+            if (symbolVal === 'om') iconDiv.innerHTML = '<i class="fas fa-om"></i>';
+            else if (symbolVal === 'swastik') iconDiv.innerHTML = '<i class="fas fa-hamsa"></i>';
+            else if (symbolVal === 'kalash') iconDiv.innerHTML = '<i class="fas fa-vase"></i>';
+            else if (symbolVal === 'ganesh') iconDiv.innerHTML = '<i class="fas fa-gopuram"></i>';
+            else if (symbolVal === 'trishul') iconDiv.innerHTML = '<i class="fas fa-sun"></i>';
+            else if (symbolVal === 'peacock') iconDiv.innerHTML = '<i class="fas fa-feather"></i>';
+            else if (symbolVal === 'heart') iconDiv.innerHTML = '<i class="fas fa-heart"></i>';
+            else if (symbolVal === 'ring') iconDiv.innerHTML = '<i class="fas fa-ring"></i>';
+
+            // FORM TOGGLES CONTROL
+            _('out-mandap-banner').style.display = _('chk-arch').checked ? 'block' : 'none';
+            _('out-shloka').style.display = _('chk-shloka').checked ? 'block' : 'none';
+            _('out-heart-icon').style.display = _('chk-heart').checked ? 'inline-block' : 'none';
+
+            const ev1Card = _('out-ev1-card');
+            const ev2Card = _('out-ev2-card');
+            if (_('chk-event-bg').checked) {
+                ev1Card.style.background = 'var(--k-box)';
+                ev2Card.style.background = 'var(--k-box)';
+            } else {
+                ev1Card.style.background = 'transparent';
+                ev2Card.style.background = 'transparent';
+            }
+
+            _('out-phone-icon').style.display = _('chk-phone').checked ? 'inline' : 'none';
+
+            // TOGGLE EXTRA GRAPHICS ACCORDING TO ENGINE
+            if (currentTmplName === 'tmpl-scroll') {
+                _('out-scroll-top').style.display = 'block';
+                _('out-scroll-bottom').style.display = 'block';
+                _('out-peacock-top').style.display = 'none';
+            } else if (currentTmplName === 'tmpl-peacock') {
+                _('out-scroll-top').style.display = 'none';
+                _('out-scroll-bottom').style.display = 'none';
+                _('out-peacock-top').style.display = 'flex';
+            } else {
+                _('out-scroll-top').style.display = 'none';
+                _('out-scroll-bottom').style.display = 'none';
+                _('out-peacock-top').style.display = 'none';
+            }
+
+            // 1. DYNAMIC GUEST INVITEE BADGE CONDITIONAL
+            const guestVal = _('in-guest-inviter').value.trim();
+            if (guestVal) {
+                _('out-guest-inviter-wrap').style.display = 'inline-block';
+                _('out-guest-inviter').innerText = guestVal;
+            } else {
+                _('out-guest-inviter-wrap').style.display = 'none';
+            }
+
+            // 2. TOP LOGO / ICON CONDITIONAL
+            if (topLogoData) {
+                _('out-icon').style.display = 'none';
+                _('out-top-logo-img').style.display = 'block';
+                _('out-top-logo-img').src = topLogoData;
+            } else {
+                _('out-icon').style.display = 'block';
+                _('out-top-logo-img').style.display = 'none';
+            }
+
+            // 3. CENTER COUPLE PHOTO CONDITIONAL
+            if (couplePhotoData) {
+                _('out-couple-photo-img').style.display = 'block';
+                _('out-couple-photo-img').src = couplePhotoData;
+            } else {
+                _('out-couple-photo-img').style.display = 'none';
+            }
+
+            // 4. SHLOKA & TITLE
+            const shlokaVal = _('in-shloka').value.trim();
+            if (shlokaVal && _('chk-shloka').checked) {
+                _('out-shloka').style.display = 'block';
+                _('out-shloka').innerText = shlokaVal;
+            } else {
+                _('out-shloka').style.display = 'none';
+            }
+
+            const titleVal = _('in-title').value.trim();
+            if (titleVal) {
+                _('out-title').style.display = 'block';
+                _('out-title').innerText = titleVal;
+            } else {
+                _('out-title').style.display = 'none';
+            }
+
+            // 5. COUPLE / HOST NAMES
+            const groomVal = _('in-groom').value.trim();
+            const brideVal = _('in-bride').value.trim();
+            if (!groomVal && !brideVal) {
+                _('out-names-wrap').style.display = 'none';
+            } else {
+                _('out-names-wrap').style.display = 'block';
+                _('out-groom').innerText = groomVal;
+                _('out-bride').innerText = brideVal;
+            }
+
+            // PARENTS CONDITIONAL
+            const gpVal = _('in-gparents').value.trim();
+            const bpVal = _('in-bparents').value.trim();
+            if (!gpVal && !bpVal) {
+                _('out-parents-wrap').style.display = 'none';
+            } else {
+                _('out-parents-wrap').style.display = 'block';
+                _('out-gparents').innerText = gpVal;
+                _('out-bparents').innerText = bpVal;
+
+                if (!gpVal || !bpVal) {
+                    _('out-and-span').style.display = 'none';
+                } else {
+                    _('out-and-span').style.display = 'inline';
+                }
+            }
+
+            // 6. FUNCTIONS GRID CONDITIONAL
+            const ev1Title = _('in-ev1-title').value.trim();
+            const ev2Title = _('in-ev2-title').value.trim();
+
+            if (!ev1Title && !ev2Title) {
+                _('out-events-grid').style.display = 'none';
+            } else {
+                _('out-events-grid').style.display = 'grid';
+
+                if (ev1Title && !ev2Title) {
+                    _('out-ev1-card').style.display = 'block';
+                    _('out-ev1-card').style.gridColumn = '1 / -1';
+                    _('out-ev2-card').style.display = 'none';
+                    _('out-ev1-title').innerText = ev1Title;
+                    _('out-ev1-time').innerText = _('in-ev1-time').value.trim();
+                } else if (!ev1Title && ev2Title) {
+                    _('out-ev1-card').style.display = 'none';
+                    _('out-ev2-card').style.display = 'block';
+                    _('out-ev2-card').style.gridColumn = '1 / -1';
+                    _('out-ev2-title').innerText = ev2Title;
+                    _('out-ev2-time').innerText = _('in-ev2-time').value.trim();
+                } else {
+                    _('out-ev1-card').style.display = 'block';
+                    _('out-ev1-card').style.gridColumn = 'auto';
+                    _('out-ev2-card').style.display = 'block';
+                    _('out-ev2-card').style.gridColumn = 'auto';
+
+                    _('out-ev1-title').innerText = ev1Title;
+                    _('out-ev1-time').innerText = _('in-ev1-time').value.trim();
+                    _('out-ev2-title').innerText = ev2Title;
+                    _('out-ev2-time').innerText = _('in-ev2-time').value.trim();
+                }
+            }
+
+            // 7. DATE & VENUE BOX WITH AUTO GOOGLE MAP QR CODE CONDITIONAL
+            const rawDate = _('in-date').value;
+            const tithiVal = _('in-tithi').value.trim();
+            const venueVal = _('in-venue').value.trim();
+            const mapLinkVal = _('in-map-link').value.trim();
+
+            if (!rawDate && !tithiVal && !venueVal) {
+                _('out-venue-wrap').style.display = 'none';
+            } else {
+                _('out-venue-wrap').style.display = 'flex';
+
+                if (!rawDate && !tithiVal) {
+                    _('out-date-row').style.display = 'none';
+                } else {
+                    _('out-date-row').style.display = 'block';
+                    if (rawDate) {
+                        const parts = rawDate.split('-');
+                        if (parts.length === 3) _('out-date').innerText = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                        else _('out-date').innerText = rawDate;
+                    } else {
+                        _('out-date').innerText = '';
+                    }
+                    _('out-tithi').innerText = tithiVal;
+                }
+
+                if (!venueVal) {
+                    _('out-venue-row').style.display = 'none';
+                } else {
+                    _('out-venue-row').style.display = 'block';
+                    _('out-venue').innerText = venueVal;
+                }
+
+                if (mapLinkVal && _('chk-map-qr').checked) {
+                    _('out-venue-qr-img').style.display = 'block';
+                    _('out-venue-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(mapLinkVal)}`;
+                } else {
+                    _('out-venue-qr-img').style.display = 'none';
+                }
+            }
+
+            // 8. SPECIAL NOTES CONDITIONAL
+            const notesText = _('in-notes').value.trim();
+            if (notesText) {
+                _('out-notes-wrap').style.display = 'block';
+                _('out-notes-wrap').innerText = notesText;
+            } else {
+                _('out-notes-wrap').style.display = 'none';
+            }
+
+            // 9. INVITER FAMILY & CONTACT PHONE CONDITIONAL
+            const inviterText = _('in-inviter').value.trim();
+            const inviterPhone = _('in-inviter-phone').value.trim();
+
+            if (!inviterText && !inviterPhone && !inviterLogoData) {
+                _('out-inviter-wrap').style.display = 'none';
+            } else {
+                _('out-inviter-wrap').style.display = 'block';
+                if (inviterLogoData) {
+                    _('out-inviter-logo-img').style.display = 'block';
+                    _('out-inviter-logo-img').src = inviterLogoData;
+                } else {
+                    _('out-inviter-logo-img').style.display = 'none';
+                }
+
+                if (inviterText) {
+                    _('out-inviter').style.display = 'block';
+                    _('out-inviter').innerText = inviterText;
+                } else {
+                    _('out-inviter').style.display = 'none';
+                }
+
+                if (inviterPhone) {
+                    _('out-phone-num').innerText = inviterPhone;
+                }
+            }
+        }
+
+        function printSingleKankotri() {
+            showToast('Preparing Single A4 Kankotri...', 'fa-print');
+            const container = _('print-kankotri-container');
+            container.innerHTML = '';
+            const card = _('kankotri-card');
+            container.innerHTML = card.outerHTML;
+
+            setTimeout(() => {
+                window.print();
+            }, 300);
+        }
+
+        function downloadPNG() {
+            showToast('Generating HD Kankotri PNG...', 'fa-spinner fa-spin');
+            const card = _('kankotri-card');
+            html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                const a = document.createElement('a');
+                a.download = `Kankotri-${Date.now()}.png`;
+                a.href = cv.toDataURL('image/png');
+                a.click();
+                showToast('✨ Ultra-HD Kankotri Downloaded!', 'fa-circle-check');
+            });
+        }
+    </script>
+</body>
+
+</html>

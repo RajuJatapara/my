@@ -362,10 +362,16 @@
         /* MOBILE RESPONSIVE STYLES */
         @media (max-width: 900px) {
             body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-header { height: auto; padding: 10px 12px; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            .header-actions { flex-wrap: wrap; justify-content: center; width: 100%; gap: 6px; }
+            .btn-top-main, .btn-top-sec { padding: 6px 12px; font-size: 11px; }
             .app-body { flex-direction: column; }
-            .preview-panel { width: 100%; min-height: 440px; position: sticky; top: 0; z-index: 40; border-bottom: 2px solid rgba(255,255,255,0.1); padding: 16px 12px; }
-            .parchi-canvas { width: 100%; }
-            .controls-panel { width: 100%; border-right: none; }
+            .preview-panel { width: 100%; min-height: auto; position: sticky; top: 0; z-index: 50; border-bottom: 2px solid rgba(255,255,255,0.15); padding: 14px 10px; background: #1e293b; }
+            .parchi-canvas { width: 100%; max-width: 100%; }
+            .controls-panel { width: 100%; border-right: none; padding: 16px 12px; }
+            input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select { font-size: 14px; padding: 12px; min-height: 44px; }
+            .parchi-item-input-row { flex-wrap: wrap; gap: 6px; }
+            .parchi-item-input-row input[type="text"] { flex: 1 1 45%; }
         }
     </style>
 </head>
