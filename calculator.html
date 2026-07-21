@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="gu" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Calculator Hub - Digital Tools Hub</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Sans+Gujarati:wght@400;600;800&family=Inter:wght@400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- html2canvas Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- i18n Translation Engine -->
+    <script src="i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --card-border: rgba(251, 191, 36, 0.15);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --nav-bg: rgba(9, 13, 22, 0.95);
+            --font-main: 'Poppins', 'Noto Sans Gujarati', sans-serif;
+        }
+
+        [data-theme="indigo"] {
+            --primary: #818cf8;
+            --primary-hover: #6366f1;
+            --bg: #030712;
+            --card-bg: rgba(17, 24, 39, 0.75);
+            --card-border: rgba(99, 102, 241, 0.2);
+            --text-main: #f3f4f6;
+            --text-sub: #9ca3af;
+            --nav-bg: rgba(3, 7, 18, 0.95);
+        }
+
+        [data-theme="light"] {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* TOAST CONTAINER */
+        #toast-container {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast-msg {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* HEADER NAVBAR */
+        .app-header {
+            height: 56px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 100;
+            gap: 10px;
+        }
+
+        .brand-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 900;
+            font-size: 16px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .brand-logo-title i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-sub);
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
+        .btn-top-main {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: #000;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .btn-top-sec {
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .theme-toggle-header {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* CONTROLS PANEL */
+        .controls-panel {
+            width: 440px;
+            background: var(--bg);
+            border-right: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            z-index: 20;
+            flex-shrink: 0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-sub);
+            text-transform: uppercase;
+            margin: 14px 0 8px 0;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .grp-label:first-child { margin-top: 0; }
+
+        /* SKEUOMORPHIC CALCULATOR MOCKUP styling */
+        .physical-calc-body {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 4px solid #334155;
+            border-radius: 20px;
+            padding: 16px;
+            box-shadow: inset 0 2px 10px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.6);
+            margin-bottom: 20px;
+        }
+
+        .calc-screen-wrapper {
+            background: #111827;
+            border: 2px solid #475569;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-family: 'Share Tech Mono', monospace;
+            text-align: right;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calc-screen-wrapper::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .calc-formula {
+            font-size: 13px;
+            color: #64748b;
+            min-height: 18px;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .calc-value-display {
+            font-size: 26px;
+            color: #10b981;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+            min-height: 36px;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .calc-keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .calc-btn-key {
+            background: linear-gradient(180deg, #334155, #1e293b);
+            border: 1px solid #475569;
+            color: #f8fafc;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 0 #0f172a, 0 8px 15px rgba(0,0,0,0.4);
+            transition: all 0.05s ease;
+            user-select: none;
+        }
+
+        .calc-btn-key:active {
+            transform: translateY(3px);
+            box-shadow: 0 1px 0 #0f172a, 0 4px 6px rgba(0,0,0,0.5);
+        }
+
+        .calc-btn-key.op-key {
+            background: linear-gradient(180deg, #f59e0b, #d97706);
+            border-color: #f59e0b;
+            color: #000;
+        }
+
+        .calc-btn-key.clear-key {
+            background: linear-gradient(180deg, #ef4444, #dc2626);
+            border-color: #ef4444;
+            color: #fff;
+        }
+
+        .calc-btn-key.use-val-key {
+            grid-column: span 2;
+            background: linear-gradient(180deg, #10b981, #059669);
+            border-color: #10b981;
+            color: #fff;
+            font-size: 13px;
+        }
+
+        /* BUSINESS INPUTS styling */
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.25);
+        }
+
+        select option { background: var(--bg); color: var(--text-main); }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            padding: 8px 4px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 9px;
+            font-weight: 800;
+            color: var(--text-sub);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .opt-box.active, .opt-box:hover {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* PREVIEW PANEL */
+        .preview-panel {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        /* PARCHI SLIP CANVAS */
+        .parchi-canvas {
+            background: #fffdf5;
+            color: #0f172a;
+            width: 380px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            border-radius: 10px;
+            padding: 20px 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            border: 2px dashed #fbbf24;
+            font-family: var(--font-main);
+            box-sizing: border-box;
+        }
+
+        .parchi-header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 10px; margin-bottom: 14px; }
+        .parchi-shop { font-size: 18px; font-weight: 900; color: #0f172a; line-height: 1.1; }
+        .parchi-title-tag { background: #0f172a; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 10px; border-radius: 10px; display: inline-block; margin-top: 4px; text-transform: uppercase; }
+
+        .parchi-meta { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; color: #475569; margin-bottom: 12px; }
+
+        .parchi-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
+        .parchi-table th { background: #f1f5f9; font-size: 10px; font-weight: 800; color: #334155; padding: 6px 8px; border-bottom: 2px solid #cbd5e1; text-align: left; }
+        .parchi-table th:last-child { text-align: right; }
+        .parchi-table td { padding: 8px; font-size: 12px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
+        .parchi-table td:last-child { text-align: right; font-weight: 900; }
+
+        /* TOTALS BREAKDOWN */
+        .parchi-breakdown-box {
+            background: #fff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bd-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #475569; }
+        .bd-row.bd-due { font-size: 14px; font-weight: 900; color: #ef4444; border-top: 1px dashed #cbd5e1; padding-top: 4px; margin-top: 2px; }
+        .bd-row.bd-paid { color: #16a34a; font-size: 14px; font-weight: 900; border-top: 1px dashed #cbd5e1; padding-top: 4px; margin-top: 2px; }
+
+        .parchi-stamp-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 6px; }
+        .parchi-stamp { font-size: 10px; font-weight: 900; border: 2px solid #16a34a; color: #16a34a; padding: 2px 10px; border-radius: 6px; text-transform: uppercase; transform: rotate(-5deg); display: inline-block; }
+
+        /* DIRECT BODY CHILD FOR SINGLE PRINT CONTAINER */
+        #print-parchi-container { display: none; }
+
+        /* PRINT STYLES - SINGLE A4 PARCHI */
+        @media print {
+            body { background: #fff !important; color: #000 !important; margin: 0 !important; padding: 0 !important; }
+            .app-header, .app-body, #toast-container { display: none !important; }
+            #print-parchi-container {
+                display: flex !important;
+                justify-content: center;
+                align-items: center;
+                width: 100% !important;
+                padding: 15mm;
+                background: #fff !important;
+            }
+            #print-parchi-container .parchi-canvas {
+                box-shadow: none !important;
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 400px;
+                border: 2px solid #0f172a !important;
+            }
+        }
+
+        /* MOBILE RESPONSIVE STYLES */
+        @media (max-width: 900px) {
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-header { height: auto; padding: 10px 12px; flex-wrap: wrap; justify-content: center; gap: 8px; }
+            .header-actions { flex-wrap: wrap; justify-content: center; width: 100%; gap: 6px; }
+            .btn-top-main, .btn-top-sec { padding: 6px 12px; font-size: 11px; }
+            .app-body { flex-direction: column; }
+            .preview-panel { width: 100%; min-height: auto; position: sticky; top: 0; z-index: 50; border-bottom: 2px solid var(--card-border); padding: 14px 10px; background: rgba(0,0,0,0.2); }
+            .parchi-canvas { width: 100%; max-width: 100%; }
+            .controls-panel { width: 100%; border-right: none; padding: 16px 12px; }
+            input[type="text"], input[type="number"], select { font-size: 14px; padding: 12px; min-height: 44px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
+
+    <!-- HEADER TOPBAR -->
+    <div class="app-header">
+        <a href="index.html" class="brand-logo-title">
+            <i class="fas fa-arrow-left"></i>
+            <span>Digital Tools Hub</span>
+        </a>
+
+        <div class="header-actions">
+            <div class="theme-toggle-header" onclick="cycleTheme()">
+                <i class="fas fa-moon" id="theme-icon"></i>
+                <span id="theme-text">Midnight</span>
+            </div>
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <div class="btn-top-sec" onclick="printSingleParchi()"><i class="fas fa-print"></i> Print Parchi</div>
+            <button class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download Slip PNG</button>
+        </div>
+    </div>
+
+    <!-- MAIN SPLIT WORKSPACE -->
+    <div class="app-body">
+        <!-- LEFT: CONTROLS PANEL -->
+        <div class="controls-panel">
+            
+            <!-- 🧮 SKEUOMORPHIC CALCULATOR UNIT -->
+            <div class="grp-label"><i class="fas fa-calculator text-warning"></i> 1. Standard Digital Calculator Keypad</div>
+            <div class="physical-calc-body">
+                <div class="calc-screen-wrapper">
+                    <div class="calc-formula" id="formula-screen"></div>
+                    <div class="calc-value-display" id="val-screen">0</div>
+                </div>
+                <div class="calc-keypad">
+                    <div class="calc-btn-key clear-key" onclick="calcAction('C')">C</div>
+                    <div class="calc-btn-key" onclick="calcAction('⌫')">⌫</div>
+                    <div class="calc-btn-key" onclick="calcAction('/')">/</div>
+                    <div class="calc-btn-key" onclick="calcAction('*')">*</div>
+
+                    <div class="calc-btn-key" onclick="calcAction('7')">7</div>
+                    <div class="calc-btn-key" onclick="calcAction('8')">8</div>
+                    <div class="calc-btn-key" onclick="calcAction('9')">9</div>
+                    <div class="calc-btn-key" onclick="calcAction('-')">-</div>
+
+                    <div class="calc-btn-key" onclick="calcAction('4')">4</div>
+                    <div class="calc-btn-key" onclick="calcAction('5')">5</div>
+                    <div class="calc-btn-key" onclick="calcAction('6')">6</div>
+                    <div class="calc-btn-key" onclick="calcAction('+')">+</div>
+
+                    <div class="calc-btn-key" onclick="calcAction('1')">1</div>
+                    <div class="calc-btn-key" onclick="calcAction('2')">2</div>
+                    <div class="calc-btn-key" onclick="calcAction('3')">3</div>
+                    <div class="calc-btn-key op-key" onclick="calcAction('=')">=</div>
+
+                    <div class="calc-btn-key" onclick="calcAction('0')">0</div>
+                    <div class="calc-btn-key" onclick="calcAction('00')">00</div>
+                    <div class="calc-btn-key" onclick="calcAction('.')">.</div>
+                    <div class="calc-btn-key use-val-key" onclick="useCalcValue()"><i class="fas fa-arrow-down"></i> કિંમત ભરો</div>
+                </div>
+            </div>
+
+            <div class="grp-label"><i class="fas fa-coins text-warning"></i> 2. Business Category</div>
+            <div class="grid-4 mb-2">
+                <div class="opt-box active" id="cat-finance" onclick="switchCategory('finance')"><i class="fas fa-coins"></i> FINANCE</div>
+                <div class="opt-box" id="cat-shop" onclick="switchCategory('shop')"><i class="fas fa-shop"></i> SHOP</div>
+                <div class="opt-box" id="cat-village" onclick="switchCategory('village')"><i class="fas fa-wheat-awn"></i> VILLAGE</div>
+                <div class="opt-box" id="cat-utility" onclick="switchCategory('utility')"><i class="fas fa-wrench"></i> UTILITIES</div>
+            </div>
+
+            <div class="grp-label">3. Select Business Module</div>
+            <select id="calc-engine-select" onchange="switchEngine()"></select>
+
+            <div class="grp-label">4. Slip Header Details</div>
+            <input type="text" id="slip-shop" value="ડિજિટલ કેલ્ક્યુલેશન રસીદ" oninput="renderParchi()" placeholder="Slip Heading Title">
+            <input type="text" id="slip-tag" value="Business Calculation Slip" oninput="renderParchi()" placeholder="Slip Subheading">
+
+            <div class="grp-label">5. Calculator Inputs (કિંમત પૂર્તિ)</div>
+            <!-- INPUTS HOLDER CONTAINER -->
+            <div id="inputs-container"></div>
+        </div>
+
+        <!-- RIGHT: PREVIEW PANEL -->
+        <div class="preview-panel">
+            <!-- PARCHI CANVAS -->
+            <div class="parchi-canvas" id="parchi-canvas-id">
+                <div class="parchi-header">
+                    <div class="parchi-shop" id="lbl-shop">ડિજિટલ કેલ્ક્યુલેશન રસીદ</div>
+                    <div class="parchi-title-tag" id="lbl-tag">Business Calculation Slip</div>
+                </div>
+
+                <div class="parchi-meta">
+                    <div>DATE: <span id="lbl-date">--/--/----</span></div>
+                    <div>STATUS: <span id="lbl-status" style="font-weight:900">VERIFIED</span></div>
+                </div>
+
+                <!-- TABLE OF CALC DETAILS -->
+                <table class="parchi-table">
+                    <thead>
+                        <tr>
+                            <th>Particular details (વિગત)</th>
+                            <th>Value (ગણતરી રકમ)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lbl-table-body">
+                        <!-- Filled dynamically -->
+                    </tbody>
+                </table>
+
+                <!-- FINAL TOTAL BOX -->
+                <div class="parchi-breakdown-box">
+                    <div class="bd-row">
+                        <div>Subtotal Sum</div>
+                        <div id="lbl-subtotal">₹0.00</div>
+                    </div>
+                    <div class="bd-row bd-paid">
+                        <div>NET FINAL VALUE</div>
+                        <div id="lbl-final">₹0.00</div>
+                    </div>
+                </div>
+
+                <div class="parchi-stamp-row">
+                    <div class="parchi-stamp">CALCULATED</div>
+                    <div style="font-size: 8px; font-weight: 700; color: #475569; text-align: right;">
+                        Powered by Digital Tools Hub<br>
+                        Authorized Signature
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRINT PREVIEW CONTAINER -->
+    <div id="print-parchi-container"></div>
+
+    <!-- FLOATING CHAT SUPPORT -->
+    <a href="https://wa.me/916356239260?text=Hello%20Raju%20Jatapara,%20I%20need%20help%20with%20Business%20Calculator%20Hub!" target="_blank" class="floating-wa-btn">
+        <i class="fab fa-whatsapp" style="font-size:15px"></i> Chat Support
+    </a>
+
+    <!-- ENGINE SCRIPTS -->
+    <script>
+        let currentTheme = localStorage.getItem('rcs_theme') || 'dark';
+        let currentCategory = 'finance';
+        let currentEngine = 'interest';
+        let focusedInputId = null;
+
+        const enginesConfig = {
+            finance: [
+                { id: 'interest', name: '📈 Simple & Monthly Interest (વ્યાજ હિસાબ)' },
+                { id: 'gst', name: '🧾 Add & Remove GST Tax (જીએસટી ટેક્સ)' },
+                { id: 'emi', name: '🏦 Bank Loan Monthly EMI (માસિક લોન હપ્તો)' }
+            ],
+            shop: [
+                { id: 'margin', name: '📈 Profit Margin & Markup (નફો - માર્જિન)' },
+                { id: 'discount', name: '🏷️ Discount & Sale Price (વળતર કિંમત)' },
+                { id: 'compare', name: '📦 Unit Weight Price Compare (બલ્ક સરખામણી)' }
+            ],
+            village: [
+                { id: 'milk', name: '🥛 Daily Milk FAT Payout (દૂધ ફેટ હિસાબ)' },
+                { id: 'land', name: '📐 Agricultural Land Converter (વીઘા-એકર)' },
+                { id: 'pisaai', name: '🌾 Atta Chakki Pisaai Parchi (લોટ પીસાઈ)' }
+            ],
+            utility: [
+                { id: 'wage', name: '💼 Daily wage & Overtime (રોજમદાર પગાર)' },
+                { id: 'tractor', name: '🚜 Tractor & Harvester Rental (ટ્રેક્ટર ભાડું)' },
+                { id: 'fuel', name: '⛽ Vehicle Fuel Mileage Cost (માઇલેજ ખર્ચ)' }
+            ]
+        };
+
+        window.onload = () => {
+            applyTheme(currentTheme);
+            document.getElementById('lbl-date').innerText = new Date().toLocaleDateString('en-GB');
+            switchCategory('finance');
+        };
+
+        function cycleTheme() {
+            if (currentTheme === 'dark') currentTheme = 'indigo';
+            else if (currentTheme === 'indigo') currentTheme = 'light';
+            else currentTheme = 'dark';
+            localStorage.setItem('rcs_theme', currentTheme);
+            applyTheme(currentTheme);
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const icon = document.getElementById('theme-icon');
+            const text = document.getElementById('theme-text');
+            if (theme === 'dark') {
+                icon.className = 'fas fa-moon';
+                text.innerText = 'Midnight';
+            } else if (theme === 'indigo') {
+                icon.className = 'fas fa-wand-magic-sparkles';
+                text.innerText = 'Indigo';
+            } else if (theme === 'light') {
+                icon.className = 'fas fa-sun';
+                text.innerText = 'Light';
+            }
+        }
+
+        // --- 🧮 STANDARD KEYPAD MATH LOGIC ---
+        let calcFormulaVal = "";
+        let calcDisplayVal = "0";
+        let shouldResetDisplay = false;
+
+        function calcAction(val) {
+            const disp = document.getElementById('val-screen');
+            const formScreen = document.getElementById('formula-screen');
+
+            if (val === 'C') {
+                calcFormulaVal = "";
+                calcDisplayVal = "0";
+                formScreen.innerText = "";
+                disp.innerText = "0";
+                shouldResetDisplay = false;
+            } else if (val === '⌫') {
+                if (calcDisplayVal.length > 1) {
+                    calcDisplayVal = calcDisplayVal.slice(0, -1);
+                } else {
+                    calcDisplayVal = "0";
+                }
+                disp.innerText = calcDisplayVal;
+            } else if (val === '=') {
+                try {
+                    let expression = calcFormulaVal + calcDisplayVal;
+                    // Replace standard X with *
+                    expression = expression.replace(/x/g, '*');
+                    const result = eval(expression);
+                    formScreen.innerText = expression + " =";
+                    calcDisplayVal = String(Number(result.toFixed(6)));
+                    disp.innerText = calcDisplayVal;
+                    calcFormulaVal = "";
+                    shouldResetDisplay = true;
+                } catch (err) {
+                    disp.innerText = "ERROR";
+                    calcDisplayVal = "0";
+                    calcFormulaVal = "";
+                }
+            } else if (['+', '-', '*', '/'].includes(val)) {
+                calcFormulaVal += calcDisplayVal + " " + val + " ";
+                formScreen.innerText = calcFormulaVal;
+                shouldResetDisplay = true;
+            } else {
+                if (calcDisplayVal === "0" || shouldResetDisplay) {
+                    calcDisplayVal = val;
+                    shouldResetDisplay = false;
+                } else {
+                    calcDisplayVal += val;
+                }
+                disp.innerText = calcDisplayVal;
+            }
+        }
+
+        // Autofill current screen value to active input
+        function useCalcValue() {
+            const val = parseFloat(document.getElementById('val-screen').innerText) || 0;
+            if (focusedInputId) {
+                const targetInput = document.getElementById(focusedInputId);
+                if (targetInput) {
+                    targetInput.value = val;
+                    renderParchi();
+                    showToast('Value ₹' + val + ' successfully filled in target field!');
+                }
+            } else {
+                // Default to first number input if none focused
+                const firstInput = document.querySelector('#inputs-container input[type="number"]');
+                if (firstInput) {
+                    firstInput.value = val;
+                    renderParchi();
+                    showToast('Auto-filled value ₹' + val + ' into first input!');
+                } else {
+                    showToast('Please select/click any input field below to fill values!');
+                }
+            }
+        }
+
+        function switchCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.opt-box').forEach(el => el.classList.remove('active'));
+            document.getElementById('cat-' + cat).classList.add('active');
+
+            const select = document.getElementById('calc-engine-select');
+            select.innerHTML = '';
+            enginesConfig[cat].forEach(engine => {
+                const opt = document.createElement('option');
+                opt.value = engine.id;
+                opt.innerText = engine.name;
+                select.appendChild(opt);
+            });
+
+            currentEngine = enginesConfig[cat][0].id;
+            loadInputs();
+        }
+
+        function switchEngine() {
+            currentEngine = document.getElementById('calc-engine-select').value;
+            loadInputs();
+        }
+
+        function trackFocus(el) {
+            focusedInputId = el.id;
+            // Highlight focused parameter input
+            document.querySelectorAll('#inputs-container input').forEach(inp => {
+                inp.style.borderColor = 'var(--card-border)';
+            });
+            el.style.borderColor = 'var(--primary)';
+        }
+
+        function loadInputs() {
+            const inputsHolder = document.getElementById('inputs-container');
+            inputsHolder.innerHTML = '';
+
+            let inputsHTML = '';
+
+            if (currentEngine === 'interest') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Principal Amount (રૂપિયા મુદલ)</label>
+                    <input type="number" id="int-p" value="50000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 50000">
+                    <label class="small text-muted fw-bold">Rate of Interest (% દર)</label>
+                    <input type="number" step="0.01" id="int-r" value="2.00" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 2">
+                    <label class="small text-muted fw-bold">Interest Rate Type</label>
+                    <select id="int-type" onchange="renderParchi()">
+                        <option value="monthly">% Per Month (ગામઠી માસિક વ્યાજ)</option>
+                        <option value="yearly">% Per Year (વાર્ષિક વ્યાજ)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">Total Months (સમયગાળો - માસ)</label>
+                    <input type="number" id="int-t" value="12" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 12">
+                `;
+            } else if (currentEngine === 'gst') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Net Amount (ખરીદ રકમ)</label>
+                    <input type="number" id="gst-amt" value="10000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 10000">
+                    <label class="small text-muted fw-bold">GST Rate (%)</label>
+                    <select id="gst-rate" onchange="renderParchi()">
+                        <option value="5">5%</option>
+                        <option value="12">12%</option>
+                        <option value="18" selected>18%</option>
+                        <option value="28">28%</option>
+                    </select>
+                    <label class="small text-muted fw-bold">GST Calculation Action</label>
+                    <select id="gst-type" onchange="renderParchi()">
+                        <option value="add">Add GST (ટેક્સ ઉમેરો)</option>
+                        <option value="remove">Remove GST (ટેક્સ બાદ કરો)</option>
+                    </select>
+                `;
+            } else if (currentEngine === 'emi') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Loan Amount (લોન કુલ રકમ)</label>
+                    <input type="number" id="emi-p" value="100000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 100000">
+                    <label class="small text-muted fw-bold">Interest Rate Per Year (%)</label>
+                    <input type="number" step="0.1" id="emi-r" value="8.5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 8.5">
+                    <label class="small text-muted fw-bold">Loan Duration (Tenure Years)</label>
+                    <input type="number" id="emi-t" value="5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 5">
+                `;
+            } else if (currentEngine === 'margin') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Cost Price (ખરીદ કિંમત)</label>
+                    <input type="number" id="prof-cost" value="150" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 150">
+                    <label class="small text-muted fw-bold">Selling Price (વેચાણ કિંમત)</label>
+                    <input type="number" id="prof-sell" value="200" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 200">
+                `;
+            } else if (currentEngine === 'discount') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Original Price (મૂળ કિંમત)</label>
+                    <input type="number" id="disc-price" value="1500" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 1500">
+                    <label class="small text-muted fw-bold">Discount Percent (%)</label>
+                    <input type="number" id="disc-rate" value="20" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 20">
+                `;
+            } else if (currentEngine === 'compare') {
+                inputsHTML = `
+                    <label class="small text-warning fw-bold">Pack A Price</label>
+                    <input type="number" id="comp-pa" value="150" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="Pack A Price">
+                    <label class="small text-warning fw-bold">Pack A Weight/Qty (grams/nos)</label>
+                    <input type="number" id="comp-qa" value="500" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="Pack A Qty">
+                    <label class="small text-info fw-bold">Pack B Price</label>
+                    <input type="number" id="comp-pb" value="280" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="Pack B Price">
+                    <label class="small text-info fw-bold">Pack B Weight/Qty (grams/nos)</label>
+                    <input type="number" id="comp-qb" value="1000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="Pack B Qty">
+                `;
+            } else if (currentEngine === 'milk') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Milk Quantity (દૂધ લિટર)</label>
+                    <input type="number" id="milk-qty" value="10" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 10">
+                    <label class="small text-muted fw-bold">Milk FAT Percentage</label>
+                    <input type="number" step="0.1" id="milk-fat" value="7.2" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 7.2">
+                    <label class="small text-muted fw-bold">FAT Price Rate (રૂપિયા પ્રતિ ફેટ)</label>
+                    <input type="number" step="0.05" id="milk-rfat" value="8.50" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 8.5">
+                `;
+            } else if (currentEngine === 'land') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Land Value (જમીન માપ)</label>
+                    <input type="number" id="land-val" value="5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 5">
+                    <label class="small text-muted fw-bold">Source Land Unit</label>
+                    <select id="land-unit" onchange="renderParchi()">
+                        <option value="vigha">Vigha (વીઘું)</option>
+                        <option value="acre">Acre (એકર)</option>
+                        <option value="guntha">Guntha (ગુંઠા)</option>
+                        <option value="sqyd">Square Yards (વાર)</option>
+                    </select>
+                `;
+            } else if (currentEngine === 'pisaai') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Grain weight (અનાજ વજન - kg)</label>
+                    <input type="number" id="pis-wt" value="25" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 25">
+                    <label class="small text-muted fw-bold">Grinding Rate (પીસાઈ દર ₹/kg)</label>
+                    <input type="number" step="0.5" id="pis-rate" value="5.0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 5">
+                    <label class="small text-muted fw-bold">Katar Deduction (કાતર વજન Grams/kg)</label>
+                    <input type="number" id="pis-katar" value="10" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 10">
+                `;
+            } else if (currentEngine === 'wage') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Daily Pay Wage (રોજનો દર)</label>
+                    <input type="number" id="wage-rate" value="450" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 450">
+                    <label class="small text-muted fw-bold">Days Present (હાજર દિવસો)</label>
+                    <input type="number" id="wage-days" value="26" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 26">
+                    <label class="small text-muted fw-bold">Advance Taken (ઉપાડ રકમ)</label>
+                    <input type="number" id="wage-adv" value="1500" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 1500">
+                    <label class="small text-muted fw-bold">Overtime Hours (વધારાના કલાક)</label>
+                    <input type="number" id="wage-oth" value="8" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 8">
+                    <label class="small text-muted fw-bold">Overtime Hourly Rate (કલાક દીઠ દર)</label>
+                    <input type="number" id="wage-otr" value="60" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 60">
+                `;
+            } else if (currentEngine === 'tractor') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Rate Basis</label>
+                    <select id="trac-basis" onchange="renderParchi()">
+                        <option value="hour">Hourly Basis (કલાક દીઠ ભાડું)</option>
+                        <option value="bigha">Vigha Basis (વીઘા દીઠ ભાડું)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">Rental Rate (દર ₹)</label>
+                    <input type="number" id="trac-rate" value="600" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 600">
+                    <label class="small text-muted fw-bold">Total quantity (કલાકો અથવા વીઘા)</label>
+                    <input type="number" step="0.05" id="trac-qty" value="3.5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 3.5">
+                `;
+            } else if (currentEngine === 'fuel') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">Total Trip Distance (કુલ KM)</label>
+                    <input type="number" id="fuel-dist" value="240" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 240">
+                    <label class="small text-muted fw-bold">Fuel Price Rate (ડીઝલ/પેટ્રોલ ₹/Ltr)</label>
+                    <input type="number" step="0.1" id="fuel-price" value="96.5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 96.5">
+                    <label class="small text-muted fw-bold">Mileage (ગાડી માઇલેજ km/Ltr)</label>
+                    <input type="number" step="0.1" id="fuel-mil" value="16.0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 16">
+                `;
+            }
+
+            inputsHolder.innerHTML = inputsHTML;
+            
+            // Focus first input box by default
+            const firstInp = inputsHolder.querySelector('input');
+            if (firstInp) trackFocus(firstInp);
+            
+            renderParchi();
+        }
+
+        function renderParchi() {
+            document.getElementById('lbl-shop').innerText = document.getElementById('slip-shop').value;
+            document.getElementById('lbl-tag').innerText = document.getElementById('slip-tag').value;
+
+            const tBody = document.getElementById('lbl-table-body');
+            tBody.innerHTML = '';
+
+            let subtotal = 0;
+            let finalVal = 0;
+
+            if (currentEngine === 'interest') {
+                const p = parseFloat(document.getElementById('int-p').value) || 0;
+                const r = parseFloat(document.getElementById('int-r').value) || 0;
+                const t = parseFloat(document.getElementById('int-t').value) || 0;
+                const type = document.getElementById('int-type').value;
+
+                let interest = 0;
+                if (type === 'monthly') {
+                    interest = p * (r / 100) * t;
+                } else {
+                    interest = p * (r / 100) * (t / 12);
+                }
+                subtotal = p;
+                finalVal = p + interest;
+
+                addRow(tBody, 'Principal Amount (મૂળ રકમ)', '₹' + p.toFixed(2));
+                addRow(tBody, 'Rate of Interest (વ્યાજ દર)', r.toFixed(2) + '% (' + type + ')');
+                addRow(tBody, 'Time Duration (સમય માસ)', t + ' Months');
+                addRow(tBody, 'Total Interest Earned (વ્યાજ)', '₹' + interest.toFixed(2));
+            } else if (currentEngine === 'gst') {
+                const amt = parseFloat(document.getElementById('gst-amt').value) || 0;
+                const rate = parseFloat(document.getElementById('gst-rate').value) || 0;
+                const type = document.getElementById('gst-type').value;
+
+                let tax = 0;
+                if (type === 'add') {
+                    tax = amt * (rate / 100);
+                    subtotal = amt;
+                    finalVal = amt + tax;
+                } else {
+                    finalVal = amt;
+                    subtotal = amt / (1 + (rate / 100));
+                    tax = amt - subtotal;
+                }
+
+                addRow(tBody, 'Base Amount (ટેક્સ વગર કિંમત)', '₹' + subtotal.toFixed(2));
+                addRow(tBody, 'GST Rate Percentage (ટેક્સ દર)', rate + '%');
+                addRow(tBody, 'CGST Tax Share (50%)', '₹' + (tax / 2).toFixed(2));
+                addRow(tBody, 'SGST Tax Share (50%)', '₹' + (tax / 2).toFixed(2));
+                addRow(tBody, 'Total GST Tax Amount', '₹' + tax.toFixed(2));
+            } else if (currentEngine === 'emi') {
+                const p = parseFloat(document.getElementById('emi-p').value) || 0;
+                const r = parseFloat(document.getElementById('emi-r').value) || 0;
+                const t = parseFloat(document.getElementById('emi-t').value) || 0;
+
+                const monthlyRate = (r / 100) / 12;
+                const months = t * 12;
+                let emi = 0;
+                if (monthlyRate > 0) {
+                    emi = (p * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+                } else {
+                    emi = p / months;
+                }
+                const totalRepay = emi * months;
+                const totalInterest = totalRepay - p;
+
+                subtotal = p;
+                finalVal = totalRepay;
+
+                addRow(tBody, 'Principal Amount (લોન મુદલ)', '₹' + p.toFixed(2));
+                addRow(tBody, 'Tenure Duration (સમયગાળો)', t + ' Years (' + months + ' Months)');
+                addRow(tBody, 'Monthly EMI Pay (માસિક હપ્તો)', '₹' + emi.toFixed(2));
+                addRow(tBody, 'Total Bank Interest (વ્યાજ ચાર્જ)', '₹' + totalInterest.toFixed(2));
+            } else if (currentEngine === 'margin') {
+                const cost = parseFloat(document.getElementById('prof-cost').value) || 0;
+                const sell = parseFloat(document.getElementById('prof-sell').value) || 0;
+
+                const profit = sell - cost;
+                const margin = sell > 0 ? (profit / sell) * 100 : 0;
+                const markup = cost > 0 ? (profit / cost) * 100 : 0;
+
+                subtotal = cost;
+                finalVal = profit;
+
+                addRow(tBody, 'Cost Purchase Price (ખરીદી કિંમત)', '₹' + cost.toFixed(2));
+                addRow(tBody, 'Selling Price (વેચાણ કિંમત)', '₹' + sell.toFixed(2));
+                addRow(tBody, 'Net Profit Margin Percentage', margin.toFixed(2) + '%');
+                addRow(tBody, 'Markup Rate Percentage', markup.toFixed(2) + '%');
+            } else if (currentEngine === 'discount') {
+                const price = parseFloat(document.getElementById('disc-price').value) || 0;
+                const rate = parseFloat(document.getElementById('disc-rate').value) || 0;
+
+                const saved = price * (rate / 100);
+                const final = price - saved;
+
+                subtotal = saved;
+                finalVal = final;
+
+                addRow(tBody, 'Original Price (મૂળ કિંમત)', '₹' + price.toFixed(2));
+                addRow(tBody, 'Discount Percent (વળતર દર)', rate + '%');
+                addRow(tBody, 'Total Saved Money (કુલ બચત)', '₹' + saved.toFixed(2));
+            } else if (currentEngine === 'compare') {
+                const pA = parseFloat(document.getElementById('comp-pa').value) || 0;
+                const qA = parseFloat(document.getElementById('comp-qa').value) || 0;
+                const pB = parseFloat(document.getElementById('comp-pb').value) || 0;
+                const qB = parseFloat(document.getElementById('comp-qb').value) || 0;
+
+                const unitA = qA > 0 ? pA / qA : 0;
+                const unitB = qB > 0 ? pB / qB : 0;
+
+                let verdict = '';
+                if (unitA < unitB) {
+                    verdict = 'Pack A is cheaper / વધુ ફાયદાકારક!';
+                } else if (unitB < unitA) {
+                    verdict = 'Pack B is cheaper / વધુ ફાયદાકારક!';
+                } else {
+                    verdict = 'Identical rates!';
+                }
+
+                subtotal = unitA;
+                finalVal = unitB;
+
+                addRow(tBody, 'Pack A Rate (પ્રતિ ગ્રામ/નંગ)', '₹' + unitA.toFixed(4));
+                addRow(tBody, 'Pack B Rate (પ્રતિ ગ્રામ/નંગ)', '₹' + unitB.toFixed(4));
+                addRow(tBody, 'Verdict Decision (તારણ)', verdict);
+            } else if (currentEngine === 'milk') {
+                const qty = parseFloat(document.getElementById('milk-qty').value) || 0;
+                const fat = parseFloat(document.getElementById('milk-fat').value) || 0;
+                const rateFat = parseFloat(document.getElementById('milk-rfat').value) || 0;
+
+                const ratePerLiter = fat * rateFat;
+                const totalPayout = qty * ratePerLiter;
+
+                subtotal = ratePerLiter;
+                finalVal = totalPayout;
+
+                addRow(tBody, 'Milk Volume (કુલ દૂધ લિટર)', qty.toFixed(2) + ' Liters');
+                addRow(tBody, 'FAT Percentage (ફેટ દર)', fat.toFixed(1) + '%');
+                addRow(tBody, 'Rate Per 1 FAT', '₹' + rateFat.toFixed(2));
+                addRow(tBody, 'Rate Per Liter (લિટર ભાવ)', '₹' + ratePerLiter.toFixed(2));
+            } else if (currentEngine === 'land') {
+                const val = parseFloat(document.getElementById('land-val').value) || 0;
+                const unit = document.getElementById('land-unit').value;
+
+                let sqyd = 0;
+                if (unit === 'vigha') sqyd = val * 2400;
+                else if (unit === 'acre') sqyd = val * 4840;
+                else if (unit === 'guntha') sqyd = val * 121;
+                else sqyd = val;
+
+                subtotal = val;
+                finalVal = sqyd;
+
+                addRow(tBody, 'Entered Land Quantity', val + ' (' + unit + ')');
+                addRow(tBody, 'Vigha Conversion (વીઘા)', (sqyd / 2400).toFixed(3));
+                addRow(tBody, 'Acre Conversion (એકર)', (sqyd / 4840).toFixed(3));
+                addRow(tBody, 'Guntha Conversion (ગુંઠા)', (sqyd / 121).toFixed(3));
+                addRow(tBody, 'Total Square Yards (વાર)', Math.round(sqyd) + ' SqYds');
+            } else if (currentEngine === 'pisaai') {
+                const wt = parseFloat(document.getElementById('pis-wt').value) || 0;
+                const rate = parseFloat(document.getElementById('pis-rate').value) || 0;
+                const katar = parseFloat(document.getElementById('pis-katar').value) || 0;
+
+                const cost = wt * rate;
+                const totalKatar = (wt * katar) / 1000;
+
+                subtotal = cost;
+                finalVal = cost;
+
+                addRow(tBody, 'Grain Weight (અનાજ વજન)', wt + ' kg');
+                addRow(tBody, 'Chakki Grinding Rate (પીસાઈ દર)', '₹' + rate.toFixed(2) + '/kg');
+                addRow(tBody, 'Katar Percentage Rate (કાતર દર)', katar + ' g/kg');
+                addRow(tBody, 'Total Katar Deducted (કટ કાતર)', totalKatar.toFixed(3) + ' kg');
+            } else if (currentEngine === 'wage') {
+                const rate = parseFloat(document.getElementById('wage-rate').value) || 0;
+                const days = parseFloat(document.getElementById('wage-days').value) || 0;
+                const adv = parseFloat(document.getElementById('wage-adv').value) || 0;
+                const oth = parseFloat(document.getElementById('wage-oth').value) || 0;
+                const otr = parseFloat(document.getElementById('wage-otr').value) || 0;
+
+                const basePay = rate * days;
+                const otPay = oth * otr;
+                const gross = basePay + otPay;
+                const net = gross - adv;
+
+                subtotal = gross;
+                finalVal = net;
+
+                addRow(tBody, 'Daily Basic Wage (રોજનો દર)', '₹' + rate.toFixed(2));
+                addRow(tBody, 'Work Days Present (હાજરી દિવસ)', days + ' Days');
+                addRow(tBody, 'Overtime Work Earned (ઓવરટાઇમ)', '₹' + otPay.toFixed(2) + ' (' + oth + ' Hours)');
+                addRow(tBody, 'Advance Upad Deducted (બાકી ઉપાડ)', '₹' + adv.toFixed(2));
+            } else if (currentEngine === 'tractor') {
+                const basis = document.getElementById('trac-basis').value;
+                const rate = parseFloat(document.getElementById('trac-rate').value) || 0;
+                const qty = parseFloat(document.getElementById('trac-qty').value) || 0;
+
+                const total = qty * rate;
+                subtotal = rate;
+                finalVal = total;
+
+                addRow(tBody, 'Rental Basis Type (ભાડા પ્રકાર)', basis === 'hour' ? 'Hourly (કલાક મુજબ)' : 'Vigha (વીઘા મુજબ)');
+                addRow(tBody, 'Rate Price Standard (ભાડા દર)', '₹' + rate.toFixed(2));
+                addRow(tBody, 'Rental Quantity Worked (સમય/નંગ)', qty.toFixed(2));
+            } else if (currentEngine === 'fuel') {
+                const dist = parseFloat(document.getElementById('fuel-dist').value) || 0;
+                const price = parseFloat(document.getElementById('fuel-price').value) || 0;
+                const mil = parseFloat(document.getElementById('fuel-mil').value) || 0;
+
+                const fuelQty = mil > 0 ? dist / mil : 0;
+                const cost = fuelQty * price;
+
+                subtotal = fuelQty;
+                finalVal = cost;
+
+                addRow(tBody, 'Trip Distance Run (કુલ રન)', dist + ' KM');
+                addRow(tBody, 'Fuel Price Rate (ઈંધણ દર)', '₹' + price.toFixed(2) + '/Liter');
+                addRow(tBody, 'Vehicle Mileage km/Ltr', mil.toFixed(1) + ' km/L');
+                addRow(tBody, 'Required Fuel volume (જરૂરી ઇંધણ)', fuelQty.toFixed(2) + ' Liters');
+            }
+
+            document.getElementById('lbl-subtotal').innerText = isNaN(subtotal) || typeof subtotal === 'string' ? '-' : '₹' + subtotal.toFixed(2);
+            document.getElementById('lbl-final').innerText = isNaN(finalVal) || typeof finalVal === 'string' ? '-' : '₹' + finalVal.toFixed(2);
+        }
+
+        function addRow(tBody, title, value) {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${title}</td><td>${value}</td>`;
+            tBody.appendChild(tr);
+        }
+
+        // TOAST ENGINE
+        function showToast(msg) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas fa-check-circle text-warning"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.animation = 'toastIn 0.3s reverse forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        // PRINT ENGINE
+        function printSingleParchi() {
+            const printBox = document.getElementById('print-parchi-container');
+            printBox.innerHTML = '';
+            const clone = document.getElementById('parchi-canvas-id').cloneNode(true);
+            printBox.appendChild(clone);
+            window.print();
+        }
+
+        // DOWNLOAD PNG
+        function downloadPNG() {
+            const target = document.getElementById('parchi-canvas-id');
+            showToast('Generating Calculation Slip PNG...');
+            html2canvas(target, {
+                backgroundColor: '#fffdf5',
+                scale: 2, 
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Calculation_Slip_' + Date.now() + '.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                showToast('PNG successfully downloaded!');
+            });
+        }
+    </script>
+</body>
+
+</html>

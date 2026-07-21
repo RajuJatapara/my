@@ -1,9 +1,9 @@
 const i18nData = {
     en: {
-        suite_title: "RAJU CRAFTER STUDIO",
-        hero_chip: "Digital Business Utilities & Content Suite",
-        hero_title: "Create Banners, Digital Cards & Smart Utilities in Seconds",
-        hero_desc: "Powerful, fast, and easy-to-use digital tools designed for small businesses, shopkeepers, and creators. No login required!",
+        suite_title: "Digital Tools Hub",
+        hero_chip: "Free All-In-One Business & Utilities Suite",
+        hero_title: "Create Cards, GST Bills, Banners & Smart Utilities in Seconds",
+        hero_desc: "Powerful, fast, and 100% free digital tools designed for small businesses, shopkeepers, creators, and daily trade. No login required!",
         search_ph: "Search any tool (e.g., Driver Duty Slip, Salary Slip, Mandi Bhav, Pisaai Parchi, vCard, Invoice)...",
         cat_all: "All Tools",
         cat_design: "Design & Ads",
@@ -72,16 +72,16 @@ const i18nData = {
 
         creator_tag: "👑 FOUNDER & LEAD DEVELOPER",
         creator_name: "Raju Jatapara",
-        creator_role: "Creator of Raju Crafter Studio",
+        creator_role: "Creator of Digital Tools Hub",
         creator_bio: "Empowering small businesses, shopkeepers, and creators across India with 100% free, powerful, and easy-to-use digital tools.",
         btn_whatsapp_creator: "Chat on WhatsApp",
         btn_call_creator: "Direct Call"
     },
     gu: {
-        suite_title: "રાજુ ક્રાફ્ટર સ્ટુડિયો",
-        hero_chip: "ડિજિટલ બિઝનેસ યુટિલિટીઝ અને કન્ટેન્ટ સુઇટ",
-        hero_title: "બેનરો, ડિજિટલ કાર્ડ્સ અને સ્માર્ટ યુટિલિટીઝ સેકન્ડોમાં બનાવો",
-        hero_desc: "નાના વ્યવસાયો, દુકાનદારો અને ક્રિએટર્સ માટે સરળ અને શક્તિશાળી ડિજિટલ ટૂલ્સ. કોઈ લોગિનની જરૂર નથી!",
+        suite_title: "ડિજિટલ ટુલ્સ હબ",
+        hero_chip: "ફ્રી ઓલ-ઇન-વન બિઝનેસ & કાર્ડ હબ",
+        hero_title: "કાર્ડ્સ, GST બિલ, બેનરો અને સ્માર્ટ સાધનો સેકન્ડોમાં બનાવો",
+        hero_desc: "નાના વ્યવસાયો, દુકાનદારો અને ગ્રાહકો માટે સરળ અને ૧૦૦% મફત ડિજિટલ સાધનો. કોઈ લોગિનની જરૂર નથી!",
         search_ph: "કોઈપણ ટૂલ શોધો (દા.ત. ડ્રાઇવર સ્લિપ, પગાર સ્લિપ, મંડી ભાવ, પીસાઈ પહોંચ, vCard, QR કોડ)...",
         cat_all: "તમામ સાધનો",
         cat_design: "ડિઝાઇન અને જાહેરાતો",
@@ -150,16 +150,16 @@ const i18nData = {
 
         creator_tag: "👑 સ્થાપક અને મુખ્ય ડેવલપર",
         creator_name: "રાજુ જતાપરા",
-        creator_role: "સ્થાપક - રાજુ ક્રાફ્ટર સ્ટુડિયો",
+        creator_role: "સ્થાપક - ડિજિટલ ટુલ્સ હબ",
         creator_bio: "નાના વ્યવસાયો અને દુકાનદારો માટે 100% મફત અને સરળ ડિજિટલ બિઝનેસ સાધનો બનાવવાનું લક્ષ્ય.",
         btn_whatsapp_creator: "વોટ્સએપ ચેટ કરો",
         btn_call_creator: "ડાયરેક્ટ કોલ કરો"
     },
     hi: {
-        suite_title: "राजू क्राफ्टर स्टूडियो",
-        hero_chip: "डिजिटल बिजनेस उपयोगिताएं और कंटेंट सूट",
-        hero_title: "बैनर, डिजिटल कार्ड और स्मार्ट उपयोगिताएं सेकेंडों में बनाएं",
-        hero_desc: "छोटे व्यवसायों, दुकानदारों और क्रिएटर्स के लिए आसान और शक्तिशाली डिजिटल टूल्स। कोई लॉगिन आवश्यक नहीं!",
+        suite_title: "डिजिटल टूल्स हब",
+        hero_chip: "फ्री ऑल-इन-वन बिजनेस & कार्ड हब",
+        hero_title: "कार्ड्स, GST बिल, बैनर और स्मार्ट टूल्स सेकेंडों में बनाएं",
+        hero_desc: "छोटे व्यवसायों, दुकानदारों और ग्राहकों के लिए आसान और 100% मुफ्त डिजिटल टूल्स। कोई लॉगिन आवश्यक नहीं!",
         search_ph: "कोई भी टूल खोजें (जैसे ड्राइवर स्लिप, सैलरी स्लिप, मंडी भाव, पिसाई पर्ची, vCard, QR कोड)...",
         cat_all: "सभी टूल्स",
         cat_design: "डिजाइन और विज्ञापन",
@@ -228,7 +228,7 @@ const i18nData = {
 
         creator_tag: "👑 संस्थापक एवं मुख्य डेवलपर",
         creator_name: "राजू जतापरा",
-        creator_role: "संस्थापक - राजू क्राफ्टर स्टूडियो",
+        creator_role: "संस्थापक - डिजिटल टूल्स हब",
         creator_bio: "छोटे व्यवसायों और दुकानदारों के लिए 100% मुफ्त, आसान और शक्तिशाली डिजिटल टूल्स बनाने का संकल्प।",
         btn_whatsapp_creator: "व्हाट्सएप पर चैट करें",
         btn_call_creator: "डायरेक्ट कॉल करें"
