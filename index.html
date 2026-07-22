@@ -604,7 +604,7 @@
                 transform: translateX(-50%);
             }
         }
-    
+
         /* 🌌 AURORA INDIGO (NEON VIOLET-BLUE) EXTRA THEME OVERRIDES */
         [data-theme="indigo"] {
             --primary: #818cf8;
@@ -638,8 +638,11 @@
 
         .card-glow-reflection {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at var(--reflect-x, 50%) var(--reflect-y, 50%), rgba(255,255,255,0.08) 0%, transparent 60%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at var(--reflect-x, 50%) var(--reflect-y, 50%), rgba(255, 255, 255, 0.08) 0%, transparent 60%);
             pointer-events: none;
             z-index: 5;
             border-radius: inherit;
@@ -648,8 +651,10 @@
         /* CARD SPARKLE STAR */
         .card-sparkles-container {
             position: absolute;
-            top: 10px; right: 10px;
-            display: flex; gap: 4px;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 4px;
             pointer-events: none;
             opacity: 0;
             transform: scale(0.8);
@@ -673,8 +678,17 @@
         }
 
         @keyframes sparklePulse {
-            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
-            50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.3) rotate(180deg);
+                opacity: 1;
+            }
         }
 
         /* STATS COUNTER STRIP */
@@ -733,13 +747,13 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
             }
+
             .tool-card:active {
                 transform: scale(0.97) !important;
                 border-color: var(--primary) !important;
                 box-shadow: 0 0 15px rgba(251, 191, 36, 0.3) !important;
             }
         }
-
     </style>
 </head>
 
@@ -760,7 +774,7 @@
             </div>
             <div class="theme-btn" onclick="cycleTheme()"><i class="fas fa-moon" id="theme-icon"></i> <span
                     id="theme-text">Dark</span></div>
-            <a href="https://api.whatsapp.com/send?text=%F0%9F%9A%80%20Create%20Free%20Banners%2C%20Digital%20Cards%2C%20Parchi%2C%20Rate%20Board%20%26%20Salary%20Slips%20in%20Seconds%20with%20Raju%20Crafter%20Studio%20http%3A%2F%2Flocalhost%2Fmy%2Findex.html"
+            <a href="https://api.whatsapp.com/send?text=%F0%9F%9A%80%20Create%20Free%20Banners%2C%20Digital%20Cards%2C%20Parchi%2C%20Rate%20Board%20%26%20Salary%20Slips%20in%20Seconds%20with%20Raju%20Crafter%20Studio%20https%3A%2F%2Frajujatapara.github.io%2Fmy%2F"
                 target="_blank" class="btn-share-wa">
                 <i class="fab fa-whatsapp"></i> Share App
             </a>
@@ -770,48 +784,88 @@
     <div class="live-ticker-wrap">
         <div class="live-ticker-track">
             <!-- LOOP 1: 19 ACTUAL LIVE DASHBOARD PAGES -->
-            <a href="ad.html" class="ticker-item"><i class="fas fa-id-card" style="color:#38bdf8"></i> <span>🎴 1. Visiting Card Pro</span></a>
-            <a href="estimate.html" class="ticker-item"><i class="fas fa-file-invoice-dollar" style="color:#ec4899"></i> <span>🧾 2. GST Invoice & Estimate</span></a>
-            <a href="vcard.html" class="ticker-item"><i class="fas fa-address-card" style="color:#a855f7"></i> <span>🎀 3. Digital vCard Crafter</span></a>
-            <a href="catalog.html" class="ticker-item"><i class="fas fa-store" style="color:#10b981"></i> <span>🛍️ 4. Product Catalog</span></a>
-            <a href="festival.html" class="ticker-item"><i class="fas fa-sun" style="color:#f43f5e"></i> <span>🎉 5. Festival Wishes & Suvichar</span></a>
-            <a href="parchi.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>🌾 6. Village Pisaai & Dairy Parchi</span></a>
-            <a href="kankotri.html" class="ticker-item"><i class="fas fa-envelope-open-text" style="color:#f59e0b"></i> <span>💌 7. Wedding Kankotri</span></a>
-            <a href="rateboard.html" class="ticker-item"><i class="fas fa-wheat-awn" style="color:#f59e0b"></i> <span>📊 8. Mandi & Shop Rate Board</span></a>
-            <a href="salary.html" class="ticker-item"><i class="fas fa-id-card-clip" style="color:#6366f1"></i> <span>💼 9. Employee Salary Slip</span></a>
-            <a href="tripsheet.html" class="ticker-item"><i class="fas fa-truck-fast" style="color:#0284c7"></i> <span>🚛 10. Transport Duty Slip</span></a>
-            <a href="qr.html" class="ticker-item"><i class="fas fa-qrcode" style="color:#f59e0b"></i> <span>📱 11. Custom QR Code Studio</span></a>
-            <a href="wa.html" class="ticker-item"><i class="fab fa-whatsapp" style="color:#10b981"></i> <span>💬 12. WhatsApp Direct Chat</span></a>
-            <a href="cert.html" class="ticker-item"><i class="fas fa-award" style="color:#eab308"></i> <span>🎓 13. Certificate & Award</span></a>
-            <a href="menu.html" class="ticker-item"><i class="fas fa-utensils" style="color:#ef4444"></i> <span>🍽️ 14. Restaurant Food Menu</span></a>
-            <a href="idcard.html" class="ticker-item"><i class="fas fa-id-badge" style="color:#06b6d4"></i> <span>🪪 15. Staff & Student ID Card</span></a>
-            <a href="bill.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>📑 16. Quick Cash Memo & Bill</span></a>
-            <a href="resume.html" class="ticker-item"><i class="fas fa-file-user" style="color:#8b5cf6"></i> <span>💼 17. Job Resume & Bio-Data</span></a>
-            <a href="label.html" class="ticker-item"><i class="fas fa-tags" style="color:#14b8a6"></i> <span>🏷️ 18. Price Tag & Barcode Label</span></a>
-            <a href="letterhead.html" class="ticker-item"><i class="fas fa-file-lines" style="color:#3b82f6"></i> <span>📄 19. Company Letterhead</span></a>
-            <a href="calculator.html" class="ticker-item"><i class="fas fa-calculator" style="color:#fbbf24"></i> <span>🧮 20. Calculator Hub</span></a>
+            <a href="ad.html" class="ticker-item"><i class="fas fa-id-card" style="color:#38bdf8"></i> <span>🎴 1.
+                    Visiting Card Pro</span></a>
+            <a href="estimate.html" class="ticker-item"><i class="fas fa-file-invoice-dollar" style="color:#ec4899"></i>
+                <span>🧾 2. GST Invoice & Estimate</span></a>
+            <a href="vcard.html" class="ticker-item"><i class="fas fa-address-card" style="color:#a855f7"></i> <span>🎀
+                    3. Digital vCard Crafter</span></a>
+            <a href="catalog.html" class="ticker-item"><i class="fas fa-store" style="color:#10b981"></i> <span>🛍️ 4.
+                    Product Catalog</span></a>
+            <a href="festival.html" class="ticker-item"><i class="fas fa-sun" style="color:#f43f5e"></i> <span>🎉 5.
+                    Festival Wishes & Suvichar</span></a>
+            <a href="parchi.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>🌾 6.
+                    Village Pisaai & Dairy Parchi</span></a>
+            <a href="kankotri.html" class="ticker-item"><i class="fas fa-envelope-open-text" style="color:#f59e0b"></i>
+                <span>💌 7. Wedding Kankotri</span></a>
+            <a href="rateboard.html" class="ticker-item"><i class="fas fa-wheat-awn" style="color:#f59e0b"></i> <span>📊
+                    8. Mandi & Shop Rate Board</span></a>
+            <a href="salary.html" class="ticker-item"><i class="fas fa-id-card-clip" style="color:#6366f1"></i> <span>💼
+                    9. Employee Salary Slip</span></a>
+            <a href="tripsheet.html" class="ticker-item"><i class="fas fa-truck-fast" style="color:#0284c7"></i>
+                <span>🚛 10. Transport Duty Slip</span></a>
+            <a href="qr.html" class="ticker-item"><i class="fas fa-qrcode" style="color:#f59e0b"></i> <span>📱 11.
+                    Custom QR Code Studio</span></a>
+            <a href="wa.html" class="ticker-item"><i class="fab fa-whatsapp" style="color:#10b981"></i> <span>💬 12.
+                    WhatsApp Direct Chat</span></a>
+            <a href="cert.html" class="ticker-item"><i class="fas fa-award" style="color:#eab308"></i> <span>🎓 13.
+                    Certificate & Award</span></a>
+            <a href="menu.html" class="ticker-item"><i class="fas fa-utensils" style="color:#ef4444"></i> <span>🍽️ 14.
+                    Restaurant Food Menu</span></a>
+            <a href="idcard.html" class="ticker-item"><i class="fas fa-id-badge" style="color:#06b6d4"></i> <span>🪪 15.
+                    Staff & Student ID Card</span></a>
+            <a href="bill.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>📑 16.
+                    Quick Cash Memo & Bill</span></a>
+            <a href="resume.html" class="ticker-item"><i class="fas fa-file-user" style="color:#8b5cf6"></i> <span>💼
+                    17. Job Resume & Bio-Data</span></a>
+            <a href="label.html" class="ticker-item"><i class="fas fa-tags" style="color:#14b8a6"></i> <span>🏷️ 18.
+                    Price Tag & Barcode Label</span></a>
+            <a href="letterhead.html" class="ticker-item"><i class="fas fa-file-lines" style="color:#3b82f6"></i>
+                <span>📄 19. Company Letterhead</span></a>
+            <a href="calculator.html" class="ticker-item"><i class="fas fa-calculator" style="color:#fbbf24"></i>
+                <span>🧮 20. Calculator Hub</span></a>
 
             <!-- LOOP 2: FOR SEAMLESS INFINITE SCROLL -->
-            <a href="ad.html" class="ticker-item"><i class="fas fa-id-card" style="color:#38bdf8"></i> <span>🎴 1. Visiting Card Pro</span></a>
-            <a href="estimate.html" class="ticker-item"><i class="fas fa-file-invoice-dollar" style="color:#ec4899"></i> <span>🧾 2. GST Invoice & Estimate</span></a>
-            <a href="vcard.html" class="ticker-item"><i class="fas fa-address-card" style="color:#a855f7"></i> <span>🎀 3. Digital vCard Crafter</span></a>
-            <a href="catalog.html" class="ticker-item"><i class="fas fa-store" style="color:#10b981"></i> <span>🛍️ 4. Product Catalog</span></a>
-            <a href="festival.html" class="ticker-item"><i class="fas fa-sun" style="color:#f43f5e"></i> <span>🎉 5. Festival Wishes & Suvichar</span></a>
-            <a href="parchi.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>🌾 6. Village Pisaai & Dairy Parchi</span></a>
-            <a href="kankotri.html" class="ticker-item"><i class="fas fa-envelope-open-text" style="color:#f59e0b"></i> <span>💌 7. Wedding Kankotri</span></a>
-            <a href="rateboard.html" class="ticker-item"><i class="fas fa-wheat-awn" style="color:#f59e0b"></i> <span>📊 8. Mandi & Shop Rate Board</span></a>
-            <a href="salary.html" class="ticker-item"><i class="fas fa-id-card-clip" style="color:#6366f1"></i> <span>💼 9. Employee Salary Slip</span></a>
-            <a href="tripsheet.html" class="ticker-item"><i class="fas fa-truck-fast" style="color:#0284c7"></i> <span>🚛 10. Transport Duty Slip</span></a>
-            <a href="qr.html" class="ticker-item"><i class="fas fa-qrcode" style="color:#f59e0b"></i> <span>📱 11. Custom QR Code Studio</span></a>
-            <a href="wa.html" class="ticker-item"><i class="fab fa-whatsapp" style="color:#10b981"></i> <span>💬 12. WhatsApp Direct Chat</span></a>
-            <a href="cert.html" class="ticker-item"><i class="fas fa-award" style="color:#eab308"></i> <span>🎓 13. Certificate & Award</span></a>
-            <a href="menu.html" class="ticker-item"><i class="fas fa-utensils" style="color:#ef4444"></i> <span>🍽️ 14. Restaurant Food Menu</span></a>
-            <a href="idcard.html" class="ticker-item"><i class="fas fa-id-badge" style="color:#06b6d4"></i> <span>🪪 15. Staff & Student ID Card</span></a>
-            <a href="bill.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>📑 16. Quick Cash Memo & Bill</span></a>
-            <a href="resume.html" class="ticker-item"><i class="fas fa-file-user" style="color:#8b5cf6"></i> <span>💼 17. Job Resume & Bio-Data</span></a>
-            <a href="label.html" class="ticker-item"><i class="fas fa-tags" style="color:#14b8a6"></i> <span>🏷️ 18. Price Tag & Barcode Label</span></a>
-            <a href="letterhead.html" class="ticker-item"><i class="fas fa-file-lines" style="color:#3b82f6"></i> <span>📄 19. Company Letterhead</span></a>
-            <a href="calculator.html" class="ticker-item"><i class="fas fa-calculator" style="color:#fbbf24"></i> <span>🧮 20. Calculator Hub</span></a>
+            <a href="ad.html" class="ticker-item"><i class="fas fa-id-card" style="color:#38bdf8"></i> <span>🎴 1.
+                    Visiting Card Pro</span></a>
+            <a href="estimate.html" class="ticker-item"><i class="fas fa-file-invoice-dollar" style="color:#ec4899"></i>
+                <span>🧾 2. GST Invoice & Estimate</span></a>
+            <a href="vcard.html" class="ticker-item"><i class="fas fa-address-card" style="color:#a855f7"></i> <span>🎀
+                    3. Digital vCard Crafter</span></a>
+            <a href="catalog.html" class="ticker-item"><i class="fas fa-store" style="color:#10b981"></i> <span>🛍️ 4.
+                    Product Catalog</span></a>
+            <a href="festival.html" class="ticker-item"><i class="fas fa-sun" style="color:#f43f5e"></i> <span>🎉 5.
+                    Festival Wishes & Suvichar</span></a>
+            <a href="parchi.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>🌾 6.
+                    Village Pisaai & Dairy Parchi</span></a>
+            <a href="kankotri.html" class="ticker-item"><i class="fas fa-envelope-open-text" style="color:#f59e0b"></i>
+                <span>💌 7. Wedding Kankotri</span></a>
+            <a href="rateboard.html" class="ticker-item"><i class="fas fa-wheat-awn" style="color:#f59e0b"></i> <span>📊
+                    8. Mandi & Shop Rate Board</span></a>
+            <a href="salary.html" class="ticker-item"><i class="fas fa-id-card-clip" style="color:#6366f1"></i> <span>💼
+                    9. Employee Salary Slip</span></a>
+            <a href="tripsheet.html" class="ticker-item"><i class="fas fa-truck-fast" style="color:#0284c7"></i>
+                <span>🚛 10. Transport Duty Slip</span></a>
+            <a href="qr.html" class="ticker-item"><i class="fas fa-qrcode" style="color:#f59e0b"></i> <span>📱 11.
+                    Custom QR Code Studio</span></a>
+            <a href="wa.html" class="ticker-item"><i class="fab fa-whatsapp" style="color:#10b981"></i> <span>💬 12.
+                    WhatsApp Direct Chat</span></a>
+            <a href="cert.html" class="ticker-item"><i class="fas fa-award" style="color:#eab308"></i> <span>🎓 13.
+                    Certificate & Award</span></a>
+            <a href="menu.html" class="ticker-item"><i class="fas fa-utensils" style="color:#ef4444"></i> <span>🍽️ 14.
+                    Restaurant Food Menu</span></a>
+            <a href="idcard.html" class="ticker-item"><i class="fas fa-id-badge" style="color:#06b6d4"></i> <span>🪪 15.
+                    Staff & Student ID Card</span></a>
+            <a href="bill.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>📑 16.
+                    Quick Cash Memo & Bill</span></a>
+            <a href="resume.html" class="ticker-item"><i class="fas fa-file-user" style="color:#8b5cf6"></i> <span>💼
+                    17. Job Resume & Bio-Data</span></a>
+            <a href="label.html" class="ticker-item"><i class="fas fa-tags" style="color:#14b8a6"></i> <span>🏷️ 18.
+                    Price Tag & Barcode Label</span></a>
+            <a href="letterhead.html" class="ticker-item"><i class="fas fa-file-lines" style="color:#3b82f6"></i>
+                <span>📄 19. Company Letterhead</span></a>
+            <a href="calculator.html" class="ticker-item"><i class="fas fa-calculator" style="color:#fbbf24"></i>
+                <span>🧮 20. Calculator Hub</span></a>
         </div>
     </div>
 
@@ -878,7 +932,7 @@
             <!-- CARD 2: DIGITAL VCARD CRAFTER -->
             <div class="tool-card" data-cat="business" data-id="tool-2"
                 data-name="digital vcard crafter mobile business card web visiting card vcf download click to call map whatsapp link ડિજિટલ વિઝિટિંગ કાર્ડ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -897,7 +951,7 @@
             <!-- CARD 3: GST INVOICE & ESTIMATE MAKER -->
             <div class="tool-card" data-cat="billing" data-id="tool-3"
                 data-name="gst invoice estimate price quote pdf bill maker billing generator shopkeeper bill ઇનવોઇસ એસ્ટીમેટ બિલ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -916,7 +970,7 @@
             <!-- CARD 1: EXECUTIVE VISITING CARD CRAFTER PRO -->
             <div class="tool-card" data-cat="business" data-id="tool-1"
                 data-name="executive visiting card crafter pro business card designer custom qr code print a4 pdf વિઝિટિંગ કાર્ડ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -935,7 +989,7 @@
             <!-- CARD 19: DIGITAL PRODUCT CATALOG & SHOWCASE CRAFTER -->
             <div class="tool-card" data-cat="business" data-id="tool-19"
                 data-name="digital product catalog showcase crafter product brochure clothing hardware kirana shop whatsapp order price discount પ્રોડક્ટ કેટલોગ શોકેસ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -954,7 +1008,7 @@
             <!-- CARD 10: DAILY FESTIVAL WISHES & SUVICHAR CRAFTER -->
             <div class="tool-card" data-cat="design" data-id="tool-10"
                 data-name="daily festival wishes suvichar crafter good morning greeting banner photo name logo festive post તહેવાર શુભેચ્છા સુવિચાર">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -973,7 +1027,7 @@
             <!-- CARD 15: VILLAGE PISAAI, DAIRY & SERVICE PARCHI CRAFTER -->
             <div class="tool-card" data-cat="village" data-id="tool-15"
                 data-name="village pisaai dairy service parchi receipt atta chakki grinding slip milk collection voucher tractor rent repair bill whatsapp send a4 print લોટ પીસાઈ રસીદ દૂધ મંડળી ટ્રેક્ટર ભાડું રીપેરિંગ પહોંચ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -992,7 +1046,7 @@
             <!-- CARD 18: WEDDING INVITATION & KANKOTRI CRAFTER -->
             <div class="tool-card" data-cat="design" data-id="tool-18"
                 data-name="wedding invitation kankotri crafter marriage card sagai invitation vastu puja birthday banner print a4 png લગ્ન કંકોતરી સગાઈ વાસ્તુ આમંત્રણ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1011,7 +1065,7 @@
             <!-- CARD 14: DAILY MANDI & VILLAGE SHOP RATE BOARD CRAFTER -->
             <div class="tool-card" data-cat="village" data-id="tool-14"
                 data-name="daily mandi village shop rate board mandi bhav kisan cotton milk fat chart wheat atta pisaai price list whatsapp status ઢોર ઘાસ મંડી ભાવ અનાજ કપાસ દૂધ ડેરી ફેટ લોટ પીસાઈ દર">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1030,7 +1084,7 @@
             <!-- CARD 16: EMPLOYEE SALARY SLIP & WORKER WAGES CRAFTER -->
             <div class="tool-card" data-cat="village" data-id="tool-16"
                 data-name="employee salary slip worker wage receipt staff attendance parchi factory worker garage salary advance upad overtime net salary print pdf કર્મચારી પગાર સ્લિપ રોજમદાર કારીગર રસીદ ઉપાડ ઓવરટાઇમ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1049,7 +1103,7 @@
             <!-- CARD 17: VEHICLE DRIVER & GOODS TRANSPORT DUTY SLIP CRAFTER -->
             <div class="tool-card" data-cat="village" data-id="tool-17"
                 data-name="vehicle driver duty slip taxi fare receipt pickup goods transport bill auto rickshaw slip meter km trip voucher toll tax advance print pdf વાહન ડ્રાઇવર ટેક્સી ભાડું સ્લિપ પિકઅપ સામાન ભાડું ઓટો રિક્ષા પહોંચ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1068,7 +1122,7 @@
             <!-- CARD 4: CUSTOM QR CODE STUDIO -->
             <div class="tool-card" data-cat="utility" data-id="tool-4"
                 data-name="custom qr code studio upi payment qr wifi qr logo qr code google review review stand stand frame કસ્ટમ QR કોડ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1087,7 +1141,7 @@
             <!-- CARD 5: WHATSAPP DIRECT CHAT CRAFTER -->
             <div class="tool-card" data-cat="utility" data-id="tool-5"
                 data-name="whatsapp direct chat crafter unsaved number message Product Inquiry Link Generator વોટ્સએપ ડાયરેક્ટ ચેટ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1106,7 +1160,7 @@
             <!-- CARD 6: CERTIFICATE & AWARD CRAFTER -->
             <div class="tool-card" data-cat="design" data-id="tool-6"
                 data-name="certificate award maker completion appreciation gold seal diploma print a4 pdf સર્ટિફિકેટ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1125,7 +1179,7 @@
             <!-- CARD 7: RESTAURANT & FOOD MENU CRAFTER -->
             <div class="tool-card" data-cat="design" data-id="tool-7"
                 data-name="restaurant food menu card crafter hotel menu cafe menu veg non veg table qr code રેસ્ટોરેન્ટ મેનૂ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1144,7 +1198,7 @@
             <!-- CARD 8: EMPLOYEE & STUDENT ID CARD CRAFTER -->
             <div class="tool-card" data-cat="business" data-id="tool-8"
                 data-name="employee student id card maker printable id badge photo blood group barcode qr code આઈડી કાર્ડ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1163,7 +1217,7 @@
             <!-- CARD 9: QUICK CASH MEMO & RECEIPT MAKER -->
             <div class="tool-card" data-cat="billing" data-id="tool-9"
                 data-name="quick cash memo payment receipt maker rent receipt retail bill paid due stamp upi qr કેશ મેમો રસીદ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1182,7 +1236,7 @@
             <!-- CARD 11: JOB RESUME & MARRIAGE BIO-DATA MAKER -->
             <div class="tool-card" data-cat="design" data-id="tool-11"
                 data-name="job resume marriage bio data maker cv creator family education photo printable a4 pdf રિઝ્યૂમે બાયો-ડેટા">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1201,7 +1255,7 @@
             <!-- CARD 12: PRODUCT PRICE TAG & BARCODE LABEL CRAFTER -->
             <div class="tool-card" data-cat="billing" data-id="tool-12"
                 data-name="product price tag barcode label crafter mrp tag offer label sticker sheet print a4 પ્રોડક્ટ પ્રાઇસ ટેગ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1220,7 +1274,7 @@
             <!-- CARD 13: OFFICIAL BUSINESS LETTERHEAD & LETTER CRAFTER -->
             <div class="tool-card" data-cat="business" data-id="tool-13"
                 data-name="official business letterhead letter crafter company letterhead job offer letter experience certificate gstin signature લેટરહેડ">
-                                <div class="card-sparkles-container">
+                <div class="card-sparkles-container">
                     <i class="fas fa-star sparkle-star"></i>
                     <i class="fas fa-star sparkle-star"></i>
                 </div>
@@ -1249,8 +1303,11 @@
                     <div class="btn-star" onclick="toggleStar('tool-20-calc', event)"><i class="fas fa-star"></i></div>
                 </div>
                 <div class="tool-title">Business Calculator Hub</div>
-                <div class="tool-desc">12-in-1 interactive calculations suite covering Interest, GST, Loan EMI, Margins, Daily Milk Fat, Land units & Wages.</div>
-                <a href="calculator.html" class="card-btn" style="background:linear-gradient(135deg, #fbbf24, #d97706)">Launch Tool <i class="fas fa-arrow-right"></i></a>
+                <div class="tool-desc">12-in-1 interactive calculations suite covering Interest, GST, Loan EMI, Margins,
+                    Daily Milk Fat, Land units & Wages.</div>
+                <a href="calculator.html" class="card-btn"
+                    style="background:linear-gradient(135deg, #fbbf24, #d97706)">Launch Tool <i
+                        class="fas fa-arrow-right"></i></a>
             </div>
 
         </div>
@@ -1317,7 +1374,7 @@
             if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
         };
 
-        
+
         // 📊 ANIMATED COUNT-UP FUNCTION
         function animateCounters() {
             const targets = [
@@ -1356,12 +1413,12 @@
                     const y = e.clientY - rect.top;
                     const centerX = rect.width / 2;
                     const centerY = rect.height / 2;
-                    
+
                     const rotateX = ((centerY - y) / centerY) * 10; // Max 10deg
                     const rotateY = ((x - centerX) / centerX) * 10;
-                    
+
                     card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                    
+
                     const glow = card.querySelector(".card-glow-reflection");
                     if (glow) {
                         glow.style.setProperty("--reflect-x", `${(x / rect.width) * 100}%`);

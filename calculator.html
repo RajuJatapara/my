@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Calculator Hub - Digital Tools Hub</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Sans+Gujarati:wght@400;600;800&family=Inter:wght@400;600;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Sans+Gujarati:wght@400;600;800&family=Inter:wght@400;600;800&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
     <!-- FontAwesome 6.4.2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- html2canvas Library -->
@@ -98,8 +100,15 @@
         }
 
         @keyframes toastIn {
-            from { opacity: 0; transform: translateY(-20px) scale(0.9); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
+            from {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* HEADER NAVBAR */
@@ -159,7 +168,8 @@
             transition: all 0.2s ease;
         }
 
-        .lang-btn.active, .lang-btn:hover {
+        .lang-btn.active,
+        .lang-btn:hover {
             background: var(--primary);
             color: #000;
         }
@@ -239,7 +249,9 @@
             gap: 4px;
         }
 
-        .grp-label:first-child { margin-top: 0; }
+        .grp-label:first-child {
+            margin-top: 0;
+        }
 
         /* SKEUOMORPHIC CALCULATOR MOCKUP styling */
         .physical-calc-body {
@@ -247,7 +259,7 @@
             border: 4px solid #334155;
             border-radius: 20px;
             padding: 16px;
-            box-shadow: inset 0 2px 10px rgba(255,255,255,0.1), 0 20px 40px rgba(0,0,0,0.6);
+            box-shadow: inset 0 2px 10px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.6);
             margin-bottom: 20px;
         }
 
@@ -259,7 +271,7 @@
             margin-bottom: 16px;
             font-family: 'Share Tech Mono', monospace;
             text-align: right;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.9);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.9);
             position: relative;
             overflow: hidden;
         }
@@ -267,8 +279,11 @@
         .calc-screen-wrapper::after {
             content: "";
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 100%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, transparent 100%);
             pointer-events: none;
         }
 
@@ -306,14 +321,14 @@
             font-weight: 800;
             cursor: pointer;
             text-align: center;
-            box-shadow: 0 4px 0 #0f172a, 0 8px 15px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 0 #0f172a, 0 8px 15px rgba(0, 0, 0, 0.4);
             transition: all 0.05s ease;
             user-select: none;
         }
 
         .calc-btn-key:active {
             transform: translateY(3px);
-            box-shadow: 0 1px 0 #0f172a, 0 4px 6px rgba(0,0,0,0.5);
+            box-shadow: 0 1px 0 #0f172a, 0 4px 6px rgba(0, 0, 0, 0.5);
         }
 
         .calc-btn-key.op-key {
@@ -351,16 +366,35 @@
             margin-bottom: 10px;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 10px rgba(251, 191, 36, 0.25);
         }
 
-        select option { background: var(--bg); color: var(--text-main); }
+        select option {
+            background: var(--bg);
+            color: var(--text-main);
+        }
 
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
 
         .opt-box {
             background: rgba(255, 255, 255, 0.04);
@@ -379,7 +413,8 @@
             transition: all 0.2s ease;
         }
 
-        .opt-box.active, .opt-box:hover {
+        .opt-box.active,
+        .opt-box:hover {
             background: rgba(251, 191, 36, 0.15);
             border-color: var(--primary);
             color: var(--primary);
@@ -403,7 +438,7 @@
             background: #fffdf5;
             color: #0f172a;
             width: 380px;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
             border-radius: 10px;
             padding: 20px 24px;
             position: relative;
@@ -414,17 +449,73 @@
             box-sizing: border-box;
         }
 
-        .parchi-header { text-align: center; border-bottom: 2px solid #0f172a; padding-bottom: 10px; margin-bottom: 14px; }
-        .parchi-shop { font-size: 18px; font-weight: 900; color: #0f172a; line-height: 1.1; }
-        .parchi-title-tag { background: #0f172a; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 10px; border-radius: 10px; display: inline-block; margin-top: 4px; text-transform: uppercase; }
+        .parchi-header {
+            text-align: center;
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+        }
 
-        .parchi-meta { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; color: #475569; margin-bottom: 12px; }
+        .parchi-shop {
+            font-size: 18px;
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1.1;
+        }
 
-        .parchi-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
-        .parchi-table th { background: #f1f5f9; font-size: 10px; font-weight: 800; color: #334155; padding: 6px 8px; border-bottom: 2px solid #cbd5e1; text-align: left; }
-        .parchi-table th:last-child { text-align: right; }
-        .parchi-table td { padding: 8px; font-size: 12px; font-weight: 700; color: #0f172a; border-bottom: 1px solid #e2e8f0; }
-        .parchi-table td:last-child { text-align: right; font-weight: 900; }
+        .parchi-title-tag {
+            background: #0f172a;
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .parchi-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 12px;
+        }
+
+        .parchi-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+
+        .parchi-table th {
+            background: #f1f5f9;
+            font-size: 10px;
+            font-weight: 800;
+            color: #334155;
+            padding: 6px 8px;
+            border-bottom: 2px solid #cbd5e1;
+            text-align: left;
+        }
+
+        .parchi-table th:last-child {
+            text-align: right;
+        }
+
+        .parchi-table td {
+            padding: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0f172a;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .parchi-table td:last-child {
+            text-align: right;
+            font-weight: 900;
+        }
 
         /* TOTALS BREAKDOWN */
         .parchi-breakdown-box {
@@ -438,20 +529,71 @@
             gap: 4px;
         }
 
-        .bd-row { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: #475569; }
-        .bd-row.bd-due { font-size: 14px; font-weight: 900; color: #ef4444; border-top: 1px dashed #cbd5e1; padding-top: 4px; margin-top: 2px; }
-        .bd-row.bd-paid { color: #16a34a; font-size: 14px; font-weight: 900; border-top: 1px dashed #cbd5e1; padding-top: 4px; margin-top: 2px; }
+        .bd-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+        }
 
-        .parchi-stamp-row { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 6px; }
-        .parchi-stamp { font-size: 10px; font-weight: 900; border: 2px solid #16a34a; color: #16a34a; padding: 2px 10px; border-radius: 6px; text-transform: uppercase; transform: rotate(-5deg); display: inline-block; }
+        .bd-row.bd-due {
+            font-size: 14px;
+            font-weight: 900;
+            color: #ef4444;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        .bd-row.bd-paid {
+            color: #16a34a;
+            font-size: 14px;
+            font-weight: 900;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 4px;
+            margin-top: 2px;
+        }
+
+        .parchi-stamp-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 6px;
+        }
+
+        .parchi-stamp {
+            font-size: 10px;
+            font-weight: 900;
+            border: 2px solid #16a34a;
+            color: #16a34a;
+            padding: 2px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            transform: rotate(-5deg);
+            display: inline-block;
+        }
 
         /* DIRECT BODY CHILD FOR SINGLE PRINT CONTAINER */
-        #print-parchi-container { display: none; }
+        #print-parchi-container {
+            display: none;
+        }
 
         /* PRINT STYLES - SINGLE A4 PARCHI */
         @media print {
-            body { background: #fff !important; color: #000 !important; margin: 0 !important; padding: 0 !important; }
-            .app-header, .app-body, #toast-container { display: none !important; }
+            body {
+                background: #fff !important;
+                color: #000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .app-header,
+            .app-body,
+            #toast-container {
+                display: none !important;
+            }
+
             #print-parchi-container {
                 display: flex !important;
                 justify-content: center;
@@ -460,6 +602,7 @@
                 padding: 15mm;
                 background: #fff !important;
             }
+
             #print-parchi-container .parchi-canvas {
                 box-shadow: none !important;
                 margin: 0 !important;
@@ -471,15 +614,66 @@
 
         /* MOBILE RESPONSIVE STYLES */
         @media (max-width: 900px) {
-            body { height: auto; min-height: 100vh; overflow-y: auto; }
-            .app-header { height: auto; padding: 10px 12px; flex-wrap: wrap; justify-content: center; gap: 8px; }
-            .header-actions { flex-wrap: wrap; justify-content: center; width: 100%; gap: 6px; }
-            .btn-top-main, .btn-top-sec { padding: 6px 12px; font-size: 11px; }
-            .app-body { flex-direction: column; }
-            .preview-panel { width: 100%; min-height: auto; position: sticky; top: 0; z-index: 50; border-bottom: 2px solid var(--card-border); padding: 14px 10px; background: rgba(0,0,0,0.2); }
-            .parchi-canvas { width: 100%; max-width: 100%; }
-            .controls-panel { width: 100%; border-right: none; padding: 16px 12px; }
-            input[type="text"], input[type="number"], select { font-size: 14px; padding: 12px; min-height: 44px; }
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+            }
+
+            .app-header {
+                height: auto;
+                padding: 10px 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .header-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+                gap: 6px;
+            }
+
+            .btn-top-main,
+            .btn-top-sec {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+
+            .app-body {
+                flex-direction: column;
+            }
+
+            .preview-panel {
+                width: 100%;
+                min-height: auto;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+                border-bottom: 2px solid var(--card-border);
+                padding: 14px 10px;
+                background: rgba(0, 0, 0, 0.2);
+            }
+
+            .parchi-canvas {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .controls-panel {
+                width: 100%;
+                border-right: none;
+                padding: 16px 12px;
+            }
+
+            input[type="text"],
+            input[type="number"],
+            select {
+                font-size: 14px;
+                padding: 12px;
+                min-height: 44px;
+            }
         }
     </style>
 </head>
@@ -497,17 +691,14 @@
         </a>
 
         <div class="header-actions">
-            <div class="theme-toggle-header" onclick="cycleTheme()">
-                <i class="fas fa-moon" id="theme-icon"></i>
-                <span id="theme-text">Midnight</span>
-            </div>
             <div class="lang-selector">
                 <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
                 <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
                 <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
             </div>
             <div class="btn-top-sec" onclick="printSingleParchi()"><i class="fas fa-print"></i> Print Parchi</div>
-            <button class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download Slip PNG</button>
+            <button class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download Slip
+                PNG</button>
         </div>
     </div>
 
@@ -515,9 +706,10 @@
     <div class="app-body">
         <!-- LEFT: CONTROLS PANEL -->
         <div class="controls-panel">
-            
+
             <!-- 🧮 SKEUOMORPHIC CALCULATOR UNIT -->
-            <div class="grp-label"><i class="fas fa-calculator text-warning"></i> 1. Standard Digital Calculator Keypad</div>
+            <div class="grp-label"><i class="fas fa-calculator text-warning"></i> 1. Standard Digital Calculator Keypad
+            </div>
             <div class="physical-calc-body">
                 <div class="calc-screen-wrapper">
                     <div class="calc-formula" id="formula-screen"></div>
@@ -542,29 +734,37 @@
                     <div class="calc-btn-key" onclick="calcAction('1')">1</div>
                     <div class="calc-btn-key" onclick="calcAction('2')">2</div>
                     <div class="calc-btn-key" onclick="calcAction('3')">3</div>
-                    <div class="calc-btn-key op-key" onclick="calcAction('=')">=</div>
+                    <div class="calc-btn-key op-key" style="grid-row: span 2; display: flex; align-items: center; justify-content: center; font-size: 24px;" onclick="applyAndFill()">=</div>
 
                     <div class="calc-btn-key" onclick="calcAction('0')">0</div>
                     <div class="calc-btn-key" onclick="calcAction('00')">00</div>
-                    <div class="calc-btn-key" onclick="calcAction('.')">.</div>
-                    <div class="calc-btn-key use-val-key" onclick="useCalcValue()"><i class="fas fa-arrow-down"></i> કિંમત ભરો</div>
-                </div>
+                    <div class="calc-btn-key" onclick="calcAction('.')">.</div></div>
             </div>
 
             <div class="grp-label"><i class="fas fa-coins text-warning"></i> 2. Business Category</div>
-            <div class="grid-4 mb-2">
-                <div class="opt-box active" id="cat-finance" onclick="switchCategory('finance')"><i class="fas fa-coins"></i> FINANCE</div>
-                <div class="opt-box" id="cat-shop" onclick="switchCategory('shop')"><i class="fas fa-shop"></i> SHOP</div>
-                <div class="opt-box" id="cat-village" onclick="switchCategory('village')"><i class="fas fa-wheat-awn"></i> VILLAGE</div>
-                <div class="opt-box" id="cat-utility" onclick="switchCategory('utility')"><i class="fas fa-wrench"></i> UTILITIES</div>
+            <div class="grid-3 mb-2">
+                <div class="opt-box active" id="cat-finance" onclick="switchCategory('finance')"><i
+                        class="fas fa-coins"></i> FINANCE</div>
+                <div class="opt-box" id="cat-shop" onclick="switchCategory('shop')"><i class="fas fa-shop"></i> SHOP
+                </div>
+                <div class="opt-box" id="cat-village" onclick="switchCategory('village')"><i
+                        class="fas fa-wheat-awn"></i> VILLAGE</div>
+                <div class="opt-box" id="cat-trirashi" onclick="switchCategory('trirashi')"><i
+                        class="fas fa-divide"></i> TRIRASHI</div>
+                <div class="opt-box" id="cat-timedate" onclick="switchCategory('timedate')"><i class="fas fa-clock"></i>
+                    TIME/DATE</div>
+                <div class="opt-box" id="cat-converter" onclick="switchCategory('converter')"><i
+                        class="fas fa-arrow-right-arrow-left"></i> CONVERTER</div>
             </div>
 
             <div class="grp-label">3. Select Business Module</div>
             <select id="calc-engine-select" onchange="switchEngine()"></select>
 
             <div class="grp-label">4. Slip Header Details</div>
-            <input type="text" id="slip-shop" value="ડિજિટલ કેલ્ક્યુલેશન રસીદ" oninput="renderParchi()" placeholder="Slip Heading Title">
-            <input type="text" id="slip-tag" value="Business Calculation Slip" oninput="renderParchi()" placeholder="Slip Subheading">
+            <input type="text" id="slip-shop" value="ડિજિટલ કેલ્ક્યુલેશન રસીદ" oninput="renderParchi()"
+                placeholder="Slip Heading Title">
+            <input type="text" id="slip-tag" value="Business Calculation Slip" oninput="renderParchi()"
+                placeholder="Slip Subheading">
 
             <div class="grp-label">5. Calculator Inputs (કિંમત પૂર્તિ)</div>
             <!-- INPUTS HOLDER CONTAINER -->
@@ -601,11 +801,11 @@
                 <!-- FINAL TOTAL BOX -->
                 <div class="parchi-breakdown-box">
                     <div class="bd-row">
-                        <div>Subtotal Sum</div>
+                        <div id="lbl-subtotal-title">Subtotal Sum</div>
                         <div id="lbl-subtotal">₹0.00</div>
                     </div>
                     <div class="bd-row bd-paid">
-                        <div>NET FINAL VALUE</div>
+                        <div id="lbl-final-title">NET FINAL VALUE</div>
                         <div id="lbl-final">₹0.00</div>
                     </div>
                 </div>
@@ -624,11 +824,6 @@
     <!-- PRINT PREVIEW CONTAINER -->
     <div id="print-parchi-container"></div>
 
-    <!-- FLOATING CHAT SUPPORT -->
-    <a href="https://wa.me/916356239260?text=Hello%20Raju%20Jatapara,%20I%20need%20help%20with%20Business%20Calculator%20Hub!" target="_blank" class="floating-wa-btn">
-        <i class="fab fa-whatsapp" style="font-size:15px"></i> Chat Support
-    </a>
-
     <!-- ENGINE SCRIPTS -->
     <script>
         let currentTheme = localStorage.getItem('rcs_theme') || 'dark';
@@ -640,30 +835,619 @@
             finance: [
                 { id: 'interest', name: '📈 Simple & Monthly Interest (વ્યાજ હિસાબ)' },
                 { id: 'gst', name: '🧾 Add & Remove GST Tax (જીએસટી ટેક્સ)' },
-                { id: 'emi', name: '🏦 Bank Loan Monthly EMI (માસિક લોન હપ્તો)' }
+                { id: 'emi', name: '🏦 Bank Loan Monthly EMI (માસિક લોન હપ્તો)' },
+                { id: 'margin', name: '📈 Profit Margin & Markup (નફો - માર્જિન)' },
+                { id: 'wage', name: '💼 Daily worker wage & Overtime (રોજમદાર પગાર)' },
+                { id: 'partnership', name: '🤝 Partnership Profit Division (ભાગીદારી નફો વહેંચણી)' }
             ],
             shop: [
-                { id: 'margin', name: '📈 Profit Margin & Markup (નફો - માર્જિન)' },
                 { id: 'discount', name: '🏷️ Discount & Sale Price (વળતર કિંમત)' },
                 { id: 'compare', name: '📦 Unit Weight Price Compare (બલ્ક સરખામણી)' }
             ],
             village: [
                 { id: 'milk', name: '🥛 Daily Milk FAT Payout (દૂધ ફેટ હિસાબ)' },
-                { id: 'land', name: '📐 Agricultural Land Converter (વીઘા-એકર)' },
-                { id: 'pisaai', name: '🌾 Atta Chakki Pisaai Parchi (લોટ પીસાઈ)' }
-            ],
-            utility: [
-                { id: 'wage', name: '💼 Daily wage & Overtime (રોજમદાર પગાર)' },
+                { id: 'pisaai', name: '🌾 Atta Chakki Pisaai Parchi (લોટ પીસાઈ)' },
                 { id: 'tractor', name: '🚜 Tractor & Harvester Rental (ટ્રેક્ટર ભાડું)' },
-                { id: 'fuel', name: '⛽ Vehicle Fuel Mileage Cost (માઇલેજ ખર્ચ)' }
+                { id: 'fuel', name: '⛽ Vehicle Fuel Mileage Cost (માઇલેજ ખર્ચ)' },
+                { id: 'crop_bag', name: '🌾 APMC Yield & Bag Price (ખેતી પાક ગુણી હિસાબ)' }
+            ],
+            trirashi: [
+                { id: 'trirashi_weight', name: '⚖️ Weight Price Converter (વજન-ભાવ ત્રિરાશિ)' },
+                { id: 'trirashi_liquid', name: '🥛 Liquid Volume Price (પ્રવાહી લીટર ત્રિરાશિ)' },
+                { id: 'trirashi_general', name: '📐 General Rule of Three (આમાં આટલા તો આમાં કેટલા?)' },
+                { id: 'trirashi_work', name: '🚜 Work & Time Estimator (મજૂર-ટ્રેક્ટર સમય ગણતરી)' }
+            ],
+            timedate: [
+                { id: 'time_calc', name: '⏱️ Duration & Time Offset (સમય ગણતરી)' },
+                { id: 'date_calc', name: '📅 Date Difference & Offset (તારીખ ગણતરી)' }
+            ],
+            converter: [
+                { id: 'conv_weight', name: '⚖️ Weight Unit Converter (વજન કન્વર્ટર)' },
+                { id: 'conv_land', name: '📐 Land Area Converter (જમીન માપ કન્વર્ટર)' },
+                { id: 'conv_time', name: '📅 Time Unit Converter (સમય એકમ કન્વર્ટર)' },
+                { id: 'conv_liquid', name: '🥛 Liquid Volume Converter (પ્રવાહી કન્વર્ટર)' }
             ]
+        };
+
+        const calcTranslations = {
+            "en": {
+                        "int-p-lbl": "Principal Amount (₹)",
+                        "int-r-lbl": "Rate of Interest (%)",
+                        "int-t-lbl": "Total Months",
+                        "int-type-lbl": "Interest Rate Type",
+                        "principal": "Principal Amount",
+                        "interest_rate": "Rate of Interest",
+                        "duration": "Time Duration",
+                        "interest_earned": "Total Interest Earned",
+                        "total_payable": "TOTAL PAYABLE",
+                        "gst-amt-lbl": "Net Amount (₹)",
+                        "gst-rate-lbl": "GST Rate (%)",
+                        "gst-type-lbl": "GST Action",
+                        "base_amount": "Base Amount",
+                        "cgst": "CGST Tax Share (50%)",
+                        "sgst": "SGST Tax Share (50%)",
+                        "total_gst": "Total GST Tax",
+                        "total_amount": "TOTAL AMOUNT",
+                        "emi-p-lbl": "Loan Amount (₹)",
+                        "emi-r-lbl": "Interest Rate Per Year (%)",
+                        "emi-t-lbl": "Loan Duration (Years)",
+                        "monthly_emi": "Monthly EMI",
+                        "total_interest": "Total Interest Payable",
+                        "total_emi_payout": "TOTAL BANK PAYABLE",
+                        "margin-cost-lbl": "Cost Price (₹)",
+                        "margin-sell-lbl": "Selling Price (₹)",
+                        "cost_price": "Cost Price",
+                        "selling_price": "Selling Price",
+                        "gross_margin": "Profit Margin (%)",
+                        "markup": "Markup (%)",
+                        "net_profit": "NET PROFIT",
+                        "wage-rate-lbl": "Daily Pay Wage (₹)",
+                        "wage-days-lbl": "Days Present",
+                        "wage-adv-lbl": "Advance Taken (₹)",
+                        "wage-oth-lbl": "Overtime Work (Hours)",
+                        "wage-otr-lbl": "Overtime Rate (₹/Hour)",
+                        "gross_salary": "Gross Salary",
+                        "advance_deducted": "Advance Deducted",
+                        "net_payable": "NET PAYABLE",
+                        "disc-price-lbl": "Original Price (₹)",
+                        "disc-rate-lbl": "Discount Percent (%)",
+                        "original_price": "Original Price",
+                        "discount_percent": "Discount Percent",
+                        "saved_amount": "Saved Amount",
+                        "discount_net_payable": "NET PAYABLE",
+                        "comp-pa-lbl": "Pack A Price (₹)",
+                        "comp-qa-lbl": "Pack A Weight/Qty",
+                        "comp-pb-lbl": "Pack B Price (₹)",
+                        "comp-qb-lbl": "Pack B Weight/Qty",
+                        "pack_a_rate": "Pack A Unit Rate",
+                        "pack_b_rate": "Pack B Unit Rate",
+                        "milk-qty-lbl": "Milk Quantity (Liters)",
+                        "milk-fat-lbl": "Milk FAT (%)",
+                        "milk-rfat-lbl": "FAT Price Rate (₹)",
+                        "milk_qty": "Milk Quantity",
+                        "milk_fat": "Milk FAT %",
+                        "fat_rate": "FAT Price Rate",
+                        "rate_per_liter": "Rate Per Liter",
+                        "total_milk_payout": "TOTAL MILK PAYOUT",
+                        "pis-wt-lbl": "Grain Weight (kg)",
+                        "pis-rate-lbl": "Grinding Rate (₹/kg)",
+                        "pis-katar-lbl": "Katar Deduction (Grams/kg)",
+                        "grinding_cost": "Grinding Cost",
+                        "total_katar": "Total Katar Deduction",
+                        "trac-basis-lbl": "Rental Basis Type",
+                        "trac-rate-lbl": "Rental Rate (₹)",
+                        "trac-qty-lbl": "Quantity Worked",
+                        "rental_basis": "Rental Basis Type",
+                        "rental_rate": "Rental Rate Price",
+                        "rental_qty": "Quantity Worked",
+                        "total_rental_payable": "TOTAL RENTAL PAYABLE",
+                        "fuel-dist-lbl": "Trip Distance Run (KM)",
+                        "fuel-price-lbl": "Fuel Price Rate (₹/Liter)",
+                        "fuel-mil-lbl": "Vehicle Mileage (km/L)",
+                        "trip_distance": "Trip Distance Run",
+                        "fuel_rate": "Fuel Price Rate",
+                        "mileage": "Vehicle Mileage",
+                        "required_fuel": "Required Fuel Volume",
+                        "total_trip_fuel_cost": "TOTAL TRIP FUEL COST",
+                        "trw-w1-lbl": "Given Weight/Qty",
+                        "trw-p1-lbl": "Given Price (₹)",
+                        "trw-w2-lbl": "Target Weight/Qty",
+                        "given_weight": "Given Weight",
+                        "given_price": "Given Price",
+                        "rate_per_kg": "Rate per 1 kg",
+                        "rate_per_mann": "Rate per 1 Mann",
+                        "rate_per_unit": "Rate per 1 Unit",
+                        "target_weight": "Target Weight",
+                        "target_price": "TARGET PRICE",
+                        "trl-v1-lbl": "Given Volume",
+                        "trl-p1-lbl": "Given Price (₹)",
+                        "trl-v2-lbl": "Target Volume",
+                        "given_volume": "Given Volume",
+                        "rate_per_litre": "Rate per 1 Litre",
+                        "target_volume": "Target Volume",
+                        "trg-a-lbl": "If Quantity A is",
+                        "trg-b-lbl": "Results in Value B",
+                        "trg-c-lbl": "Then for Quantity C",
+                        "if_qty_a": "If Quantity A",
+                        "results_in_b": "Results in Value B",
+                        "then_for_c": "Then for Quantity C",
+                        "calculated_value_d": "CALCULATED VALUE D",
+                        "trwk-w1-lbl": "Worker/Machine Count (A)",
+                        "trwk-d1-lbl": "Takes Time/Work (B)",
+                        "trwk-type-lbl": "Calculation Rule",
+                        "trwk-w2-lbl": "Target Worker/Work (C)",
+                        "initial_count": "Initial Count",
+                        "initial_work_time": "Initial Time/Work",
+                        "proportion_type": "Proportion Type",
+                        "target_count": "Target Count",
+                        "new_target_duration": "NEW TARGET DURATION",
+                        "time-mode-lbl": "Calculation Mode",
+                        "time-sh-lbl": "Start Time",
+                        "time-eh-lbl": "End Time",
+                        "time-bh-lbl": "Base Time",
+                        "time-op-lbl": "Action",
+                        "time-oh-lbl": "Hours to Adjust",
+                        "time-om-lbl": "Minutes to Adjust",
+                        "start_time": "Start Time",
+                        "end_time": "End Time",
+                        "total_duration": "Total Duration",
+                        "base_time": "Base Time",
+                        "adjustment_offset": "Adjustment Offset",
+                        "calculated_time_result": "CALCULATED TIME RESULT",
+                        "date-mode-lbl": "Calculation Mode",
+                        "date-s-lbl": "Start Date",
+                        "date-e-lbl": "End Date",
+                        "date-b-lbl": "Base Date",
+                        "date-op-lbl": "Action",
+                        "date-od-lbl": "Days to Adjust",
+                        "date-om-lbl": "Months to Adjust",
+                        "date-oy-lbl": "Years to Adjust",
+                        "start_date": "Start Date",
+                        "end_date": "End Date",
+                        "calculated_target_date": "CALCULATED TARGET DATE",
+                        "convw-val-lbl": "Value to Convert",
+                        "convw-from-lbl": "Convert From",
+                        "convw-to-lbl": "Convert To",
+                        "input_weight_value": "Input Weight Value",
+                        "grams_equivalence": "Grams equivalence",
+                        "kg_equivalence": "Kilograms equivalence",
+                        "converted_result": "CONVERTED RESULT",
+                        "convl-val-lbl": "Value to Convert",
+                        "convl-from-lbl": "Convert From",
+                        "convl-to-lbl": "Convert To",
+                        "input_land_area": "Input Land Area",
+                        "vigha_equivalence": "Vigha equivalence",
+                        "acre_equivalence": "Acre equivalence",
+                        "sq_yards": "Square Yards",
+                        "convt-val-lbl": "Value to Convert",
+                        "convt-from-lbl": "Convert From",
+                        "convt-to-lbl": "Convert To",
+                        "input_time_duration": "Input Time Duration",
+                        "days_equivalence": "Days equivalence",
+                        "convli-val-lbl": "Value to Convert",
+                        "convli-from-lbl": "Convert From",
+                        "convli-to-lbl": "Convert To",
+                        "input_volume_value": "Input Volume Value",
+                        "litres_equivalence": "Litres equivalence",
+                        "crop-bags-lbl": "Total Sacks/Bags Count",
+                        "crop-bag-wt-lbl": "Average Bag Weight (kg)",
+                        "crop-bardano-lbl": "Empty Bag Deduction (kg/bag)",
+                        "crop-rate-lbl": "Crop Price Rate (₹)",
+                        "crop-rate-unit-lbl": "Price Rate Unit Basis",
+                        "gross_weight": "Total Gross Weight",
+                        "tare_weight": "Total Tare Weight",
+                        "net_weight": "Total Net Weight",
+                        "total_crop_payout": "TOTAL CROP PAYOUT",
+                        "part-a-name-lbl": "Partner A Name",
+                        "part-a-inv-lbl": "Partner A Investment (₹)",
+                        "part-b-name-lbl": "Partner B Name",
+                        "part-b-inv-lbl": "Partner B Investment (₹)",
+                        "part-profit-lbl": "Total Net Profit/Loss (₹)",
+                        "part-type-lbl": "Share Allocation Type",
+                        "total_partnership_investment": "Total Capital Invested",
+                        "partner_a_ratio": "Partner A Share Ratio",
+                        "partner_b_ratio": "Partner B Share Ratio",
+                        "partner_a_payout": "PARTNER A PAYOUT SHARE",
+                        "partner_b_payout": "PARTNER B PAYOUT SHARE"
+            },
+            "gu": {
+                        "int-p-lbl": "મુદલ રકમ (રૂપિયા)",
+                        "int-r-lbl": "વ્યાજ દર (%)",
+                        "int-t-lbl": "કુલ મહિના (સમયગાળો)",
+                        "int-type-lbl": "વ્યાજ દર પ્રકાર",
+                        "principal": "મુદલ રકમ",
+                        "interest_rate": "વ્યાજ દર",
+                        "duration": "સમયગાળો",
+                        "interest_earned": "કુલ વ્યાજ",
+                        "total_payable": "પરત રકમ (મુદલ + વ્યાજ)",
+                        "gst-amt-lbl": "મૂળ રકમ (ટેક્સ વગર)",
+                        "gst-rate-lbl": "જીએસટી ટેક્સ દર (%)",
+                        "gst-type-lbl": "ટેક્સ ગણતરી પ્રકાર",
+                        "base_amount": "ટેક્સ વગર કિંમત",
+                        "cgst": "CGST સેન્ટ્રલ ટેક્સ (50%)",
+                        "sgst": "SGST સ્ટેટ ટેક્સ (50%)",
+                        "total_gst": "કુલ જીએસટી ટેક્સ",
+                        "total_amount": "કુલ કિંમત (ટેક્સ સાથે)",
+                        "emi-p-lbl": "લોન રકમ (રૂપિયા)",
+                        "emi-r-lbl": "વાર્ષિક વ્યાજ દર (%)",
+                        "emi-t-lbl": "લોન સમયગાળો (વર્ષ)",
+                        "monthly_emi": "માસિક લોન હપ્તો",
+                        "total_interest": "કુલ ચૂકવવાનું વ્યાજ",
+                        "total_emi_payout": "કુલ બેંક ચૂકવણી",
+                        "margin-cost-lbl": "ખરીદ કિંમત (રૂપિયા)",
+                        "margin-sell-lbl": "વેચાણ કિંમત (રૂપિયા)",
+                        "cost_price": "ખરીદ કિંમત",
+                        "selling_price": "વેચાણ કિંમત",
+                        "gross_margin": "નફો માર્જિન (%)",
+                        "markup": "માર્કઅપ (%)",
+                        "net_profit": "ચોખ્ખો નફો",
+                        "wage-rate-lbl": "રોજમદાર દિવસનો દર (રૂ.)",
+                        "wage-days-lbl": "હાજર દિવસો",
+                        "wage-adv-lbl": "ઉપાડેલ રકમ (એડવાન્સ)",
+                        "wage-oth-lbl": "ઓવરટાઇમ કામ (કલાક)",
+                        "wage-otr-lbl": "ઓવરટાઇમ કલાક દર (રૂ.)",
+                        "gross_salary": "કુલ પગાર",
+                        "advance_deducted": "બાદ કરેલ ઉપાડ",
+                        "net_payable": "મળવા પાત્ર પગાર",
+                        "disc-price-lbl": "મૂળ કિંમત (રૂપિયા)",
+                        "disc-rate-lbl": "વળતર છૂટ (%)",
+                        "original_price": "મૂળ કિંમત",
+                        "discount_percent": "ડિસ્કાઉન્ટ ટકાવારી",
+                        "saved_amount": "બચત રકમ",
+                        "discount_net_payable": "ચૂકવવા પાત્ર કિંમત",
+                        "comp-pa-lbl": "સામાન A કિંમત (રૂ.)",
+                        "comp-qa-lbl": "સામાન A વજન/નંગ",
+                        "comp-pb-lbl": "સામાન B કિંમત (રૂ.)",
+                        "comp-qb-lbl": "સામાન B વજન/નંગ",
+                        "pack_a_rate": "સામાન A એકમ દીઠ ભાવ",
+                        "pack_b_rate": "સામાન B એકમ દીઠ ભાવ",
+                        "milk-qty-lbl": "દૂધ જથ્થો (લિટર)",
+                        "milk-fat-lbl": "દૂધ ફેટ ટકાવારી (%)",
+                        "milk-rfat-lbl": "ફેટ દર (પ્રતિ ફેટ રૂ.)",
+                        "milk_qty": "દૂધ લિટર",
+                        "milk_fat": "દૂધ ફેટ %",
+                        "fat_rate": "ફેટ ભાવ દર",
+                        "rate_per_liter": "લિટર દીઠ ભાવ",
+                        "total_milk_payout": "દૂધ જમા રકમ",
+                        "pis-wt-lbl": "અનાજ વજન (કિલોગ્રામ)",
+                        "pis-rate-lbl": "પીસાઈ દર (રૂ./કિલો)",
+                        "pis-katar-lbl": "કાતર વજન (ગ્રામ/કિલો)",
+                        "grinding_cost": "પીસાઈ ખર્ચ",
+                        "total_katar": "કુલ કાતર વજન",
+                        "trac-basis-lbl": "ભાડા ગણતરી પ્રકાર",
+                        "trac-rate-lbl": "ભાડાનો દર (રૂપિયા)",
+                        "trac-qty-lbl": "કામ કરેલ સમય/વીઘા",
+                        "rental_basis": "ભાડાનો પ્રકાર",
+                        "rental_rate": "ભાડાનો ભાવ દર",
+                        "rental_qty": "કામ કરેલ જથ્થો",
+                        "total_rental_payable": "કુલ ભાડું ચૂકવવા પાત્ર",
+                        "fuel-dist-lbl": "મુસાફરી રન અંતર (KM)",
+                        "fuel-price-lbl": "ઇંધણ ભાવ (પ્રતિ લિટર રૂ.)",
+                        "fuel-mil-lbl": "વાહન માઇલેજ (KM/L)",
+                        "trip_distance": "મુસાફરી કુલ અંતર",
+                        "fuel_rate": "ઇંધણ ભાવ દર",
+                        "mileage": "વાહન માઇલેજ",
+                        "required_fuel": "જરૂરી ઇંધણ (લિટર)",
+                        "total_trip_fuel_cost": "કુલ ઇંધણ khર્ચ",
+                        "trw-w1-lbl": "દાખલ વજન/નંગ",
+                        "trw-p1-lbl": "દાખલ કિંમત (રૂ.)",
+                        "trw-w2-lbl": "શોધવાનું વજન/નંગ",
+                        "given_weight": "દાખલ વજન",
+                        "given_price": "કિંમત",
+                        "rate_per_kg": "કિલો દીઠ ભાવ",
+                        "rate_per_mann": "મણ દીઠ ભાવ",
+                        "rate_per_unit": "નંગ દીઠ ભાવ",
+                        "target_weight": "શોધવાનું વજન",
+                        "target_price": "નવી કિંમત",
+                        "trl-v1-lbl": "દાખલ માપ (લીટર/મિલી)",
+                        "trl-p1-lbl": "દાખલ કિંમત (રૂ.)",
+                        "trl-v2-lbl": "શોધવાનું માપ",
+                        "given_volume": "દાખલ માપ",
+                        "rate_per_litre": "લીટર દીઠ ભાવ",
+                        "target_volume": "શોધવાનું માપ",
+                        "trg-a-lbl": "જો આટલી કિંમત હોય (A)",
+                        "trg-b-lbl": "તો આટલા થાય (B)",
+                        "trg-c-lbl": "તો આના માટે કેટલા? (C)",
+                        "if_qty_a": "જો સંખ્યા A",
+                        "results_in_b": "તો કિંમત B",
+                        "then_for_c": "તો સંખ્યા C",
+                        "calculated_value_d": "ગણતરી કિંમત D",
+                        "trwk-w1-lbl": "મજૂર/વાહન સંખ્યા (A)",
+                        "trwk-d1-lbl": "લાગતો સમય / કામ (B)",
+                        "trwk-type-lbl": "ગણતરી નિયમ",
+                        "trwk-w2-lbl": "નવી સંખ્યા / કામ (C)",
+                        "initial_count": "પ્રારંભિક સંખ્યા",
+                        "initial_work_time": "સમય/કામ",
+                        "proportion_type": "પ્રમાણ નિયમ",
+                        "target_count": "શોધવાની સંખ્યા",
+                        "new_target_duration": "નવો સમય",
+                        "time-mode-lbl": "ગણતરી પ્રકાર",
+                        "time-sh-lbl": "શરૂઆત સમય",
+                        "time-eh-lbl": "અંતિમ સમય",
+                        "time-bh-lbl": "મૂળ સમય",
+                        "time-op-lbl": "ક્રિયા",
+                        "time-oh-lbl": "કલાક એડજસ્ટ",
+                        "time-om-lbl": "મિનિટ એડજસ્ટ",
+                        "start_time": "શરૂઆત સમય",
+                        "end_time": "અંતિમ સમય",
+                        "total_duration": "સમયગાળો",
+                        "base_time": "મૂળ સમય",
+                        "adjustment_offset": "સમય પ્લસ/માઇનસ",
+                        "calculated_time_result": "ગણતરી સમય પરિણામ",
+                        "date-mode-lbl": "ગણતરી પ્રકાર",
+                        "date-s-lbl": "શરૂઆત તારીખ",
+                        "date-e-lbl": "અંતિમ તારીખ",
+                        "date-b-lbl": "મૂળ તારીખ",
+                        "date-op-lbl": "ક્રિયા",
+                        "date-od-lbl": "દિવસ એડજસ્ટ",
+                        "date-om-lbl": "મહિના એડજસ્ટ",
+                        "date-oy-lbl": "વર્ષ એડજસ્ટ",
+                        "start_date": "શરૂઆત તારીખ",
+                        "end_date": "અંતિમ તારીખ",
+                        "calculated_target_date": "ગણતરી તારીખ પરિણામ",
+                        "convw-val-lbl": "ફેરવવા માટેનું વજન",
+                        "convw-from-lbl": "કયા એકમમાંથી",
+                        "convw-to-lbl": "કયા એકમમાં",
+                        "input_weight_value": "દાખલ વજન",
+                        "grams_equivalence": "ગ્રામ સમકક્ષ વજન",
+                        "kg_equivalence": "કિલોગ્રામા સમકક્ષ વજન",
+                        "converted_result": "ફેરવેલ વજન",
+                        "convl-val-lbl": "જમીન માપ કિંમત",
+                        "convl-from-lbl": "કયા એકમમાંથી",
+                        "convl-to-lbl": "કયા એકમમાં",
+                        "input_land_area": "દાખલ જમીન માપ",
+                        "vigha_equivalence": "વીઘા સમકક્ષ જમીન",
+                        "acre_equivalence": "એકર સમકક્ષ જમીન",
+                        "sq_yards": "ચોરસ વાર",
+                        "convt-val-lbl": "સમય કિંમત",
+                        "convt-from-lbl": "કયા એકમમાંથી",
+                        "convt-to-lbl": "કયા એકમમાં",
+                        "input_time_duration": "દાખલ સમય",
+                        "days_equivalence": "દિવસ સમકક્ષ",
+                        "convli-val-lbl": "પ્રવાહી કિંમત",
+                        "convli-from-lbl": "કયા એકમમાંથી",
+                        "convli-to-lbl": "કયા એકમમાં",
+                        "input_volume_value": "દાખલ માપ",
+                        "litres_equivalence": "લીટર સમકક્ષ",
+                        "crop-bags-lbl": "કુલ કોથળા / ગુણી સંખ્યા",
+                        "crop-bag-wt-lbl": "સરેરાશ કોથળા વજન (કિલો)",
+                        "crop-bardano-lbl": "ખાલી કોથળા બાદ કટ વજન (કિલો/કોથળો)",
+                        "crop-rate-lbl": "પાક ભાવ દર (રૂપિયા)",
+                        "crop-rate-unit-lbl": "ભાવ દર ગણતરી પ્રકાર",
+                        "gross_weight": "કુલ વજન (ગ્રોસ)",
+                        "tare_weight": "કુલ બારદાન બાદ વજન (કટ)",
+                        "net_weight": "ચોખ્ખું પાક વજન (નેટ)",
+                        "total_crop_payout": "કુલ પાક ઉપજ રકમ",
+                        "part-a-name-lbl": "ભાગીદાર A નામ",
+                        "part-a-inv-lbl": "ભાગીદાર A રોકાણ (રૂ.)",
+                        "part-b-name-lbl": "ભાગીદાર B નામ",
+                        "part-b-inv-lbl": "ભાગીદાર B રોકાણ (રૂ.)",
+                        "part-profit-lbl": "કુલ નફો / નુકસાન (રૂ.)",
+                        "part-type-lbl": "ગણતરી પ્રકાર",
+                        "total_partnership_investment": "કુલ રોકાણ મૂડી",
+                        "partner_a_ratio": "ભાગીદાર A હિસ્સો ટકાવારી",
+                        "partner_b_ratio": "ભાગીદાર B હિસ્સો ટકાવારી",
+                        "partner_a_payout": "ભાગીદાર A મળતી રકમ",
+                        "partner_b_payout": "ભાગીદાર B મળતી રકમ"
+            },
+            "hi": {
+                        "int-p-lbl": "मूलधन राशि (रुपये)",
+                        "int-r-lbl": "ब्याज दर (%)",
+                        "int-t-lbl": "कुल महीने",
+                        "int-type-lbl": "ब्याज प्रकार",
+                        "principal": "मूलधन राशि",
+                        "interest_rate": "ब्याज दर",
+                        "duration": "समयावधि",
+                        "interest_earned": "कुल ब्याज",
+                        "total_payable": "कुल वापसी राशि",
+                        "gst-amt-lbl": "मूल राशि (बिना टैक्स)",
+                        "gst-rate-lbl": "जीएसटी दर (%)",
+                        "gst-type-lbl": "टैक्स गणना प्रकार",
+                        "base_amount": "बिना टैक्स मूल्य",
+                        "cgst": "CGST टैक्स (50%)",
+                        "sgst": "SGST टैक्स (50%)",
+                        "total_gst": "कुल जीएसटी टैक्स",
+                        "total_amount": "कुल राशि (टैक्स सहित)",
+                        "emi-p-lbl": "लोन राशि (रुपये)",
+                        "emi-r-lbl": "वार्षिक ब्याज दर (%)",
+                        "emi-t-lbl": "लोन अवधि (वर्ष)",
+                        "monthly_emi": "मासिक किस्त (EMI)",
+                        "total_interest": "कुल ब्याज",
+                        "total_emi_payout": "बैंक को कुल भुगतान",
+                        "margin-cost-lbl": "लागत मूल्य (रुपये)",
+                        "margin-sell-lbl": "विक्रय मूल्य (रुपये)",
+                        "cost_price": "लागत मूल्य",
+                        "selling_price": "विक्रय मूल्य",
+                        "gross_margin": "लाभ मार्जिन (%)",
+                        "markup": "मार्कअप (%)",
+                        "net_profit": "शुद्ध लाभ",
+                        "wage-rate-lbl": "दैनिक मजदूरी दर (रु.)",
+                        "wage-days-lbl": "कुल उपस्थिति दिन",
+                        "wage-adv-lbl": "लिया गया अग्रिम (रु.)",
+                        "wage-oth-lbl": "ओवरटाइम घंटे",
+                        "wage-otr-lbl": "ओवरटाइम दर (रु./घंटा)",
+                        "gross_salary": "कुल वेतन",
+                        "advance_deducted": "कटौती अग्रिम",
+                        "net_payable": "कुल देय वेतन",
+                        "disc-price-lbl": "मूल्य (रुपये)",
+                        "disc-rate-lbl": "छूट (%)",
+                        "original_price": "मूल्य",
+                        "discount_percent": "छूट प्रतिशत",
+                        "saved_amount": "बचत राशि",
+                        "discount_net_payable": "कुल भुगतान राशि",
+                        "comp-pa-lbl": "सामान A मूल्य (रु.)",
+                        "comp-qa-lbl": "सामान A वजन/संख्या",
+                        "comp-pb-lbl": "सामान B मूल्य (रु.)",
+                        "comp-qb-lbl": "सामान B वजन/संख्या",
+                        "pack_a_rate": "सामान A प्रति इकाई दर",
+                        "pack_b_rate": "सामान B प्रति इकाई दर",
+                        "milk-qty-lbl": "दूध मात्रा (लीटर)",
+                        "milk-fat-lbl": "दूध फैट (%)",
+                        "milk-rfat-lbl": "फैट दर (रु.)",
+                        "milk_qty": "दूध लीटर",
+                        "milk_fat": "दूध फैट %",
+                        "fat_rate": "फैट दर",
+                        "rate_per_liter": "लीटर दर",
+                        "total_milk_payout": "दूध भुगतान",
+                        "pis-wt-lbl": "अनाज वजन (किलोग्राम)",
+                        "pis-rate-lbl": "पिसाई दर (रु./किलोग्राम)",
+                        "pis-katar-lbl": "कातर वजन (ग्राम/किग्रा)",
+                        "grinding_cost": "पिसाई शुल्क",
+                        "total_katar": "कुल कातर वजन",
+                        "trac-basis-lbl": "किराया गणना प्रकार",
+                        "trac-rate-lbl": "किराया दर (रु.)",
+                        "trac-qty-lbl": "किया गया काम",
+                        "rental_basis": "किराया प्रकार",
+                        "rental_rate": "किराया दर मूल्य",
+                        "rental_qty": "काम की मात्रा",
+                        "total_rental_payable": "कुल किराया भुगतान",
+                        "fuel-dist-lbl": "यात्रा कुल दूरी (KM)",
+                        "fuel-price-lbl": "ईंधन मूल्य (प्रति लीटर)",
+                        "fuel-mil-lbl": "वाहन माइलेज (KM/L)",
+                        "trip_distance": "यात्रा कुल दूरी",
+                        "fuel_rate": "ईंधन दर",
+                        "mileage": "वाहन माइलेज",
+                        "required_fuel": "आवश्यक ईंधन",
+                        "total_trip_fuel_cost": "कुल ईंधन खर्च",
+                        "trw-w1-lbl": "दर्ज वजन/संख्या",
+                        "trw-p1-lbl": "दर्ज मूल्य (रु.)",
+                        "trw-w2-lbl": "वांछित वजन/संख्या",
+                        "given_weight": "दर्ज वजन",
+                        "given_price": "दर्ज मूल्य",
+                        "rate_per_kg": "प्रति किग्रा दर",
+                        "rate_per_mann": "प्रति मन दर",
+                        "rate_per_unit": "प्रति इकाई दर",
+                        "target_weight": "वांछित वजन",
+                        "target_price": "नई परिकलित मूल्य",
+                        "trl-v1-lbl": "दर्ज आयतन (लीटर/मिली)",
+                        "trl-p1-lbl": "दर्ज मूल्य (रु.)",
+                        "trl-v2-lbl": "वांछित आयतन",
+                        "given_volume": "दर्ज आयतन",
+                        "rate_per_litre": "लीटर दर",
+                        "target_volume": "वांछित आयतन",
+                        "trg-a-lbl": "यदि संख्या A है",
+                        "trg-b-lbl": "तो मूल्य B होता है",
+                        "trg-c-lbl": "तो संख्या C के लिए? (C)",
+                        "if_qty_a": "यदि संख्या A",
+                        "results_in_b": "तो मूल्य B",
+                        "then_for_c": "तो संख्या C",
+                        "calculated_value_d": "परिकलित मूल्य D",
+                        "trwk-w1-lbl": "मजदूर/वाहन संख्या (A)",
+                        "trwk-d1-lbl": "लगने वाला समय (B)",
+                        "trwk-type-lbl": "गणना नियम",
+                        "trwk-w2-lbl": "नई संख्या (C)",
+                        "initial_count": "प्रारंभिक संख्या",
+                        "initial_work_time": "प्रारंभिक समय",
+                        "proportion_type": "प्रमाण नियम",
+                        "target_count": "वांछित संख्या",
+                        "new_target_duration": "नया समय",
+                        "time-mode-lbl": "गणना प्रकार",
+                        "time-sh-lbl": "प्रारंभ समय",
+                        "time-eh-lbl": "अंतिम समय",
+                        "time-bh-lbl": "मूल समय",
+                        "time-op-lbl": "क्रिया",
+                        "time-oh-lbl": "घंटा समायोजन",
+                        "time-om-lbl": "मिनट समायोजन",
+                        "start_time": "प्रारंभ समय",
+                        "end_time": "अंतिम समय",
+                        "total_duration": "कुल समयावधि",
+                        "base_time": "मूल समय",
+                        "adjustment_offset": "समय प्लस/माइनस",
+                        "calculated_time_result": "गणना समय परिणाम",
+                        "date-mode-lbl": "गणना प्रकार",
+                        "date-s-lbl": "प्रारंभ तारीख",
+                        "date-e-lbl": "अंतिम तारीख",
+                        "date-b-lbl": "मूल तारीख",
+                        "date-op-lbl": "क्रिया",
+                        "date-od-lbl": "दिन समायोजन",
+                        "date-om-lbl": "महीना समायोजन",
+                        "date-oy-lbl": "वर्ष समायोजन",
+                        "start_date": "प्रारंभ तारीख",
+                        "end_date": "अंतिम तारीख",
+                        "calculated_target_date": "गणना तारीख परिणाम",
+                        "convw-val-lbl": "परिवर्तित करने हेतु वजन",
+                        "convw-from-lbl": "किस इकाई से",
+                        "convw-to-lbl": "किस इकाई में",
+                        "input_weight_value": "दर्ज वजन",
+                        "grams_equivalence": "ग्राम समकक्ष वजन",
+                        "kg_equivalence": "किलोग्राम समकक्ष वजन",
+                        "converted_result": "परिवर्तित कुल वजन",
+                        "convl-val-lbl": "परिवर्तित करने हेतु भूमि",
+                        "convl-from-lbl": "किस इकाई से",
+                        "convl-to-lbl": "किस इकाई में",
+                        "input_land_area": "दर्ज भूमि माप",
+                        "vigha_equivalence": "बीघा समकक्ष भूमि",
+                        "acre_equivalence": "एकड़ समकक्ष भूमि",
+                        "sq_yards": "वर्ग गज",
+                        "convt-val-lbl": "परिवर्तित करने हेतु समय",
+                        "convt-from-lbl": "किस इकाई से",
+                        "convt-to-lbl": "किस इकाई में",
+                        "input_time_duration": "दर्ज किया समय",
+                        "days_equivalence": "दिन समकक्ष समय",
+                        "convli-val-lbl": "परिवर्तित करने हेतु तरल",
+                        "convli-from-lbl": "किस इकाई से",
+                        "convli-to-lbl": "किस इकाई में",
+                        "input_volume_value": "दर्ज की गई मात्रा",
+                        "litres_equivalence": "लीटर समकक्ष मात्रा",
+                        "crop-bags-lbl": "कुल बोरी / कट्टे संख्या",
+                        "crop-bag-wt-lbl": "औसत बोरी वजन (किलोग्राम)",
+                        "crop-bardano-lbl": "खाली बोरी का बारदाना वजन (किग्रा/बोरी)",
+                        "crop-rate-lbl": "फसल भाव दर (रुपये)",
+                        "crop-rate-unit-lbl": "भाव दर इकाई आधार",
+                        "gross_weight": "कुल वजन (ग्रॉस)",
+                        "tare_weight": "कुल बारदाना वजन कटौती",
+                        "net_weight": "शुद्ध फसल वजन (नेट)",
+                        "total_crop_payout": "कुल फसल देय राशि",
+                        "part-a-name-lbl": "साझेदार A का नाम",
+                        "part-a-inv-lbl": "साझेदार A का निवेश (रु.)",
+                        "part-b-name-lbl": "साझेदार B का नाम",
+                        "part-b-inv-lbl": "साझेदार B का निवेश (रु.)",
+                        "part-profit-lbl": "कुल लाभ / हानि (रु.)",
+                        "part-type-lbl": "बंटवारा प्रकार",
+                        "total_partnership_investment": "कुल निवेशित पूंजी",
+                        "partner_a_ratio": "साझेदार A हिस्सा प्रतिशत",
+                        "partner_b_ratio": "साझेदार B हिस्सा प्रतिशत",
+                        "partner_a_payout": "साझेदार A की देय राशि",
+                        "partner_b_payout": "साझेदार B की देय राशि"
+            }
+};
+
+        function getCalcText(key) {
+            const lang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
+            return (calcTranslations[lang] && calcTranslations[lang][key]) || calcTranslations['en'][key] || key;
+        }
+
+        function applyAndFill() {
+            calcAction('=');
+            useCalcValue();
+        }
+
+        // Set Language Wrapper inside calculator
+        const originalSetLanguage = window.setLanguage;
+        window.setLanguage = (lang) => {
+            if (typeof originalSetLanguage === 'function') {
+                originalSetLanguage(lang);
+            }
+            loadInputs();
+            renderParchi();
         };
 
         window.onload = () => {
             applyTheme(currentTheme);
             document.getElementById('lbl-date').innerText = new Date().toLocaleDateString('en-GB');
+            window.setLanguage(typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en');
             switchCategory('finance');
         };
+
+        function generateOptions(start, end, selectedVal, padZero = false) {
+            let html = '';
+            for (let i = start; i <= end; i++) {
+                const text = padZero ? String(i).padStart(2, '0') : String(i);
+                const selected = i === selectedVal ? 'selected' : '';
+                html += `<option value="${i}" ${selected}>${text}</option>`;
+            }
+            return html;
+        }
 
         function cycleTheme() {
             if (currentTheme === 'dark') currentTheme = 'indigo';
@@ -677,15 +1461,17 @@
             document.documentElement.setAttribute('data-theme', theme);
             const icon = document.getElementById('theme-icon');
             const text = document.getElementById('theme-text');
-            if (theme === 'dark') {
-                icon.className = 'fas fa-moon';
-                text.innerText = 'Midnight';
-            } else if (theme === 'indigo') {
-                icon.className = 'fas fa-wand-magic-sparkles';
-                text.innerText = 'Indigo';
-            } else if (theme === 'light') {
-                icon.className = 'fas fa-sun';
-                text.innerText = 'Light';
+            if (icon && text) {
+                if (theme === 'dark') {
+                    icon.className = 'fas fa-moon';
+                    text.innerText = 'Midnight';
+                } else if (theme === 'indigo') {
+                    icon.className = 'fas fa-wand-magic-sparkles';
+                    text.innerText = 'Indigo';
+                } else if (theme === 'light') {
+                    icon.className = 'fas fa-sun';
+                    text.innerText = 'Light';
+                }
             }
         }
 
@@ -800,35 +1586,246 @@
         function loadInputs() {
             const inputsHolder = document.getElementById('inputs-container');
             inputsHolder.innerHTML = '';
-
             let inputsHTML = '';
 
-            if (currentEngine === 'interest') {
+            if (currentEngine === 'trirashi_weight') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Principal Amount (રૂપિયા મુદલ)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("trw-w1-lbl")}</label>
+                    <div class="grid-2">
+                        <input type="number" id="trw-w1" value="300" onfocus="trackFocus(this)" oninput="renderParchi()">
+                        <select id="trw-u1" onchange="renderParchi()">
+                            <option value="g" selected>Grams (ગ્રામ)</option>
+                            <option value="kg">kg (કિલોગ્રામ)</option>
+                            <option value="mann">Mann (૨૦ કિલો)</option>
+                            <option value="quintal">Quintal (૧૦૦ કિલો)</option>
+                            <option value="nos">Nos (નંગ)</option>
+                        </select>
+                    </div>
+                    <label class="small text-muted fw-bold">${getCalcText("trw-p1-lbl")}</label>
+                    <input type="number" id="trw-p1" value="500" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    
+                    <label class="small text-muted fw-bold">${getCalcText("trw-w2-lbl")}</label>
+                    <div class="grid-2">
+                        <input type="number" id="trw-w2" value="1" onfocus="trackFocus(this)" oninput="renderParchi()">
+                        <select id="trw-u2" onchange="renderParchi()">
+                            <option value="g">Grams (ગ્રામ)</option>
+                            <option value="kg" selected>kg (કિલોગ્રામ)</option>
+                            <option value="mann">Mann (૨૦ કિલો)</option>
+                            <option value="quintal">Quintal (૧૦૦ કિલો)</option>
+                            <option value="nos">Nos (નંગ)</option>
+                        </select>
+                    </div>
+                `;
+            } else if (currentEngine === 'trirashi_liquid') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("trl-v1-lbl")}</label>
+                    <div class="grid-2">
+                        <input type="number" id="trl-v1" value="250" onfocus="trackFocus(this)" oninput="renderParchi()">
+                        <select id="trl-u1" onchange="renderParchi()">
+                            <option value="ml" selected>ml (મિલીલીટર)</option>
+                            <option value="Litre">Litre (લીટર)</option>
+                        </select>
+                    </div>
+                    <label class="small text-muted fw-bold">${getCalcText("trl-p1-lbl")}</label>
+                    <input type="number" id="trl-p1" value="15" onfocus="trackFocus(this)" oninput="renderParchi()">
+
+                    <label class="small text-muted fw-bold">${getCalcText("trl-v2-lbl")}</label>
+                    <div class="grid-2">
+                        <input type="number" id="trl-v2" value="1" onfocus="trackFocus(this)" oninput="renderParchi()">
+                        <select id="trl-u2" onchange="renderParchi()">
+                            <option value="ml">ml (મિલીલીટર)</option>
+                            <option value="Litre" selected>Litre (લીટર)</option>
+                        </select>
+                    </div>
+                `;
+            } else if (currentEngine === 'trirashi_general') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("trg-a-lbl")}</label>
+                    <input type="number" id="trg-a" value="12" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("trg-b-lbl")}</label>
+                    <input type="number" id="trg-b" value="180" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("trg-c-lbl")}</label>
+                    <input type="number" id="trg-c" value="5" onfocus="trackFocus(this)" oninput="renderParchi()">
+                `;
+            } else if (currentEngine === 'trirashi_work') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("trwk-w1-lbl")}</label>
+                    <input type="number" id="trwk-w1" value="5" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("trwk-d1-lbl")}</label>
+                    <div class="grid-2">
+                        <input type="number" id="trwk-d1" value="8" onfocus="trackFocus(this)" oninput="renderParchi()">
+                        <select id="trwk-du" onchange="renderParchi()">
+                            <option value="Days" selected>Days (દિવસ)</option>
+                            <option value="Hours">Hours (કલાક)</option>
+                            <option value="Minutes">Minutes (મિનિટ)</option>
+                            <option value="Bigha">Bigha (વીઘા)</option>
+                        </select>
+                    </div>
+                    <label class="small text-muted fw-bold">${getCalcText("trwk-type-lbl")}</label>
+                    <select id="trwk-type" onchange="renderParchi()">
+                        <option value="inverse" selected>Inverse (મજૂર વધે તો સમય ઘટે)</option>
+                        <option value="direct">Direct (કામ વધે तो समय बढ़े)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">${getCalcText("trwk-w2-lbl")}</label>
+                    <input type="number" id="trwk-w2" value="3" onfocus="trackFocus(this)" oninput="renderParchi()">
+                `;
+            } else if (currentEngine === 'time_calc') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("time-sh-lbl")}</label>
+                    <div class="grid-3" style="margin-bottom: 8px;">
+                        <select id="time-sh" onchange="renderParchi()">${generateOptions(1, 12, 8)}</select>
+                        <select id="time-sm" onchange="renderParchi()">${generateOptions(0, 59, 30, true)}</select>
+                        <select id="time-sap" onchange="renderParchi()">
+                            <option value="AM" selected>AM</option>
+                            <option value="PM">PM</option>
+                        </select>
+                    </div>
+                    <label class="small text-muted fw-bold">${getCalcText("time-eh-lbl")}</label>
+                    <div class="grid-3" style="margin-bottom: 8px;">
+                        <select id="time-eh" onchange="renderParchi()">${generateOptions(1, 12, 5)}</select>
+                        <select id="time-em" onchange="renderParchi()">${generateOptions(0, 59, 30, true)}</select>
+                        <select id="time-eap" onchange="renderParchi()">
+                            <option value="AM">AM</option>
+                            <option value="PM" selected>PM</option>
+                        </select>
+                    </div>
+                    <label class="small text-muted fw-bold">Adjustment Action (સમય વધારો/ઘટાડો)</label>
+                    <select id="time-op" onchange="renderParchi()">
+                        <option value="sub" selected>Subtract (- સમય બાદ કરો)</option>
+                        <option value="add">Add (+ સમય ઉમેરો)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">Hours to Adjust (કલાક)</label>
+                    <input type="number" id="time-oh" value="0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="0">
+                    <label class="small text-muted fw-bold">Minutes to Adjust (મિનિટ)</label>
+                    <input type="number" id="time-om" value="0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="0">
+                `;
+            } else if (currentEngine === 'date_calc') {
+                const today = new Date().toISOString().split('T')[0];
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("date-s-lbl")}</label>
+                    <input type="date" id="date-s" value="${today}" onchange="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("date-e-lbl")}</label>
+                    <input type="date" id="date-e" value="${today}" onchange="renderParchi()">
+                    <label class="small text-muted fw-bold">Adjustment Action (દિવસો વધારો/ઘટાડો)</label>
+                    <select id="date-op" onchange="renderParchi()">
+                        <option value="sub" selected>Subtract (- દિવસો બાદ કરો)</option>
+                        <option value="add">Add (+ દિવસો ઉમેરો)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">Days to Adjust (દિવસ)</label>
+                    <input type="number" id="date-od" value="0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="0">
+                    <label class="small text-muted fw-bold">Weeks to Adjust (અઠવાડિયું)</label>
+                    <input type="number" id="date-ow" value="0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="0">
+                    <label class="small text-muted fw-bold">Months to Adjust (મહિનો)</label>
+                    <input type="number" id="date-om" value="0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="0">
+                `;
+            } else if (currentEngine === 'conv_weight') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("convw-val-lbl")}</label>
+                    <input type="number" id="convw-val" value="1" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("convw-from-lbl")}</label>
+                    <select id="convw-from" onchange="renderParchi()">
+                        <option value="g">Grams (ગ્રામ)</option>
+                        <option value="kg" selected>kg (કિલોગ્રામ)</option>
+                        <option value="mann">Mann (મણ - ૨૦ કિલો)</option>
+                        <option value="quintal">Quintal (ક્વિન્ટલ - ૧૦૦ કિલો)</option>
+                        <option value="tonne">Tonne (ટન)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">${getCalcText("convw-to-lbl")}</label>
+                    <select id="convw-to" onchange="renderParchi()">
+                        <option value="g">Grams (ગ્રામ)</option>
+                        <option value="kg">kg (કિલોગ્રામ)</option>
+                        <option value="mann" selected>Mann (મણ - ૨૦ કિલો)</option>
+                        <option value="quintal">Quintal (ક્વિન્ટલ - ૧૦૦ કિલો)</option>
+                        <option value="tonne">Tonne (ટન)</option>
+                    </select>
+                `;
+            } else if (currentEngine === 'conv_land') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("convl-val-lbl")}</label>
+                    <input type="number" id="convl-val" value="1" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("convl-from-lbl")}</label>
+                    <select id="convl-from" onchange="renderParchi()">
+                        <option value="vigha" selected>Vigha (વીઘું)</option>
+                        <option value="acre">Acre (એકર)</option>
+                        <option value="guntha">Guntha (ગુંઠા)</option>
+                        <option value="sqyd">Square Yards (વાર)</option>
+                        <option value="sqm">Square Metres (ચો.મીટર)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">${getCalcText("convl-to-lbl")}</label>
+                    <select id="convl-to" onchange="renderParchi()">
+                        <option value="vigha">Vigha (વીઘું)</option>
+                        <option value="acre" selected>Acre (એકર)</option>
+                        <option value="guntha">Guntha (ગુંઠા)</option>
+                        <option value="sqyd">Square Yards (વાર)</option>
+                        <option value="sqm">Square Metres (ચો.મીટર)</option>
+                    </select>
+                `;
+            } else if (currentEngine === 'conv_time') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("convt-val-lbl")}</label>
+                    <input type="number" id="convt-val" value="1" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("convt-from-lbl")}</label>
+                    <select id="convt-from" onchange="renderParchi()">
+                        <option value="min">Minutes (મિનિટ)</option>
+                        <option value="hour">Hours (કલાક)</option>
+                        <option value="day" selected>Days (દિવસ)</option>
+                        <option value="week">Weeks (અઠવાડિયું)</option>
+                        <option value="month">Months (મહિનો)</option>
+                        <option value="year">Years (વર્ષ)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">${getCalcText("convt-to-lbl")}</label>
+                    <select id="convt-to" onchange="renderParchi()">
+                        <option value="min">Minutes (મિનિટ)</option>
+                        <option value="hour" selected>Hours (કલાક)</option>
+                        <option value="day">Days (દિવસ)</option>
+                        <option value="week">Weeks (અઠવાડિયું)</option>
+                        <option value="month">Months (મહિનો)</option>
+                        <option value="year">Years (વર્ષ)</option>
+                    </select>
+                `;
+            } else if (currentEngine === 'conv_liquid') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("convli-val-lbl")}</label>
+                    <input type="number" id="convli-val" value="1" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("convli-from-lbl")}</label>
+                    <select id="convli-from" onchange="renderParchi()">
+                        <option value="ml">ml (મિલીલીટર)</option>
+                        <option value="Litre" selected>Litre (લીટર)</option>
+                        <option value="gallon">Gallons (ગેલન)</option>
+                    </select>
+                    <label class="small text-muted fw-bold">${getCalcText("convli-to-lbl")}</label>
+                    <select id="convli-to" onchange="renderParchi()">
+                        <option value="ml" selected>ml (મિલીલીટર)</option>
+                        <option value="Litre">Litre (લીટર)</option>
+                        <option value="gallon">Gallons (ગેલન)</option>
+                    </select>
+                `;
+            } else if (currentEngine === 'interest') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("int-p-lbl")}</label>
                     <input type="number" id="int-p" value="50000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 50000">
-                    <label class="small text-muted fw-bold">Rate of Interest (% દર)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("int-r-lbl")}</label>
                     <input type="number" step="0.01" id="int-r" value="2.00" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 2">
-                    <label class="small text-muted fw-bold">Interest Rate Type</label>
+                    <label class="small text-muted fw-bold">${getCalcText("int-type-lbl")}</label>
                     <select id="int-type" onchange="renderParchi()">
                         <option value="monthly">% Per Month (ગામઠી માસિક વ્યાજ)</option>
                         <option value="yearly">% Per Year (વાર્ષિક વ્યાજ)</option>
                     </select>
-                    <label class="small text-muted fw-bold">Total Months (સમયગાળો - માસ)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("int-t-lbl")}</label>
                     <input type="number" id="int-t" value="12" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 12">
                 `;
             } else if (currentEngine === 'gst') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Net Amount (ખરીદ રકમ)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("gst-amt-lbl")}</label>
                     <input type="number" id="gst-amt" value="10000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 10000">
-                    <label class="small text-muted fw-bold">GST Rate (%)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("gst-rate-lbl")}</label>
                     <select id="gst-rate" onchange="renderParchi()">
                         <option value="5">5%</option>
                         <option value="12">12%</option>
                         <option value="18" selected>18%</option>
                         <option value="28">28%</option>
                     </select>
-                    <label class="small text-muted fw-bold">GST Calculation Action</label>
+                    <label class="small text-muted fw-bold">${getCalcText("gst-type-lbl")}</label>
                     <select id="gst-type" onchange="renderParchi()">
                         <option value="add">Add GST (ટેક્સ ઉમેરો)</option>
                         <option value="remove">Remove GST (ટેક્સ બાદ કરો)</option>
@@ -836,113 +1833,135 @@
                 `;
             } else if (currentEngine === 'emi') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Loan Amount (લોન કુલ રકમ)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("emi-p-lbl")}</label>
                     <input type="number" id="emi-p" value="100000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 100000">
-                    <label class="small text-muted fw-bold">Interest Rate Per Year (%)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("emi-r-lbl")}</label>
                     <input type="number" step="0.1" id="emi-r" value="8.5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 8.5">
-                    <label class="small text-muted fw-bold">Loan Duration (Tenure Years)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("emi-t-lbl")}</label>
                     <input type="number" id="emi-t" value="5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 5">
                 `;
             } else if (currentEngine === 'margin') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Cost Price (ખરીદ કિંમત)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("margin-cost-lbl")}</label>
                     <input type="number" id="prof-cost" value="150" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 150">
-                    <label class="small text-muted fw-bold">Selling Price (વેચાણ કિંમત)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("margin-sell-lbl")}</label>
                     <input type="number" id="prof-sell" value="200" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 200">
                 `;
             } else if (currentEngine === 'discount') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Original Price (મૂળ કિંમત)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("disc-price-lbl")}</label>
                     <input type="number" id="disc-price" value="1500" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 1500">
-                    <label class="small text-muted fw-bold">Discount Percent (%)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("disc-rate-lbl")}</label>
                     <input type="number" id="disc-rate" value="20" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 20">
                 `;
             } else if (currentEngine === 'compare') {
                 inputsHTML = `
-                    <label class="small text-warning fw-bold">Pack A Price</label>
+                    <label class="small text-warning fw-bold">${getCalcText("comp-pa-lbl")}</label>
                     <input type="number" id="comp-pa" value="150" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="Pack A Price">
-                    <label class="small text-warning fw-bold">Pack A Weight/Qty (grams/nos)</label>
+                    <label class="small text-warning fw-bold">${getCalcText("comp-qa-lbl")}</label>
                     <input type="number" id="comp-qa" value="500" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="Pack A Qty">
-                    <label class="small text-info fw-bold">Pack B Price</label>
+                    <label class="small text-info fw-bold">${getCalcText("comp-pb-lbl")}</label>
                     <input type="number" id="comp-pb" value="280" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="Pack B Price">
-                    <label class="small text-info fw-bold">Pack B Weight/Qty (grams/nos)</label>
+                    <label class="small text-info fw-bold">${getCalcText("comp-qb-lbl")}</label>
                     <input type="number" id="comp-qb" value="1000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="Pack B Qty">
                 `;
             } else if (currentEngine === 'milk') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Milk Quantity (દૂધ લિટર)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("milk-qty-lbl")}</label>
                     <input type="number" id="milk-qty" value="10" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 10">
-                    <label class="small text-muted fw-bold">Milk FAT Percentage</label>
+                    <label class="small text-muted fw-bold">${getCalcText("milk-fat-lbl")}</label>
                     <input type="number" step="0.1" id="milk-fat" value="7.2" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 7.2">
-                    <label class="small text-muted fw-bold">FAT Price Rate (રૂપિયા પ્રતિ ફેટ)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("milk-rfat-lbl")}</label>
                     <input type="number" step="0.05" id="milk-rfat" value="8.50" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 8.5">
-                `;
-            } else if (currentEngine === 'land') {
-                inputsHTML = `
-                    <label class="small text-muted fw-bold">Land Value (જમીન માપ)</label>
-                    <input type="number" id="land-val" value="5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 5">
-                    <label class="small text-muted fw-bold">Source Land Unit</label>
-                    <select id="land-unit" onchange="renderParchi()">
-                        <option value="vigha">Vigha (વીઘું)</option>
-                        <option value="acre">Acre (એકર)</option>
-                        <option value="guntha">Guntha (ગુંઠા)</option>
-                        <option value="sqyd">Square Yards (વાર)</option>
-                    </select>
                 `;
             } else if (currentEngine === 'pisaai') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Grain weight (અનાજ વજન - kg)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("pis-wt-lbl")}</label>
                     <input type="number" id="pis-wt" value="25" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 25">
-                    <label class="small text-muted fw-bold">Grinding Rate (પીસાઈ દર ₹/kg)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("pis-rate-lbl")}</label>
                     <input type="number" step="0.5" id="pis-rate" value="5.0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 5">
-                    <label class="small text-muted fw-bold">Katar Deduction (કાતર વજન Grams/kg)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("pis-katar-lbl")}</label>
                     <input type="number" id="pis-katar" value="10" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 10">
                 `;
             } else if (currentEngine === 'wage') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Daily Pay Wage (રોજનો દર)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("wage-rate-lbl")}</label>
                     <input type="number" id="wage-rate" value="450" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 450">
-                    <label class="small text-muted fw-bold">Days Present (હાજર દિવસો)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("wage-days-lbl")}</label>
                     <input type="number" id="wage-days" value="26" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 26">
-                    <label class="small text-muted fw-bold">Advance Taken (ઉપાડ રકમ)</label>
-                    <input type="number" id="wage-adv" value="1500" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 1500">
-                    <label class="small text-muted fw-bold">Overtime Hours (વધારાના કલાક)</label>
-                    <input type="number" id="wage-oth" value="8" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 8">
-                    <label class="small text-muted fw-bold">Overtime Hourly Rate (કલાક દીઠ દર)</label>
-                    <input type="number" id="wage-otr" value="60" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 60">
+                    <label class="small text-muted fw-bold">${getCalcText("wage-adv-lbl")}</label>
+                    <input type="number" id="wage-adv" value="1000" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 1000">
+                    <label class="small text-muted fw-bold">${getCalcText("wage-oth-lbl")}</label>
+                    <input type="number" id="wage-oth" value="10" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 10">
+                    <label class="small text-muted fw-bold">${getCalcText("wage-otr-lbl")}</label>
+                    <input type="number" id="wage-otr" value="75" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 75">
                 `;
             } else if (currentEngine === 'tractor') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Rate Basis</label>
+                    <label class="small text-muted fw-bold">${getCalcText("trac-basis-lbl")}</label>
                     <select id="trac-basis" onchange="renderParchi()">
-                        <option value="hour">Hourly Basis (કલાક દીઠ ભાડું)</option>
-                        <option value="bigha">Vigha Basis (વીઘા દીઠ ભાડું)</option>
+                        <option value="hour" selected>Hourly (કલાક દીઠ / प्रति घंटा)</option>
+                        <option value="vigha">Vigha (વીઘા દીઠ / प्रति बीघा)</option>
                     </select>
-                    <label class="small text-muted fw-bold">Rental Rate (દર ₹)</label>
-                    <input type="number" id="trac-rate" value="600" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 600">
-                    <label class="small text-muted fw-bold">Total quantity (કલાકો અથવા વીઘા)</label>
-                    <input type="number" step="0.05" id="trac-qty" value="3.5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 3.5">
+                    <label class="small text-muted fw-bold">${getCalcText("trac-rate-lbl")}</label>
+                    <input type="number" id="trac-rate" value="500" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 500">
+                    <label class="small text-muted fw-bold">${getCalcText("trac-qty-lbl")}</label>
+                    <input type="number" id="trac-qty" value="4.5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 4.5">
                 `;
             } else if (currentEngine === 'fuel') {
                 inputsHTML = `
-                    <label class="small text-muted fw-bold">Total Trip Distance (કુલ KM)</label>
-                    <input type="number" id="fuel-dist" value="240" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 240">
-                    <label class="small text-muted fw-bold">Fuel Price Rate (ડીઝલ/પેટ્રોલ ₹/Ltr)</label>
+                    <label class="small text-muted fw-bold">${getCalcText("fuel-dist-lbl")}</label>
+                    <input type="number" id="fuel-dist" value="150" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 150">
+                    <label class="small text-muted fw-bold">${getCalcText("fuel-price-lbl")}</label>
                     <input type="number" step="0.1" id="fuel-price" value="96.5" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 96.5">
-                    <label class="small text-muted fw-bold">Mileage (ગાડી માઇલેજ km/Ltr)</label>
-                    <input type="number" step="0.1" id="fuel-mil" value="16.0" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 16">
+                    <label class="small text-muted fw-bold">${getCalcText("fuel-mil-lbl")}</label>
+                    <input type="number" step="0.1" id="fuel-mil" value="15" onfocus="trackFocus(this)" oninput="renderParchi()" placeholder="e.g. 15">
+                `;
+            } else if (currentEngine === 'crop_bag') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("crop-bags-lbl")}</label>
+                    <input type="number" id="crop-bags" value="50" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("crop-bag-wt-lbl")}</label>
+                    <input type="number" step="0.1" id="crop-bag-wt" value="40.0" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("crop-bardano-lbl")}</label>
+                    <input type="number" step="0.05" id="crop-bardano" value="0.50" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("crop-rate-lbl")}</label>
+                    <input type="number" id="crop-rate" value="1300" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("crop-rate-unit-lbl")}</label>
+                    <select id="crop-rate-unit" onchange="renderParchi()">
+                        <option value="mann" selected>Per Mann (પ્રતિ ૨૦ કિલો)</option>
+                        <option value="quintal">Per Quintal (પ્રતિ ૧૦૦ કિલો)</option>
+                        <option value="kg">Per kg (પ્રતિ કિલોગ્રામ)</option>
+                    </select>
+                `;
+            } else if (currentEngine === 'partnership') {
+                inputsHTML = `
+                    <label class="small text-muted fw-bold">${getCalcText("part-a-name-lbl")}</label>
+                    <input type="text" id="part-a-name" value="Partner A" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("part-a-inv-lbl")}</label>
+                    <input type="number" id="part-a-inv" value="50000" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("part-b-name-lbl")}</label>
+                    <input type="text" id="part-b-name" value="Partner B" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("part-b-inv-lbl")}</label>
+                    <input type="number" id="part-b-inv" value="30000" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("part-profit-lbl")}</label>
+                    <input type="number" id="part-profit" value="16000" onfocus="trackFocus(this)" oninput="renderParchi()">
+                    <label class="small text-muted fw-bold">${getCalcText("part-type-lbl")}</label>
+                    <select id="part-type" onchange="renderParchi()">
+                        <option value="profit" selected>Profit Division (નફો વહેંચણી)</option>
+                        <option value="loss">Loss Division (નુકસાન વહેંચણી)</option>
+                    </select>
                 `;
             }
 
             inputsHolder.innerHTML = inputsHTML;
-            
+
             // Focus first input box by default
             const firstInp = inputsHolder.querySelector('input');
             if (firstInp) trackFocus(firstInp);
-            
+
             renderParchi();
         }
-
         function renderParchi() {
             document.getElementById('lbl-shop').innerText = document.getElementById('slip-shop').value;
             document.getElementById('lbl-tag').innerText = document.getElementById('slip-tag').value;
@@ -953,7 +1972,288 @@
             let subtotal = 0;
             let finalVal = 0;
 
-            if (currentEngine === 'interest') {
+            if (currentEngine === 'trirashi_weight') {
+                const w1 = parseFloat(document.getElementById('trw-w1').value) || 0;
+                const u1 = document.getElementById('trw-u1').value;
+                const p1 = parseFloat(document.getElementById('trw-p1').value) || 0;
+                const w2 = parseFloat(document.getElementById('trw-w2').value) || 0;
+                const u2 = document.getElementById('trw-u2').value;
+
+                const getGrams = (w, u) => {
+                    if (u === 'g') return w;
+                    if (u === 'kg') return w * 1000;
+                    if (u === 'mann') return w * 20000;
+                    if (u === 'quintal') return w * 100000;
+                    return w;
+                };
+
+                const w1Grams = getGrams(w1, u1);
+                const w2Grams = getGrams(w2, u2);
+                const ratePerGram = w1Grams > 0 ? p1 / w1Grams : 0;
+                const p2 = w2Grams * ratePerGram;
+
+                subtotal = p1;
+                finalVal = p2;
+
+                addRow(tBody, getCalcText("given_weight"), w1 + ' ' + u1);
+                addRow(tBody, getCalcText("given_price"), '₹' + p1.toFixed(2));
+                if (u1 !== 'nos') {
+                    addRow(tBody, getCalcText("rate_per_kg"), '₹' + (ratePerGram * 1000).toFixed(2));
+                    addRow(tBody, getCalcText("rate_per_mann"), '₹' + (ratePerGram * 20000).toFixed(2));
+                } else {
+                    addRow(tBody, getCalcText("rate_per_unit"), '₹' + ratePerGram.toFixed(2));
+                }
+                addRow(tBody, getCalcText("target_weight"), w2 + ' ' + u2);
+            } else if (currentEngine === 'trirashi_liquid') {
+                const v1 = parseFloat(document.getElementById('trl-v1').value) || 0;
+                const u1 = document.getElementById('trl-u1').value;
+                const p1 = parseFloat(document.getElementById('trl-p1').value) || 0;
+                const v2 = parseFloat(document.getElementById('trl-v2').value) || 0;
+                const u2 = document.getElementById('trl-u2').value;
+
+                const getMl = (v, u) => {
+                    return u === 'ml' ? v : v * 1000;
+                };
+
+                const v1Ml = getMl(v1, u1);
+                const v2Ml = getMl(v2, u2);
+                const ratePerMl = v1Ml > 0 ? p1 / v1Ml : 0;
+                const p2 = v2Ml * ratePerMl;
+
+                subtotal = p1;
+                finalVal = p2;
+
+                addRow(tBody, getCalcText("given_volume"), v1 + ' ' + u1);
+                addRow(tBody, getCalcText("given_price"), '₹' + p1.toFixed(2));
+                addRow(tBody, getCalcText("rate_per_litre"), '₹' + (ratePerMl * 1000).toFixed(2));
+                addRow(tBody, getCalcText("target_volume"), v2 + ' ' + u2);
+            } else if (currentEngine === 'trirashi_general') {
+                const a = parseFloat(document.getElementById('trg-a').value) || 0;
+                const b = parseFloat(document.getElementById('trg-b').value) || 0;
+                const c = parseFloat(document.getElementById('trg-c').value) || 0;
+
+                const d = a > 0 ? (b * c) / a : 0;
+
+                subtotal = b;
+                finalVal = d;
+
+                addRow(tBody, getCalcText("if_qty_a"), a);
+                addRow(tBody, getCalcText("results_in_b"), b);
+                addRow(tBody, getCalcText("then_for_c"), c);
+                addRow(tBody, 'Ratio (B / A)', a > 0 ? (b / a).toFixed(4) : '0');
+            } else if (currentEngine === 'trirashi_work') {
+                const w1 = parseFloat(document.getElementById('trwk-w1').value) || 0;
+                const d1 = parseFloat(document.getElementById('trwk-d1').value) || 0;
+                const du = document.getElementById('trwk-du').value;
+                const type = document.getElementById('trwk-type').value;
+                const w2 = parseFloat(document.getElementById('trwk-w2').value) || 0;
+
+                let d2 = 0;
+                if (type === 'inverse') {
+                    d2 = w2 > 0 ? (w1 * d1) / w2 : 0;
+                } else {
+                    d2 = w1 > 0 ? (d1 * w2) / w1 : 0;
+                }
+
+                subtotal = d1;
+                finalVal = d2;
+
+                addRow(tBody, getCalcText("initial_count"), w1);
+                addRow(tBody, getCalcText("initial_work_time"), d1 + ' ' + du);
+                addRow(tBody, getCalcText("proportion_type"), type === 'inverse' ? 'Inverse (વ્યસ્ત પ્રમાણ)' : 'Direct (સમપ્રમાણ)');
+                addRow(tBody, getCalcText("target_count"), w2);
+            } else if (currentEngine === 'time_calc') {
+                const sh = parseInt(document.getElementById('time-sh').value) || 0;
+                const sm = parseInt(document.getElementById('time-sm').value) || 0;
+                const sap = document.getElementById('time-sap').value;
+                const eh = parseInt(document.getElementById('time-eh').value) || 0;
+                const em = parseInt(document.getElementById('time-em').value) || 0;
+                const eap = document.getElementById('time-eap').value;
+
+                const getMinutes = (h, m, ap) => {
+                    let hr = h % 12;
+                    if (ap === 'PM') hr += 12;
+                    return hr * 60 + m;
+                };
+
+                const startMins = getMinutes(sh, sm, sap);
+                const endMins = getMinutes(eh, em, eap);
+                let diff = endMins - startMins;
+                if (diff < 0) diff += 24 * 60;
+
+                const rawHrs = Math.floor(diff / 60);
+                const rawMins = diff % 60;
+
+                // Adjustments
+                const op = document.getElementById('time-op').value;
+                const oh = parseInt(document.getElementById('time-oh').value) || 0;
+                const om = parseInt(document.getElementById('time-om').value) || 0;
+
+                const offsetMins = oh * 60 + om;
+                let adjustedMins = diff;
+                if (offsetMins > 0) {
+                    adjustedMins = op === 'add' ? diff + offsetMins : diff - offsetMins;
+                    if (adjustedMins < 0) adjustedMins = 0;
+                }
+
+                subtotal = diff; // Raw minutes
+                finalVal = adjustedMins; // Adjusted minutes
+
+                addRow(tBody, getCalcText("start_time"), `${sh}:${String(sm).padStart(2,'0')} ${sap}`);
+                addRow(tBody, getCalcText("end_time"), `${eh}:${String(em).padStart(2,'0')} ${eap}`);
+                addRow(tBody, "Raw Duration (સમયગાળો)", `${rawHrs} Hours ${rawMins} Mins`);
+                if (offsetMins > 0) {
+                    addRow(tBody, "Adjustment Applied (બદલાવ)", `${op === 'add' ? '+' : '-'} ${oh} hrs ${om} mins`);
+                }
+            } else if (currentEngine === 'date_calc') {
+                const ds = new Date(document.getElementById('date-s').value);
+                const de = new Date(document.getElementById('date-e').value);
+
+                const timeDiff = de.getTime() - ds.getTime();
+                const dayDiff = Math.round(timeDiff / (1000 * 3600 * 24));
+
+                // Adjustments
+                const op = document.getElementById('date-op').value;
+                const od = parseInt(document.getElementById('date-od').value) || 0;
+                const ow = parseInt(document.getElementById('date-ow').value) || 0;
+                const om = parseInt(document.getElementById('date-om').value) || 0;
+
+                // Total adjustment in days (approx 30.417 days per month, 7 days per week)
+                const offsetDays = od + ow * 7 + Math.round(om * 30.417);
+                let finalDays = dayDiff;
+                if (offsetDays > 0) {
+                    finalDays = op === 'add' ? dayDiff + offsetDays : dayDiff - offsetDays;
+                }
+
+                subtotal = dayDiff; // Raw days
+                finalVal = finalDays; // Adjusted days
+
+                addRow(tBody, getCalcText("start_date"), ds.toLocaleDateString('en-GB'));
+                addRow(tBody, getCalcText("end_date"), de.toLocaleDateString('en-GB'));
+                addRow(tBody, "Raw Difference (દિવસો)", `${dayDiff} Days`);
+                
+                let offsetParts = [];
+                if (od > 0) offsetParts.push(`${od} days`);
+                if (ow > 0) offsetParts.push(`${ow} weeks`);
+                if (om > 0) offsetParts.push(`${om} months`);
+                
+                if (offsetParts.length > 0) {
+                    addRow(tBody, "Adjustment Applied", `${op === 'add' ? '+' : '-'} ${offsetParts.join(', ')}`);
+                }
+            } else if (currentEngine === 'conv_weight') {
+                const val = parseFloat(document.getElementById('convw-val').value) || 0;
+                const fromUnit = document.getElementById('convw-from').value;
+                const toUnit = document.getElementById('convw-to').value;
+
+                const getBaseGrams = (v, u) => {
+                    if (u === 'g') return v;
+                    if (u === 'kg') return v * 1000;
+                    if (u === 'mann') return v * 20000;
+                    if (u === 'quintal') return v * 100000;
+                    if (u === 'tonne') return v * 1000000;
+                    return v;
+                };
+
+                const grams = getBaseGrams(val, fromUnit);
+                let target = 0;
+                if (toUnit === 'g') target = grams;
+                else if (toUnit === 'kg') target = grams / 1000;
+                else if (toUnit === 'mann') target = grams / 20000;
+                else if (toUnit === 'quintal') target = grams / 100000;
+                else if (toUnit === 'tonne') target = grams / 1000000;
+
+                subtotal = val;
+                finalVal = target;
+
+                addRow(tBody, getCalcText("input_weight_value"), `${val} ${fromUnit}`);
+                addRow(tBody, getCalcText("grams_equivalence"), `${grams.toLocaleString()} g`);
+                addRow(tBody, getCalcText("kg_equivalence"), `${(grams / 1000).toLocaleString()} kg`);
+                addRow(tBody, getCalcText("converted_result"), `${target.toFixed(4)} ${toUnit}`);
+            } else if (currentEngine === 'conv_land') {
+                const val = parseFloat(document.getElementById('convl-val').value) || 0;
+                const fromUnit = document.getElementById('convl-from').value;
+                const toUnit = document.getElementById('convl-to').value;
+
+                const getBaseSqYd = (v, u) => {
+                    if (u === 'vigha') return v * 2400;
+                    if (u === 'acre') return v * 4840;
+                    if (u === 'guntha') return v * 121;
+                    if (u === 'sqyd') return v;
+                    if (u === 'sqm') return v * 1.19599;
+                    return v;
+                };
+
+                const sqyd = getBaseSqYd(val, fromUnit);
+                let target = 0;
+                if (toUnit === 'vigha') target = sqyd / 2400;
+                else if (toUnit === 'acre') target = sqyd / 4840;
+                else if (toUnit === 'guntha') target = sqyd / 121;
+                else if (toUnit === 'sqyd') target = sqyd;
+                else if (toUnit === 'sqm') target = sqyd / 1.19599;
+
+                subtotal = val;
+                finalVal = target;
+
+                addRow(tBody, getCalcText("input_land_area"), `${val} ${fromUnit}`);
+                addRow(tBody, getCalcText("vigha_equivalence"), `${(sqyd / 2400).toFixed(3)} Vigha`);
+                addRow(tBody, getCalcText("acre_equivalence"), `${(sqyd / 4840).toFixed(3)} Acre`);
+                addRow(tBody, getCalcText("sq_yards"), `${Math.round(sqyd).toLocaleString()} SqYd`);
+                addRow(tBody, getCalcText("converted_result"), `${target.toFixed(4)} ${toUnit}`);
+            } else if (currentEngine === 'conv_time') {
+                const val = parseFloat(document.getElementById('convt-val').value) || 0;
+                const fromUnit = document.getElementById('convt-from').value;
+                const toUnit = document.getElementById('convt-to').value;
+
+                const getBaseMins = (v, u) => {
+                    if (u === 'min') return v;
+                    if (u === 'hour') return v * 60;
+                    if (u === 'day') return v * 1440;
+                    if (u === 'week') return v * 10080;
+                    if (u === 'month') return v * 43800;
+                    if (u === 'year') return v * 525600;
+                    return v;
+                };
+
+                const mins = getBaseMins(val, fromUnit);
+                let target = 0;
+                if (toUnit === 'min') target = mins;
+                else if (toUnit === 'hour') target = mins / 60;
+                else if (toUnit === 'day') target = mins / 1440;
+                else if (toUnit === 'week') target = mins / 10080;
+                else if (toUnit === 'month') target = mins / 43800;
+                else if (toUnit === 'year') target = mins / 525600;
+
+                subtotal = val;
+                finalVal = target;
+
+                addRow(tBody, getCalcText("input_time_duration"), `${val} ${fromUnit}`);
+                addRow(tBody, getCalcText("days_equivalence"), `${(mins / 1440).toFixed(2)} Days`);
+                addRow(tBody, getCalcText("converted_result"), `${target.toFixed(4)} ${toUnit}`);
+            } else if (currentEngine === 'conv_liquid') {
+                const val = parseFloat(document.getElementById('convli-val').value) || 0;
+                const fromUnit = document.getElementById('convli-from').value;
+                const toUnit = document.getElementById('convli-to').value;
+
+                const getBaseMl = (v, u) => {
+                    if (u === 'ml') return v;
+                    if (u === 'Litre') return v * 1000;
+                    if (u === 'gallon') return v * 3785.41;
+                    return v;
+                };
+
+                const ml = getBaseMl(val, fromUnit);
+                let target = 0;
+                if (toUnit === 'ml') target = ml;
+                else if (toUnit === 'Litre') target = ml / 1000;
+                else if (toUnit === 'gallon') target = ml / 3785.41;
+
+                subtotal = val;
+                finalVal = target;
+
+                addRow(tBody, getCalcText("input_volume_value"), `${val} ${fromUnit}`);
+                addRow(tBody, getCalcText("litres_equivalence"), `${(ml / 1000).toFixed(3)} L`);
+                addRow(tBody, getCalcText("converted_result"), `${target.toFixed(4)} ${toUnit}`);
+            } else if (currentEngine === 'interest') {
                 const p = parseFloat(document.getElementById('int-p').value) || 0;
                 const r = parseFloat(document.getElementById('int-r').value) || 0;
                 const t = parseFloat(document.getElementById('int-t').value) || 0;
@@ -968,10 +2268,10 @@
                 subtotal = p;
                 finalVal = p + interest;
 
-                addRow(tBody, 'Principal Amount (મૂળ રકમ)', '₹' + p.toFixed(2));
-                addRow(tBody, 'Rate of Interest (વ્યાજ દર)', r.toFixed(2) + '% (' + type + ')');
-                addRow(tBody, 'Time Duration (સમય માસ)', t + ' Months');
-                addRow(tBody, 'Total Interest Earned (વ્યાજ)', '₹' + interest.toFixed(2));
+                addRow(tBody, getCalcText("principal"), '₹' + p.toFixed(2));
+                addRow(tBody, getCalcText("interest_rate"), r.toFixed(2) + '% (' + type + ')');
+                addRow(tBody, getCalcText("duration"), t + ' Months');
+                addRow(tBody, getCalcText("interest_earned"), '₹' + interest.toFixed(2));
             } else if (currentEngine === 'gst') {
                 const amt = parseFloat(document.getElementById('gst-amt').value) || 0;
                 const rate = parseFloat(document.getElementById('gst-rate').value) || 0;
@@ -988,134 +2288,110 @@
                     tax = amt - subtotal;
                 }
 
-                addRow(tBody, 'Base Amount (ટેક્સ વગર કિંમત)', '₹' + subtotal.toFixed(2));
-                addRow(tBody, 'GST Rate Percentage (ટેક્સ દર)', rate + '%');
-                addRow(tBody, 'CGST Tax Share (50%)', '₹' + (tax / 2).toFixed(2));
-                addRow(tBody, 'SGST Tax Share (50%)', '₹' + (tax / 2).toFixed(2));
-                addRow(tBody, 'Total GST Tax Amount', '₹' + tax.toFixed(2));
+                addRow(tBody, getCalcText("base_amount"), '₹' + subtotal.toFixed(2));
+                addRow(tBody, getCalcText("gst-rate-lbl"), rate + '%');
+                addRow(tBody, getCalcText("cgst"), '₹' + (tax / 2).toFixed(2));
+                addRow(tBody, getCalcText("sgst"), '₹' + (tax / 2).toFixed(2));
+                addRow(tBody, getCalcText("total_gst"), '₹' + tax.toFixed(2));
             } else if (currentEngine === 'emi') {
                 const p = parseFloat(document.getElementById('emi-p').value) || 0;
                 const r = parseFloat(document.getElementById('emi-r').value) || 0;
                 const t = parseFloat(document.getElementById('emi-t').value) || 0;
 
-                const monthlyRate = (r / 100) / 12;
+                const monthlyRate = (r / 12) / 100;
                 const months = t * 12;
-                let emi = 0;
+                let emiVal = 0;
                 if (monthlyRate > 0) {
-                    emi = (p * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+                    emiVal = (p * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
                 } else {
-                    emi = p / months;
+                    emiVal = p / months;
                 }
-                const totalRepay = emi * months;
-                const totalInterest = totalRepay - p;
+                const totalPayable = emiVal * months;
+                const totalInterest = totalPayable - p;
 
                 subtotal = p;
-                finalVal = totalRepay;
+                finalVal = totalPayable;
 
-                addRow(tBody, 'Principal Amount (લોન મુદલ)', '₹' + p.toFixed(2));
-                addRow(tBody, 'Tenure Duration (સમયગાળો)', t + ' Years (' + months + ' Months)');
-                addRow(tBody, 'Monthly EMI Pay (માસિક હપ્તો)', '₹' + emi.toFixed(2));
-                addRow(tBody, 'Total Bank Interest (વ્યાજ ચાર્જ)', '₹' + totalInterest.toFixed(2));
+                addRow(tBody, getCalcText("monthly_emi"), '₹' + emiVal.toFixed(2));
+                addRow(tBody, getCalcText("total_interest"), '₹' + totalInterest.toFixed(2));
             } else if (currentEngine === 'margin') {
-                const cost = parseFloat(document.getElementById('prof-cost').value) || 0;
-                const sell = parseFloat(document.getElementById('prof-sell').value) || 0;
+                const cp = parseFloat(document.getElementById('prof-cost').value) || 0;
+                const sp = parseFloat(document.getElementById('prof-sell').value) || 0;
 
-                const profit = sell - cost;
-                const margin = sell > 0 ? (profit / sell) * 100 : 0;
-                const markup = cost > 0 ? (profit / cost) * 100 : 0;
+                const profit = sp - cp;
+                const margin = sp > 0 ? (profit / sp) * 100 : 0;
+                const markup = cp > 0 ? (profit / cp) * 100 : 0;
 
-                subtotal = cost;
+                subtotal = cp;
                 finalVal = profit;
 
-                addRow(tBody, 'Cost Purchase Price (ખરીદી કિંમત)', '₹' + cost.toFixed(2));
-                addRow(tBody, 'Selling Price (વેચાણ કિંમત)', '₹' + sell.toFixed(2));
-                addRow(tBody, 'Net Profit Margin Percentage', margin.toFixed(2) + '%');
-                addRow(tBody, 'Markup Rate Percentage', markup.toFixed(2) + '%');
+                addRow(tBody, getCalcText("cost_price"), '₹' + cp.toFixed(2));
+                addRow(tBody, getCalcText("selling_price"), '₹' + sp.toFixed(2));
+                addRow(tBody, getCalcText("gross_margin"), margin.toFixed(2) + '%');
+                addRow(tBody, getCalcText("markup"), markup.toFixed(2) + '%');
             } else if (currentEngine === 'discount') {
-                const price = parseFloat(document.getElementById('disc-price').value) || 0;
+                const op = parseFloat(document.getElementById('disc-price').value) || 0;
                 const rate = parseFloat(document.getElementById('disc-rate').value) || 0;
 
-                const saved = price * (rate / 100);
-                const final = price - saved;
+                const saved = op * (rate / 100);
+                const finalPrice = op - saved;
 
                 subtotal = saved;
-                finalVal = final;
+                finalVal = finalPrice;
 
-                addRow(tBody, 'Original Price (મૂળ કિંમત)', '₹' + price.toFixed(2));
-                addRow(tBody, 'Discount Percent (વળતર દર)', rate + '%');
-                addRow(tBody, 'Total Saved Money (કુલ બચત)', '₹' + saved.toFixed(2));
+                addRow(tBody, getCalcText("original_price"), '₹' + op.toFixed(2));
+                addRow(tBody, getCalcText("discount_percent"), rate + '%');
+                addRow(tBody, getCalcText("saved_amount"), '₹' + saved.toFixed(2));
             } else if (currentEngine === 'compare') {
-                const pA = parseFloat(document.getElementById('comp-pa').value) || 0;
-                const qA = parseFloat(document.getElementById('comp-qa').value) || 0;
-                const pB = parseFloat(document.getElementById('comp-pb').value) || 0;
-                const qB = parseFloat(document.getElementById('comp-qb').value) || 0;
+                const pa = parseFloat(document.getElementById('comp-pa').value) || 0;
+                const qa = parseFloat(document.getElementById('comp-qa').value) || 0;
+                const pb = parseFloat(document.getElementById('comp-pb').value) || 0;
+                const qb = parseFloat(document.getElementById('comp-qb').value) || 0;
 
-                const unitA = qA > 0 ? pA / qA : 0;
-                const unitB = qB > 0 ? pB / qB : 0;
+                const rateA = qa > 0 ? pa / qa : 0;
+                const rateB = qb > 0 ? pb / qb : 0;
 
-                let verdict = '';
-                if (unitA < unitB) {
-                    verdict = 'Pack A is cheaper / વધુ ફાયદાકારક!';
-                } else if (unitB < unitA) {
-                    verdict = 'Pack B is cheaper / વધુ ફાયદાકારક!';
-                } else {
-                    verdict = 'Identical rates!';
+                subtotal = rateA;
+                finalVal = rateB;
+
+                addRow(tBody, getCalcText("pack_a_rate"), '₹' + rateA.toFixed(4) + ' / Unit');
+                addRow(tBody, getCalcText("pack_b_rate"), '₹' + rateB.toFixed(4) + ' / Unit');
+                let recommendation = "Pack rates are equal.";
+                if (rateA < rateB && rateA > 0) {
+                    recommendation = "📦 Pack A is more cost-effective!";
+                } else if (rateB < rateA && rateB > 0) {
+                    recommendation = "📦 Pack B is more cost-effective!";
                 }
-
-                subtotal = unitA;
-                finalVal = unitB;
-
-                addRow(tBody, 'Pack A Rate (પ્રતિ ગ્રામ/નંગ)', '₹' + unitA.toFixed(4));
-                addRow(tBody, 'Pack B Rate (પ્રતિ ગ્રામ/નંગ)', '₹' + unitB.toFixed(4));
-                addRow(tBody, 'Verdict Decision (તારણ)', verdict);
+                addRow(tBody, 'Best Value Choice', recommendation);
             } else if (currentEngine === 'milk') {
                 const qty = parseFloat(document.getElementById('milk-qty').value) || 0;
                 const fat = parseFloat(document.getElementById('milk-fat').value) || 0;
-                const rateFat = parseFloat(document.getElementById('milk-rfat').value) || 0;
+                const rate = parseFloat(document.getElementById('milk-rfat').value) || 0;
 
-                const ratePerLiter = fat * rateFat;
-                const totalPayout = qty * ratePerLiter;
+                const ratePerLtr = fat * rate;
+                const total = qty * ratePerLtr;
 
-                subtotal = ratePerLiter;
-                finalVal = totalPayout;
+                subtotal = ratePerLtr;
+                finalVal = total;
 
-                addRow(tBody, 'Milk Volume (કુલ દૂધ લિટર)', qty.toFixed(2) + ' Liters');
-                addRow(tBody, 'FAT Percentage (ફેટ દર)', fat.toFixed(1) + '%');
-                addRow(tBody, 'Rate Per 1 FAT', '₹' + rateFat.toFixed(2));
-                addRow(tBody, 'Rate Per Liter (લિટર ભાવ)', '₹' + ratePerLiter.toFixed(2));
-            } else if (currentEngine === 'land') {
-                const val = parseFloat(document.getElementById('land-val').value) || 0;
-                const unit = document.getElementById('land-unit').value;
-
-                let sqyd = 0;
-                if (unit === 'vigha') sqyd = val * 2400;
-                else if (unit === 'acre') sqyd = val * 4840;
-                else if (unit === 'guntha') sqyd = val * 121;
-                else sqyd = val;
-
-                subtotal = val;
-                finalVal = sqyd;
-
-                addRow(tBody, 'Entered Land Quantity', val + ' (' + unit + ')');
-                addRow(tBody, 'Vigha Conversion (વીઘા)', (sqyd / 2400).toFixed(3));
-                addRow(tBody, 'Acre Conversion (એકર)', (sqyd / 4840).toFixed(3));
-                addRow(tBody, 'Guntha Conversion (ગુંઠા)', (sqyd / 121).toFixed(3));
-                addRow(tBody, 'Total Square Yards (વાર)', Math.round(sqyd) + ' SqYds');
+                addRow(tBody, getCalcText("milk_qty"), qty.toFixed(2) + ' Liters');
+                addRow(tBody, getCalcText("milk_fat"), fat.toFixed(1) + '%');
+                addRow(tBody, getCalcText("fat_rate"), '₹' + rate.toFixed(2));
+                addRow(tBody, getCalcText("rate_per_liter"), '₹' + ratePerLtr.toFixed(2) + ' / L');
             } else if (currentEngine === 'pisaai') {
                 const wt = parseFloat(document.getElementById('pis-wt').value) || 0;
                 const rate = parseFloat(document.getElementById('pis-rate').value) || 0;
                 const katar = parseFloat(document.getElementById('pis-katar').value) || 0;
 
                 const cost = wt * rate;
-                const totalKatar = (wt * katar) / 1000;
+                const katarDeduct = wt * (katar / 1000);
 
                 subtotal = cost;
                 finalVal = cost;
 
-                addRow(tBody, 'Grain Weight (અનાજ વજન)', wt + ' kg');
-                addRow(tBody, 'Chakki Grinding Rate (પીસાઈ દર)', '₹' + rate.toFixed(2) + '/kg');
-                addRow(tBody, 'Katar Percentage Rate (કાતર દર)', katar + ' g/kg');
-                addRow(tBody, 'Total Katar Deducted (કટ કાતર)', totalKatar.toFixed(3) + ' kg');
+                addRow(tBody, 'Grain Net weight', wt.toFixed(2) + ' kg');
+                addRow(tBody, getCalcText("grinding_cost"), '₹' + cost.toFixed(2));
+                addRow(tBody, getCalcText("total_katar"), (katarDeduct * 1000).toFixed(0) + ' grams');
             } else if (currentEngine === 'wage') {
                 const rate = parseFloat(document.getElementById('wage-rate').value) || 0;
                 const days = parseFloat(document.getElementById('wage-days').value) || 0;
@@ -1144,9 +2420,9 @@
                 subtotal = rate;
                 finalVal = total;
 
-                addRow(tBody, 'Rental Basis Type (ભાડા પ્રકાર)', basis === 'hour' ? 'Hourly (કલાક મુજબ)' : 'Vigha (વીઘા મુજબ)');
-                addRow(tBody, 'Rate Price Standard (ભાડા દર)', '₹' + rate.toFixed(2));
-                addRow(tBody, 'Rental Quantity Worked (સમય/નંગ)', qty.toFixed(2));
+                addRow(tBody, getCalcText("rental_basis"), basis === 'hour' ? 'Hourly' : 'Vigha');
+                addRow(tBody, getCalcText("rental_rate"), '₹' + rate.toFixed(2));
+                addRow(tBody, getCalcText("rental_qty"), qty.toFixed(2));
             } else if (currentEngine === 'fuel') {
                 const dist = parseFloat(document.getElementById('fuel-dist').value) || 0;
                 const price = parseFloat(document.getElementById('fuel-price').value) || 0;
@@ -1158,16 +2434,191 @@
                 subtotal = fuelQty;
                 finalVal = cost;
 
-                addRow(tBody, 'Trip Distance Run (કુલ રન)', dist + ' KM');
-                addRow(tBody, 'Fuel Price Rate (ઈંધણ દર)', '₹' + price.toFixed(2) + '/Liter');
-                addRow(tBody, 'Vehicle Mileage km/Ltr', mil.toFixed(1) + ' km/L');
-                addRow(tBody, 'Required Fuel volume (જરૂરી ઇંધણ)', fuelQty.toFixed(2) + ' Liters');
+                addRow(tBody, getCalcText("trip_distance"), dist + ' KM');
+                addRow(tBody, getCalcText("fuel_rate"), '₹' + price.toFixed(2) + '/Liter');
+                addRow(tBody, getCalcText("mileage"), mil.toFixed(1) + ' km/L');
+                addRow(tBody, getCalcText("required_fuel"), fuelQty.toFixed(2) + ' Liters');
+            } else if (currentEngine === 'crop_bag') {
+                const bags = parseFloat(document.getElementById('crop-bags').value) || 0;
+                const wt = parseFloat(document.getElementById('crop-bag-wt').value) || 0;
+                const bardano = parseFloat(document.getElementById('crop-bardano').value) || 0;
+                const rate = parseFloat(document.getElementById('crop-rate').value) || 0;
+                const unit = document.getElementById('crop-rate-unit').value;
+
+                const gross = bags * wt;
+                const tare = bags * bardano;
+                const net = gross - tare;
+
+                let payout = 0;
+                if (unit === 'mann') {
+                    payout = (net / 20) * rate;
+                } else if (unit === 'quintal') {
+                    payout = (net / 100) * rate;
+                } else {
+                    payout = net * rate;
+                }
+
+                subtotal = gross;
+                finalVal = payout;
+
+                addRow(tBody, getCalcText("crop-bags-lbl"), bags);
+                addRow(tBody, "Gross Weight (કુલ વજન)", gross.toFixed(2) + " kg");
+                addRow(tBody, "Tare Weight (બારદાન કટ)", tare.toFixed(2) + " kg");
+                addRow(tBody, getCalcText("net_weight"), net.toFixed(2) + " kg (" + (net/20).toFixed(2) + " Mann)");
+                addRow(tBody, "Price Rate (ભાવ)", "₹" + rate.toFixed(2) + " / " + unit);
+            } else if (currentEngine === 'partnership') {
+                const nameA = document.getElementById('part-a-name').value || "Partner A";
+                const invA = parseFloat(document.getElementById('part-a-inv').value) || 0;
+                const nameB = document.getElementById('part-b-name').value || "Partner B";
+                const invB = parseFloat(document.getElementById('part-b-inv').value) || 0;
+                const profit = parseFloat(document.getElementById('part-profit').value) || 0;
+                const type = document.getElementById('part-type').value;
+
+                const totalInv = invA + invB;
+                const ratioA = totalInv > 0 ? (invA / totalInv) : 0;
+                const ratioB = totalInv > 0 ? (invB / totalInv) : 0;
+
+                const shareA = ratioA * profit;
+                const shareB = ratioB * profit;
+
+                subtotal = totalInv;
+                finalVal = profit;
+
+                addRow(tBody, nameA + " Investment", "₹" + invA.toLocaleString());
+                addRow(tBody, nameB + " Investment", "₹" + invB.toLocaleString());
+                addRow(tBody, getCalcText("total_partnership_investment"), "₹" + totalInv.toLocaleString());
+                addRow(tBody, nameA + " Ratio", (ratioA * 100).toFixed(2) + "%");
+                addRow(tBody, nameB + " Ratio", (ratioB * 100).toFixed(2) + "%");
+                addRow(tBody, nameA + " Share", "₹" + shareA.toFixed(2));
+                addRow(tBody, nameB + " Share", "₹" + shareB.toFixed(2));
             }
 
-            document.getElementById('lbl-subtotal').innerText = isNaN(subtotal) || typeof subtotal === 'string' ? '-' : '₹' + subtotal.toFixed(2);
-            document.getElementById('lbl-final').innerText = isNaN(finalVal) || typeof finalVal === 'string' ? '-' : '₹' + finalVal.toFixed(2);
-        }
+            let subtotalTitle = "Subtotal Sum";
+            let finalTitle = "NET FINAL VALUE";
+            let subtotalText = isNaN(subtotal) || typeof subtotal === 'string' ? '-' : '₹' + subtotal.toFixed(2);
+            let finalText = isNaN(finalVal) || typeof finalVal === 'string' ? '-' : '₹' + finalVal.toFixed(2);
 
+            if (currentEngine === 'trirashi_weight') {
+                const u2 = document.getElementById('trw-u2').value;
+                subtotalTitle = getCalcText("given_price");
+                finalTitle = `${getCalcText("target_price")} (${u2})`;
+            } else if (currentEngine === 'trirashi_liquid') {
+                const u2 = document.getElementById('trl-u2').value;
+                subtotalTitle = getCalcText("given_price");
+                finalTitle = `${getCalcText("target_price")} (${u2})`;
+            } else if (currentEngine === 'trirashi_general') {
+                subtotalTitle = getCalcText("results_in_b");
+                subtotalText = isNaN(subtotal) ? '-' : subtotal.toFixed(2);
+                finalTitle = getCalcText("calculated_value_d");
+                finalText = isNaN(finalVal) ? '-' : finalVal.toFixed(4);
+            } else if (currentEngine === 'trirashi_work') {
+                const du = document.getElementById('trwk-du').value;
+                subtotalTitle = getCalcText("initial_work_time");
+                subtotalText = isNaN(subtotal) ? '-' : subtotal.toFixed(2) + ' ' + du;
+                finalTitle = getCalcText("new_target_duration");
+                finalText = isNaN(finalVal) ? '-' : finalVal.toFixed(2) + ' ' + du;
+            } else if (currentEngine === 'time_calc') {
+                const rawHrs = Math.floor(subtotal / 60);
+                const rawMins = subtotal % 60;
+                subtotalTitle = "Raw Total Duration";
+                subtotalText = `${rawHrs} hrs ${rawMins} mins`;
+                
+                const finalHrs = Math.floor(finalVal / 60);
+                const finalMins = finalVal % 60;
+                finalTitle = "NET TOTAL TIME";
+                finalText = `${finalHrs} hrs ${finalMins} mins`;
+            } else if (currentEngine === 'date_calc') {
+                subtotalTitle = "Raw Total Days";
+                subtotalText = `${subtotal} Days`;
+                finalTitle = "NET FINAL DAYS";
+                finalText = `${finalVal} Days`;
+            } else if (currentEngine === 'conv_weight') {
+                const fromUnit = document.getElementById('convw-from').value;
+                const toUnit = document.getElementById('convw-to').value;
+                subtotalTitle = `Source Weight`;
+                subtotalText = `${subtotal} ${fromUnit}`;
+                finalTitle = `CONVERTED RESULT`;
+                finalText = `${finalVal.toFixed(4)} ${toUnit}`;
+            } else if (currentEngine === 'conv_land') {
+                const fromUnit = document.getElementById('convl-from').value;
+                const toUnit = document.getElementById('convl-to').value;
+                subtotalTitle = `Source Land Area`;
+                subtotalText = `${subtotal} ${fromUnit}`;
+                finalTitle = `CONVERTED RESULT`;
+                finalText = `${finalVal.toFixed(4)} ${toUnit}`;
+            } else if (currentEngine === 'conv_time') {
+                const fromUnit = document.getElementById('convt-from').value;
+                const toUnit = document.getElementById('convt-to').value;
+                subtotalTitle = `Source Time Unit`;
+                subtotalText = `${subtotal} ${fromUnit}`;
+                finalTitle = `CONVERTED RESULT`;
+                finalText = `${finalVal.toFixed(4)} ${toUnit}`;
+            } else if (currentEngine === 'conv_liquid') {
+                const fromUnit = document.getElementById('convli-from').value;
+                const toUnit = document.getElementById('convli-to').value;
+                subtotalTitle = `Source Volume`;
+                subtotalText = `${subtotal} ${fromUnit}`;
+                finalTitle = `CONVERTED RESULT`;
+                finalText = `${finalVal.toFixed(4)} ${toUnit}`;
+            } else if (currentEngine === 'interest') {
+                subtotalTitle = getCalcText("principal");
+                finalTitle = getCalcText("total_payable");
+            } else if (currentEngine === 'gst') {
+                subtotalTitle = getCalcText("base_amount");
+                finalTitle = getCalcText("total_amount");
+            } else if (currentEngine === 'emi') {
+                subtotalTitle = getCalcText("principal");
+                finalTitle = getCalcText("total_emi_payout");
+            } else if (currentEngine === 'margin') {
+                subtotalTitle = getCalcText("cost_price");
+                finalTitle = getCalcText("net_profit");
+            } else if (currentEngine === 'discount') {
+                subtotalTitle = getCalcText("saved_amount");
+                finalTitle = getCalcText("discount_net_payable");
+            } else if (currentEngine === 'milk') {
+                subtotalTitle = getCalcText("rate_per_liter");
+                finalTitle = getCalcText("total_milk_payout");
+            } else if (currentEngine === 'pisaai') {
+                subtotalTitle = getCalcText("grinding_cost");
+                finalTitle = "NET PAYABLE";
+            } else if (currentEngine === 'wage') {
+                subtotalTitle = getCalcText("gross_salary");
+                finalTitle = getCalcText("net_payable");
+            } else if (currentEngine === 'tractor') {
+                subtotalTitle = getCalcText("rental_rate");
+                finalTitle = getCalcText("total_rental_payable");
+            } else if (currentEngine === 'fuel') {
+                subtotalTitle = getCalcText("required_fuel");
+                subtotalText = isNaN(subtotal) ? '-' : subtotal.toFixed(2) + ' Liters';
+                finalTitle = getCalcText("total_trip_fuel_cost");
+            } else if (currentEngine === 'crop_bag') {
+                const unit = document.getElementById('crop-rate-unit').value;
+                subtotalTitle = "Gross Weight";
+                subtotalText = `${subtotal.toFixed(1)} kg`;
+                finalTitle = getCalcText("total_crop_payout");
+            } else if (currentEngine === 'partnership') {
+                const nameA = document.getElementById('part-a-name').value || "Partner A";
+                const nameB = document.getElementById('part-b-name').value || "Partner B";
+                const type = document.getElementById('part-type').value;
+                const invA = parseFloat(document.getElementById('part-a-inv').value) || 0;
+                const invB = parseFloat(document.getElementById('part-b-inv').value) || 0;
+                const profit = parseFloat(document.getElementById('part-profit').value) || 0;
+                const totalInv = invA + invB;
+                const ratioA = totalInv > 0 ? (invA / totalInv) : 0;
+                const ratioB = totalInv > 0 ? (invB / totalInv) : 0;
+                
+                subtotalTitle = "Total Capital";
+                subtotalText = `₹${subtotal.toLocaleString()}`;
+                
+                finalTitle = type === 'profit' ? "NET PROFIT SHARE" : "NET LOSS SHARE";
+                finalText = `${nameA}: ₹${(ratioA * profit).toFixed(0)} | ${nameB}: ₹${(ratioB * profit).toFixed(0)}`;
+            }
+
+            document.getElementById('lbl-subtotal-title').innerText = subtotalTitle;
+            document.getElementById('lbl-subtotal').innerText = subtotalText;
+            document.getElementById('lbl-final-title').innerText = finalTitle;
+            document.getElementById('lbl-final').innerText = finalText;
+        }
         function addRow(tBody, title, value) {
             const tr = document.createElement('tr');
             tr.innerHTML = `<td>${title}</td><td>${value}</td>`;
@@ -1202,7 +2653,7 @@
             showToast('Generating Calculation Slip PNG...');
             html2canvas(target, {
                 backgroundColor: '#fffdf5',
-                scale: 2, 
+                scale: 2,
                 logging: false,
                 useCORS: true
             }).then(canvas => {
