@@ -75,7 +75,9 @@ const i18nData = {
         creator_role: "Creator of Digital Tools Hub",
         creator_bio: "Empowering small businesses, shopkeepers, and creators across India with 100% free, powerful, and easy-to-use digital tools.",
         btn_whatsapp_creator: "Chat on WhatsApp",
-        btn_call_creator: "Direct Call"
+        btn_call_creator: "Direct Call",
+        calc_title: "Business & Agriculture Calculator",
+        calendar_title: "Daily Calendar & Planner"
     },
     gu: {
         suite_title: "ડિજિટલ ટુલ્સ હબ",
@@ -153,7 +155,9 @@ const i18nData = {
         creator_role: "સ્થાપક - ડિજિટલ ટુલ્સ હબ",
         creator_bio: "નાના વ્યવસાયો અને દુકાનદારો માટે 100% મફત અને સરળ ડિજિટલ બિઝનેસ સાધનો બનાવવાનું લક્ષ્ય.",
         btn_whatsapp_creator: "વોટ્સએપ ચેટ કરો",
-        btn_call_creator: "ડાયરેક્ટ કોલ કરો"
+        btn_call_creator: "ડાયરેક્ટ કોલ કરો",
+        calc_title: "વેપાર અને ખેતીવાડી કેલ્ક્યુલેટર",
+        calendar_title: "દૈનિક કેલેન્ડર અને પંચાંગ"
     },
     hi: {
         suite_title: "डिजिटल टूल्स हब",
@@ -231,7 +235,9 @@ const i18nData = {
         creator_role: "संस्थापक - डिजिटल टूल्स हब",
         creator_bio: "छोटे व्यवसायों और दुकानदारों के लिए 100% मुफ्त, आसान और शक्तिशाली डिजिटल टूल्स बनाने का संकल्प।",
         btn_whatsapp_creator: "व्हाट्सएप पर चैट करें",
-        btn_call_creator: "डायरेक्ट कॉल करें"
+        btn_call_creator: "डायरेक्ट कॉल करें",
+        calc_title: "व्यापार और कृषि कैलकुलेटर",
+        calendar_title: "दैनिक कैलेंडर और पंचांग"
     }
 };
 
@@ -431,4 +437,15 @@ function setLanguage(lang) {
             b.classList.remove('active');
         }
     });
+
+    // 4. Dynamically update tab title based on current tool name
+    const toolNameEl = document.querySelector('.header-tool-name');
+    if (toolNameEl) {
+        const toolKey = toolNameEl.getAttribute('data-i18n');
+        if (i18nData[lang] && i18nData[lang][toolKey]) {
+            const suiteText = i18nData[lang]['suite_title'] || "Digital Tools Hub";
+            const toolText = i18nData[lang][toolKey];
+            document.title = `${toolText} - ${suiteText}`;
+        }
+    }
 }
