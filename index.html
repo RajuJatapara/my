@@ -16,7 +16,7 @@
     <!-- FontAwesome 6.4.2 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- i18n Translation Engine -->
-    <script src="i18n.js?v=1.3"></script>
+    <script src="i18n.js?v=2.0"></script>
 
     <style>
         :root {
@@ -774,12 +774,13 @@
             </div>
             <div class="theme-btn" onclick="cycleTheme()"><i class="fas fa-moon" id="theme-icon"></i> <span
                     id="theme-text">Dark</span></div>
-            <a href="https://api.whatsapp.com/send?text=%F0%9F%9A%80%20Create%20Free%20Banners%2C%20Digital%20Cards%2C%20Parchi%2C%20Rate%20Board%20%26%20Salary%20Slips%20in%20Seconds%20with%20Raju%20Crafter%20Studio%20https%3A%2F%2Frajujatapara.github.io%2Fmy%2F"
-                target="_blank" class="btn-share-wa">
+            <a href="#" onclick="shareIndexPage(event)" class="btn-share-wa">
                 <i class="fab fa-whatsapp"></i> Share App
             </a>
         </div>
     </div>
+    
+
     <!-- LIVE RIGHT-TO-LEFT TOOL MARQUEE TICKER BAR -->
     <div class="live-ticker-wrap">
         <div class="live-ticker-track">
@@ -795,7 +796,7 @@
             <a href="festival.html" class="ticker-item"><i class="fas fa-sun" style="color:#f43f5e"></i> <span>🎉 5.
                     Festival Wishes & Suvichar</span></a>
             <a href="parchi.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>🌾 6.
-                    Village Pisaai & Dairy Parchi</span></a>
+                    Services & Parchi Receipts</span></a>
             <a href="kankotri.html" class="ticker-item"><i class="fas fa-envelope-open-text" style="color:#f59e0b"></i>
                 <span>💌 7. Wedding Kankotri</span></a>
             <a href="rateboard.html" class="ticker-item"><i class="fas fa-wheat-awn" style="color:#f59e0b"></i> <span>📊
@@ -837,7 +838,7 @@
             <a href="festival.html" class="ticker-item"><i class="fas fa-sun" style="color:#f43f5e"></i> <span>🎉 5.
                     Festival Wishes & Suvichar</span></a>
             <a href="parchi.html" class="ticker-item"><i class="fas fa-receipt" style="color:#10b981"></i> <span>🌾 6.
-                    Village Pisaai & Dairy Parchi</span></a>
+                    Services & Parchi Receipts</span></a>
             <a href="kankotri.html" class="ticker-item"><i class="fas fa-envelope-open-text" style="color:#f59e0b"></i>
                 <span>💌 7. Wedding Kankotri</span></a>
             <a href="rateboard.html" class="ticker-item"><i class="fas fa-wheat-awn" style="color:#f59e0b"></i> <span>📊
@@ -907,7 +908,7 @@
         <!-- CATEGORY PILLS -->
         <div class="cat-pills">
             <div class="pill-btn active" onclick="filterCat('all', this)" data-i18n="cat_all">All Tools (19)</div>
-            <div class="pill-btn" onclick="filterCat('village', this)"><i class="fas fa-wheat-awn"></i> Village Tools
+            <div class="pill-btn" onclick="filterCat('village', this)"><i class="fas fa-cogs"></i> Daily Services
             </div>
             <div class="pill-btn" onclick="filterCat('billing', this)" data-i18n="cat_billing">Invoice & Billing</div>
             <div class="pill-btn" onclick="filterCat('business', this)" data-i18n="cat_business">Cards & Business</div>
@@ -941,6 +942,7 @@
                     <div class="icon-box" style="color:#a855f7"><i class="fas fa-address-card"></i></div>
                     <div class="btn-star" onclick="toggleStar('tool-2', event)"><i class="fas fa-star"></i></div>
                 </div>
+                <div class="tool-title" data-i18n="badge_business" style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:10px; background:rgba(168, 85, 247, 0.2); color:#a855f7; text-transform:uppercase; margin-bottom:8px; width:max-content;">Business</div>
                 <div class="tool-title" data-i18n="t2_title">Digital vCard Crafter</div>
                 <div class="tool-desc" data-i18n="t2_desc">Create interactive, mobile-friendly digital business cards
                     with Click-to-Call, WhatsApp link, Google Map location, and VCF download.</div>
@@ -960,6 +962,7 @@
                     <div class="icon-box" style="color:#ec4899"><i class="fas fa-file-invoice-dollar"></i></div>
                     <div class="btn-star" onclick="toggleStar('tool-3', event)"><i class="fas fa-star"></i></div>
                 </div>
+                <div class="tool-title" data-i18n="badge_billing" style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:10px; background:rgba(56, 189, 248, 0.2); color:#38bdf8; text-transform:uppercase; margin-bottom:8px; width:max-content;">Billing</div>
                 <div class="tool-title" data-i18n="t3_title">GST Invoice & Estimate Maker</div>
                 <div class="tool-desc" data-i18n="t3_desc">Generate professional price quotes and PDF bills on mobile in
                     1 minute to share directly with clients on WhatsApp.</div>
@@ -1036,7 +1039,8 @@
                     <div class="icon-box" style="color:#10b981"><i class="fas fa-receipt"></i></div>
                     <div class="btn-star" onclick="toggleStar('tool-15', event)"><i class="fas fa-star"></i></div>
                 </div>
-                <div class="tool-title" data-i18n="t15_title">Village Pisaai, Dairy & Service Parchi Crafter</div>
+                <div class="tool-title" data-i18n="badge_services" style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:10px; background:rgba(16, 185, 129, 0.2); color:#10b981; text-transform:uppercase; margin-bottom:8px; width:max-content;">Services</div>
+                <div class="tool-title" data-i18n="t15_title">Local Services & Daily Trade Parchi Crafter</div>
                 <div class="tool-desc" data-i18n="t15_desc">Create quick Atta Chakki pisaai receipts, Milk collection
                     slips, Tractor rent slips, and repair parchis with 1-click WhatsApp send and A4 print.</div>
                 <a href="parchi.html" class="card-btn" style="background:linear-gradient(135deg, #10b981, #059669)"
@@ -1074,7 +1078,8 @@
                     <div class="icon-box" style="color:#f59e0b"><i class="fas fa-wheat-awn"></i></div>
                     <div class="btn-star" onclick="toggleStar('tool-14', event)"><i class="fas fa-star"></i></div>
                 </div>
-                <div class="tool-title" data-i18n="t14_title">Daily Mandi & Village Shop Rate Board Crafter</div>
+                <div class="tool-title" data-i18n="badge_services" style="display:inline-block; font-size:10px; font-weight:800; padding:2px 8px; border-radius:10px; background:rgba(16, 185, 129, 0.2); color:#10b981; text-transform:uppercase; margin-bottom:8px; width:max-content;">Services</div>
+                <div class="tool-title" data-i18n="t14_title">Daily Mandi & Local Shop Rate Board</div>
                 <div class="tool-desc" data-i18n="t14_desc">Create daily Mandi crop rates, Milk Dairy fat charts, Atta
                     Chakki grinding rates, and Kirana price list banners for WhatsApp status.</div>
                 <a href="rateboard.html" class="card-btn" style="background:linear-gradient(135deg, #f59e0b, #d97706)"
