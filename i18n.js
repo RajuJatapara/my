@@ -1,4 +1,4 @@
-window.APP_SHARE_DOMAIN = "https://digitaltoolshub.com";
+window.APP_SHARE_DOMAIN = "https://rajujatapara.github.io/my/";
 
 const i18nData = {
     en: {
@@ -471,7 +471,7 @@ function setLanguage(lang) {
 // ==========================================
 // GLOBAL INTERACTIVE ONBOARDING TOUR & SHARE
 // ==========================================
-(function() {
+(function () {
     let helpCurrentSlide = 1;
     // Specific help datasets for every tool in the suite
     const helpDataMap = {
@@ -944,7 +944,7 @@ function setLanguage(lang) {
     }
 
     // Toggle Modal
-    window.toggleHelpModal = function() {
+    window.toggleHelpModal = function () {
         const modal = document.getElementById("help-modal");
         if (modal) {
             modal.style.display = "flex";
@@ -952,7 +952,7 @@ function setLanguage(lang) {
         }
     };
 
-    window.closeHelpModal = function() {
+    window.closeHelpModal = function () {
         const modal = document.getElementById("help-modal");
         if (modal) modal.style.display = "none";
     };
@@ -988,7 +988,7 @@ function setLanguage(lang) {
 
         let stepsHtml = '';
         data.steps.forEach((step, idx) => {
-            stepsHtml += `<li style="margin-bottom:10px; font-size:14px; line-height:1.5; display:flex; align-items:flex-start;"><span style="background:#f59e0b; color:#000; border-radius:50%; min-width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:bold; margin-right:10px; margin-top:2px;">${idx+1}</span><span style="color:#e2e8f0;">${step}</span></li>`;
+            stepsHtml += `<li style="margin-bottom:10px; font-size:14px; line-height:1.5; display:flex; align-items:flex-start;"><span style="background:#f59e0b; color:#000; border-radius:50%; min-width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; font-size:11px; font-weight:bold; margin-right:10px; margin-top:2px;">${idx + 1}</span><span style="color:#e2e8f0;">${step}</span></li>`;
         });
 
         // Hide run demo button on index page
@@ -1009,7 +1009,7 @@ function setLanguage(lang) {
         `;
     }
 
-    window.runHelpDemo = function() {
+    window.runHelpDemo = function () {
         window.closeHelpModal();
         const isCalc = window.location.pathname.includes("calculator.html");
         const isEst = window.location.pathname.includes("estimate.html");
@@ -1039,10 +1039,10 @@ function setLanguage(lang) {
             document.getElementById('in-shop-addr').value = "Opp. Bus Station, Gondal, Gujarat";
             document.getElementById('in-shop-phone').value = "+91 99988 77766";
             document.getElementById('in-shop-gstin').value = "24ABCDE1234F1Z9";
-            
+
             document.getElementById('in-client-name').value = "Ramesh Kumar Keshwala";
             document.getElementById('in-client-phone').value = "+91 98980 12345";
-            
+
             if (typeof app !== "undefined") {
                 app.items = [
                     { name: "Premium Basmati Rice", qty: 2, price: 95.0, tax: 5 },
@@ -1074,7 +1074,26 @@ function setLanguage(lang) {
         if (typeof showToast === "function") showToast("Demo data loaded!");
     };
 
-    window.shareOnWhatsApp = function() {
+    window.shareIndexPage = function (event) {
+        if (event) event.preventDefault();
+        const lang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
+        const shareDomain = window.APP_SHARE_DOMAIN || window.location.origin;
+        const targetUrl = shareDomain + '/index.html';
+
+        let msg = "";
+        if (lang === 'gu') {
+            msg = `🚀 *ડિજિટલ ટૂલ્સ હબ (Digital Tools Hub)* 🚀\n\nવેપારીઓ અને ગ્રાહકો માટે ઉપયોગી ૨૦+ થી વધુ સાધનો:\n\n🔹 જીએસટી બિલ અને ક્વોટેશન\n🔹 વ્યાજ ગણતરી (માસિક/વાર્ષિક)\n🔹 ખેતી પાક ગુણી અને દૂધ ફેટ બિલ\n🔹 ટ્રેક્ટર ભાડું અને પીસાઈ રસીદ\n🔹 વિઝિટિંગ કાર્ડ અને લગ્ન કંકોત્રી\n\nગ્રાહકો સાથે ગણતરીની રસીદ (Parchi) વોટ્સએપ પર ૧ મિનિટમાં શેર કરો.\n\n👉 *મોબાઈલ એપ્લિકેશન શરૂ કરવા નીચે ક્લિક કરો:*\n​${targetUrl}`;
+        } else if (lang === 'hi') {
+            msg = `🚀 *डिजिटल टूल्स हब (Digital Tools Hub)* 🚀\n\nव्यापारियों और ग्राहकों के लिए उपयोगी २०+ से अधिक टूल्स:\n\n🔹 जीएसटी बिल और कोटेशन\n🔹 ब्याज गणना (मासिक/वार्षिक)\n🔹 फसल बोरी और दूध फैट रसीद\n🔹 ट्रैक्टर किराया और पिसाई रसीद\n🔹 विजिटिंग कार्ड और शादी पत्रिका\n\nग्राहकों के साथ गणना रसीद (Parchi) व्हाट्सएप पर १ मिनट में शेयर करें।\n\n👉 *मोबाइल एप्लिकेशन शुरू करने के लिए नीचे क्लिक करें:*\n​${targetUrl}`;
+        } else {
+            msg = `🚀 *Digital Tools Hub* 🚀\n\n20+ Powerful Daily Business & Utility Tools:\n\n🔹 GST Invoice & Estimate Maker\n🔹 Simple & Monthly Interest Calculator\n🔹 APMC Crop Bag Yield Calculator\n🔹 Milk Dairy FAT Payout & Tractor Rental\n🔹 Business Visiting Cards & Wedding Invitations\n\nPerform calculations and share professional PDFs/slips on WhatsApp instantly!\n\n👉 *Click here to open application:*\n​${targetUrl}`;
+        }
+
+        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+    };
+
+    window.shareOnWhatsApp = function () {
         const lang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
         const pageName = window.location.pathname.split('/').pop() || 'index.html';
         const shareDomain = window.APP_SHARE_DOMAIN || window.location.origin;
@@ -1122,11 +1141,11 @@ function setLanguage(lang) {
                 const shareBtn = document.createElement("button");
                 shareBtn.className = "btn-top btn-share-global";
                 shareBtn.style.cssText = "margin-right: 6px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 6px 12px; font-size: 13px; font-weight: bold; border-radius: 6px; border: 1px solid #16a34a; background: #16a34a; color: #fff;";
-                
+
                 let shareText = "Share Tool Link";
                 if (lang === 'gu') shareText = "ટૂલ લિંક મોકલો";
                 else if (lang === 'hi') shareText = "टૂલ  ભેજે";
-                
+
                 shareBtn.innerHTML = '<i class="fab fa-whatsapp"></i> ' + shareText;
                 shareBtn.onclick = window.shareOnWhatsApp;
 
@@ -1152,7 +1171,7 @@ function setLanguage(lang) {
 
     // Set visited flag when help modal is closed
     const origCloseHelpModal = window.closeHelpModal;
-    window.closeHelpModal = function() {
+    window.closeHelpModal = function () {
         if (origCloseHelpModal) origCloseHelpModal();
         localStorage.setItem("has_visited_before", "true");
     };
