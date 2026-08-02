@@ -612,6 +612,7 @@
             </div>
             <div class="btn-top-vcf" onclick="downloadVCF()"><i class="fas fa-address-book"></i> .VCF Contact</div>
             <div class="btn-top-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download HD</div>
+            <div class="btn-top-main" onclick="shareCard()" style="background: linear-gradient(135deg, #25d366, #128c7e); border-color: #128c7e;"><i class="fab fa-whatsapp"></i> Share Card</div>
         </div>
     </div>
 
@@ -748,6 +749,9 @@
                 </button>
                 <button type="button" style="margin-bottom:10px; width:100%; background:linear-gradient(135deg, #6366f1, #4f46e5); color:#fff; height:46px; border-radius:23px; border:none; font-weight:800; cursor:pointer" onclick="downloadPNG()">
                     <i class="fas fa-download"></i> Download HD Visiting Card PNG
+                </button>
+                <button type="button" style="margin-bottom:10px; width:100%; background:linear-gradient(135deg, #25d366, #128c7e); color:#fff; height:46px; border-radius:23px; border:none; font-weight:800; cursor:pointer" onclick="shareCard()">
+                    <i class="fab fa-whatsapp"></i> Share on WhatsApp
                 </button>
                 <button type="button" style="width:100%; background:rgba(255,255,255,0.1); color:#fff; height:46px; border-radius:23px; border:1px solid rgba(255,255,255,0.2); font-weight:800; cursor:pointer" onclick="window.print()">
                     <i class="fas fa-print"></i> Print A4 Card Sheet (10-Cards)
@@ -1003,6 +1007,21 @@ END:VCARD`;
                 a.href = cv.toDataURL('image/png');
                 a.click();
                 showToast('✨ Ultra-HD Visiting Card Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function shareCard() {
+            showToast('Preparing Card for sharing...', 'fa-spinner fa-spin');
+            const card = _('vcard-canvas');
+            html2canvas(card, {
+                scale: 3,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                cv.toBlob(blob => {
+                    const filename = `Visiting-Card-${app.cardSide}-${Date.now()}.png`;
+                    window.shareGeneratedFile(blob, filename, 'image/png');
+                }, 'image/png');
             });
         }
     </script>

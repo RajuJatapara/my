@@ -502,6 +502,7 @@
             </div>
             <div class="btn-top" onclick="printStand()"><i class="fas fa-print"></i> Print Stand</div>
             <div class="btn-top" style="background:linear-gradient(135deg,#38bdf8,#0284c7); color:#fff" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#25d366,#128c7e); color:#fff; border-color:#128c7e;" onclick="shareQR()"><i class="fab fa-whatsapp"></i> Share WhatsApp</div>
         </div>
     </div>
 
@@ -615,6 +616,7 @@
             <div id="tab-4" class="tab-body">
                 <div class="grp-label">1. Download High-Res PNG</div>
                 <button class="action-btn-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG Image</button>
+                <button class="action-btn-main" style="background:linear-gradient(135deg,#25d366,#128c7e); margin-top: 10px;" onclick="shareQR()"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
 
                 <div class="grp-label" style="margin-top:20px">2. Print QR Counter Stand</div>
                 <button class="action-btn-main" style="background:linear-gradient(135deg, #10b981, #059669)" onclick="printStand()"><i class="fas fa-print"></i> Print QR Stand / Sticker</button>
@@ -808,6 +810,21 @@
                 a.href = cv.toDataURL('image/png');
                 a.click();
                 showToast('✨ High-Res PNG Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function shareQR() {
+            showToast('Preparing QR Stand for sharing...', 'fa-spinner fa-spin');
+            const card = _('qr-stand-card-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                cv.toBlob(blob => {
+                    const filename = `QR-Stand-${Date.now()}.png`;
+                    window.shareGeneratedFile(blob, filename, 'image/png');
+                }, 'image/png');
             });
         }
 

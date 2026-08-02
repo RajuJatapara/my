@@ -574,6 +574,7 @@
             </div>
             <div class="btn-top" onclick="printMemo()"><i class="fas fa-print"></i> Print PDF</div>
             <div class="btn-top" style="background:linear-gradient(135deg,#34d399,#059669); color:#fff" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG</div>
+            <div class="btn-top" style="background:linear-gradient(135deg,#25d366,#128c7e); color:#fff; border-color:#128c7e;" onclick="shareMemo()"><i class="fab fa-whatsapp"></i> Share WhatsApp</div>
         </div>
     </div>
 
@@ -694,6 +695,7 @@
 
                 <div class="grp-label" style="margin-top:20px">2. Download High-Res PNG</div>
                 <button class="action-btn-main" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)" onclick="downloadPNG()"><i class="fas fa-download"></i> Download PNG Image</button>
+                <button class="action-btn-main" style="background:linear-gradient(135deg,#25d366,#128c7e); margin-top: 10px;" onclick="shareMemo()"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
             </div>
         </div>
 
@@ -1058,6 +1060,21 @@
                 a.href = cv.toDataURL('image/png');
                 a.click();
                 showToast('✨ High-Res PNG Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function shareMemo() {
+            showToast('Preparing Memo for sharing...', 'fa-spinner fa-spin');
+            const card = _('memo-sheet-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                cv.toBlob(blob => {
+                    const filename = `CashMemo-${Date.now()}.png`;
+                    window.shareGeneratedFile(blob, filename, 'image/png');
+                }, 'image/png');
             });
         }
 

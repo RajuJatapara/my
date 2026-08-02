@@ -720,31 +720,18 @@
 
             <!-- TAB 1: TEXT & CONTENT -->
             <div id="tab-1" class="tab-body active">
-                <div class="grp-label">📜 Select Ready Wish Message Library</div>
-                <select id="in-ready-wish" onchange="applyReadyWish(this.value)">
-                    <option value="">-- Choose A Ready Message --</option>
-                    <optgroup label="🎂 Birthday Wishes">
-                        <option value="bday-1">🎂 Happy Birthday - Wishing You Success & Joy (EN)</option>
-                        <option value="bday-2">🎂 જન્મદિન મુબારક - આપનું જીવન ખુશીઓથી ભરેલું રહે (GU)</option>
-                        <option value="bday-3">🎂 जन्मदिन की हार्दिक शुभकामनाएं - आपका दिन मंगलमय हो (HI)</option>
-                    </optgroup>
-                    <optgroup label="🪔 Festive Greetings">
-                        <option value="fest-1">🪔 Happy Diwali - Festival of Lights & Prosperity (EN)</option>
-                        <option value="fest-2">🪔 શુભ દીપાવલી - આપના જીવનમાં સુખ, શાંતિ અને સમૃદ્ધિ આવે (GU)</option>
-                        <option value="fest-3">🪔 शुभ दीपावली - सुख, समृद्धि और शांति की मंगलकामनाएं (HI)</option>
-                        <option value="fest-4">🎨 Happy Holi - Festival of Vibrant Colors (EN)</option>
-                        <option value="fest-5">🌙 Eid Mubarak - May Allah Bless Your Family (EN)</option>
-                    </optgroup>
-                    <optgroup label="☀️ Daily Suvichar & Greetings">
-                        <option value="suv-1">☀️ Good Morning & Have A Blessed Day (EN)</option>
-                        <option value="suv-2">☀️ શુભ સવાર - તમારો દિવસ મંગલમય અને સફળ રહે (GU)</option>
-                        <option value="suv-3">💡 कर्म ही पूजा है - सफलता मेहनत की मोहताज होती है (HI)</option>
-                    </optgroup>
-                    <optgroup label="📢 Business Offer & Sales">
-                        <option value="sale-1">📢 MEGA SALE OFFER - Flat 50% OFF On All Items (EN)</option>
-                        <option value="sale-2">📢 વિશેષ ધમાકા ઓફર - પધારો અને લાભ લો (GU)</option>
-                    </optgroup>
-                </select>
+                <div class="grp-label">🖼️ Select Ready-made Template Backgrounds</div>
+                <!-- Template Categories -->
+                <div style="display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 12px; scrollbar-width: none;">
+                    <button type="button" class="gallery-cat-btn active" onclick="filterGallery('all', this)" style="background: var(--primary); color: #000; border: none; padding: 6px 12px; border-radius: 14px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap;">All</button>
+                    <button type="button" class="gallery-cat-btn" onclick="filterGallery('daily', this)" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid var(--border); padding: 6px 12px; border-radius: 14px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap;">Suvichar & Morning</button>
+                    <button type="button" class="gallery-cat-btn" onclick="filterGallery('festivals', this)" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid var(--border); padding: 6px 12px; border-radius: 14px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap;">Festivals</button>
+                    <button type="button" class="gallery-cat-btn" onclick="filterGallery('business', this)" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid var(--border); padding: 6px 12px; border-radius: 14px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap;">Offers & Invites</button>
+                </div>
+
+                <!-- Templates Grid (Populated dynamically) -->
+                <div id="templates-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 240px; overflow-y: auto; padding-right: 4px; margin-bottom: 15px;">
+                </div>
 
                 <div class="grp-label" style="margin-top:14px">1. Upload Background Image</div>
                 <div class="opt-box" onclick="_('up-bg-img').click()" style="background:rgba(251, 191, 36, 0.1); border-color:rgba(251, 191, 36, 0.4); color:#fbbf24">
@@ -873,6 +860,7 @@
             <div id="tab-4" class="tab-body">
                 <div class="grp-label">Export High-Res Banner</div>
                 <button type="button" class="action-btn-main" onclick="downloadPNG()"><i class="fas fa-download"></i> Download HD Poster (PNG)</button>
+                <button type="button" class="action-btn-main" style="background:linear-gradient(135deg,#25d366,#128c7e); margin-top: 10px;" onclick="sharePoster()"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
             </div>
         </div>
 
@@ -926,21 +914,63 @@
             avatarShape: 'av-circle'
         };
 
-        const readyWishes = {
-            'bday-1': { tag: 'HAPPY BIRTHDAY', h1: 'Wishing You A Very Happy Birthday!', sub: 'May your day be filled with joy, laughter & endless success!' },
-            'bday-2': { tag: 'જન્મદિન મુબારક', h1: 'આપને જન્મદિવસની હાર્દિક શુભેચ્છાઓ!', sub: 'આપનું જીવન સુખ, શાંતિ અને સમૃદ્ધિથી સદા ભરપૂર રહે એવી પ્રાર્થના.' },
-            'bday-3': { tag: 'जन्मदिन मुबारक', h1: 'जन्मदिन की हार्दिक शुभकामनाएं!', sub: 'ईश्वर आपको दीर्घायु, उत्तम स्वास्थ्य और अपार सफलता प्रदान करे।' },
-            'fest-1': { tag: 'HAPPY DIWALI', h1: 'Wishing You A Happy & Prosperous Diwali', sub: 'May the festival of lights illuminate your home with wealth & happiness!' },
-            'fest-2': { tag: 'શુભ દીપાવલી', h1: 'આપ સૌને દીપાવલીની હાર્દિક શુભેચ્છાઓ!', sub: 'આ નવું વર્ષ આપના જીવનમાં સુખ, શાંતિ અને સમૃદ્ધિ લાવે.' },
-            'fest-3': { tag: 'शुभ दीपावली', h1: 'दीपावली की हार्दिक शुभकामनाएं!', sub: 'माँ लक्ष्मी की कृपा आप और आपके परिवार पर सदा बनी रहे।' },
-            'fest-4': { tag: 'HAPPY HOLI', h1: 'Wishing You A Joyful & Colorful Holi', sub: 'May your life be filled with vibrant colors of love & joy!' },
-            'fest-5': { tag: 'EID MUBARAK', h1: 'Wishing You A Blessed Eid Mubarak', sub: 'May Allah bless your home with peace, health & happiness!' },
-            'suv-1': { tag: 'GOOD MORNING', h1: 'Good Morning & Have A Blessed Day', sub: 'Every new morning brings new opportunities to achieve your dreams!' },
-            'suv-2': { tag: 'શુભ સવાર', h1: 'શુભ સવાર - આપનો દિવસ મંગલમય રહે', sub: 'સતત મહેનત અને હકારાત્મક વિચાર જ સફળતાની ચાવી છે.' },
-            'suv-3': { tag: 'शुभ विचार', h1: 'कर्म ही सबसे बड़ी पूजा है', sub: 'अपनी मेहनत पर विश्वास रखो, सफलता एक दिन कदम चूमेगी।' },
-            'sale-1': { tag: 'MEGA SALE OFFER', h1: 'Flat 50% OFF On All Items', sub: 'Visit our shop today and grab the best deals of the season!' },
-            'sale-2': { tag: 'ધમાકા ઓફર', h1: 'ખાસ ધમાકા ઓફર - પધારો અને લાભ લો', sub: 'સીમિત સમય માટેની બમ્પર ઓફર! આજે જ મુલાકાત લો.' }
-        };
+        let templatesData = {};
+
+        function loadTemplates() {
+            const localUrl = 'templates.json';
+
+            fetch(localUrl)
+                .then(res => res.json())
+                .then(data => {
+                    const grid = _('templates-grid');
+                    grid.innerHTML = '';
+                    
+                    const currentMonth = new Date().getMonth() + 1; // 1-12
+                    
+                    // Sort: upcoming specific month templates appear first
+                    data.sort((a, b) => {
+                        const aActive = a.active_months === 'all' || (Array.isArray(a.active_months) && a.active_months.includes(currentMonth));
+                        const bActive = b.active_months === 'all' || (Array.isArray(b.active_months) && b.active_months.includes(currentMonth));
+                        
+                        const aSpecific = Array.isArray(a.active_months) && a.active_months.includes(currentMonth);
+                        const bSpecific = Array.isArray(b.active_months) && b.active_months.includes(currentMonth);
+                        
+                        if (aSpecific && !bSpecific) return -1;
+                        if (!aSpecific && bSpecific) return 1;
+                        if (aActive && !bActive) return -1;
+                        if (!aActive && bActive) return 1;
+                        return 0;
+                    });
+                    
+                    data.forEach(t => {
+                        templatesData[t.id] = t;
+                        
+                        const item = document.createElement('div');
+                        item.className = 'template-item';
+                        item.setAttribute('data-cat', t.category);
+                        item.onclick = () => selectTemplate(t.id);
+                        item.style.cssText = 'position: relative; border-radius: 8px; overflow: hidden; border: 2px solid var(--border); cursor: pointer; aspect-ratio: 1.5; transition: all 0.2s;';
+                        
+                        const isSpecificMonth = Array.isArray(t.active_months) && t.active_months.includes(currentMonth);
+                        if (isSpecificMonth) {
+                            item.style.borderColor = 'var(--primary)';
+                            item.style.boxShadow = '0 0 8px rgba(251, 191, 36, 0.4)';
+                        }
+                        
+                        item.innerHTML = `
+                            <img src="${t.bg}" style="width: 100%; height: 100%; object-fit: cover;" alt="${t.tag}">
+                            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: ${isSpecificMonth ? '#fbbf24' : '#fff'}; font-size: 10px; padding: 4px; text-align: center; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                                ${isSpecificMonth ? '🔥 ' : ''}${t.tag}
+                            </div>
+                        `;
+                        grid.appendChild(item);
+                    });
+                })
+                .catch(err => {
+                    console.error('All template sources failed:', err);
+                    _('templates-grid').innerHTML = '<div style="grid-column: 1/-1; color: var(--text-muted); font-size: 12px; text-align: center; padding: 20px;">Failed to load templates. Please check internet connection.</div>';
+                });
+        }
 
         const _ = id => document.getElementById(id);
 
@@ -966,19 +996,49 @@
                 if (urlParams.has('sub')) _('in-fest-sub').value = urlParams.get('sub') || '';
                 showToast(`Pre-loaded ${urlParams.get('tag')} poster!`, 'fa-magic');
             }
+            loadTemplates();
             render();
             if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
         };
 
-        function applyReadyWish(val) {
-            if (val && readyWishes[val]) {
-                const w = readyWishes[val];
-                _('in-fest-tag').value = w.tag;
-                _('in-fest-h1').value = w.h1;
-                _('in-fest-sub').value = w.sub;
-                render();
-                showToast('Ready Wish Message applied!', 'fa-magic');
+        function selectTemplate(id) {
+            if (templatesData[id]) {
+                const t = templatesData[id];
+                // Pre-designed Graphics Mode: Clear text inputs so they do not overlay HTML text on the design
+                _('in-fest-tag').value = '';
+                _('in-fest-h1').value = '';
+                _('in-fest-sub').value = '';
+                
+                showToast('Loading template design...', 'fa-spinner fa-spin');
+                const imgEl = _('d-bg-img');
+                imgEl.crossOrigin = "anonymous";
+                imgEl.onload = () => {
+                    render();
+                    showToast('Template design loaded!', 'fa-circle-check');
+                };
+                imgEl.src = t.bg;
             }
+        }
+
+        function filterGallery(cat, btn) {
+            document.querySelectorAll('.gallery-cat-btn').forEach(b => {
+                b.classList.remove('active');
+                b.style.background = 'rgba(255,255,255,0.08)';
+                b.style.color = '#fff';
+                b.style.borderColor = 'var(--border)';
+            });
+            btn.classList.add('active');
+            btn.style.background = 'var(--primary)';
+            btn.style.color = '#000';
+            btn.style.borderColor = 'var(--primary)';
+
+            document.querySelectorAll('.template-item').forEach(item => {
+                if (cat === 'all' || item.getAttribute('data-cat') === cat) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
 
         function setAvatarShape(shapeClass, b) {
@@ -1208,6 +1268,21 @@
                 a.href = cv.toDataURL('image/png');
                 a.click();
                 showToast('✨ HD Poster Downloaded!', 'fa-circle-check');
+            });
+        }
+
+        function sharePoster() {
+            showToast('Preparing Poster for sharing...', 'fa-spinner fa-spin');
+            const card = _('poster-canvas-root');
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                cv.toBlob(blob => {
+                    const filename = `Custom-Poster-${Date.now()}.png`;
+                    window.shareGeneratedFile(blob, filename, 'image/png');
+                }, 'image/png');
             });
         }
     </script>

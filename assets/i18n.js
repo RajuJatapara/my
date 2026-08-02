@@ -966,28 +966,32 @@ function setLanguage(lang) {
         }
 
         window.addEventListener('appinstalled', () => {
-            console.log('PWA app installed successfully');
+            console.log('PWA app installation queued in OS background');
             const installBanner = document.getElementById('pwa-install-banner');
             if (installBanner) installBanner.style.display = 'none';
             
-            // Show dynamic success toast notification
+            // Show dynamic background installation status alert toast
             const lang = getSavedLanguage();
-            let successMsg = "🎉 Digital Tools Hub Installed successfully!";
-            if (lang === 'gu') successMsg = "🎉 ડિજિટલ ટુલ્સ હબ સફળતાપૂર્વક ઇન્સ્ટોલ થઈ ગયું!";
-            else if (lang === 'hi') successMsg = "🎉 डिजिटल टूल्स हब सफलतापूर्वक इंस्टॉल हो गया!";
+            let successMsg = "📲 App installing in background! Check notification bar for progress.";
+            if (lang === 'gu') successMsg = "📲 મોબાઇલ એપ બેકગ્રાઉન્ડમાં ઇન્સ્ટોલ થઈ રહી છે! નોટિફિકેશન બાર ચેક કરો.";
+            else if (lang === 'hi') successMsg = "📲 मोबाइल ऐप बैकग्राउंड में इंस्टॉल हो रहा है! नोटिफिकेशन बार चेक करें.";
             
             showGlobalPwaToast(successMsg);
         });
 
-        function showGlobalPwaToast(msg) {
+        function showGlobalPwaToast(msg, isOffline = false) {
+            // Remove existing PWA toasts to avoid overlay stacking
+            document.querySelectorAll('.pwa-global-toast').forEach(el => el.remove());
+
             const toast = document.createElement('div');
+            toast.className = 'pwa-global-toast';
             toast.style.position = 'fixed';
-            toast.style.bottom = '80px';
+            toast.style.bottom = '85px';
             toast.style.left = '50%';
-            toast.style.transform = 'translateX(-50%)';
+            toast.style.transform = 'translateX(-50%) translateY(10px)';
             toast.style.background = '#1e293b';
-            toast.style.color = '#fbbf24';
-            toast.style.border = '1px solid #334155';
+            toast.style.color = isOffline ? '#fca5a5' : '#fbbf24';
+            toast.style.border = isOffline ? '1px solid #ef4444' : '1px solid #10b981';
             toast.style.padding = '12px 24px';
             toast.style.borderRadius = '30px';
             toast.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5)';
@@ -996,16 +1000,55 @@ function setLanguage(lang) {
             toast.style.fontWeight = '700';
             toast.style.textAlign = 'center';
             toast.style.pointerEvents = 'none';
+            toast.style.display = 'flex';
+            toast.style.alignItems = 'center';
+            toast.style.gap = '8px';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
             
             toast.innerText = msg;
             document.body.appendChild(toast);
             
+            // Trigger animation frame for transition entry
+            requestAnimationFrame(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(-50%) translateY(0)';
+            });
+            
             setTimeout(() => {
                 toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.5s ease';
-                setTimeout(() => toast.remove(), 500);
-            }, 3000);
+                toast.style.transform = 'translateX(-50%) translateY(10px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 3500);
         }
+
+        // Live connection monitoring helper
+        function setupOfflineStatusTracker() {
+            window.addEventListener('offline', () => {
+                showGlobalPwaToast(getOfflineMessage(), true);
+            });
+
+            window.addEventListener('online', () => {
+                showGlobalPwaToast(getOnlineMessage(), false);
+            });
+        }
+
+        function getOfflineMessage() {
+            const lang = getSavedLanguage();
+            if (lang === 'gu') return "⚠️ તમે ઑફલાઇન છો, પણ સાધનો ચાલુ છે!";
+            if (lang === 'hi') return "⚠️ आप ऑफलाइन हैं, लेकिन टूल्स चालू हैं!";
+            return "⚠️ You are offline, but tools are working!";
+        }
+
+        function getOnlineMessage() {
+            const lang = getSavedLanguage();
+            if (lang === 'gu') return "🟢 તમે હવે ઓનલાઈન છો!";
+            if (lang === 'hi') return "🟢 आप अब ऑनलाइन हैं!";
+            return "🟢 You are back online!";
+        }
+
+        // Initialize status tracker
+        setupOfflineStatusTracker();
     }
 
     // Global Web Share API helper for files (PDF, Images, etc.)

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "suv",
+    "category": "daily",
+    "tag": "💡 DAILY SUVICHAR",
+    "h1": "સફળતાનો કોઈ ટૂંકો રસ્તો નથી હોતો!",
+    "sub": "તમારી મહેનત અને સાચો માર્ગ જ તમને ધારેલી સફળતા અપાવી શકે છે. હંમેશા પ્રયત્નશીલ રહો.",
+    "bg": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=600",
+    "active_months": "all"
+  },
+  {
+    "id": "morning",
+    "category": "daily",
+    "tag": "☀️ GOOD MORNING",
+    "h1": "શુભ સવાર - આપનો દિવસ મંગલમય રહે!",
+    "sub": "દરેક નવો દિવસ તમારા જીવનમાં નવી આશા, નવી ઉર્જા અને અનેક ખુશીઓ લાવે એવી શુભેચ્છા.",
+    "bg": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=600",
+    "active_months": "all"
+  },
+  {
+    "id": "diwali",
+    "category": "festivals",
+    "tag": "🪔 SHUBH DEEPAWALI",
+    "h1": "આપ સૌને દીપાવલીની હાર્દિક શુભેચ્છાઓ!",
+    "sub": "દીવાઓનો આ પવિત્ર તહેવાર આપના પરિવારમાં સુખ, શાંતિ, ધન અને સમૃદ્ધિ લાવે તેવી પ્રાર્થના.",
+    "bg": "https://images.unsplash.com/photo-1605647540924-852290f6b0d5?w=600",
+    "active_months": [10, 11]
+  },
+  {
+    "id": "holi",
+    "category": "festivals",
+    "tag": "🎨 HAPPY HOLI",
+    "h1": "આપ સૌને રંગોના ઉત્સવ હોળીની શુભેચ્છાઓ!",
+    "sub": "આ હોળી આપના જીવનમાં પ્રેમ, આનંદ, સદ્ભાવના અને રંગબેરંગી ખુશીઓ ભરી દે તેવી કામના.",
+    "bg": "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600",
+    "active_months": [2, 3]
+  },
+  {
+    "id": "independence",
+    "category": "festivals",
+    "tag": "🇮🇳 JAI HIND",
+    "h1": "આપ સૌને સ્વાતંત્ર્ય દિવસની શુભકામનાઓ!",
+    "sub": "દેશની આઝાદી માટે પ્રાણોની આહુતિ આપનાર તમામ વીર શહીદોને કોટિ-કોટિ પ્રણામ. વંદે માતરમ.",
+    "bg": "https://images.unsplash.com/photo-1532375810709-75b1da00537c?w=600",
+    "active_months": [8]
+  },
+  {
+    "id": "offer",
+    "category": "business",
+    "tag": "📢 SPECIAL SALE OFFER",
+    "h1": "ખાસ ધમાકા ઓફર - ફ્લેટ 50% ડિસ્કાઉન્ટ!",
+    "sub": "તમામ નવીનતમ આઇટમો પર મેળવો આકર્ષક ડિસ્કાઉન્ટ. આજે જ પધારો અને લાભ લો. મર્યાદિત સમય માટે!",
+    "bg": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600",
+    "active_months": "all"
+  },
+  {
+    "id": "wedding",
+    "category": "business",
+    "tag": "💌 INVITATION",
+    "h1": "મંગલ પરિણય - સ્નેહભર્યું હાર્દિક આમંત્રણ",
+    "sub": "અમારા આ શુભ પ્રસંગે આપની સહપરિવાર ઉપસ્થિતિ પ્રાર્થનીય છે. પધારીને વર-વધૂને આશીર્વાદ આપશો.",
+    "bg": "https://images.unsplash.com/photo-1519741497674-611481863552?w=600",
+    "active_months": "all"
+  },
+  {
+    "id": "night",
+    "category": "daily",
+    "tag": "🌙 GOOD NIGHT",
+    "h1": "શુભ રાત્રિ - મીઠી ઊંઘ અને સુંદર સપનાઓ!",
+    "sub": "આજના દિવસની તમામ ચિંતાઓ ભૂલીને આરામ કરો, આવતીકાલનો સૂર્ય નવો ઉજાસ લઈને આવશે.",
+    "bg": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=600",
+    "active_months": "all"
+  }
+]
