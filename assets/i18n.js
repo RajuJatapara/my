@@ -941,14 +941,25 @@ function setLanguage(lang) {
         if (installBtn) {
             installBtn.addEventListener('click', () => {
                 if (deferredPrompt) {
+                    // Update button state to "Installing..." with spinner
+                    installBtn.disabled = true;
+                    const lang = getSavedLanguage();
+                    let loadingText = "Installing...";
+                    if (lang === 'gu') loadingText = "સેટ થઈ રહ્યું છે...";
+                    else if (lang === 'hi') loadingText = "इंस्टॉल हो रहा है...";
+                    
+                    installBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> ${loadingText}`;
+                    
                     deferredPrompt.prompt();
                     deferredPrompt.userChoice.then((choiceResult) => {
                         if (choiceResult.outcome === 'accepted') {
                             console.log('User accepted the PWA install prompt');
+                        } else {
+                            // Reset button if dismissed
+                            installBtn.disabled = false;
+                            installBtn.innerHTML = "Install / સેટ કરો";
                         }
                         deferredPrompt = null;
-                        const installBanner = document.getElementById('pwa-install-banner');
-                        if (installBanner) installBanner.style.display = 'none';
                     });
                 }
             });
@@ -958,7 +969,43 @@ function setLanguage(lang) {
             console.log('PWA app installed successfully');
             const installBanner = document.getElementById('pwa-install-banner');
             if (installBanner) installBanner.style.display = 'none';
+            
+            // Show dynamic success toast notification
+            const lang = getSavedLanguage();
+            let successMsg = "🎉 Digital Tools Hub Installed successfully!";
+            if (lang === 'gu') successMsg = "🎉 ડિજિટલ ટુલ્સ હબ સફળતાપૂર્વક ઇન્સ્ટોલ થઈ ગયું!";
+            else if (lang === 'hi') successMsg = "🎉 डिजिटल टूल्स हब सफलतापूर्वक इंस्टॉल हो गया!";
+            
+            showGlobalPwaToast(successMsg);
         });
+
+        function showGlobalPwaToast(msg) {
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '80px';
+            toast.style.left = '50%';
+            toast.style.transform = 'translateX(-50%)';
+            toast.style.background = '#1e293b';
+            toast.style.color = '#fbbf24';
+            toast.style.border = '1px solid #334155';
+            toast.style.padding = '12px 24px';
+            toast.style.borderRadius = '30px';
+            toast.style.boxShadow = '0 10px 25px rgba(0,0,0,0.5)';
+            toast.style.zIndex = '99999';
+            toast.style.fontSize = '12px';
+            toast.style.fontWeight = '700';
+            toast.style.textAlign = 'center';
+            toast.style.pointerEvents = 'none';
+            
+            toast.innerText = msg;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
     }
 
     // Global Web Share API helper for files (PDF, Images, etc.)

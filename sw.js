@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tools-hub-cache-v2';
+const CACHE_NAME = 'tools-hub-cache-v4';
 const ASSETS = [
     './',
     './index.html',
@@ -35,12 +35,28 @@ const ASSETS = [
     './assets/img/icon-512.png'
 ];
 
-// Install Event
+// Install Event (Robust caching mechanism using Promise.allSettled)
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(ASSETS))
-            .then(() => self.skipWaiting())
+        caches.open(CACHE_NAME).then(cache => {
+            return Promise.allSettled(
+                ASSETS.map(url => {
+                    return fetch(url).then(response => {
+                        if (response.ok) {
+                            return cache.put(url, response);
+                        }
+                        throw new Error(`Fetch failed for ${url} with status ${response.status}`);
+                    });
+                })
+            ).then(results => {
+                const failures = results.filter(r => r.status === 'rejected');
+                if (failures.length > 0) {
+                    console.warn('Some PWA assets failed to cache:', failures);
+                } else {
+                    console.log('All PWA assets cached successfully.');
+                }
+            });
+        }).then(() => self.skipWaiting())
     );
 });
 
