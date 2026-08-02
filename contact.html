@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Digital Tools Hub</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-hover: #d97706;
+            --page-bg: #0f172a;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--page-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: #0b0f19;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .back-btn {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 800;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-icon {
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        .contact-btn {
+            background: var(--primary);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s ease;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+    </style>
+    <!-- i18n Translation Engine & Helpline Links -->
+    <script src="assets/i18n.js"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="index.html" class="brand-logo">
+            <i class="fas fa-cubes-stacked" style="color:var(--primary)"></i>
+            <span>Digital Tools Hub</span>
+        </a>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <div class="card">
+            <h1>Contact Us</h1>
+            <p>Have questions, suggestions, or need help using our tools? Get in touch with our founder and support team! We would love to hear your feedback.</p>
+            
+            <div class="contact-grid">
+                <!-- WhatsApp Support -->
+                <div class="contact-item">
+                    <div class="contact-icon" style="color: #25d366;"><i class="fab fa-whatsapp"></i></div>
+                    <div style="font-weight: 700; font-size: 16px;">WhatsApp Helpline</div>
+                    <p style="margin: 0; font-size: 12px; height: 36px;">Chat directly on WhatsApp for suggestions and custom business setups.</p>
+                    <a href="https://wa.me/919998877766" target="_blank" class="contact-btn" style="background: #25d366; color: #fff;">
+                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                    </a>
+                </div>
+
+                <!-- Call Support -->
+                <div class="contact-item">
+                    <div class="contact-icon" style="color: #38bdf8;"><i class="fas fa-phone-alt"></i></div>
+                    <div style="font-weight: 700; font-size: 16px;">Support Call</div>
+                    <p style="margin: 0; font-size: 12px; height: 36px;">Call us directly for critical issues or platform errors.</p>
+                    <a href="tel:+919998877766" class="contact-btn" style="background: #38bdf8; color: #000;">
+                        <i class="fas fa-phone-alt"></i> Direct Call
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="privacy.html" style="color:var(--text-muted); text-decoration:underline;">Privacy Policy</a> | <a href="terms.html" style="color:var(--text-muted); text-decoration:underline;">Terms of Service</a>
+        </div>
+    </div>
+
+</body>
+</html>

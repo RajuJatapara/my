@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Digital Tools Hub</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-hover: #d97706;
+            --page-bg: #0f172a;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--page-bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: #0b0f19;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 800;
+            font-size: 20px;
+        }
+
+        .back-btn {
+            background: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 800;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--text-main);
+            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--text-muted);
+            font-size: 12px;
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+    </style>
+    <!-- i18n Translation Engine & Helpline Links -->
+    <script src="assets/i18n.js"></script>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="index.html" class="brand-logo">
+            <i class="fas fa-cubes-stacked" style="color:var(--primary)"></i>
+            <span>Digital Tools Hub</span>
+        </a>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <div class="card">
+            <h1>Terms of Service</h1>
+            <p>Last Updated: August 2026</p>
+            <p>Welcome to Digital Tools Hub. By accessing or using our website, you agree to comply with and be bound by the following Terms of Service. Please read them carefully.</p>
+            
+            <h2>1. Free License to Use</h2>
+            <p>We grant you a free, non-exclusive, non-transferable license to use all business tools, calculators, templates, invitation designers, and slip generators available on Digital Tools Hub for personal and commercial business purposes.</p>
+            
+            <h2>2. User Content & Generated Files</h2>
+            <p>Any PDF invoices, visiting cards, resumes, vouchers, or invitations generated using our platform belong entirely to you. Digital Tools Hub claims no ownership rights over your creations. You are responsible for ensuring that the content you input is lawful and does not infringe on third-party trademarks.</p>
+            
+            <h2>3. Disclaimer of Accuracy & Calculations</h2>
+            <p>All calculations (GST, interest, crop weight, milk dairies, salary, trip sheets) are provided as standard business approximations. While we strive to maintain mathematical precision, you should independently verify all calculated balances, tax sums, and interest weights before charging clients or performing final transactions.</p>
+            
+            <h2>4. Limitation of Liability</h2>
+            <p>Digital Tools Hub, its developers, and founders shall not be liable for any financial disputes, errors, omissions, or transaction failures that occur as a result of using our free applications. All services are provided "As Is" without warranties of any kind.</p>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="privacy.html" style="color:var(--text-muted); text-decoration:underline;">Privacy Policy</a> | <a href="terms.html" style="color:var(--text-muted); text-decoration:underline;">Terms of Service</a>
+        </div>
+    </div>
+
+</body>
+</html>
