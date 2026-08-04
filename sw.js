@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tools-hub-cache-v4';
+const CACHE_NAME = 'tools-hub-cache-v7';
 const ASSETS = [
     './',
     './index.html',
@@ -23,6 +23,11 @@ const ASSETS = [
     './tripsheet.html',
     './vcard.html',
     './wa.html',
+    './cashcounter.html',
+    './reportcard.html',
+    './tuitionreceipt.html',
+    './attendance.html',
+    './timetable.html',
     './privacy.html',
     './terms.html',
     './about.html',

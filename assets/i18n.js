@@ -357,6 +357,57 @@ function setLanguage(lang) {
                 ],
                 example: "Note: Paste printed QR code outside your store for client scans."
             }
+            ,
+            reportcard: {
+                title: "📊 Student Progress Report Card Help",
+                steps: [
+                    "Enter student names, roll numbers, and subjects marks.",
+                    "Select card design template and accent color theme.",
+                    "Enable diagonal anti-forgery watermark protection.",
+                    "Click Print PDF or download high-quality PNG marksheet."
+                ],
+                example: "Note: Auto-calculates percentages, grades, pass/fail status, and highlights fails in red."
+            },
+            tuitionreceipt: {
+                title: "🧾 Tuition & Coaching Fee Receipt Help",
+                steps: [
+                    "Upload class logo and enter coaching center details.",
+                    "Enter student name, standard/class, month, and payment mode.",
+                    "Enter paid fee amount (numbers will convert to words automatically).",
+                    "Click Print PDF to download receipt or share directly on WhatsApp."
+                ],
+                example: "Note: Retains local transaction ledger log and balances calculations."
+            },
+            attendance: {
+                title: "📝 Student Batch Attendance Log Help",
+                steps: [
+                    "Set student batch standard, student list, and month/year.",
+                    "Record daily attendance status (P for Present, A for Absent, H for Holiday).",
+                    "Select accent color theme and custom branding font.",
+                    "Click Print A4 to output standard landscape attendance sheets."
+                ],
+                example: "Note: Tracks monthly summaries and prints crisp grids ready for file binders."
+            },
+            timetable: {
+                title: "📅 Tuition Time Table & Scheduler Help",
+                steps: [
+                    "Enter tuition name, date, and select Student or Teacher mode.",
+                    "Add time slots and fill lecture/period details for days.",
+                    "Customize day headers and display settings.",
+                    "Click Print A4 or download PNG timetable layout."
+                ],
+                example: "Note: Flexible grids with Poppins font wrapping prevent column overflows."
+            },
+            cashcounter: {
+                title: "💵 Cash Counter & Denomination Help",
+                steps: [
+                    "Enter quantity of cash notes (₹2000, ₹500, ₹200, ₹100, etc.).",
+                    "Enter dynamic total coin values in coins field.",
+                    "Verify sub-totals and grand total auto-calculated.",
+                    "Print official cash tally slip or share totals."
+                ],
+                example: "Note: Instantly verifies cash box totals with dates and timings."
+            }
         },
         gu: {
             interest: {
@@ -477,6 +528,57 @@ function setLanguage(lang) {
                     "முસાફરી ભાડાનું બિલ પ્રિન્ટ કરવા 'Print Trip Sheet' દબાવો."
                 ],
                 example: "ઉદાહરણ: કાર, ટ્રક કે જેસીબી ના ભાડાના કિલોમીટર મીટર અને ખર્ચના હિસાબ માટે પહોંચ."
+            }
+            ,
+            reportcard: {
+                title: "📊 વિદ્યાર્થી પ્રગતિ પત્રક મદદ",
+                steps: [
+                    "વિદ્યાર્થીના નામ, રોલ નંબર અને વિષયવાર ગુણ લખો.",
+                    "રિપોર્ટ કાર્ડ ડિઝાઇન શૈલી અને થીમ કલર પસંદ કરો.",
+                    "સિક્યોરિટી વોટરમાર્ક ઓન કરો અને સહી લેબલ્સ સેટ કરો.",
+                    "માર્કશીટ ડાઉનલોડ કરવા માટે PDF અથવા PNG સેવ કરો."
+                ],
+                example: "નોંધ: ટકાવારી, ગ્રેડ અને પાસ/નાપાસ આપમેળે ગણે છે."
+            },
+            tuitionreceipt: {
+                title: "🧾 ટ્યુશન ફી પહોંચ મદદ",
+                steps: [
+                    "કોચિંગ ક્લાસનો લોગો અને સરનામાની વિગત ભરો.",
+                    "વિદ્યાર્થીનું નામ, ધોરણ, મહિનો અને જમા રકમ લખો.",
+                    "જમા રકમ અંકોમાં લખતા જ શબ્દોમાં લખાણ આપમેળે રૂપાંતર થશે.",
+                    "બિલ ડાઉનલોડ કરવા PDF અથવા વોટ્સએપ શેર કરો."
+                ],
+                example: "નોંધ: માસિક ફી અને બાકી રકમ જાળવવા માટે ઉત્તમ."
+            },
+            attendance: {
+                title: "📝 હાજરી પત્રક રજિસ્ટર મદદ",
+                steps: [
+                    "વિદ્યાર્થી બેચ ધોરણ, મહિનાની વિગત અને નામોની યાદી સેટ કરો.",
+                    "રોજિંદી હાજરી સ્થિતિ નોંધો (હાજર માટે P, ગેરહાજર માટે A).",
+                    "યોગ્ય કલર થીમ અને અક્ષર સ્ટાઇલ સેટ કરો.",
+                    "સીધું A4 લેન્ડસ્કેપ સાઇઝનું રજિસ્ટર પ્રિન્ટ કરો."
+                ],
+                example: "નોંધ: માસિક હાજરી સારાંશ આપમેળે તૈયાર થાય છે."
+            },
+            timetable: {
+                title: "📅 ટ્યુશન સમયપત્રક મદદ",
+                steps: [
+                    "સંસ્થાનું નામ અને સ્ટુડન્ટ/ટીચર મોડ નક્કી કરો.",
+                    "સમયગાળો સેટ કરી રોજિંદા લેક્ચરની વિગત ભરો.",
+                    "તમારી અનુકૂળતા મુજબ દિવસ હેડર કસ્ટમાઇઝ કરો.",
+                    "સમયપત્રક પ્રિન્ટ કરવા PDF/PNG ડાઉનલોડ કરો."
+                ],
+                example: "નોંધ: પોપિન્સ ફોન્ટ સાથે ટેબલ કોલમ વ્યવસ્થિત સેટ થાય છે."
+            },
+            cashcounter: {
+                title: "💵 રોકડ કેલ્ક્યુલેટર મદદ",
+                steps: [
+                    "ચલણી નોટોની સંખ્યા દાખલ કરો (₹૨૦૦૦ થી ₹૧ સુધી).",
+                    "ચલણી સિક્કાઓની કુલ રકમ સિક્કા બોક્સમાં લખો.",
+                    "આપમેળે ગણતરી થયેલ કુલ રકમ અને પેટા-સરવાળો ચેક કરો.",
+                    "રોકડ સ્લિપ પ્રિન્ટ કરો અથવા વોટ્સએપ પર શેર કરો."
+                ],
+                example: "નોંધ: ગલ્લા/કેશ બૉક્સનો રોજિંદો મેળ મેળવવા માટે શ્રેષ્ઠ સાધન."
             }
         }
     };

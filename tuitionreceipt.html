@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create customizable monthly tuition fee receipts and payment slips online. Auto-converts numbers to words and maintains balance logs.">
+    <meta name="keywords" content="tuition fee receipt, coaching payment slip, fees receipt book, student payment voucher">
+    <title>Tuition & Coaching Fee Receipt Maker - Digital Tools Hub</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;600;800&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- html2canvas for Image sharing -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!-- i18n Translation Engine -->
+    <script src="assets/i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-hover: #d97706;
+            --page-bg: #0f172a;
+            --card-bg: #1e293b;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOPBAR HEADER */
+        .app-header {
+            height: 64px;
+            background: #1e293b;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-title {
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-sep {
+            color: #475569;
+            font-weight: 300;
+        }
+
+        .header-tool-name {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: #f8fafc;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-top:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .controls-panel {
+            width: 55%;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-panel {
+            width: 45%;
+            overflow-y: auto;
+            background: #0b0f19;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        /* TABS UI HEADER & BODY TOGGLES */
+        .tabs-header {
+            display: flex;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3px;
+            margin-bottom: 20px;
+            gap: 2px;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tab-item i {
+            font-size: 14px;
+        }
+
+        .tab-item.active {
+            background: var(--primary);
+            color: #000;
+            font-weight: bold;
+        }
+
+        .tab-body {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tab-body.active {
+            display: flex;
+        }
+
+        /* FORM ELEMENTS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .opt-box.active, .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .opt-box.active {
+            background: var(--primary);
+            color: #000;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], select, textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        /* Calendar Picker styling overrides for dark theme compatibility */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        /* Select option background styling for legibility */
+        select option {
+            background-color: #1e293b;
+            color: #ffffff;
+        }
+
+        /* SIDE-BY-SIDE LABEL & VALUE EDITORS */
+        .editor-group-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* RECEIPT SLIP CARD DESIGN TEMPLATES */
+        .receipt-slip {
+            --theme-color: #f59e0b; /* Isolated theme variable for printable slip document styling */
+            width: 100%;
+            max-width: 360px;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: visible; /* Fixed layout overflow issue so signatures/remarks do not clip */
+            transition: all 0.3s ease;
+        }
+
+        /* Custom design frame styles strictly bound to local var(--theme-color) */
+        .receipt-slip.design-classic {
+            border-top: 8px solid var(--theme-color);
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            color: #1e293b;
+        }
+        .receipt-slip.design-modern {
+            border: 2px solid var(--theme-color);
+            border-radius: 20px;
+            background: #fff;
+            color: #1e293b;
+        }
+        .receipt-slip.design-thermal {
+            border: 1px dashed #94a3b8;
+            border-radius: 0;
+            background: #fcfcfc;
+            color: #1e293b;
+            box-shadow: none;
+        }
+
+        .receipt-badge {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            border: 2px solid #10b981;
+            color: #10b981;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            transform: rotate(5deg);
+            z-index: 2;
+        }
+
+        .slip-header-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .preview-logo {
+            max-width: 48px;
+            max-height: 48px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        .class-title {
+            font-weight: 800;
+            font-size: 18px;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .class-contact {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        .divider {
+            border-bottom: 2px dashed #e2e8f0;
+            margin: 16px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .slip-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 13px;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.45); /* Transparent to let watermark show */
+        }
+
+        .slip-lbl {
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .slip-val {
+            color: #0f172a;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .fee-highlight {
+            background: rgba(248, 250, 252, 0.65);
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            border: 1.5px solid var(--theme-color);
+            position: relative;
+            z-index: 2;
+        }
+
+        .highlight-lbl {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--theme-color);
+            text-transform: uppercase;
+        }
+
+        .highlight-val {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--theme-color);
+        }
+
+        .words-block {
+            font-size: 11px;
+            color: #475569;
+            font-style: italic;
+            margin-top: 10px;
+            background: rgba(248, 250, 252, 0.4);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--theme-color);
+            line-height: 1.4;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sign-area {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 24px;
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sign-line {
+            border-bottom: 1px solid #cbd5e1;
+            margin-bottom: 4px;
+            width: 130px;
+            height: 20px;
+        }
+
+        @media (max-width: 900px) {
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-header { flex-wrap: wrap; height: auto; padding: 12px; gap: 10px; justify-content: center; }
+            .header-actions { width: 100%; justify-content: center; gap: 8px; }
+            .app-body { flex-direction: column; overflow: visible; }
+            .controls-panel { width: 100%; height: auto; border-right: none; padding: 16px; }
+            .preview-panel { width: 100%; min-height: auto; border-top: 2px solid var(--border); padding: 24px 16px; }
+        }
+
+        @media print {
+            body { background: #fff !important; color: #000 !important; height: auto !important; overflow: visible !important; }
+            .app-header, .controls-panel, #toast-container { display: none !important; }
+            .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; width: 100% !important; }
+            .receipt-slip { box-shadow: none !important; width: 100% !important; height: auto !important; margin: 0 !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="toast-container"></div>
+
+    <!-- APP HEADER -->
+    <div class="app-header">
+        <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
+            <a href="index.html" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
+                <span data-i18n="suite_title">Digital Tools Hub</span>
+            </a>
+            <span class="header-sep">/</span>
+            <span class="header-tool-name" data-i18n="t22_title">Tuition & Coaching Fee Receipt Maker</span>
+        </div>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <!-- Header buttons remain styled in App primary orange color -->
+            <div class="btn-top" onclick="window.print()" style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; border:none; font-weight:800;"><i class="fas fa-print"></i> Print PDF</div>
+            <div class="btn-top" onclick="shareFeeReceipt('download')" style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #000; border:none; font-weight:800;"><i class="fas fa-download"></i> Download PNG</div>
+            <div class="btn-top" onclick="shareFeeReceipt('share')" style="background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; border-color:#128c7e;"><i class="fab fa-whatsapp"></i> Share WhatsApp</div>
+        </div>
+    </div>
+
+    <!-- APP BODY -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS -->
+        <div class="controls-panel">
+            
+            <!-- TABS NAVIGATION HEADER -->
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="switchTab('tab-details', this)"><i class="fas fa-edit"></i> Details</div>
+                <div class="tab-item" onclick="switchTab('tab-payment', this)"><i class="fas fa-receipt"></i> Payment</div>
+                <div class="tab-item" onclick="switchTab('tab-design', this)"><i class="fas fa-palette"></i> Style</div>
+            </div>
+
+            <!-- TAB 1: BRANDING & STUDENT DETAILS -->
+            <div id="tab-details" class="tab-body active">
+                <div class="grp-label">1. Tuition Center Branding</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()">
+                        <i class="fas fa-upload"></i> Upload Logo
+                        <input type="file" id="up-logo" hidden onchange="loadLogo(this)">
+                    </div>
+                    <div class="opt-box" onclick="removeLogo()" style="color:#f87171">
+                        <i class="fas fa-trash"></i> Remove Logo
+                    </div>
+                </div>
+
+                <div class="editor-group-card" style="margin-top:10px">
+                    <div style="font-size:10px; font-weight:800; color:#fbbf24;">Tuition Header Name</div>
+                    <input type="text" id="in-class-name" value="Saraswati Academy" oninput="render()" placeholder="Coaching Class Name">
+                </div>
+                
+                <div class="editor-group-card">
+                    <div style="font-size:10px; font-weight:800; color:#fbbf24;">Contact & Location Details</div>
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Phone Number</label>
+                            <input type="text" id="in-class-contact" value="Mo. +91 91635 62392" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Location Address</label>
+                            <input type="text" id="in-class-address" value="Sector 5, Gandhinagar, Gujarat" oninput="render()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:15px">2. Student Details & Labels</div>
+                <div class="editor-group-card">
+                    <!-- Row: Student Name Label & Value -->
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Student Name Label</label>
+                            <input type="text" id="lbl-student" value="Student Name:" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Student Actual Name</label>
+                            <input type="text" id="in-student-name" value="Aarav Patel" oninput="render()">
+                        </div>
+                    </div>
+
+                    <!-- Row: Class Label & Value -->
+                    <div class="grid-2" style="margin-top:10px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Class Label</label>
+                            <input type="text" id="lbl-class" value="Class / Batch:" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Class / Standard Value</label>
+                            <input type="text" id="in-student-class" value="Class 10 (Mathematics Batch)" oninput="render()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: PAYMENT & FEE METADATA -->
+            <div id="tab-payment" class="tab-body">
+                <div class="grp-label">1. Receipt Metadata</div>
+                <div class="editor-group-card">
+                    <!-- Datepicker linked dynamic labels -->
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Receipt ID Label & Value</label>
+                            <input type="text" id="in-receipt-no" value="Receipt No: 405" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Receipt Date Picker</label>
+                            <input type="date" id="in-receipt-date" onchange="render()">
+                        </div>
+                    </div>
+                    <div class="grid-2" style="margin-top:4px">
+                        <div></div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Date Label text</label>
+                            <input type="text" id="lbl-date" value="Date:" oninput="render()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:15px">2. Fees & Descriptions</div>
+                <div class="editor-group-card">
+                    <!-- Row: Description Label & Value -->
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Description Label</label>
+                            <input type="text" id="lbl-desc" value="Description:" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Fee Period Details</label>
+                            <input type="text" id="in-fee-month" value="Fees for: August 2026" oninput="render()">
+                        </div>
+                    </div>
+
+                    <!-- Row: Payment Mode Label & Selector -->
+                    <div class="grid-2" style="margin-top:10px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Payment Mode Label</label>
+                            <input type="text" id="lbl-mode" value="Payment Mode:" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Select Mode</label>
+                            <select id="in-pay-mode" onchange="render()">
+                                <option value="Cash">Cash (રોકડ)</option>
+                                <option value="GPay / UPI">GPay / UPI Payment</option>
+                                <option value="Net Banking">Net Banking</option>
+                                <option value="Cheque">Cheque (ચેક)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Row: Received Amount Label & Value -->
+                    <div class="grid-2" style="margin-top:10px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Received Fee Label</label>
+                            <input type="text" id="lbl-received" value="Fees Received" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Received Amount (₹)</label>
+                            <input type="number" id="in-paid-amt" value="2500" min="0" oninput="render()">
+                        </div>
+                    </div>
+
+                    <!-- Auto Words Convert Options and manual Edit Field -->
+                    <div style="margin-top:10px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 10px; border-radius: 8px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span style="font-size:10px; color:#94a3b8; font-weight:bold;">Amount in Words</span>
+                            <label style="font-size:10px; color:#fbbf24; display:flex; align-items:center; gap:4px; cursor:pointer;">
+                                <input type="checkbox" id="in-auto-words" checked onchange="toggleAutoWords(this.checked)" style="width:12px; height:12px;"> Auto Convert
+                            </label>
+                        </div>
+                        <input type="text" id="in-total-words" value="" oninput="render()" placeholder="Type custom words here..." style="margin-top:6px;">
+                    </div>
+
+                    <!-- Row: Pending Dues Label & Value -->
+                    <div class="grid-2" style="margin-top:10px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Pending Dues Label</label>
+                            <input type="text" id="lbl-due" value="Pending Dues:" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Remaining Balance (₹)</label>
+                            <input type="number" id="in-due-amt" value="0" min="0" oninput="render()">
+                        </div>
+                    </div>
+
+                    <!-- Signature line Label -->
+                    <div style="margin-top:10px">
+                        <label style="font-size:10px; color:#94a3b8">Signature Area Label</label>
+                        <input type="text" id="lbl-signature" value="Authorized Signature" oninput="render()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: STYLING & WATERMARK -->
+            <div id="tab-design" class="tab-body">
+                <div class="grp-label">🎨 Custom Designing Options</div>
+                
+                <!-- Dynamic Color Picker using oninput for instant screen color rendering -->
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <label style="font-size:12px; color:#94a3b8; font-weight:600;">Accent Theme Color:</label>
+                    <input type="color" id="in-theme" value="#f59e0b" oninput="changeTheme(this.value)" style="width:50px; height:34px; border:none; padding:0; background:transparent; cursor:pointer;">
+                </div>
+
+                <!-- Font Selection -->
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Choose Font Family</label>
+                    <select id="in-font" onchange="changeFont(this.value)">
+                        <option value="'Poppins', sans-serif" selected>Poppins (Modern Sans)</option>
+                        <option value="'Roboto', sans-serif">Roboto (Clean Sans)</option>
+                        <option value="'Outfit', sans-serif">Outfit (Premium Rounded)</option>
+                        <option value="'Playfair Display', serif">Playfair (Vintage Serif)</option>
+                    </select>
+                </div>
+
+                <!-- Design Layout Templates using grid boxes -->
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Choose Receipt Layout Frame</label>
+                    <div class="grid-2" style="margin-top:5px; gap:8px;">
+                        <div class="opt-box active" id="ly-classic" onclick="setLayout('design-classic', this)"><i class="fas fa-square-full" style="color:#f59e0b"></i> Classic</div>
+                        <div class="opt-box" id="ly-modern" onclick="setLayout('design-modern', this)"><i class="fas fa-border-none" style="color:#3b82f6"></i> Modern</div>
+                        <div class="opt-box" id="ly-thermal" onclick="setLayout('design-thermal', this)"><i class="fas fa-print" style="color:#10b981"></i> Thermal POS</div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:20px">🔒 Security Background Watermark</div>
+                
+                <!-- Watermark Checkbox -->
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="checkbox" id="in-show-watermark" checked onchange="toggleWatermark(this.checked)" style="width:18px; height:18px; cursor:pointer;">
+                    <label style="font-size:12px; color:#fff; font-weight:600; cursor:pointer;" for="in-show-watermark">Show Diagonal Anti-Forgery Watermark</label>
+                </div>
+
+                <!-- Watermark Text -->
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Watermark Custom Text</label>
+                    <input type="text" id="in-watermark-text" value="Saraswati Academy" oninput="updateWatermarkText(this.value)">
+                </div>
+
+                <!-- Watermark Opacity -->
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Watermark Opacity (Intensity)</label>
+                    <input type="range" id="in-watermark-opacity" min="0.02" max="0.35" step="0.01" value="0.18" oninput="changeWatermarkOpacity(this.value)">
+                </div>
+            </div>
+            <!-- GUIDES, BENEFITS & FAQ SECTION FOR ADSENSE & SEO -->
+            <div class="editor-group-card" style="margin-top: 24px;">
+                <details style="cursor: pointer; outline: none; width: 100%;">
+                    <summary style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; outline: none; user-select: none; width: 100%;">
+                        <span><i class="fas fa-circle-question"></i> <span data-i18n="how_to_use">Guide & FAQs</span></span>
+                        <i class="fas fa-chevron-down" style="font-size:10px; color:#94a3b8;"></i>
+                    </summary>
+                    
+                    <div style="font-size: 11px; line-height: 1.6; color: #cbd5e1; display: flex; flex-direction: column; gap: 12px; margin-top: 12px; cursor: default;">
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="how_to_use">How to Use:</strong>
+                            <span data-i18n="gtr_1">1. Enter your details in the form inputs.</span><br>
+                            <span data-i18n="gtr_2">2. Customize styles, colors, and watermark.</span><br>
+                            <span data-i18n="gtr_3">3. Verify details in the live preview.</span><br>
+                            <span data-i18n="gtr_4">4. Print A4 PDF or download as PNG.</span>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="key_benefits">Key Benefits:</strong>
+                            • <span data-i18n="btr_1">Generates document instantly.</span><br>
+                            • <span data-i18n="btr_2">High-resolution printable output.</span><br>
+                            • <span data-i18n="btr_3">Anti-forgery watermark security.</span>
+                        </div>
+
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="privacy_faq_q">Privacy FAQ: Is my data saved on any server?</strong>
+                            <span data-i18n="privacy_faq_a">No! All processing happens locally in your browser.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+            <!-- END OF GUIDES, BENEFITS & FAQ SECTION -->
+        </div>
+
+        
+<!-- RIGHT PREVIEW -->
+        <div class="preview-panel">
+            
+            <div class="receipt-slip design-classic" id="receipt-slip-area">
+                <!-- Highly Visible Diagonal Anti-Forgery Watermark Overlay -->
+                <div id="watermark-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-25deg); font-size: 26px; font-weight: 900; color: rgba(245, 158, 11, 0.18); text-transform: uppercase; white-space: nowrap; pointer-events: none; z-index: 1; font-family: inherit; text-align: center; width: 120%; line-height: 1.5; display: flex; align-items: center; justify-content: center; word-break: break-all; user-select: none;">
+                    Saraswati Academy
+                </div>
+
+                <div class="receipt-badge">Paid</div>
+                
+                <div class="slip-header-container">
+                    <img id="d-logo" src="" class="preview-logo" style="display:none;" alt="Logo">
+                    <div>
+                        <div class="class-title" id="d-class-name">Saraswati Academy</div>
+                        <div class="class-contact" id="d-class-contact">Mo. +91 91635 62392 | Sector 5, Gandhinagar</div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="slip-row">
+                    <span class="slip-lbl" id="d-receipt-no">Receipt No: 405</span>
+                    <span class="slip-val" id="d-receipt-date"><span id="d-lbl-date">Date:</span> <span id="d-val-date"></span></span>
+                </div>
+
+                <div class="slip-row">
+                    <span class="slip-lbl" id="d-lbl-student">Student Name:</span>
+                    <span class="slip-val" id="d-student-name">Aarav Patel</span>
+                </div>
+
+                <div class="slip-row">
+                    <span class="slip-lbl" id="d-lbl-class">Class / Batch:</span>
+                    <span class="slip-val" id="d-student-class">Class 10</span>
+                </div>
+
+                <div class="slip-row">
+                    <span class="slip-lbl" id="d-lbl-desc">Description:</span>
+                    <span class="slip-val" id="d-fee-month">Fees for August 2026</span>
+                </div>
+
+                <div class="slip-row">
+                    <span class="slip-lbl" id="d-lbl-mode">Payment Mode:</span>
+                    <span class="slip-val" id="d-pay-mode">Cash</span>
+                </div>
+
+                <div class="slip-row">
+                    <span class="slip-lbl" id="d-lbl-due">Pending Dues:</span>
+                    <span class="slip-val" id="d-due-amt" style="color:#ef4444">₹0</span>
+                </div>
+
+                <div class="fee-highlight">
+                    <span class="highlight-lbl" id="d-lbl-received">Fees Received</span>
+                    <span class="highlight-val" id="d-paid-amt">₹2,500</span>
+                </div>
+
+                <div class="words-block" id="d-total-words">
+                    Two Thousand Five Hundred Rupees Only
+                </div>
+
+                <div class="sign-area">
+                    <div class="sign-box">
+                        <div class="sign-line"></div>
+                        <span id="d-lbl-signature">Authorized Signature</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const _ = id => document.getElementById(id);
+        let logoUrl = '';
+
+        // Tab Switching Logic
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.tab-body').forEach(body => body.classList.remove('active'));
+            el.classList.add('active');
+            _(tabId).classList.add('active');
+        }
+
+        // Custom Font changes
+        function changeFont(fontName) {
+            _('receipt-slip-area').style.fontFamily = fontName;
+        }
+
+        // Custom Layout frame changes
+        function setLayout(layoutClass, el) {
+            document.querySelectorAll('#tab-design .opt-box').forEach(box => box.classList.remove('active'));
+            el.classList.add('active');
+            const card = _('receipt-slip-area');
+            card.className = `receipt-slip ${layoutClass}`;
+            changeTheme(_('in-theme').value);
+        }
+
+        // Watermark Controls
+        function toggleWatermark(show) {
+            _('watermark-overlay').style.display = show ? 'flex' : 'none';
+        }
+
+        function updateWatermarkText(val) {
+            _('watermark-overlay').innerText = val;
+        }
+
+        // Dynamic Color Picker hex transparency calculations
+        function changeWatermarkOpacity(val) {
+            const activeColor = _('in-theme').value;
+            const hexOpacity = Math.round(val * 255).toString(16).padStart(2, '0');
+            _('watermark-overlay').style.color = `${activeColor}${hexOpacity}`;
+        }
+
+        // Auto Words Toggle Logic
+        function toggleAutoWords(checked) {
+            _('in-total-words').disabled = checked;
+            render();
+        }
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#fbbf24"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function loadLogo(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    logoUrl = e.target.result;
+                    render();
+                    showToast('Logo uploaded successfully!', 'fa-image');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeLogo() {
+            logoUrl = '';
+            _('up-logo').value = '';
+            render();
+            showToast('Logo removed', 'fa-trash');
+        }
+
+        // Local Theme Property Update
+        function changeTheme(color) {
+            _('receipt-slip-area').style.setProperty('--theme-color', color);
+            
+            // Explicitly set inline styling properties so html2canvas renders them correctly
+            const card = _('receipt-slip-area');
+            card.style.borderColor = color;
+            
+            const highlight = card.querySelector('.fee-highlight');
+            if (highlight) highlight.style.borderColor = color;
+            
+            const highlightLbl = card.querySelector('.highlight-lbl');
+            if (highlightLbl) highlightLbl.style.color = color;
+            
+            const highlightVal = card.querySelector('.highlight-val');
+            if (highlightVal) highlightVal.style.color = color;
+            
+            const wordsBlock = card.querySelector('.words-block');
+            if (wordsBlock) wordsBlock.style.borderLeftColor = color;
+            
+            // Adjust watermark color using transparency
+            const currentOpacity = _('in-watermark-opacity').value;
+            const hexOpacity = Math.round(currentOpacity * 255).toString(16).padStart(2, '0');
+            _('watermark-overlay').style.color = `${color}${hexOpacity}`;
+            render();
+        }
+
+        function resetForm() {
+            _('in-class-name').value = "Saraswati Academy";
+            _('in-class-contact').value = "Mo. +91 91635 62392";
+            _('in-class-address').value = "Sector 5, Gandhinagar, Gujarat";
+            _('in-receipt-no').value = "Receipt No: 405";
+            
+            const today = new Date().toISOString().split('T')[0];
+            _('in-receipt-date').value = today;
+            
+            _('in-student-name').value = "Aarav Patel";
+            _('in-student-class').value = "Class 10 (Mathematics Batch)";
+            _('in-fee-month').value = "Fees for: August 2026";
+            _('in-paid-amt').value = 2500;
+            _('in-due-amt').value = 0;
+            _('in-pay-mode').value = "Cash";
+            
+            _('in-theme').value = '#f59e0b';
+            _('in-font').value = "'Poppins', sans-serif";
+            
+            document.querySelectorAll('#tab-design .opt-box').forEach(box => box.classList.remove('active'));
+            _('ly-classic').classList.add('active');
+            
+            // Watermark defaults
+            _('in-show-watermark').checked = true;
+            _('in-watermark-text').value = "Saraswati Academy";
+            _('in-watermark-opacity').value = "0.18";
+
+            // Words configuration
+            _('in-auto-words').checked = true;
+            _('in-total-words').disabled = true;
+
+            // Labels defaults
+            _('lbl-student').value = "Student Name:";
+            _('lbl-class').value = "Class / Batch:";
+            _('lbl-desc').value = "Description:";
+            _('lbl-mode').value = "Payment Mode:";
+            _('lbl-due').value = "Pending Dues:";
+            _('lbl-received').value = "Fees Received";
+            _('lbl-signature').value = "Authorized Signature";
+            _('lbl-date').value = "Date:";
+
+            changeFont("'Poppins', sans-serif");
+            const card = _('receipt-slip-area');
+            card.className = "receipt-slip design-classic";
+            toggleWatermark(true);
+            logoUrl = '';
+            _('up-logo').value = '';
+            changeTheme('#f59e0b');
+            render();
+            showToast('Receipt form cleared!', 'fa-rotate-left');
+        }
+
+        function render() {
+            const className = _('in-class-name').value;
+            _('d-class-name').innerText = className;
+            
+            const currentWatermark = _('in-watermark-text').value;
+            if (currentWatermark === 'Saraswati Academy' || currentWatermark === className) {
+                _('in-watermark-text').value = className;
+                _('watermark-overlay').innerText = className;
+            } else {
+                _('watermark-overlay').innerText = currentWatermark;
+            }
+
+            const contact = _('in-class-contact').value;
+            const address = _('in-class-address').value;
+            _('d-class-contact').innerText = `${contact} | ${address}`;
+
+            _('d-receipt-no').innerText = _('in-receipt-no').value;
+            _('d-student-name').innerText = _('in-student-name').value;
+            _('d-student-class').innerText = _('in-student-class').value;
+            _('d-fee-month').innerText = _('in-fee-month').value;
+            _('d-pay-mode').innerText = _('in-pay-mode').value;
+
+            // Format date value: YYYY-MM-DD to DD-MM-YYYY
+            const rawDate = _('in-receipt-date').value;
+            const formattedDate = rawDate ? rawDate.split('-').reverse().join('-') : '';
+            _('d-val-date').innerText = formattedDate;
+
+            // Render Custom Labels
+            _('d-lbl-student').innerText = _('lbl-student').value;
+            _('d-lbl-class').innerText = _('lbl-class').value;
+            _('d-lbl-desc').innerText = _('lbl-desc').value;
+            _('d-lbl-mode').innerText = _('lbl-mode').value;
+            _('d-lbl-due').innerText = _('lbl-due').value;
+            _('d-lbl-received').innerText = _('lbl-received').value;
+            _('d-lbl-signature').innerText = _('lbl-signature').value;
+            _('d-lbl-date').innerText = _('lbl-date').value;
+
+            const paidAmt = parseInt(_('in-paid-amt').value) || 0;
+            const dueAmt = parseInt(_('in-due-amt').value) || 0;
+
+            _('d-paid-amt').innerText = `₹${paidAmt.toLocaleString('en-IN')}`;
+            _('d-due-amt').innerText = `₹${dueAmt.toLocaleString('en-IN')}`;
+
+            // Handle logo display
+            const logoImg = _('d-logo');
+            if (logoUrl) {
+                logoImg.src = logoUrl;
+                logoImg.style.display = 'block';
+            } else {
+                logoImg.style.display = 'none';
+            }
+
+            // Word converter logic
+            const autoWordsCheck = _('in-auto-words').checked;
+            if (autoWordsCheck) {
+                const currentLang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
+                const calculatedWords = numToWords(paidAmt, currentLang);
+                _('in-total-words').value = calculatedWords;
+                _('d-total-words').innerText = calculatedWords;
+            } else {
+                _('d-total-words').innerText = _('in-total-words').value;
+            }
+        }
+
+        function shareFeeReceipt(actionType = 'share') {
+            const card = _('receipt-slip-area');
+            showToast('Preparing Fee Receipt slip...', 'fa-spinner fa-spin');
+
+            // Temporary scroll alignment to top to prevent canvas viewport clipping
+            const previewPanel = document.querySelector('.preview-panel');
+            const originalScrollTop = previewPanel ? previewPanel.scrollTop : 0;
+            if (previewPanel) previewPanel.scrollTop = 0;
+
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                if (previewPanel) previewPanel.scrollTop = originalScrollTop; // Restore scroll position
+
+                cv.toBlob(blob => {
+                    const filename = `FeeReceipt-${_('in-student-name').value.replace(/\s+/g, '-')}-${Date.now()}.png`;
+                    if (actionType === 'share' && window.shareGeneratedFile) {
+                        window.shareGeneratedFile(blob, filename, 'image/png');
+                    } else {
+                        const a = document.createElement('a');
+                        a.download = filename;
+                        a.href = URL.createObjectURL(blob);
+                        a.click();
+                        showToast('Fee Receipt Slip Downloaded!', 'fa-check-circle');
+                    }
+                }, 'image/png');
+            });
+        }
+
+        // Multilingual Number-to-Words Engine
+        function numToWords(num, lang = 'en') {
+            if (num === 0) {
+                if (lang === 'gu') return 'શૂન્ય રૂપિયા પૂરા';
+                if (lang === 'hi') return 'शून्य रुपये मात्र';
+                return 'Zero Rupees Only';
+            }
+
+            const enUnits = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const enTens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+            function convertEnglish(n) {
+                if (n < 20) return enUnits[n];
+                if (n < 100) return enTens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + enUnits[n % 10] : '');
+                if (n < 1000) return enUnits[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' and ' + convertEnglish(n % 100) : '');
+                if (n < 100000) {
+                    return convertEnglish(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convertEnglish(n % 1000) : '');
+                }
+                if (n < 10000000) {
+                    return convertEnglish(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 !== 0 ? ' ' + convertEnglish(n % 100000) : '');
+                }
+                return convertEnglish(Math.floor(n / 10000000)) + ' Crore' + (n % 10000000 !== 0 ? ' ' + convertEnglish(n % 10000000) : '');
+            }
+
+            const guUnits = ['', 'એક', 'બે', 'ત્રણ', 'ચાર', 'પાંચ', 'છ', 'સાત', 'આઠ', 'નવ', 'દસ', 'અગિયાર', 'બાર', 'તેર', 'ચૌદ', 'પંદર', 'સોળ', 'સત્તર', 'અઢાર', 'ઓગણીસ', 'વીસ', 'એકવીસ', 'બાવીસ', 'ત્રેવીસ', 'ચોવીસ', 'પચ્ચીસ', 'છવ્વીસ', 'સત્તાવીસ', 'અઠ્ઠાવીસ', 'ઓગણત્રીસ', 'ત્રીસ', 'એકત્રીસ', 'બત્રીસ', 'તેત્રીસ', 'ચોત્રીસ', 'પાંત્રીસ', 'છત્રીસ', 'સાડત્રીસ', 'આડત્રીસ', 'ઓગણચાળીસ', 'ચાલીસ', 'એકતાલીસ', 'બેતાલીસ', 'તાલીસ', 'ચોમાલીસ', 'પિસ્તાલીસ', 'છેતાલીસ', 'સુડતાલીસ', 'અડતાલીસ', 'ઓગણપચાસ', 'પચાસ', 'એકાવન', 'બાવન', 'ત્રેપન', 'ચોપન', 'પંચાવન', 'છપ્પન', 'સત્તાવન', 'અઠ્ઠાવન', 'ઓગણસાઈઠ', 'સાઈઠ', 'એકસઠ', 'બાસઠ', 'ત્રેસઠ', 'ચોસઠ', 'પાંસઠ', 'છાસઠ', 'સડસઠ', 'આડસઠ', 'ઓગણસિત્તેર', 'સિત્તેર', 'એકોતેર', 'બોતેર', 'તોતેર', 'ચોતેર', 'પંચોતેર', 'છોતેર', 'સિત્યોતેર', 'ઈત્યોતેર', 'ઓગણએંસી', 'એંસી', 'એક્યાસી', 'બ્યાસી', 'ત્યાસી', 'ચોર્યાસી', 'પંચાસી', 'છ્યાસી', 'સત્યાસી', 'અઠ્યાસી', 'ઓગણナビ', 'નેવું', 'એકણું', 'બાણું', 'ત્રાણું', 'ચોરાણું', 'પંચાણું', 'છન્નું', 'સત્તાણું', 'અઢાણું', 'નવાણું'];
+            function convertGujarati(n) {
+                if (n < 100) return guUnits[n];
+                if (n < 1000) return guUnits[Math.floor(n / 100)] + ' સો' + (n % 100 !== 0 ? ' ' + convertGujarati(n % 100) : '');
+                if (n < 100000) return convertGujarati(Math.floor(n / 1000)) + ' હજાર' + (n % 1000 !== 0 ? ' ' + convertGujarati(n % 1000) : '');
+                if (n < 10000000) return convertGujarati(Math.floor(n / 100000)) + ' લાખ' + (n % 100000 !== 0 ? ' ' + convertGujarati(n % 100000) : '');
+                return convertGujarati(Math.floor(n / 10000000)) + ' કરોડ' + (n % 10000000 !== 0 ? ' ' + convertGujarati(n % 10000000) : '');
+            }
+
+            const hiUnits = ['', 'एक', 'दो', 'तीन', 'चार', 'पांच', 'छह', 'सात', 'आठ', 'नौ', 'दस', 'ग्यारह', 'बारह', 'तेरह', 'चौदह', 'पंद्रह', 'सोलह', 'सत्रह', 'अठारह', 'उन्नीस', 'बीस', 'इक्कीस', 'बाईस', 'तेईस', 'चौबीस', 'पच्चीस', 'छब्बीस', 'सताइस', 'अठाइस', 'उनतीस', 'तीस', 'इकतीस', 'बत्तीस', 'तैंतीस', 'चौंतीस', 'पैंतीस', 'छत्तीस', 'सैंतीस', 'अड़तीस', 'उनतालीस', 'चालीस', 'एकतालीस', 'बयालीस', 'तैंतालीस', 'चतुआलीस', 'पैंतालीस', 'छियालीस', 'सैंतालीस', 'अड़तालीस', 'उनचास', 'पचास', 'इक्कावन', 'बावन', 'तिरेपन', 'चौवन', 'पचपन', 'छैपन', 'सतावन', 'अठावन', 'उनसठ', 'साठ', 'इकसठ', 'बासठ', 'तिरसठ', 'चौंसठ', 'पैंसठ', 'छियासठ', 'सरसठ', 'अड़सठ', 'उनहत्तर', 'सत्तर', 'इकहत्तर', 'बहत्तर', 'तिहत्तर', 'चौहत्तर', 'पचहत्तर', 'छहत्तर', 'सतहत्तर', 'अठहत्तर', 'उनासी', 'अस्सी', 'इक्यासी', 'बयासी', 'तिरासी', 'चौरासी', 'पचासी', 'छियासी', 'सतासी', 'अठासी', 'नवासी', 'नब्बे', 'इक्यानबे', 'ब्यानबे', 'तिरानबे', 'चौरानबे', 'पचानबे', 'छियानबे', 'सत्तानबे', 'अट्ठानबे', 'निन्यानबे'];
+            function convertHindi(n) {
+                if (n < 100) return hiUnits[n];
+                if (n < 1000) return hiUnits[Math.floor(n / 100)] + ' सौ' + (n % 100 !== 0 ? ' ' + convertHindi(n % 100) : '');
+                if (n < 100000) return convertHindi(Math.floor(n / 1000)) + ' हजार' + (n % 1000 !== 0 ? ' ' + convertHindi(n % 1000) : '');
+                if (n < 10000000) return convertHindi(Math.floor(n / 100000)) + ' लाख' + (n % 100000 !== 0 ? ' ' + convertHindi(n % 100000) : '');
+                return convertHindi(Math.floor(n / 10000000)) + ' करोड़' + (n % 10000000 !== 0 ? ' ' + convertHindi(n % 10000000) : '');
+            }
+
+            if (lang === 'gu') return convertGujarati(num).trim() + ' રૂપિયા પૂરા';
+            if (lang === 'hi') return convertHindi(num).trim() + ' रुपये मात्र';
+            return convertEnglish(num).trim() + ' Rupees Only';
+        }
+
+        window.onload = () => {
+            // Set dynamic current date on load
+            const today = new Date().toISOString().split('T')[0];
+            _('in-receipt-date').value = today;
+            render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create student batch and teacher weekly timetables and class schedules. Beautiful design templates with flexible column wrapping.">
+    <meta name="keywords" content="weekly timetable maker, class schedule builder, routine planner sheet, school time table template">
+    <title>Tuition & Coaching Weekly Timetable Maker - Digital Tools Hub</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;600;800&family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- html2canvas for Image sharing -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!-- i18n Translation Engine -->
+    <script src="assets/i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --page-bg: #0f172a;
+            --card-bg: #1e293b;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOPBAR HEADER */
+        .app-header {
+            height: 64px;
+            background: #1e293b;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-title {
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-sep {
+            color: #475569;
+            font-weight: 300;
+        }
+
+        .header-tool-name {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: #f8fafc;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-top:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .controls-panel {
+            width: 45%;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-panel {
+            width: 55%;
+            overflow: auto;
+            background: #0b0f19;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        /* TABS UI */
+        .tabs-header {
+            display: flex;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3px;
+            margin-bottom: 20px;
+            gap: 2px;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tab-item i {
+            font-size: 14px;
+        }
+
+        .tab-item.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .tab-body {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tab-body.active {
+            display: flex;
+        }
+
+        /* FORM STYLING */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .opt-box.active, .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .opt-box.active {
+            background: var(--primary);
+            color: #fff;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"], input[type="date"], select, textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+
+        select option {
+            background-color: #1e293b;
+            color: #ffffff;
+        }
+
+        .editor-group-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* DYNAMIC SCHEDULE SLOT EDITOR ITEMS */
+        .slot-editor-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        .slot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .slot-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .btn-remove-slot {
+            background: transparent;
+            border: none;
+            color: #f87171;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px 6px;
+        }
+
+        /* TIMETABLE SHEET CONTAINER styles mapping locally to --theme-color */
+        .timetable-sheet {
+            --theme-color: #10b981;
+            width: 100%;
+            min-width: 680px; /* Prevents cell squishing in split views */
+            max-width: 780px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            background: #fff;
+            color: #1e293b;
+            overflow: visible;
+            transition: all 0.3s ease;
+        }
+
+        .timetable-sheet.design-classic {
+            border: 10px double var(--theme-color);
+        }
+        .timetable-sheet.design-modern {
+            border: 2px solid var(--theme-color);
+            border-top: 10px solid var(--theme-color);
+        }
+        .timetable-sheet.design-vintage {
+            border: 4px double #334155;
+            background: #fcfbf7;
+            color: #2d3748;
+        }
+
+        .sheet-header-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .preview-logo {
+            max-width: 60px;
+            max-height: 60px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .class-title {
+            font-weight: 900;
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #0f172a;
+        }
+
+        .timetable-sheet.design-classic .class-title {
+            color: var(--theme-color);
+        }
+
+        .class-contact {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 3px;
+            font-weight: 600;
+        }
+
+        .sheet-sub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sheet-badge {
+            border: 2px solid var(--theme-color);
+            color: var(--theme-color);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .sheet-meta-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+        }
+
+        .timetable-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-top: 1px solid #cbd5e1;
+            border-left: 1px solid #cbd5e1;
+            font-size: 12px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timetable-table th, .timetable-table td {
+            border-right: 1px solid #cbd5e1;
+            border-bottom: 1px solid #cbd5e1;
+            padding: 8px 4px;
+            text-align: center;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .timetable-table th {
+            background: rgba(241, 245, 249, 0.9);
+            color: #0f172a;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 10px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .timetable-table td.time-cell {
+            background: rgba(248, 250, 252, 0.9);
+            color: var(--theme-color);
+            font-weight: 800;
+            font-size: 10px;
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .cell-content-block {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: center;
+            justify-content: center;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .cell-subject {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 11px;
+            line-height: 1.2;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .cell-subtext {
+            font-size: 9px;
+            color: #64748b;
+            font-weight: 500;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .sign-area {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sign-line {
+            border-bottom: 1px solid #cbd5e1;
+            margin-bottom: 4px;
+            width: 140px;
+            height: 20px;
+        }
+
+        .toast-msg {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1e293b;
+            border: 1.5px solid var(--border);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 1024px) {
+            body { height: auto; min-height: 100vh; overflow-y: auto; }
+            .app-header { flex-wrap: wrap; height: auto; padding: 12px; gap: 10px; justify-content: center; }
+            .header-actions { width: 100%; justify-content: center; gap: 8px; }
+            .app-body { flex-direction: column; overflow: visible; }
+            .controls-panel { width: 100%; height: auto; border-right: none; padding: 16px; }
+            .preview-panel { width: 100%; min-height: auto; border-top: 2px solid var(--border); padding: 24px 16px; }
+        }
+
+        @media print {
+            body { background: #fff !important; color: #000 !important; height: auto !important; overflow: visible !important; }
+            .app-header, .controls-panel, #toast-container { display: none !important; }
+            .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; width: 100% !important; }
+            .timetable-sheet { box-shadow: none !important; width: 100% !important; height: auto !important; margin: 0 !important; border-width: 2px !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="toast-container"></div>
+
+    <!-- APP HEADER -->
+    <div class="app-header">
+        <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
+            <a href="index.html" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
+                <span data-i18n="suite_title">Digital Tools Hub</span>
+            </a>
+            <span class="header-sep">/</span>
+            <span class="header-tool-name" data-i18n="t24_title">Tuition Time Table & Batch Scheduler</span>
+        </div>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <div class="btn-top" onclick="window.print()" style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #fff; border:none;"><i class="fas fa-print"></i> Print PDF</div>
+            <div class="btn-top" onclick="shareTimetable('download')" style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: #fff; border:none;"><i class="fas fa-download"></i> Download PNG</div>
+            <div class="btn-top" onclick="shareTimetable('share')" style="background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; border-color:#128c7e;"><i class="fab fa-whatsapp"></i> Share WhatsApp</div>
+        </div>
+    </div>
+
+    <!-- APP BODY -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS -->
+        <div class="controls-panel">
+            <!-- TABS NAVIGATION HEADER -->
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="switchTab('tab-details', this)"><i class="fas fa-edit"></i> Details</div>
+                <div class="tab-item" onclick="switchTab('tab-grid', this)"><i class="fas fa-calendar-alt"></i> Schedule</div>
+                <div class="tab-item" onclick="switchTab('tab-design', this)"><i class="fas fa-palette"></i> Style</div>
+            </div>
+
+            <!-- TAB 1: DETAILS -->
+            <div id="tab-details" class="tab-body active">
+                <div class="grp-label">1. Tuition Center Branding</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()">
+                        <i class="fas fa-upload"></i> Upload Logo
+                        <input type="file" id="up-logo" hidden onchange="loadLogo(this)">
+                    </div>
+                    <div class="opt-box" onclick="removeLogo()" style="color:#f87171">
+                        <i class="fas fa-trash"></i> Remove Logo
+                    </div>
+                </div>
+
+                <div class="editor-group-card" style="margin-top:10px">
+                    <div style="font-size:10px; font-weight:800; color:#10b981;">Coaching Class Name</div>
+                    <input type="text" id="in-class-name" value="Saraswati Coaching Academy" oninput="render()" placeholder="Coaching Class Name">
+                </div>
+
+                <div class="editor-group-card">
+                    <div style="font-size:10px; font-weight:800; color:#10b981;">Contact & Address Details</div>
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Phone Number</label>
+                            <input type="text" id="in-class-contact" value="Mo. +91 91635 62392" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Location Address</label>
+                            <input type="text" id="in-class-address" value="Sector 5, Gandhinagar, Gujarat" oninput="render()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:15px">2. Schedule Settings</div>
+                <div class="editor-group-card">
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Timetable Title</label>
+                            <input type="text" id="in-sheet-title" value="Weekly Batch Timetable" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Effective Date Picker</label>
+                            <input type="date" id="in-effective-date" onchange="render()">
+                        </div>
+                    </div>
+                    <div class="grid-2" style="margin-top:4px">
+                        <div></div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Date Label text</label>
+                            <input type="text" id="lbl-date" value="Effective Date:" oninput="render()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:15px">3. Timetable Type (Student vs Teacher)</div>
+                <div class="grid-2">
+                    <div class="opt-box active" id="mode-student" onclick="setTimetableMode('student')">
+                        <i class="fas fa-user-graduate"></i> Student Mode
+                    </div>
+                    <div class="opt-box" id="mode-teacher" onclick="setTimetableMode('teacher')">
+                        <i class="fas fa-chalkboard-teacher"></i> Teacher Mode
+                    </div>
+                </div>
+
+                <!-- Custom Grid Labels based on Mode selection -->
+                <div class="editor-group-card" style="margin-top:10px">
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8" id="lbl-col1-desc">Primary Label (Subject)</label>
+                            <input type="text" id="in-col1-lbl" value="Subject" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8" id="lbl-col2-desc">Subtext Label (Teacher)</label>
+                            <input type="text" id="in-col2-lbl" value="Teacher" oninput="render()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week Options -->
+                <div class="editor-group-card">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <input type="checkbox" id="in-show-sunday" onchange="toggleSunday(this.checked)" style="width:16px; height:16px;">
+                        <label style="font-size:12px; color:#fff; font-weight:600; cursor:pointer;" for="in-show-sunday">Include Sunday in Timetable</label>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:15px">4. Column & Day Header Labels</div>
+                <div class="editor-group-card">
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Time Column Header</label>
+                            <input type="text" id="lbl-hdr-time" value="Time / Period" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Monday Header</label>
+                            <input type="text" id="lbl-hdr-mon" value="Monday" oninput="render()">
+                        </div>
+                    </div>
+                    <div class="grid-2" style="margin-top:5px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Tuesday Header</label>
+                            <input type="text" id="lbl-hdr-tue" value="Tuesday" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Wednesday Header</label>
+                            <input type="text" id="lbl-hdr-wed" value="Wednesday" oninput="render()">
+                        </div>
+                    </div>
+                    <div class="grid-2" style="margin-top:5px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Thursday Header</label>
+                            <input type="text" id="lbl-hdr-thu" value="Thursday" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Friday Header</label>
+                            <input type="text" id="lbl-hdr-fri" value="Friday" oninput="render()">
+                        </div>
+                    </div>
+                    <div class="grid-2" style="margin-top:5px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Saturday Header</label>
+                            <input type="text" id="lbl-hdr-sat" value="Saturday" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Sunday Header</label>
+                            <input type="text" id="lbl-hdr-sun" value="Sunday" oninput="render()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: SCHEDULE GRID EDITOR -->
+            <div id="tab-grid" class="tab-body">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="grp-label" style="margin-bottom:0;">Time Slots & Day Routine</div>
+                    <button class="btn-top" onclick="addNewSlot()" style="padding:6px 12px; font-size:11px; background:var(--primary); color:#fff; border:none;"><i class="fas fa-plus"></i> Add Time Slot</button>
+                </div>
+
+                <div id="slot-editors-container" style="display:flex; flex-direction:column; gap:16px; margin-top:10px;">
+                    <!-- Dynamically generated time slot cards -->
+                </div>
+            </div>
+
+            <!-- TAB 3: STYLE -->
+            <div id="tab-design" class="tab-body">
+                <div class="grp-label">🎨 Custom Designing Options</div>
+                
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <label style="font-size:12px; color:#94a3b8; font-weight:600;">Accent Theme Color:</label>
+                    <input type="color" id="in-theme" value="#10b981" oninput="changeTheme(this.value)" style="width:50px; height:34px; border:none; padding:0; background:transparent; cursor:pointer;">
+                </div>
+
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Choose Font Family</label>
+                    <select id="in-font" onchange="changeFont(this.value)">
+                        <option value="'Poppins', sans-serif" selected>Poppins (Modern Sans)</option>
+                        <option value="'Roboto', sans-serif">Roboto (Clean Sans)</option>
+                        <option value="'Outfit', sans-serif">Outfit (Premium Rounded)</option>
+                        <option value="'Playfair Display', serif">Playfair (Vintage Serif)</option>
+                    </select>
+                </div>
+
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Choose Timetable Frame</label>
+                    <div class="grid-2" style="margin-top:5px; gap:8px;">
+                        <div class="opt-box active" id="ly-classic" onclick="setLayout('design-classic', this)"><i class="fas fa-square-full" style="color:#10b981"></i> Classic</div>
+                        <div class="opt-box" id="ly-modern" onclick="setLayout('design-modern', this)"><i class="fas fa-border-none" style="color:#3b82f6"></i> Modern</div>
+                        <div class="opt-box" id="ly-vintage" onclick="setLayout('design-vintage', this)"><i class="fas fa-feather-alt" style="color:#e11d48"></i> Vintage</div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:20px">🔒 Security Background Watermark</div>
+                
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="checkbox" id="in-show-watermark" checked onchange="toggleWatermark(this.checked)" style="width:18px; height:18px; cursor:pointer;">
+                    <label style="font-size:12px; color:#fff; font-weight:600; cursor:pointer;" for="in-show-watermark">Show Diagonal Anti-Forgery Watermark</label>
+                </div>
+
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Watermark Custom Text</label>
+                    <input type="text" id="in-watermark-text" value="Saraswati Coaching Academy" oninput="updateWatermarkText(this.value)">
+                </div>
+
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Watermark Opacity (Intensity)</label>
+                    <input type="range" id="in-watermark-opacity" min="0.02" max="0.35" step="0.01" value="0.18" oninput="changeWatermarkOpacity(this.value)">
+                </div>
+
+                <div class="grp-label" style="margin-top:20px">✒️ Signatures</div>
+                <div class="grid-2">
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Left Sign Label</label>
+                        <input type="text" id="lbl-sign-left" value="Batch Coordinator" oninput="render()">
+                    </div>
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Right Sign Label</label>
+                        <input type="text" id="lbl-sign-right" value="Class Director" oninput="render()">
+                    </div>
+                </div>
+            </div>
+            <!-- GUIDES, BENEFITS & FAQ SECTION FOR ADSENSE & SEO -->
+            <div class="editor-group-card" style="margin-top: 24px;">
+                <details style="cursor: pointer; outline: none; width: 100%;">
+                    <summary style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; outline: none; user-select: none; width: 100%;">
+                        <span><i class="fas fa-circle-question"></i> <span data-i18n="how_to_use">Guide & FAQs</span></span>
+                        <i class="fas fa-chevron-down" style="font-size:10px; color:#94a3b8;"></i>
+                    </summary>
+                    
+                    <div style="font-size: 11px; line-height: 1.6; color: #cbd5e1; display: flex; flex-direction: column; gap: 12px; margin-top: 12px; cursor: default;">
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="how_to_use">How to Use:</strong>
+                            <span data-i18n="gtt_1">1. Enter your details in the form inputs.</span><br>
+                            <span data-i18n="gtt_2">2. Customize styles, colors, and watermark.</span><br>
+                            <span data-i18n="gtt_3">3. Verify details in the live preview.</span><br>
+                            <span data-i18n="gtt_4">4. Print A4 PDF or download as PNG.</span>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="key_benefits">Key Benefits:</strong>
+                            • <span data-i18n="btt_1">Generates document instantly.</span><br>
+                            • <span data-i18n="btt_2">High-resolution printable output.</span><br>
+                            • <span data-i18n="btt_3">Anti-forgery watermark security.</span>
+                        </div>
+
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="privacy_faq_q">Privacy FAQ: Is my data saved on any server?</strong>
+                            <span data-i18n="privacy_faq_a">No! All processing happens locally in your browser.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+            <!-- END OF GUIDES, BENEFITS & FAQ SECTION -->
+        </div>
+
+        
+<!-- RIGHT PREVIEW -->
+        <div class="preview-panel">
+            <div class="timetable-sheet design-classic" id="timetable-sheet-area">
+                <!-- Watermark Overlay -->
+                <div id="watermark-overlay" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-22deg); font-size: 42px; font-weight: 900; color: rgba(16, 185, 129, 0.18); text-transform: uppercase; white-space: nowrap; pointer-events: none; z-index: 1; text-align: center; width: 120%; line-height: 1.5; display: flex; align-items: center; justify-content: center; word-break: break-all; user-select: none;">
+                    Saraswati Coaching Academy
+                </div>
+
+                <div class="sheet-header-container">
+                    <img id="d-logo" src="" class="preview-logo" style="display:none;" alt="Logo">
+                    <div>
+                        <div class="class-title" id="d-class-name">Saraswati Coaching Academy</div>
+                        <div class="class-contact" id="d-class-contact">Mo. +91 91635 62392 | Sector 5, Gandhinagar</div>
+                    </div>
+                </div>
+
+                <div class="sheet-sub-header">
+                    <div class="sheet-meta-text" id="d-sheet-title">Weekly Batch Timetable</div>
+                    <div class="sheet-meta-text"><span id="d-lbl-date">Effective Date:</span> <span id="d-val-date"></span></div>
+                    <div class="sheet-badge" id="d-mode-badge">Student Mode</div>
+                </div>
+
+                <!-- MAIN TABLE GRID -->
+                <table class="timetable-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 14%;" id="th-time-lbl">Time / Period</th>
+                            <th id="th-mon">Monday</th>
+                            <th id="th-tue">Tuesday</th>
+                            <th id="th-wed">Wednesday</th>
+                            <th id="th-thu">Thursday</th>
+                            <th id="th-fri">Friday</th>
+                            <th id="th-sat">Saturday</th>
+                            <th id="th-sun" style="display:none;">Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timetable-rows">
+                        <!-- Dynamic rendered timetable cells -->
+                    </tbody>
+                </table>
+
+                <div class="sign-area">
+                    <div class="sign-box">
+                        <div class="sign-line"></div>
+                        <span id="d-lbl-sign-left">Batch Coordinator</span>
+                    </div>
+                    <div class="sign-box">
+                        <div class="sign-line"></div>
+                        <span id="d-lbl-sign-right">Class Director</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const _ = id => document.getElementById(id);
+        let logoUrl = '';
+        let showSunday = false;
+        let timetableMode = 'student'; // 'student' or 'teacher'
+
+        // Default Initial Time Slots data structure
+        let timeSlots = [
+            {
+                time: "04:00 PM - 05:00 PM",
+                monday: { primary: "Mathematics", sub: "Amit Sir" },
+                tuesday: { primary: "Science", sub: "Nidhi Ma'am" },
+                wednesday: { primary: "Mathematics", sub: "Amit Sir" },
+                thursday: { primary: "Science", sub: "Nidhi Ma'am" },
+                friday: { primary: "English Grammar", sub: "Hetal Ma'am" },
+                saturday: { primary: "Weekly Unit Test", sub: "All Tutors" },
+                sunday: { primary: "Revision", sub: "Self Study" }
+            },
+            {
+                time: "05:15 PM - 06:15 PM",
+                monday: { primary: "Physics", sub: "Rajesh Sir" },
+                tuesday: { primary: "Chemistry", sub: "Karan Sir" },
+                wednesday: { primary: "Physics", sub: "Rajesh Sir" },
+                thursday: { primary: "Chemistry", sub: "Karan Sir" },
+                friday: { primary: "Social Science", sub: "Darshan Sir" },
+                saturday: { primary: "Doubt Solving", sub: "Batch Leads" },
+                sunday: { primary: "Holiday", sub: "" }
+            }
+        ];
+
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.tab-body').forEach(body => body.classList.remove('active'));
+            el.classList.add('active');
+            _(tabId).classList.add('active');
+        }
+
+        function changeFont(fontName) {
+            _('timetable-sheet-area').style.fontFamily = fontName;
+        }
+
+        function setLayout(layoutClass, el) {
+            document.querySelectorAll('#tab-design .opt-box').forEach(box => box.classList.remove('active'));
+            el.classList.add('active');
+            const card = _('timetable-sheet-area');
+            card.className = `timetable-sheet ${layoutClass}`;
+            changeTheme(_('in-theme').value);
+        }
+
+        function toggleWatermark(show) {
+            _('watermark-overlay').style.display = show ? 'flex' : 'none';
+        }
+
+        function updateWatermarkText(val) {
+            _('watermark-overlay').innerText = val;
+        }
+
+        function changeWatermarkOpacity(val) {
+            const activeColor = _('in-theme').value;
+            const hexOpacity = Math.round(val * 255).toString(16).padStart(2, '0');
+            _('watermark-overlay').style.color = `${activeColor}${hexOpacity}`;
+        }
+
+        function toggleSunday(checked) {
+            showSunday = checked;
+            _('th-sunday').style.display = checked ? '' : 'none';
+            render();
+            renderSlotEditors();
+        }
+
+        function setTimetableMode(mode) {
+            timetableMode = mode;
+            document.getElementById('mode-student').classList.toggle('active', mode === 'student');
+            document.getElementById('mode-teacher').classList.toggle('active', mode === 'teacher');
+            
+            const badge = _('d-mode-badge');
+            badge.innerText = mode === 'student' ? 'Student Mode' : 'Teacher Mode';
+
+            // Change form guides and defaults
+            if (mode === 'student') {
+                _('lbl-col1-desc').innerText = "Primary Label (Subject)";
+                _('lbl-col2-desc').innerText = "Subtext Label (Teacher)";
+                _('in-col1-lbl').value = "Subject";
+                _('in-col2-lbl').value = "Teacher";
+                
+                // Swap dummy data to reflect student layout
+                timeSlots.forEach(slot => {
+                    if (slot.monday.primary.includes('Std')) {
+                        slot.monday = { primary: "Mathematics", sub: "Amit Sir" };
+                        slot.tuesday = { primary: "Science", sub: "Nidhi Ma'am" };
+                        slot.wednesday = { primary: "Mathematics", sub: "Amit Sir" };
+                        slot.thursday = { primary: "Science", sub: "Nidhi Ma'am" };
+                        slot.friday = { primary: "English Grammar", sub: "Hetal Ma'am" };
+                        slot.saturday = { primary: "Weekly Unit Test", sub: "All Tutors" };
+                    }
+                });
+            } else {
+                _('lbl-col1-desc').innerText = "Primary Label (Batch/Class)";
+                _('lbl-col2-desc').innerText = "Subtext Label (Room/Branch)";
+                _('in-col1-lbl').value = "Batch / Class";
+                _('in-col2-lbl').value = "Room No";
+                
+                // Swap dummy data to reflect teacher layout
+                timeSlots.forEach(slot => {
+                    if (!slot.monday.primary.includes('Std')) {
+                        slot.monday = { primary: "Std 10 (Maths)", sub: "Classroom 3" };
+                        slot.tuesday = { primary: "Std 9 (Maths)", sub: "Classroom 1" };
+                        slot.wednesday = { primary: "Std 10 (Maths)", sub: "Classroom 3" };
+                        slot.thursday = { primary: "Std 9 (Maths)", sub: "Classroom 1" };
+                        slot.friday = { primary: "Std 8 (Arithmetic)", sub: "Classroom 2" };
+                        slot.saturday = { primary: "Doubt Session", sub: "Seminar Hall" };
+                    }
+                });
+            }
+            render();
+            renderSlotEditors();
+        }
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#fbbf24"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function loadLogo(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    logoUrl = e.target.result;
+                    render();
+                    showToast('Logo uploaded successfully!', 'fa-image');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeLogo() {
+            logoUrl = '';
+            _('up-logo').value = '';
+            render();
+            showToast('Logo removed', 'fa-trash');
+        }
+
+        function changeTheme(color) {
+            _('timetable-sheet-area').style.setProperty('--theme-color', color);
+            
+            const card = _('timetable-sheet-area');
+            card.style.borderColor = color;
+            
+            const badge = card.querySelector('.sheet-badge');
+            if (badge) badge.style.borderColor = color;
+            if (badge) badge.style.color = color;
+
+            const timeCells = card.querySelectorAll('.time-cell');
+            timeCells.forEach(cell => {
+                cell.style.color = color;
+            });
+
+            // Adjust watermark color using transparency
+            const currentOpacity = _('in-watermark-opacity').value;
+            const hexOpacity = Math.round(currentOpacity * 255).toString(16).padStart(2, '0');
+            _('watermark-overlay').style.color = `${color}${hexOpacity}`;
+            render();
+        }
+
+        // Add slot card to grid list editor
+        function addNewSlot() {
+            timeSlots.push({
+                time: "06:30 PM - 07:30 PM",
+                monday: { primary: "", sub: "" },
+                tuesday: { primary: "", sub: "" },
+                wednesday: { primary: "", sub: "" },
+                thursday: { primary: "", sub: "" },
+                friday: { primary: "", sub: "" },
+                saturday: { primary: "", sub: "" },
+                sunday: { primary: "", sub: "" }
+            });
+            renderSlotEditors();
+            render();
+            showToast('New Time Slot added!', 'fa-plus');
+        }
+
+        function removeSlot(index) {
+            if (timeSlots.length <= 1) {
+                showToast('At least one time slot is required!', 'fa-triangle-exclamation');
+                return;
+            }
+            timeSlots.splice(index, 1);
+            renderSlotEditors();
+            render();
+            showToast('Time Slot removed', 'fa-trash');
+        }
+
+        function updateSlotTime(index, value) {
+            timeSlots[index].time = value;
+            render();
+        }
+
+        function updateSlotValue(index, day, field, value) {
+            timeSlots[index][day][field] = value;
+            render();
+        }
+
+        // Render dynamic row input forms in left tab
+        function renderSlotEditors() {
+            const container = _('slot-editors-container');
+            container.innerHTML = '';
+            
+            timeSlots.forEach((slot, idx) => {
+                const card = document.createElement('div');
+                card.className = 'slot-editor-card';
+
+                const daysHtml = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+                    .map(day => `
+                        <div class="editor-group-card" style="padding: 8px;">
+                            <span style="font-size: 10px; font-weight: bold; text-transform: uppercase; color: #94a3b8;">${day}</span>
+                            <div class="grid-2">
+                                <input type="text" placeholder="${_('in-col1-lbl').value}" value="${slot[day].primary}" oninput="updateSlotValue(${idx}, '${day}', 'primary', this.value)">
+                                <input type="text" placeholder="${_('in-col2-lbl').value}" value="${slot[day].sub}" oninput="updateSlotValue(${idx}, '${day}', 'sub', this.value)">
+                            </div>
+                        </div>
+                    `).join('');
+
+                const sundayHtml = showSunday ? `
+                    <div class="editor-group-card" style="padding: 8px;">
+                        <span style="font-size: 10px; font-weight: bold; text-transform: uppercase; color: #ef4444;">sunday</span>
+                        <div class="grid-2">
+                            <input type="text" placeholder="${_('in-col1-lbl').value}" value="${slot.sunday.primary}" oninput="updateSlotValue(${idx}, 'sunday', 'primary', this.value)">
+                            <input type="text" placeholder="${_('in-col2-lbl').value}" value="${slot.sunday.sub}" oninput="updateSlotValue(${idx}, 'sunday', 'sub', this.value)">
+                        </div>
+                    </div>
+                ` : '';
+
+                card.innerHTML = `
+                    <div class="slot-header">
+                        <span class="slot-title"><i class="fas fa-clock"></i> Slot #${idx + 1}</span>
+                        <button class="btn-remove-slot" onclick="removeSlot(${idx})"><i class="fas fa-trash-alt"></i> Delete</button>
+                    </div>
+                    <div>
+                        <label style="font-size: 10px; color: #94a3b8">Time Slot Period Range</label>
+                        <input type="text" value="${slot.time}" oninput="updateSlotTime(${idx}, this.value)" placeholder="e.g. 04:00 PM - 05:00 PM">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
+                        ${daysHtml}
+                        ${sundayHtml}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Render dynamic table rows in preview sheet
+        function renderTableRows() {
+            const tbody = _('timetable-rows');
+            tbody.innerHTML = '';
+
+            timeSlots.forEach(slot => {
+                const tr = document.createElement('tr');
+                
+                let tdHtml = `<td class="time-cell">${slot.time}</td>`;
+
+                const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+                if (showSunday) days.push('sunday');
+
+                days.forEach(day => {
+                    const primaryVal = slot[day].primary || '-';
+                    const subVal = slot[day].sub ? `(${slot[day].sub})` : '';
+                    tdHtml += `
+                        <td>
+                            <div class="cell-content-block">
+                                <span class="cell-subject">${primaryVal}</span>
+                                <span class="cell-subtext">${subVal}</span>
+                            </div>
+                        </td>
+                    `;
+                });
+
+                tr.innerHTML = tdHtml;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function render() {
+            _('d-class-name').innerText = _('in-class-name').value;
+            _('d-class-contact').innerText = `${_('in-class-contact').value} | ${_('in-class-address').value}`;
+            _('d-sheet-title').innerText = _('in-sheet-title').value;
+            _('d-lbl-date').innerText = _('lbl-date').value;
+
+            // Formatted Date
+            const rawDate = _('in-effective-date').value;
+            _('d-val-date').innerText = rawDate ? rawDate.split('-').reverse().join('-') : '';
+
+            // Custom Header Labels Rendering
+            _('th-time-lbl').innerText = _('lbl-hdr-time').value;
+            _('th-mon').innerText = _('lbl-hdr-mon').value;
+            _('th-tue').innerText = _('lbl-hdr-tue').value;
+            _('th-wed').innerText = _('lbl-hdr-wed').value;
+            _('th-thu').innerText = _('lbl-hdr-thu').value;
+            _('th-fri').innerText = _('lbl-hdr-fri').value;
+            _('th-sat').innerText = _('lbl-hdr-sat').value;
+            _('th-sun').innerText = _('lbl-hdr-sun').value;
+
+            // Signature label links
+            _('d-lbl-sign-left').innerText = _('lbl-sign-left').value;
+            _('d-lbl-sign-right').innerText = _('lbl-sign-right').value;
+
+            // Watermark name link
+            const className = _('in-class-name').value;
+            const currentWatermark = _('in-watermark-text').value;
+            if (currentWatermark === 'Saraswati Coaching Academy' || currentWatermark === className) {
+                _('in-watermark-text').value = className;
+                _('watermark-overlay').innerText = className;
+            } else {
+                _('watermark-overlay').innerText = currentWatermark;
+            }
+
+            // Handle logo display
+            const logoImg = _('d-logo');
+            if (logoUrl) {
+                logoImg.src = logoUrl;
+                logoImg.style.display = 'block';
+            } else {
+                logoImg.style.display = 'none';
+            }
+
+            renderTableRows();
+        }
+
+        function shareTimetable(actionType = 'share') {
+            const card = _('timetable-sheet-area');
+            showToast('Preparing Timetable Sheet...', 'fa-spinner fa-spin');
+
+            // Scroll alignment block to prevent clipping
+            const previewPanel = document.querySelector('.preview-panel');
+            const originalScrollTop = previewPanel ? previewPanel.scrollTop : 0;
+            if (previewPanel) previewPanel.scrollTop = 0;
+
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                if (previewPanel) previewPanel.scrollTop = originalScrollTop; // Restore scroll position
+
+                cv.toBlob(blob => {
+                    const filename = `Timetable-${_('in-sheet-title').value.replace(/\s+/g, '-')}-${Date.now()}.png`;
+                    if (actionType === 'share' && window.shareGeneratedFile) {
+                        window.shareGeneratedFile(blob, filename, 'image/png');
+                    } else {
+                        const a = document.createElement('a');
+                        a.download = filename;
+                        a.href = URL.createObjectURL(blob);
+                        a.click();
+                        showToast('Timetable Image Downloaded!', 'fa-check-circle');
+                    }
+                }, 'image/png');
+            });
+        }
+
+        window.onload = () => {
+            // Set dynamic current date on load
+            const today = new Date().toISOString().split('T')[0];
+            _('in-effective-date').value = today;
+
+            setLanguage(getSavedLanguage());
+            renderSlotEditors();
+            render();
+            changeTheme('#10b981');
+        };
+    </script>
+</body>
+
+</html>

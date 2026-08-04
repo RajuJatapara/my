@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tally cash register counts and note denominations dynamically. Instantly calculate totals for ₹2000 down to ₹1 coins and print cash slip.">
+    <meta name="keywords" content="cash counter register, denomination calculator, currency counter tally, daily cash book sheet">
+    <title>Cash Counter & Tally Calculator - Digital Tools Hub</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- html2canvas for Image sharing -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!-- i18n Translation Engine -->
+    <script src="assets/i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-hover: #059669;
+            --page-bg: #0f172a;
+            --card-bg: #1e293b;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOPBAR HEADER */
+        .app-header {
+            height: 64px;
+            background: #1e293b;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-title {
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-sep {
+            color: #475569;
+            font-weight: 300;
+        }
+
+        .header-tool-name {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: #f8fafc;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-top:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .controls-panel {
+            width: 55%;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .preview-panel {
+            width: 45%;
+            overflow-y: auto;
+            background: #0b0f19;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        /* DENOMINATION LIST */
+        .denom-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .denom-row {
+            display: grid;
+            grid-template-columns: 140px 30px 100px 30px 1fr;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 16px;
+            transition: all 0.2s ease;
+        }
+
+        .denom-row:hover, .denom-row:focus-within {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+
+        .denom-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: #000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        /* Indian Note Color Codes */
+        .badge-500 { background: #bdf2d5; border-left: 5px solid #059669; }
+        .badge-200 { background: #fef08a; border-left: 5px solid #ca8a04; }
+        .badge-100 { background: #bfdbfe; border-left: 5px solid #2563eb; }
+        .badge-50 { background: #cffafe; border-left: 5px solid #0891b2; }
+        .badge-20 { background: #fbcfe8; border-left: 5px solid #db2777; }
+        .badge-10 { background: #fed7aa; border-left: 5px solid #ea580c; }
+        .badge-5 { background: #ddd6fe; border-left: 5px solid #7c3aed; }
+        .badge-2 { background: #f3f4f6; border-left: 5px solid #4b5563; }
+        .badge-1 { background: #e2e8f0; border-left: 5px solid #64748b; }
+        .badge-coin { background: #fde047; border-left: 5px solid #d97706; }
+
+        .row-symbol {
+            text-align: center;
+            font-weight: 800;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .qty-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            text-align: center;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .qty-input:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+
+        .subtotal-val {
+            font-weight: 700;
+            font-size: 16px;
+            color: #e2e8f0;
+            text-align: right;
+            padding-right: 8px;
+        }
+
+        /* RECEIPT PREVIEW */
+        .receipt-card {
+            width: 100%;
+            max-width: 360px;
+            background: #fff;
+            color: #1e293b;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            border-top: 8px solid var(--primary);
+        }
+
+        .receipt-header {
+            text-align: center;
+            border-bottom: 2px dashed #cbd5e1;
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+
+        .receipt-title {
+            font-weight: 800;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #0f172a;
+        }
+
+        .receipt-date {
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .receipt-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .receipt-table th {
+            text-align: left;
+            padding: 6px 0;
+            color: #64748b;
+            font-weight: 600;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .receipt-table td {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .receipt-table .td-val {
+            text-align: right;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .receipt-summary {
+            margin-top: 16px;
+            border-top: 2px dashed #cbd5e1;
+            padding-top: 16px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .summary-row.grand-total {
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            border-bottom: 2px double #cbd5e1;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .words-val {
+            font-size: 11px;
+            color: #475569;
+            font-style: italic;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-top: 8px;
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .receipt-footer {
+            text-align: center;
+            font-size: 10px;
+            color: #94a3b8;
+            margin-top: 20px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 10px;
+            font-weight: 600;
+        }
+
+        /* ACTION BUTTONS */
+        .actions-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .action-btn {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .action-btn-sec {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border);
+            color: #fff;
+        }
+
+        .action-btn-sec:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        /* TOAST SYSTEM */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 99999;
+        }
+
+        .toast-msg {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(120%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* RESPONSIVE LAYOUT */
+        @media (max-width: 900px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+            }
+
+            .app-header {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 12px;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .app-body {
+                flex-direction: column;
+                overflow: visible;
+            }
+
+            .controls-panel {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                padding: 16px;
+            }
+
+            .preview-panel {
+                width: 100%;
+                min-height: auto;
+                border-top: 2px solid var(--border);
+                padding: 24px 16px;
+            }
+
+            .denom-row {
+                grid-template-columns: 100px 20px 80px 20px 1fr;
+                padding: 8px 12px;
+            }
+
+            .denom-badge {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+
+            .qty-input {
+                font-size: 13px;
+                padding: 6px 8px;
+            }
+
+            .subtotal-val {
+                font-size: 14px;
+            }
+        }
+
+        /* PRINT STYLES */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .receipt-card, .receipt-card * {
+                visibility: visible;
+            }
+
+            .receipt-card {
+                position: absolute;
+                left: 0;
+                top: 0;
+                box-shadow: none;
+                border: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div id="toast-container"></div>
+
+    <!-- APP TOP BAR HEADER -->
+    <div class="app-header">
+        <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
+            <a href="index.html" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
+                <span data-i18n="suite_title">Digital Tools Hub</span>
+            </a>
+            <span class="header-sep">/</span>
+            <span class="header-tool-name" data-i18n="t20_title">Cash Counter & Daily Tally Calculator</span>
+        </div>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <button class="btn-top" onclick="resetAll()"><i class="fas fa-rotate-left"></i> Reset</button>
+        </div>
+    </div>
+
+    <!-- MAIN APP SPLIT LAYOUT -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS PANEL -->
+        <div class="controls-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="font-size:16px; font-weight:700;">💰 Currency Denominations</h3>
+                <button class="btn-top" style="padding:6px 12px; font-size:11px;" onclick="resetAll()">Clear Note Quantities</button>
+            </div>
+
+            <!-- DENOMINATIONS GRID ROWS -->
+            <div class="denom-list">
+                <!-- ₹500 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-500">₹ 500</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-500" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-500">₹0</div>
+                </div>
+
+                <!-- ₹200 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-200">₹ 200</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-200" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-200">₹0</div>
+                </div>
+
+                <!-- ₹100 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-100">₹ 100</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-100" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-100">₹0</div>
+                </div>
+
+                <!-- ₹50 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-50">₹ 50</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-50" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-50">₹0</div>
+                </div>
+
+                <!-- ₹20 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-20">₹ 20</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-20" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-20">₹0</div>
+                </div>
+
+                <!-- ₹10 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-10">₹ 10</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-10" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-10">₹0</div>
+                </div>
+
+                <!-- ₹5 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-5">₹ 5</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-5" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-5">₹0</div>
+                </div>
+
+                <!-- ₹2 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-2">₹ 2</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-2" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-2">₹0</div>
+                </div>
+
+                <!-- ₹1 -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-1">₹ 1</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-1" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-1">₹0</div>
+                </div>
+
+                <!-- Coins -->
+                <div class="denom-row">
+                    <div class="denom-badge badge-coin">Coins</div>
+                    <div class="row-symbol">×</div>
+                    <input type="number" class="qty-input" id="q-coin" value="0" min="0" inputmode="numeric" pattern="[0-9]*" oninput="updateTally()" placeholder="Total Coins Val">
+                    <div class="row-symbol">=</div>
+                    <div class="subtotal-val" id="s-coin">₹0</div>
+                </div>
+            </div>
+            <!-- GUIDES, BENEFITS & FAQ SECTION FOR ADSENSE & SEO -->
+            <div class="editor-group-card" style="margin-top: 24px;">
+                <details style="cursor: pointer; outline: none; width: 100%;">
+                    <summary style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; outline: none; user-select: none; width: 100%;">
+                        <span><i class="fas fa-circle-question"></i> <span data-i18n="how_to_use">Guide & FAQs</span></span>
+                        <i class="fas fa-chevron-down" style="font-size:10px; color:#94a3b8;"></i>
+                    </summary>
+                    
+                    <div style="font-size: 11px; line-height: 1.6; color: #cbd5e1; display: flex; flex-direction: column; gap: 12px; margin-top: 12px; cursor: default;">
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="how_to_use">How to Use:</strong>
+                            <span data-i18n="gcc_1">1. Enter your details in the form inputs.</span><br>
+                            <span data-i18n="gcc_2">2. Customize styles, colors, and watermark.</span><br>
+                            <span data-i18n="gcc_3">3. Verify details in the live preview.</span><br>
+                            <span data-i18n="gcc_4">4. Print A4 PDF or download as PNG.</span>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="key_benefits">Key Benefits:</strong>
+                            • <span data-i18n="bcc_1">Generates document instantly.</span><br>
+                            • <span data-i18n="bcc_2">High-resolution printable output.</span><br>
+                            • <span data-i18n="bcc_3">Anti-forgery watermark security.</span>
+                        </div>
+
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="privacy_faq_q">Privacy FAQ: Is my data saved on any server?</strong>
+                            <span data-i18n="privacy_faq_a">No! All processing happens locally in your browser.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+            <!-- END OF GUIDES, BENEFITS & FAQ SECTION -->
+        </div>
+
+        
+<!-- RIGHT PREVIEW PANEL -->
+        <div class="preview-panel">
+
+            <!-- RECEIPT DOCUMENT FRAME -->
+            <div class="receipt-card" id="receipt-print-area">
+                <div class="receipt-header">
+                    <div class="receipt-title" data-i18n="t20_title">Cash Counter Receipt</div>
+                    <div class="receipt-date" id="receipt-date-val">Date: 03-08-2026 10:55 PM</div>
+                </div>
+
+                <table class="receipt-table">
+                    <thead>
+                        <tr>
+                            <th>Denom</th>
+                            <th style="text-align:center">Qty</th>
+                            <th style="text-align:right">Total Sum</th>
+                        </tr>
+                    </thead>
+                    <tbody id="receipt-tbody">
+                        <!-- Will be populated dynamically -->
+                    </tbody>
+                </table>
+
+                <div class="receipt-summary">
+                    <div class="summary-row">
+                        <span>Total Notes/Coins Count:</span>
+                        <span id="r-total-qty">0</span>
+                    </div>
+                    <div class="summary-row grand-total">
+                        <span>GRAND TOTAL:</span>
+                        <span id="r-grand-total">₹0</span>
+                    </div>
+                    <div class="words-val" id="r-total-words">
+                        Zero Rupees Only
+                    </div>
+                </div>
+
+                <div class="receipt-footer">
+                    Generated via Digital Tools Hub
+                </div>
+            </div>
+
+            <!-- ACTIONS BOARD BAR -->
+            <div class="actions-bar">
+                <button class="action-btn action-btn-sec" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+                <button class="action-btn action-btn-sec" onclick="copyTallyText()"><i class="fas fa-copy"></i> Copy Text</button>
+                <button class="action-btn" onclick="shareTally()"><i class="fab fa-whatsapp"></i> Share Tally</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CORE SCRIPT LOGIC -->
+    <script>
+        const _ = id => document.getElementById(id);
+        const denoms = [500, 200, 100, 50, 20, 10, 5, 2, 1];
+
+        // Toast Helper
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#fbbf24"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Reset inputs
+        function resetAll() {
+            denoms.forEach(d => {
+                _(`q-${d}`).value = 0;
+            });
+            _('q-coin').value = 0;
+            updateTally();
+            showToast('Quantities cleared successfully!', 'fa-rotate-left');
+        }
+
+        // Live calculation logic
+        function updateTally() {
+            let totalQty = 0;
+            let grandTotal = 0;
+            const tbody = _('receipt-tbody');
+            tbody.innerHTML = '';
+
+            // Update dates dynamically
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            _('receipt-date-val').innerText = `Date & Time: ${dateStr}`;
+
+            // Process notes
+            denoms.forEach(d => {
+                const qtyInput = _(`q-${d}`);
+                let qty = parseInt(qtyInput.value) || 0;
+                if (qty < 0) { qty = 0; qtyInput.value = 0; }
+
+                const subtotal = qty * d;
+                _(`s-${d}`).innerText = `₹${subtotal.toLocaleString('en-IN')}`;
+
+                if (qty > 0) {
+                    totalQty += qty;
+                    grandTotal += subtotal;
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>₹${d}</td>
+                        <td style="text-align:center">${qty}</td>
+                        <td class="td-val">₹${subtotal.toLocaleString('en-IN')}</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
+
+            // Process Coins (calculated as direct sum)
+            const coinInput = _('q-coin');
+            let coinVal = parseInt(coinInput.value) || 0;
+            if (coinVal < 0) { coinVal = 0; coinInput.value = 0; }
+            _('s-coin').innerText = `₹${coinVal.toLocaleString('en-IN')}`;
+
+            if (coinVal > 0) {
+                totalQty += 1; // Count coins block as 1 quantity indicator
+                grandTotal += coinVal;
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>Coins</td>
+                    <td style="text-align:center">-</td>
+                    <td class="td-val">₹${coinVal.toLocaleString('en-IN')}</td>
+                `;
+                tbody.appendChild(tr);
+            }
+
+            // Fallback for empty table
+            if (tbody.innerHTML === '') {
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#94a3b8; padding: 20px;">No notes entered yet.</td></tr>`;
+            }
+
+            // Update totals
+            _('r-total-qty').innerText = totalQty;
+            _('r-grand-total').innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
+
+            // Translate numbers to words
+            const currentLang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
+            _('r-total-words').innerText = numToWords(grandTotal, currentLang);
+        }
+
+        // Shared text generator
+        function getTallyText() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+            
+            let txt = `💵 *DIGITAL TOOLS HUB - CASH TALLY REPORT*\n`;
+            txt += `📅 Date: ${dateStr}\n`;
+            txt += `-----------------------------------------\n`;
+
+            let totalQty = 0;
+            let grandTotal = 0;
+
+            denoms.forEach(d => {
+                const qty = parseInt(_(`q-${d}`).value) || 0;
+                if (qty > 0) {
+                    const sub = qty * d;
+                    totalQty += qty;
+                    grandTotal += sub;
+                    txt += `₹${d} × ${qty} = ₹${sub.toLocaleString('en-IN')}\n`;
+                }
+            });
+
+            const coinVal = parseInt(_('q-coin').value) || 0;
+            if (coinVal > 0) {
+                grandTotal += coinVal;
+                txt += `Coins = ₹${coinVal.toLocaleString('en-IN')}\n`;
+            }
+
+            const currentLang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
+            const words = numToWords(grandTotal, currentLang);
+
+            txt += `-----------------------------------------\n`;
+            txt += `Total Notes: ${totalQty}\n`;
+            txt += `*GRAND TOTAL: ₹${grandTotal.toLocaleString('en-IN')}*\n`;
+            txt += `Words: _${words}_\n`;
+            txt += `-----------------------------------------\n`;
+            txt += `Generated via digitaltoolshub.com`;
+
+            return txt;
+        }
+
+        function copyTallyText() {
+            const text = getTallyText();
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Tally report copied to clipboard!', 'fa-copy');
+            });
+        }
+
+        function shareTally() {
+            // Check if Web Share API is available for files first
+            const card = _('receipt-print-area');
+            showToast('Preparing Tally Slip...', 'fa-spinner fa-spin');
+
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                cv.toBlob(blob => {
+                    const filename = `CashTally-${Date.now()}.png`;
+                    if (window.shareGeneratedFile) {
+                        window.shareGeneratedFile(blob, filename, 'image/png');
+                    } else {
+                        // Fallback download if share not configured
+                        const a = document.createElement('a');
+                        a.download = filename;
+                        a.href = URL.createObjectURL(blob);
+                        a.click();
+                        showToast('Tally Slip Downloaded!', 'fa-check-circle');
+                    }
+                }, 'image/png');
+            });
+        }
+
+        // Multilingual Number-to-Words Engine
+        function numToWords(num, lang = 'en') {
+            if (num === 0) {
+                if (lang === 'gu') return 'શૂન્ય રૂપિયા પૂરા';
+                if (lang === 'hi') return 'शून्य रुपये मात्र';
+                return 'Zero Rupees Only';
+            }
+
+            const enUnits = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+            const enTens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+            function convertEnglish(n) {
+                if (n < 20) return enUnits[n];
+                if (n < 100) return enTens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + enUnits[n % 10] : '');
+                if (n < 1000) return enUnits[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' and ' + convertEnglish(n % 100) : '');
+                if (n < 100000) {
+                    return convertEnglish(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convertEnglish(n % 1000) : '');
+                }
+                if (n < 10000000) {
+                    return convertEnglish(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 !== 0 ? ' ' + convertEnglish(n % 100000) : '');
+                }
+                return convertEnglish(Math.floor(n / 10000000)) + ' Crore' + (n % 10000000 !== 0 ? ' ' + convertEnglish(n % 10000000) : '');
+            }
+
+            const guUnits = ['', 'એક', 'બે', 'ત્રણ', 'ચાર', 'પાંચ', 'છ', 'સાત', 'આઠ', 'નવ', 'દસ', 'અગિયાર', 'બાર', 'તેર', 'ચૌદ', 'પંદર', 'સોળ', 'સત્તર', 'અઢાર', 'ઓગણીસ', 'વીસ', 'એકવીસ', 'બાવીસ', 'ત્રેવીસ', 'ચોવીસ', 'પચ્ચીસ', 'છવ્વીસ', 'સત્તાવીસ', 'અઠ્ઠાવીસ', 'ઓગણત્રીસ', 'ત્રીસ', 'એકત્રીસ', 'બત્રીસ', 'તેત્રીસ', 'ચોત્રીસ', 'પાંત્રીસ', 'છત્રીસ', 'સાડત્રીસ', 'આડત્રીસ', 'ઓગણચાળીસ', 'ચાલીસ', 'એકતાલીસ', 'બેતાલીસ', 'તાલીસ', 'ચોમાલીસ', 'પિસ્તાલીસ', 'છેતાલીસ', 'સુડતાલીસ', 'અડતાલીસ', 'ઓગણપચાસ', 'પચાસ', 'એકાવન', 'બાવન', 'ત્રેપન', 'ચોપન', 'પંચાવન', 'છપ્પન', 'સત્તાવન', 'અઠ્ઠાવન', 'ઓગણસાઈઠ', 'સાઈઠ', 'એકસઠ', 'બાસઠ', 'ત્રેસઠ', 'ચોસઠ', 'પાંસઠ', 'છાસઠ', 'સડસઠ', 'આડસઠ', 'ઓગણસિત્તેર', 'સિત્તેર', 'એકોતેર', 'બોતેર', 'તોતેર', 'ચોતેર', 'પંચોતેર', 'છોતેર', 'સિત્યોતેર', 'ઈત્યોતેર', 'ઓગણએંસી', 'એંસી', 'એક્યાસી', 'બ્યાસી', 'ત્યાસી', 'ચોર્યાસી', 'પંચાસી', 'છ્યાસી', 'સત્યાસી', 'અઠ્યાસી', 'ઓગણナビ', 'નેવું', 'એકણું', 'બાણું', 'ત્રાણું', 'ચોરાણું', 'પંચાણું', 'છન્નું', 'સત્તાણું', 'અઢાણું', 'નવાણું'];
+            function convertGujarati(n) {
+                if (n < 100) return guUnits[n];
+                if (n < 1000) return guUnits[Math.floor(n / 100)] + ' સો' + (n % 100 !== 0 ? ' ' + convertGujarati(n % 100) : '');
+                if (n < 100000) return convertGujarati(Math.floor(n / 1000)) + ' હજાર' + (n % 1000 !== 0 ? ' ' + convertGujarati(n % 1000) : '');
+                if (n < 10000000) return convertGujarati(Math.floor(n / 100000)) + ' લાખ' + (n % 100000 !== 0 ? ' ' + convertGujarati(n % 100000) : '');
+                return convertGujarati(Math.floor(n / 10000000)) + ' કરોડ' + (n % 10000000 !== 0 ? ' ' + convertGujarati(n % 10000000) : '');
+            }
+
+            const hiUnits = ['', 'एक', 'दो', 'तीन', 'चार', 'पांच', 'छह', 'सात', 'आठ', 'नौ', 'दस', 'ग्यारह', 'बारह', 'तेरह', 'चौदह', 'पंद्रह', 'सोलह', 'सत्रह', 'अठारह', 'उन्नीस', 'बीस', 'इक्कीस', 'बाईस', 'तेईस', 'चौबीस', 'पच्चीस', 'छब्बीस', 'सताइस', 'अट्ठाइस', 'उनतीस', 'तीस', 'इकतीस', 'बत्तीस', 'तैंतीस', 'चौंतीस', 'पैंतीस', 'छत्तीस', 'सैंतीस', 'अड़तीस', 'उनतालीस', 'चालीस', 'एकतालीस', 'बयालीस', 'तैंतालीस', 'चतुआलीस', 'पैंतालीस', 'छियालीस', 'सैंतालीस', 'अड़तालीस', 'उनचास', 'पचास', 'इक्कावन', 'बावन', 'तिरेपन', 'चौवन', 'पचपन', 'छैपन', 'सतावन', 'अठावन', 'उनसठ', 'साठ', 'इकसठ', 'बासठ', 'तिरसठ', 'चौंसठ', 'पैंसठ', 'छियासठ', 'सरसठ', 'अड़सठ', 'उनहत्तर', 'सत्तर', 'इकहत्तर', 'बहत्तर', 'तिहत्तर', 'चौहत्तर', 'पचहत्तर', 'छहत्तर', 'सतहत्तर', 'अठहत्तर', 'उनासी', 'अस्सी', 'इक्यासी', 'बयासी', 'तिरासी', 'चौरासी', 'पचासी', 'छियासी', 'सतासी', 'अठासी', 'नवासी', 'नब्बे', 'इक्यानबे', 'ब्यानबे', 'तिरानबे', 'चौरानबे', 'पचानबे', 'छियानबे', 'सत्तानबे', 'अट्ठानबे', 'निन्यानबे'];
+            function convertHindi(n) {
+                if (n < 100) return hiUnits[n];
+                if (n < 1000) return hiUnits[Math.floor(n / 100)] + ' सौ' + (n % 100 !== 0 ? ' ' + convertHindi(n % 100) : '');
+                if (n < 100000) return convertHindi(Math.floor(n / 1000)) + ' हजार' + (n % 1000 !== 0 ? ' ' + convertHindi(n % 1000) : '');
+                if (n < 10000000) return convertHindi(Math.floor(n / 100000)) + ' लाख' + (n % 100000 !== 0 ? ' ' + convertHindi(n % 100000) : '');
+                return convertHindi(Math.floor(n / 10000000)) + ' करोड़' + (n % 10000000 !== 0 ? ' ' + convertHindi(n % 10000000) : '');
+            }
+
+            if (lang === 'gu') return convertGujarati(num).trim() + ' રૂપિયા પૂરા';
+            if (lang === 'hi') return convertHindi(num).trim() + ' रुपये मात्र';
+            return convertEnglish(num).trim() + ' Rupees Only';
+        }
+
+        window.onload = () => {
+            updateTally();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+    </script>
+
+</body>
+
+</html>

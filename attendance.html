@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create monthly student batch attendance logs and registers. Track present, absent, and holiday marks in clean landscape table grids.">
+    <meta name="keywords" content="attendance log sheets, student attendance register, batch monthly tracking sheet, class roll call register">
+    <title>Student Batch Attendance Log Sheet - Digital Tools Hub</title>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Outfit:wght@300;400;600;800&family=Roboto:wght@300;400;700;900&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome 6.4.2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- html2canvas for Image sharing -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <!-- i18n Translation Engine -->
+    <script src="assets/i18n.js"></script>
+
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-hover: #0284c7;
+            --page-bg: #0f172a;
+            --card-bg: #1e293b;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--page-bg);
+            color: #f8fafc;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* TOPBAR HEADER */
+        .app-header {
+            height: 64px;
+            background: #1e293b;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-logo-title {
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .header-sep {
+            color: #475569;
+            font-weight: 300;
+        }
+
+        .header-tool-name {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active,
+        .lang-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-top {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: #f8fafc;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-top:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* MAIN APP SPLIT LAYOUT */
+        .app-body {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .controls-panel {
+            width: 35%;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-panel {
+            width: 65%;
+            overflow-y: auto;
+            background: #0b0f19;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        /* TABS UI HEADER */
+        .tabs-header {
+            display: flex;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3px;
+            margin-bottom: 20px;
+            gap: 2px;
+        }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px 4px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .tab-item i {
+            font-size: 14px;
+        }
+
+        .tab-item.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .tab-body {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .tab-body.active {
+            display: flex;
+        }
+
+        /* FORM ELEMENTS */
+        .grp-label {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 4px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .opt-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .opt-box.active,
+        .opt-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+
+        .opt-box.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        /* Select option background styling for legibility */
+        select option {
+            background-color: #1e293b;
+            color: #ffffff;
+        }
+
+        /* SIDE-BY-SIDE LABEL & VALUE EDITORS */
+        .editor-group-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* TABLE ATTENDANCE PREVIEW */
+        .attendance-sheet-print {
+            --theme-color: #0ea5e9;
+            /* Isolated theme color variable for sheet document styling */
+            width: 100%;
+            background: #fff;
+            color: #1e293b;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            border: 1px solid #cbd5e1;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: auto;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        /* Design variations strictly bound to local var(--theme-color) */
+        .attendance-sheet-print.design-classic {
+            border: 2px solid var(--theme-color);
+            background: #fff;
+            color: #1e293b;
+        }
+
+        .attendance-sheet-print.design-modern {
+            border: 1px solid #94a3b8;
+            border-radius: 20px;
+            background: #f8fafc;
+        }
+
+        .attendance-sheet-print.design-vintage {
+            border: 6px double #334155;
+            background: #fcfbf7;
+        }
+
+        .sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--theme-color);
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-left-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .preview-logo {
+            max-width: 50px;
+            max-height: 50px;
+            object-fit: contain;
+            border-radius: 6px;
+        }
+
+        .sheet-title {
+            font-weight: 900;
+            font-size: 18px;
+            color: #0f172a;
+            text-transform: uppercase;
+        }
+
+        .sheet-meta-sub {
+            font-size: 11px;
+            color: #475569;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        .sheet-period {
+            font-weight: 700;
+            font-size: 13px;
+            color: #0369a1;
+            background: rgba(240, 249, 255, 0.7);
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid #bae6fd;
+        }
+
+        .attendance-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-top: 1px solid #94a3b8;
+            border-left: 1px solid #94a3b8;
+            font-size: 10px;
+            table-layout: fixed;
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.35);
+            /* High transparency for watermark */
+        }
+
+        .attendance-table th,
+        .attendance-table td {
+            border-right: 1px solid #94a3b8;
+            border-bottom: 1px solid #94a3b8;
+            padding: 6px 4px;
+            text-align: center;
+        }
+
+        .attendance-table th {
+            background: rgba(241, 245, 249, 0.85);
+            color: #334155;
+            font-weight: 700;
+        }
+
+        .attendance-table th.col-name,
+        .attendance-table td.col-name {
+            text-align: left;
+            width: 150px;
+            padding-left: 8px;
+            font-weight: 600;
+            font-size: 11px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .attendance-table th.col-sr,
+        .attendance-table td.col-sr {
+            width: 30px;
+        }
+
+        .attendance-table td.day-cell {
+            color: #e2e8f0;
+            font-weight: bold;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+            }
+
+            .app-header {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 12px;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            .app-body {
+                flex-direction: column;
+                overflow: visible;
+            }
+
+            .controls-panel {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                padding: 16px;
+            }
+
+            .preview-panel {
+                width: 100%;
+                min-height: auto;
+                border-top: 2px solid var(--border);
+                padding: 24px 16px;
+            }
+        }
+
+        /* PRINT SETTINGS (Landscape A4 auto-scale) */
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 5mm;
+            }
+
+            body { background: #fff !important; color: #000 !important; height: auto !important; overflow: visible !important; }
+            .app-header, .controls-panel, #toast-container { display: none !important; }
+            .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; width: 100% !important; }
+            .attendance-sheet-print { box-shadow: none !important; width: 100% !important; height: auto !important; margin: 0 !important; border-width: 2px !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="toast-container"></div>
+
+    <!-- APP HEADER -->
+    <div class="app-header">
+        <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
+            <a href="index.html" class="brand-logo-title"
+                style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+                <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
+                <span data-i18n="suite_title">Digital Tools Hub</span>
+            </a>
+            <span class="header-sep">/</span>
+            <span class="header-tool-name" data-i18n="t23_title">Student Batch Attendance Log Sheet</span>
+        </div>
+
+        <div class="header-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <!-- Header buttons remain styled in App primary blue color -->
+            <div class="btn-top" onclick="window.print()"
+                style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color:#fff; border:none;">
+                <i class="fas fa-print"></i> Print A4</div>
+            <div class="btn-top" onclick="shareAttendance('download')"
+                style="background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color:#fff; border:none;">
+                <i class="fas fa-download"></i> Download PNG</div>
+            <div class="btn-top" onclick="shareAttendance('share')"
+                style="background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; border-color:#128c7e;"><i
+                    class="fab fa-whatsapp"></i> Share WhatsApp</div>
+        </div>
+    </div>
+
+    <!-- APP BODY -->
+    <div class="app-body">
+
+        <!-- LEFT CONTROLS -->
+        <div class="controls-panel">
+
+            <!-- TABS NAVIGATION HEADER -->
+            <div class="tabs-header">
+                <div class="tab-item active" onclick="switchTab('tab-details', this)"><i class="fas fa-edit"></i>
+                    Details</div>
+                <div class="tab-item" onclick="switchTab('tab-students', this)"><i class="fas fa-users"></i> Students
+                </div>
+                <div class="tab-item" onclick="switchTab('tab-design', this)"><i class="fas fa-palette"></i> Style</div>
+            </div>
+
+            <!-- TAB 1: BRANDING & HEADERS DETAILS -->
+            <div id="tab-details" class="tab-body active">
+                <div class="grp-label">1. Tuition Center Branding</div>
+                <div class="grid-2">
+                    <div class="opt-box" onclick="_('up-logo').click()">
+                        <i class="fas fa-upload"></i> Upload Logo
+                        <input type="file" id="up-logo" hidden onchange="loadLogo(this)">
+                    </div>
+                    <div class="opt-box" onclick="removeLogo()" style="color:#f87171">
+                        <i class="fas fa-trash"></i> Remove Logo
+                    </div>
+                </div>
+
+                <div class="editor-group-card" style="margin-top:10px">
+                    <div style="font-size:10px; font-weight:800; color:#fbbf24;">Tuition Header Name</div>
+                    <input type="text" id="in-class-name" value="Saraswati Classes" oninput="render()"
+                        placeholder="Tuition Name">
+                </div>
+
+                <div class="editor-group-card">
+                    <div style="font-size:10px; font-weight:800; color:#fbbf24;">Contact & Location Details</div>
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Phone Number</label>
+                            <input type="text" id="in-class-contact" value="Mo. +91 91635 62392" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Location Address</label>
+                            <input type="text" id="in-class-address" value="Sector 5, Gandhinagar, Gujarat"
+                                oninput="render()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:15px">2. Register Title & Periods</div>
+                <div class="editor-group-card">
+                    <!-- Row: Register title label & batch value -->
+                    <div class="grid-2">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Register Title Label</label>
+                            <input type="text" id="lbl-title" value="Attendance Register" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Batch Name / Details</label>
+                            <input type="text" id="in-batch-name" value="Standard 10 (Maths Batch)" oninput="render()">
+                        </div>
+                    </div>
+
+                    <!-- Row: Month & Year selector -->
+                    <div class="grid-2" style="margin-top:10px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Month Selection</label>
+                            <select id="in-month" onchange="render()">
+                                <option value="1">January (જાન્યુઆરી)</option>
+                                <option value="2">February (ફેબ્રુઆરી)</option>
+                                <option value="3">March (માર્ચ)</option>
+                                <option value="4">April (એપ્રિલ)</option>
+                                <option value="5">May (મે)</option>
+                                <option value="6">June (જૂન)</option>
+                                <option value="7">July (જુલાઈ)</option>
+                                <option value="8" selected>August (ઓગસ્ટ)</option>
+                                <option value="9">September (સપ્ટેમ્બર)</option>
+                                <option value="10">October (ઓક્ટોબર)</option>
+                                <option value="11">November (નવેમ્બર)</option>
+                                <option value="12">December (ડિસેમ્બર)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Year Selection</label>
+                            <select id="in-year" onchange="render()">
+                                <option value="2026" selected>2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: STUDENTS & ROW HEADERS -->
+            <div id="tab-students" class="tab-body">
+                <div class="grp-label">1. Table Column Header Labels</div>
+                <div class="editor-group-card">
+                    <div>
+                        <label style="font-size:10px; color:#94a3b8">Student Column Header</label>
+                        <input type="text" id="lbl-student-hdr" value="Student Name" oninput="render()">
+                    </div>
+                    <div class="grid-2" style="margin-top:10px">
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Present Code (P)</label>
+                            <input type="text" id="lbl-present" value="P" oninput="render()">
+                        </div>
+                        <div>
+                            <label style="font-size:10px; color:#94a3b8">Absent Code (A)</label>
+                            <input type="text" id="lbl-absent" value="A" oninput="render()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:15px">👥 Student Names (One student per line)</div>
+                <textarea id="in-students" rows="10" oninput="render()"
+                    placeholder="Type student names here (one per line)...">Aarav Patel
+Parth Patel
+Rajvi parmar
+Diya Vaghela
+Naman Shah
+Keval Joshi
+Hetvi Mehta</textarea>
+            </div>
+
+            <!-- TAB 3: STYLING & WATERMARK -->
+            <div id="tab-design" class="tab-body">
+                <div class="grp-label">🎨 Custom Designing Options</div>
+
+                <!-- Dynamic Color Picker using oninput for instant screen color rendering -->
+                <div style="display:flex; align-items:center; gap:12px;">
+                    <label style="font-size:12px; color:#94a3b8; font-weight:600;">Accent Theme Color:</label>
+                    <input type="color" id="in-theme" value="#0ea5e9" oninput="changeTheme(this.value)"
+                        style="width:50px; height:34px; border:none; padding:0; background:transparent; cursor:pointer;">
+                </div>
+
+                <!-- Font Selection -->
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Choose Font Family</label>
+                    <select id="in-font" onchange="changeFont(this.value)">
+                        <option value="'Poppins', sans-serif" selected>Poppins (Modern Sans)</option>
+                        <option value="'Roboto', sans-serif">Roboto (Clean Sans)</option>
+                        <option value="'Outfit', sans-serif">Outfit (Premium Rounded)</option>
+                        <option value="'Playfair Display', serif">Playfair (Vintage Serif)</option>
+                    </select>
+                </div>
+
+                <!-- Layout designs using grid boxes -->
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Choose Register Design Frame</label>
+                    <div class="grid-2" style="margin-top:5px; gap:8px;">
+                        <div class="opt-box active" id="ly-classic" onclick="setLayout('design-classic', this)"><i
+                                class="fas fa-square-full" style="color:#0ea5e9"></i> Classic</div>
+                        <div class="opt-box" id="ly-modern" onclick="setLayout('design-modern', this)"><i
+                                class="fas fa-border-none" style="color:#64748b"></i> Modern</div>
+                        <div class="opt-box" id="ly-vintage" onclick="setLayout('design-vintage', this)"><i
+                                class="fas fa-feather-alt" style="color:#e2e8f0"></i> Vintage</div>
+                    </div>
+                </div>
+
+                <div class="grp-label" style="margin-top:20px">🔒 Security Background Watermark</div>
+
+                <!-- Watermark toggle checkbox -->
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="checkbox" id="in-show-watermark" checked onchange="toggleWatermark(this.checked)"
+                        style="width:18px; height:18px; cursor:pointer;">
+                    <label style="font-size:12px; color:#fff; font-weight:600; cursor:pointer;"
+                        for="in-show-watermark">Show Diagonal Anti-Forgery Watermark</label>
+                </div>
+
+                <!-- Custom Watermark Text -->
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Watermark Custom Text</label>
+                    <input type="text" id="in-watermark-text" value="Saraswati Classes"
+                        oninput="updateWatermarkText(this.value)">
+                </div>
+
+                <!-- Watermark opacity -->
+                <div style="margin-top:10px">
+                    <label style="font-size:10px; color:#94a3b8">Watermark Opacity (Intensity)</label>
+                    <input type="range" id="in-watermark-opacity" min="0.02" max="0.35" step="0.01" value="0.18"
+                        oninput="changeWatermarkOpacity(this.value)">
+                </div>
+            </div>
+            <!-- GUIDES, BENEFITS & FAQ SECTION FOR ADSENSE & SEO -->
+            <div class="editor-group-card" style="margin-top: 24px;">
+                <details style="cursor: pointer; outline: none; width: 100%;">
+                    <summary style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; outline: none; user-select: none; width: 100%;">
+                        <span><i class="fas fa-circle-question"></i> <span data-i18n="how_to_use">Guide & FAQs</span></span>
+                        <i class="fas fa-chevron-down" style="font-size:10px; color:#94a3b8;"></i>
+                    </summary>
+                    
+                    <div style="font-size: 11px; line-height: 1.6; color: #cbd5e1; display: flex; flex-direction: column; gap: 12px; margin-top: 12px; cursor: default;">
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="how_to_use">How to Use:</strong>
+                            <span data-i18n="gat_1">1. Enter your details in the form inputs.</span><br>
+                            <span data-i18n="gat_2">2. Customize styles, colors, and watermark.</span><br>
+                            <span data-i18n="gat_3">3. Verify details in the live preview.</span><br>
+                            <span data-i18n="gat_4">4. Print A4 PDF or download as PNG.</span>
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="key_benefits">Key Benefits:</strong>
+                            • <span data-i18n="bat_1">Generates document instantly.</span><br>
+                            • <span data-i18n="bat_2">High-resolution printable output.</span><br>
+                            • <span data-i18n="bat_3">Anti-forgery watermark security.</span>
+                        </div>
+
+                        <div>
+                            <strong style="color: #fff; display: block; margin-bottom: 4px;" data-i18n="privacy_faq_q">Privacy FAQ: Is my data saved on any server?</strong>
+                            <span data-i18n="privacy_faq_a">No! All processing happens locally in your browser.</span>
+                        </div>
+                    </div>
+                </details>
+            </div>
+            <!-- END OF GUIDES, BENEFITS & FAQ SECTION -->
+        </div>
+
+        
+<!-- RIGHT PREVIEW -->
+        <div class="preview-panel">
+
+            <div class="attendance-sheet-print design-classic" id="attendance-sheet-area">
+                <!-- Highly Visible Landscape Anti-Forgery Watermark Overlay -->
+                <div id="watermark-overlay"
+                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg); font-size: 50px; font-weight: 900; color: rgba(14, 165, 233, 0.18); text-transform: uppercase; white-space: nowrap; pointer-events: none; z-index: 1; font-family: inherit; text-align: center; width: 120%; line-height: 1.5; display: flex; align-items: center; justify-content: center; word-break: break-all; user-select: none;">
+                    Saraswati Classes
+                </div>
+
+                <div class="sheet-header">
+                    <div class="header-left-brand">
+                        <img id="d-logo" src="" class="preview-logo" style="display:none;" alt="Logo">
+                        <div>
+                            <div class="sheet-title" id="d-sheet-title">Attendance Register</div>
+                            <div class="sheet-meta-sub" id="d-batch-name">Standard 10 (Maths Batch) | Mo. +91 91635
+                                62392 | Sector 5, Gandhinagar</div>
+                        </div>
+                    </div>
+                    <div class="sheet-period" id="d-period-val">
+                        August 2026
+                    </div>
+                </div>
+
+                <table class="attendance-table">
+                    <thead>
+                        <tr id="table-header-row">
+                            <!-- Populated dynamically -->
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const _ = id => document.getElementById(id);
+        let logoUrl = '';
+
+        // Tab Switching Logic
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-item').forEach(item => item.classList.remove('active'));
+            document.querySelectorAll('.tab-body').forEach(body => body.classList.remove('active'));
+            el.classList.add('active');
+            _(tabId).classList.add('active');
+        }
+
+        // Custom Font changes
+        function changeFont(fontName) {
+            _('attendance-sheet-area').style.fontFamily = fontName;
+        }
+
+        // Custom Layout frame changes
+        function setLayout(layoutClass, el) {
+            document.querySelectorAll('#tab-design .opt-box').forEach(box => box.classList.remove('active'));
+            el.classList.add('active');
+            const card = _('attendance-sheet-area');
+            card.className = `attendance-sheet-print ${layoutClass}`;
+            changeTheme(_('in-theme').value);
+        }
+
+        // Watermark Controls
+        function toggleWatermark(show) {
+            _('watermark-overlay').style.display = show ? 'flex' : 'none';
+        }
+
+        function updateWatermarkText(val) {
+            _('watermark-overlay').innerText = val;
+        }
+
+        function changeWatermarkOpacity(val) {
+            const activeColor = _('in-theme').value;
+            const hexOpacity = Math.round(val * 255).toString(16).padStart(2, '0');
+            _('watermark-overlay').style.color = `${activeColor}${hexOpacity}`;
+        }
+
+        function showToast(msg, icon = 'fa-check-circle') {
+            const container = _('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast-msg';
+            toast.innerHTML = `<i class="fas ${icon}" style="color:#fbbf24"></i> <span>${msg}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function loadLogo(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    logoUrl = e.target.result;
+                    render();
+                    showToast('Logo uploaded successfully!', 'fa-image');
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function removeLogo() {
+            logoUrl = '';
+            _('up-logo').value = '';
+            render();
+            showToast('Logo removed', 'fa-trash');
+        }
+
+        // Local Theme Property Update
+        function changeTheme(color) {
+            _('attendance-sheet-area').style.setProperty('--theme-color', color);
+
+            // Explicitly set inline styling properties so html2canvas renders them correctly
+            const card = _('attendance-sheet-area');
+            card.style.borderColor = color;
+            
+            const header = card.querySelector('.sheet-header');
+            if (header) header.style.borderBottomColor = color;
+
+            // Adjust watermark color using transparency
+            const currentOpacity = _('in-watermark-opacity').value;
+            const hexOpacity = Math.round(currentOpacity * 255).toString(16).padStart(2, '0');
+            _('watermark-overlay').style.color = `${color}${hexOpacity}`;
+            render();
+        }
+
+        function resetForm() {
+            _('in-class-name').value = "Saraswati Classes";
+            _('in-class-contact').value = "Mo. +91 91635 62392";
+            _('in-class-address').value = "Sector 5, Gandhinagar, Gujarat";
+            _('in-batch-name').value = "Standard 10 (Maths Batch)";
+            _('in-month').value = 8;
+            _('in-year').value = 2026;
+            _('in-students').value = "Aarav Patel\nParth Patel\nRajvi Jatapara\nDiya Vaghela\nNaman Shah\nKeval Joshi\nHetvi Mehta";
+
+            _('in-theme').value = '#0ea5e9';
+            _('in-font').value = "'Poppins', sans-serif";
+
+            document.querySelectorAll('#tab-design .opt-box').forEach(box => box.classList.remove('active'));
+            _('ly-classic').classList.add('active');
+
+            // Watermark defaults
+            _('in-show-watermark').checked = true;
+            _('in-watermark-text').value = "Saraswati Classes";
+            _('in-watermark-opacity').value = "0.18";
+
+            // Labels defaults
+            _('lbl-title').value = "Attendance Register";
+            _('lbl-student-hdr').value = "Student Name";
+            _('lbl-present').value = "P";
+            _('lbl-absent').value = "A";
+
+            changeFont("'Poppins', sans-serif");
+            const card = _('attendance-sheet-area');
+            card.className = "attendance-sheet-print design-classic";
+            toggleWatermark(true);
+            logoUrl = '';
+            _('up-logo').value = '';
+            changeTheme('#0ea5e9');
+            render();
+            showToast('Attendance Sheet Reset!', 'fa-rotate-left');
+        }
+
+        function render() {
+            const className = _('in-class-name').value;
+            const contact = _('in-class-contact').value;
+            const address = _('in-class-address').value;
+            const batchName = _('in-batch-name').value;
+            const month = parseInt(_('in-month').value);
+            const year = parseInt(_('in-year').value);
+
+            const currentWatermark = _('in-watermark-text').value;
+            if (currentWatermark === 'Saraswati Classes' || currentWatermark === className) {
+                _('in-watermark-text').value = className;
+                _('watermark-overlay').innerText = className;
+            } else {
+                _('watermark-overlay').innerText = currentWatermark;
+            }
+
+            _('d-sheet-title').innerText = _('lbl-title').value;
+            _('d-batch-name').innerText = `${batchName} | ${contact} | ${address}`;
+
+            // Handle logo display
+            const logoImg = _('d-logo');
+            if (logoUrl) {
+                logoImg.src = logoUrl;
+                logoImg.style.display = 'block';
+            } else {
+                logoImg.style.display = 'none';
+            }
+
+            const months = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            _('d-period-val').innerText = `${months[month - 1]} ${year}`;
+
+            // Calculate days in the selected month
+            const daysInMonth = new Date(year, month, 0).getDate();
+
+            // Render headers
+            const headerRow = _('table-header-row');
+            headerRow.innerHTML = `
+                <th class="col-sr">Sr</th>
+                <th class="col-name">${_('lbl-student-hdr').value}</th>
+            `;
+
+            for (let i = 1; i <= daysInMonth; i++) {
+                headerRow.innerHTML += `<th style="width:20px">${i}</th>`;
+            }
+
+            headerRow.innerHTML += `
+                <th style="width:30px">${_('lbl-present').value}</th>
+                <th style="width:30px">${_('lbl-absent').value}</th>
+            `;
+
+            // Render students body
+            const tbody = _('table-body');
+            tbody.innerHTML = '';
+
+            const studentText = _('in-students').value.trim();
+            const studentList = studentText ? studentText.split('\n') : [];
+
+            studentList.forEach((s, idx) => {
+                const tr = document.createElement('tr');
+                let trHtml = `
+                    <td class="col-sr">${idx + 1}</td>
+                    <td class="col-name">${s.trim() || 'Unnamed Student'}</td>
+                `;
+
+                for (let i = 1; i <= daysInMonth; i++) {
+                    trHtml += `<td class="day-cell">.</td>`;
+                }
+
+                trHtml += `
+                    <td></td>
+                    <td></td>
+                `;
+
+                tr.innerHTML = trHtml;
+                tbody.appendChild(tr);
+            });
+
+            if (studentList.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="${daysInMonth + 4}" style="text-align:center; padding:20px; color:#64748b; font-size:12px;">No student names entered.</td></tr>`;
+            }
+        }
+
+        function shareAttendance(actionType = 'share') {
+            const card = _('attendance-sheet-area');
+            showToast('Preparing Attendance Sheet...', 'fa-spinner fa-spin');
+
+            // Temporary scroll alignment to top to prevent canvas viewport clipping
+            const previewPanel = document.querySelector('.preview-panel');
+            const originalScrollTop = previewPanel ? previewPanel.scrollTop : 0;
+            if (previewPanel) previewPanel.scrollTop = 0;
+
+            html2canvas(card, {
+                scale: 2,
+                useCORS: true,
+                allowTaint: true
+            }).then(cv => {
+                if (previewPanel) previewPanel.scrollTop = originalScrollTop; // Restore scroll position
+
+                cv.toBlob(blob => {
+                    const filename = `Attendance-${_('in-batch-name').value.replace(/\s+/g, '-')}-${Date.now()}.png`;
+                    if (actionType === 'share' && window.shareGeneratedFile) {
+                        window.shareGeneratedFile(blob, filename, 'image/png');
+                    } else {
+                        const a = document.createElement('a');
+                        a.download = filename;
+                        a.href = URL.createObjectURL(blob);
+                        a.click();
+                        showToast('Attendance Sheet Image Downloaded!', 'fa-check-circle');
+                    }
+                }, 'image/png');
+            });
+        }
+
+        window.onload = () => {
+            render();
+            if (typeof setLanguage === 'function') setLanguage(getSavedLanguage());
+        };
+    </script>
+</body>
+
+</html>
