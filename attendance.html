@@ -446,11 +446,7 @@
                 justify-content: center;
             }
 
-            .header-actions {
-                width: 100%;
-                justify-content: center;
-                gap: 8px;
-            }
+            .header-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
 
             .app-body {
                 flex-direction: column;
@@ -464,12 +460,7 @@
                 padding: 16px;
             }
 
-            .preview-panel {
-                width: 100%;
-                min-height: auto;
-                border-top: 2px solid var(--border);
-                padding: 24px 16px;
-            }
+            .preview-panel { width: 100%; min-height: auto; border-top: 2px solid var(--border); padding: 24px 16px; align-items: flex-start; overflow-x: auto; }
         }
 
         /* PRINT SETTINGS (Landscape A4 auto-scale) */
@@ -484,7 +475,15 @@
             .preview-panel { padding: 0 !important; background: #fff !important; overflow: visible !important; width: 100% !important; }
             .attendance-sheet-print { box-shadow: none !important; width: 100% !important; height: auto !important; margin: 0 !important; border-width: 2px !important; }
         }
-    </style>
+    
+        @media (max-width: 480px) {
+            .app-header { padding: 10px 6px; }
+            .header-actions { gap: 6px; }
+            .btn-top { padding: 6px 10px; font-size: 11px; }
+            .lang-selector { padding: 2px; }
+            .lang-btn { padding: 2px 6px; font-size: 9px; }
+        }
+</style>
 </head>
 
 <body>
