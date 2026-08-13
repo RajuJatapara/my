@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Beginner's Guide to GST Billing, Invoices, and Estimates - Digital Tools Hub Blog</title>
+    <meta name="description" content="Understand Goods and Services Tax (GST) invoicing, CGST/SGST splitting, and math formulas to add or remove GST tax on billing.">
+    <meta name="keywords" content="gst invoice maker, add gst calculations, tax removal formula, corporate billing sheets">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --card-border: rgba(251, 191, 36, 0.15);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --nav-bg: rgba(9, 13, 22, 0.95);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+        .navbar {
+            min-height: 64px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 17px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .brand-logo i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+        .back-btn-nav {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            transition: all 0.2s;
+        }
+        .back-btn-nav:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .blog-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        .blog-header p {
+            color: var(--text-sub);
+            font-size: 15px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        .blog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        .card-category {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--primary);
+            text-transform: uppercase;
+            width: max-content;
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .card-summary {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+        .read-more-link {
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Article specific CSS */
+        .article-container {
+            max-width: 820px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        .article-meta {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .article-content h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.35;
+        }
+        .article-content h2 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+        .article-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .article-content p {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        .article-content li {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+        }
+        .article-content th, .article-content td {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .article-content th {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .article-content tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover {
+            color: var(--primary);
+        }
+        .footer {
+            background: rgba(11, 15, 25, 0.8);
+            border-top: 1px solid var(--card-border);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-top: 60px;
+        }
+        .footer a {
+            color: var(--text-sub);
+            text-decoration: none;
+            margin: 0 8px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer a:hover {
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 0 15px; }
+            .blog-header h1 { font-size: 26px; }
+            .article-card { padding: 25px 15px; }
+            .article-content h1 { font-size: 20px; }
+            .article-content h2 { font-size: 17px; }
+        }
+</style>
+</head>
+<body>
+
+    
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="index" class="brand-logo">
+            <i class="fas fa-cubes-stacked"></i>
+            <span>Digital Tools Hub</span>
+        </a>
+        <div class="nav-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <a href="blog" class="back-btn-nav">
+                <i class="fas fa-arrow-left"></i> 
+                <span class="lang-content" data-lang="en">Back to Blog</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">બ્લોગ પર જાઓ</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">ब्लॉग पर जाएं</span>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- MAIN CONTAINER -->
+    <div class="article-container">
+        <a href="blog" class="back-btn"><i class="fas fa-arrow-left"></i> 
+            <span class="lang-content" data-lang="en">Back to Guides & Articles</span>
+            <span class="lang-content" data-lang="gu" style="display:none;">માર્ગદર્શિકા અને લેખો પર પાછા જાઓ</span>
+            <span class="lang-content" data-lang="hi" style="display:none;">मार्गदर्शिका और लेखों पर वापस जाएं</span>
+        </a>
+        <div class="article-card">
+            <div class="article-meta">
+                <span class="card-category">Billing</span>
+                <span>By Digital Tools Team</span>
+                <span>|</span>
+                <span>Updated: August 2026</span>
+            </div>
+            
+            <div class="article-content">
+                <!-- English Article Content -->
+                <div class="lang-content" data-lang="en">
+                    
+            <h1>A Beginner's Guide to GST Billing, Invoices, and Estimates</h1>
+            <p>Implementing a proper invoicing system is vital for the growth of any shop, enterprise, or retail business. In India, the Goods and Services Tax (GST) framework regulates how taxes are calculated, displayed, and collected. Whether you are a small business owner preparing simple estimates or a larger distributor creating tax-compliant invoices, this guide explains how GST works and how to perform accurate billing calculations.</p>
+
+            <h2>1. Core Components of a GST Invoice</h2>
+            <p>A legally compliant GST tax invoice must display specific data points to be recognized under the GST network. These details protect both the seller and the buyer during tax filing (GST returns):</p>
+            <ul>
+                <li><strong>Business and Client Details:</strong> The invoice must display the Name, Billing Address, and GSTIN (GST Identification Number) of both the supplier and the customer.</li>
+                <li><strong>HSN/SAC Codes:</strong> HSN (Harmonized System of Nomenclature) codes classify goods, while SAC codes classify services. These codes determine the specific tax rate applied.</li>
+                <li><strong>Tax Partition:</strong> Taxes must be split clearly between Central GST (CGST), State GST (SGST), and Integrated GST (IGST) based on the location of the client.</li>
+            </ul>
+
+            <h2>2. CGST, SGST, and IGST: What is the Difference?</h2>
+            <p>The type of GST applied depends on whether the transaction is intra-state (within the same state) or inter-state (between two different states):</p>
+            <ul>
+                <li><strong>Intra-State Transactions (Within State):</strong> The GST tax amount is split equally (50-50) into two parts: <strong>CGST</strong> (goes to the Central Government) and <strong>SGST</strong> (goes to the State Government). For instance, if an item has an 18% GST rate, the invoice will list 9% CGST and 9% SGST.</li>
+                <li><strong>Inter-State Transactions (Out of State):</strong> A single unified tax called <strong>IGST</strong> (Integrated GST) is applied, representing the full tax rate (e.g., 18% IGST).</li>
+            </ul>
+
+            <h2>3. GST Calculations: Addition and Extraction Formulas</h2>
+            <p>As a business owner, you will frequently need to calculate tax addition (adding GST on top of a net rate) and tax removal (extracting base price and tax from a total inclusive price).</p>
+
+            <h3>Formula 1: Adding GST to a Base Amount</h3>
+            <p><strong>Tax Amount = Base Selling Price * (GST Rate / 100)</strong></p>
+            <p><strong>Total Invoice Amount = Base Selling Price + Tax Amount</strong></p>
+
+            <h3>Formula 2: Removing/Extracting GST from an Inclusive Amount</h3>
+            <p><strong>Base Price = Total Inclusive Price / (1 + (GST Rate / 100))</strong></p>
+            <p><strong>Tax Amount = Total Inclusive Price - Base Price</strong></p>
+        
+                </div>
+                
+                <!-- Gujarati Article Content -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    
+            <h1>જીએસટી (GST) બિલિંગ, ઇન્વૉઇસ અને એસ્ટીમેટ બનાવવાનો સરળ ગાઈડ</h1>
+            <p>કોઈપણ દુકાન કે વેપારના વિકાસ માટે વ્યવસ્થિત બિલિંગ સિસ્ટમ હોવી ખૂબ જ જરૂરી છે. ભારતમાં માલ અને સેવા કર (GST) લાગુ થયા પછી કરની ગણતરી અને બિલ બનાવવાની પદ્ધતિ બદલાઈ ગઈ છે. ભલે તમે સાદા ક્વોટેશન/એસ્ટીમેટ બનાવતા હોવ કે પાકા જીએસટી બિલ, આ માર્ગદર્શિકા તમને સાચી ગણતરી શીખવશે.</p>
+
+            <h2>૧. જીએસટી ટેક્સ બિલના મુખ્ય ભાગો</h2>
+            <p>ટેક્સ કાયદા મુજબ જીએસટી બિલમાં નીચેની વિગતો હોવી જરૂરી છે:</p>
+            <ul>
+                <li><strong>ખરીદનાર અને વેચનારની વિગત:</strong> બંને વેપારીઓના નામ, સરનામાં અને જીએસટી નંબર (GSTIN) બિલ પર હોવા જોઈએ.</li>
+                <li><strong>HSN/SAC કોડ:</strong> સામાન માટે HSN કોડ અને સર્વિસ માટે SAC કોડ લખવા જરૂરી છે, જે ટેક્સના દર નક્કી કરે છે.</li>
+                <li><strong>ટેક્સ વિભાજન:</strong> CGST, SGST કે IGST ની ગણતરી બિલમાં અલગથી દર્શાવવી પડે છે.</li>
+            </ul>
+
+            <h2>૨. CGST, SGST અને IGST વચ્ચે શું તફાવત છે?</h2>
+            <p>જીએસટીના પ્રકારો વેપાર ક્યાં થાય છે તેના પર આધાર રાખે છે:</p>
+            <ul>
+                <li><strong>રાજ્યની અંદર થતો વેપાર (Intra-State):</strong> આમાં ટેક્સ બે સરખા ભાગમાં વહેંચાય છે: <strong>CGST</strong> (કેન્દ્ર સરકાર માટે) અને <strong>SGST</strong> (રાજ્ય સરકાર માટે). જેમ કે ૧૮% ટેક્સ હોય, તો બિલમાં ૯% CGST અને ૯% SGST ગણાશે.</li>
+                <li><strong>રાજ્ય બહાર થતો વેપાર (Inter-State):</strong> આમાં એક જ કર લાગુ પડે છે જેને <strong>IGST</strong> કહેવામાં આવે છે.</li>
+            </ul>
+
+            <h2>૩. જીએસટી ગણતરીના ગણિતના સૂત્રો</h2>
+            
+            <h3>સૂત્ર ૧: મૂળ રકમ પર જીએસટી ઉમેરવો (Add GST)</h3>
+            <p>જ્યારે કોઈ સામાનની કિંમત ટેક્સ વગરની હોય અને તેના પર જીએસટી લગાવવાનો હોય:</p>
+            <p><strong>ટેક્સ રકમ = મૂળ કિંમત * (GST દર / ૧૦૦)</strong></p>
+            <p><strong>કુલ બિલ રકમ = મૂળ કિંમત + ટેક્સ રકમ</strong></p>
+
+            <h3>સૂત્ર ૨: કુલ રકમમાંથી જીએસટી બાદ કરવો (Extract/Remove GST)</h3>
+            <p>જ્યારે સામાનની કિંમતમાં જીએસટી પહેલેથી જ શામેલ હોય (MRP) અને મૂળ કિંમત અલગ કરવી હોય:</p>
+            <p><strong>મૂળ કિંમત = કુલ કિંમત / (૧ + (GST દર / ૧૦૦))</strong></p>
+            <p><strong>ટેક્સ રકમ = કુલ કિંમત - મૂળ કિંમત</strong></p>
+        
+                </div>
+                
+                <!-- Hindi Article Content -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    
+            <h1>जीएसटी (GST) बिलिंग, इनवॉइस और एस्टीमेट बनाने की संपूर्ण गाइड</h1>
+            <p>किसी भी दुकान या रिटेल व्यवसाय के विकास के लिए एक उचित बिलिंग प्रणाली होना अनिवार्य है। भारत में माल एवं सेवा कर (GST) ढांचे के तहत करों की गणना की जाती है। चाहे आप एक छोटा एस्टीमेट बना रहे हों या जीएसटी इनवॉइस, यह मार्गदर्शिका आपको बिलिंग गणना के नियम समझाएगी।</p>
+
+            <h2>1. जीएसटी इनवॉइस के मुख्य घटक</h2>
+            <p>एक जीएसटी इनवॉइस में निम्नलिखित जानकारी स्पष्ट रूप से होनी चाहिए:</p>
+            <ul>
+                <li><strong>विक्रेता और खरीदार का विवरण:</strong> दोनों पक्षों का नाम, पता और जीएसटी नंबर (GSTIN) दर्ज होना चाहिए।</li>
+                <li><strong>HSN/SAC कोड:</strong> वस्तुओं के लिए HSN कोड और सेवाओं के लिए SAC कोड लिखना आवश्यक है।</li>
+                <li><strong>टैक्स विभाजन:</strong> बिल में CGST, SGST और IGST का विवरण अलग-अलग होना चाहिए।</li>
+            </ul>
+
+            <h2>2. CGST, SGST और IGST में क्या अंतर है?</h2>
+            <ul>
+                <li><strong>राज्य के भीतर लेनदेन (Intra-State):</strong> इसमें टैक्स की राशि दो बराबर हिस्सों में बंटती है: <strong>CGST</strong> (केंद्र सरकार का हिस्सा) और <strong>SGST</strong> (राज्य सरकार का हिस्सा)।</li>
+                <li><strong>राज्य के बाहर लेनदेन (Inter-State):</strong> इसमें एक ही टैक्स लागू होता है जिसे <strong>IGST</strong> कहा जाता है।</li>
+            </ul>
+
+            <h2>3. जीएसटी की गणना के सूत्र</h2>
+            
+            <h3>सूत्र 1: मूल मूल्य पर जीएसटी जोड़ना (Add GST)</h3>
+            <p><strong>टैक्स राशि = मूल मूल्य * (GST दर / 100)</strong></p>
+            <p><strong>कुल बिल राशि = मूल मूल्य + टैक्स राशि</strong></p>
+
+            <h3>सूत्र 2: कुल मूल्य से जीएसटी निकालना (Remove GST)</h3>
+            <p><strong>मूल मूल्य = कुल मूल्य / (1 + (GST दर / 100))</strong></p>
+            <p><strong>टैक्स राशि = कुल मूल्य - मूल मूल्य</strong></p>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="blog" style="color:#fbbf24; font-weight:600;">Guides & Blog</a> | <a href="privacy">Privacy Policy</a> | <a href="terms">Terms of Service</a>
+    </div>
+
+    
+    <script>
+        // Update language selection active classes
+        function setLanguage(lang) {
+            localStorage.setItem('rcs_lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Switch readable content blocks dynamically
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+        
+        // Load initial active language preference on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('rcs_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
+
+
+</body>
+</html>

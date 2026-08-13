@@ -377,7 +377,28 @@
             .trip-item-row { flex-wrap: wrap; gap: 6px; }
             .trip-item-row input[type="text"] { flex: 1 1 45%; }
         }
-    </style>
+    
+        /* 🌌 Unified Mobile Layout Alignment & Horizontal Scroll Override (Anti-left-crop) */
+        @media (max-width: 900px) {
+            .preview-panel {
+                display: flex !important;
+                justify-content: flex-start !important;
+                align-items: flex-start !important;
+                overflow-x: auto !important;
+                padding: 15px !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .invoice-paper, .receipt-card, .attendance-sheet, .sheet-card, .canvas-card, 
+            .slip-card, .card-container, .preview-container, .print-card, .tally-card, 
+            .cert-card, .wedding-card, .menu-card, .id-card, .label-card, .resume-card, 
+            .tripsheet-card, .receipt-print-area, .attendance-sheet-print, .trip-canvas, 
+            .report-card, .preview-box, .cert-preview-container, .preview-sheet, .time-table-container {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                flex-shrink: 0 !important;
+            }
+        }
+</style>
 </head>
 
 <body>
@@ -388,7 +409,7 @@
     <!-- HEADER TOPBAR -->
     <div class="app-header">
         <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
-            <a href="index.html" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+            <a href="index" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
                 <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
                 <span data-i18n="suite_title">Digital Tools Hub</span>
             </a>
@@ -441,14 +462,18 @@
             </div>
 
             <div class="grp-label">4. Meter Odometer Reading (Start & End KM)</div>
-            <div class="grid-2">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px;">
                 <div>
-                    <span style="font-size:10px; color:#94a3b8; font-weight:700">શરૂઆત KM (Start KM)</span>
-                    <input type="number" id="in-startkm" value="12400" oninput="render()" placeholder="Start KM">
+                    <span style="font-size:10px; color:#94a3b8; font-weight:700">શરૂઆત KM (Start)</span>
+                    <input type="number" id="in-startkm" value="12400" oninput="calculateFromStartEnd()" placeholder="Start KM">
                 </div>
                 <div>
-                    <span style="font-size:10px; color:#94a3b8; font-weight:700">અંતિમ KM (End KM)</span>
-                    <input type="number" id="in-endkm" value="12630" oninput="render()" placeholder="End KM">
+                    <span style="font-size:10px; color:#94a3b8; font-weight:700">અંતિમ KM (End)</span>
+                    <input type="number" id="in-endkm" value="12630" oninput="calculateFromStartEnd()" placeholder="End KM">
+                </div>
+                <div>
+                    <span style="font-size:10px; color:#fbbf24; font-weight:800">કુલ KM (Total - Direct)</span>
+                    <input type="number" id="in-totalkm" value="230" oninput="calculateFromTotal()" placeholder="Total KM">
                 </div>
             </div>
 
@@ -479,7 +504,7 @@
         
             <!-- GUIDES, BENEFITS & FAQ SECTION FOR ADSENSE & SEO -->
             <div class="editor-group-card" style="margin-top: 24px;">
-                <details style="cursor: pointer; outline: none; width: 100%;">
+                <details open style="cursor: pointer; outline: none; width: 100%;">
                     <summary style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; outline: none; user-select: none; width: 100%;">
                         <span><i class="fas fa-circle-question"></i> <span data-i18n="how_to_use">Guide & FAQs</span></span>
                         <i class="fas fa-chevron-down" style="font-size:10px; color:#94a3b8;"></i>
@@ -616,8 +641,9 @@
                 _('in-driver').value = "";
                 _('in-dphone').value = "";
                 _('in-cust').value = "";
-                _('in-startkm').value = "0";
-                _('in-endkm').value = "0";
+                _('in-startkm').value = "";
+                _('in-endkm').value = "";
+                _('in-totalkm').value = "0";
                 _('in-toll').value = "0";
                 _('in-advance').value = "0";
                 tripRows = [{ id: 1, route: "", detail: "", amt: 0 }];
@@ -632,6 +658,7 @@
                 _('in-cust').value = "સંજયભાઈ પટેલ";
                 _('in-startkm').value = "12400";
                 _('in-endkm').value = "12630";
+                _('in-totalkm').value = "230";
                 _('in-toll').value = "250";
                 _('in-advance').value = "1000";
                 tripRows = [
@@ -648,6 +675,7 @@
                 _('in-cust').value = "જયસુખભાઈ વેપારી";
                 _('in-startkm').value = "45000";
                 _('in-endkm').value = "45420";
+                _('in-totalkm').value = "420";
                 _('in-toll').value = "500";
                 _('in-advance').value = "3000";
                 tripRows = [
@@ -664,6 +692,7 @@
                 _('in-cust').value = "ભાવેશભાઈ";
                 _('in-startkm').value = "150";
                 _('in-endkm').value = "165";
+                _('in-totalkm').value = "15";
                 _('in-toll').value = "0";
                 _('in-advance').value = "0";
                 tripRows = [
@@ -678,8 +707,9 @@
                 _('in-driver').value = "દિનેશભાઈ";
                 _('in-dphone').value = "9898989898";
                 _('in-cust').value = "રોહન પટેલ (વાલી)";
-                _('in-startkm').value = "0";
-                _('in-endkm').value = "0";
+                _('in-startkm').value = "";
+                _('in-endkm').value = "";
+                _('in-totalkm').value = "0";
                 _('in-toll').value = "0";
                 _('in-advance').value = "0";
                 tripRows = [
@@ -726,7 +756,32 @@
             container.innerHTML = h;
         }
 
-        function render() {
+                function calculateFromStartEnd() {
+            const start = parseFloat(document.getElementById('in-startkm').value);
+            const end = parseFloat(document.getElementById('in-endkm').value);
+            if (!isNaN(start) && !isNaN(end)) {
+                if (end >= start) {
+                    document.getElementById('in-totalkm').value = end - start;
+                } else {
+                    document.getElementById('in-totalkm').value = 0;
+                }
+            }
+            render();
+        }
+
+        function calculateFromTotal() {
+            const total = parseFloat(document.getElementById('in-totalkm').value) || 0;
+            const startStr = document.getElementById('in-startkm').value.trim();
+            if (startStr !== '') {
+                const start = parseFloat(startStr) || 0;
+                document.getElementById('in-endkm').value = start + total;
+            } else {
+                document.getElementById('in-endkm').value = '';
+            }
+            render();
+        }
+
+function render() {
             _('out-comp').innerText = _('in-comp').value.trim() || 'YOUR TRAVEL NAME';
             _('out-purpose').innerText = _('in-purpose').value.trim() || 'Trip Details';
             _('out-vno').innerText = _('in-vno').value.trim() || 'GJ-00-XX-0000';
@@ -744,13 +799,30 @@
                 _('out-date').innerText = '';
             }
 
-            const startKm = parseFloat(_('in-startkm').value) || 0;
-            const endKm = parseFloat(_('in-endkm').value) || 0;
-            const totalKm = Math.max(0, endKm - startKm);
+            const startStr = _('in-startkm').value.trim();
+            const endStr = _('in-endkm').value.trim();
+            const totalStr = _('in-totalkm').value.trim();
 
-            _('out-startkm').innerText = startKm.toLocaleString();
-            _('out-endkm').innerText = endKm.toLocaleString();
-            _('out-totalkm').innerText = `${totalKm.toLocaleString()} KM`;
+            let startKm = parseFloat(startStr) || 0;
+            let endKm = parseFloat(endStr) || 0;
+            let totalKm = parseFloat(totalStr) || 0;
+
+            if (startStr !== '' && endStr !== '') {
+                totalKm = Math.max(0, endKm - startKm);
+            }
+
+            const kmBadgeRow = _('out-km-badge-row');
+            if (startStr === '' && endStr === '') {
+                kmBadgeRow.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center;">કુલ અંતર (Total Distance): <span id="out-totalkm" style="color:#38bdf8; font-weight:800">${totalKm.toLocaleString()} KM</span></div>
+                `;
+            } else {
+                kmBadgeRow.innerHTML = `
+                    <div>શરૂઆત KM: <span id="out-startkm" style="color:#fbbf24">${startKm.toLocaleString()}</span></div>
+                    <div>અંતિમ KM: <span id="out-endkm" style="color:#fbbf24">${endKm.toLocaleString()}</span></div>
+                    <div>કુલ અંતર: <span id="out-totalkm" style="color:#38bdf8">${totalKm.toLocaleString()} KM</span></div>
+                `;
+            }
 
             let totalTripFare = 0;
             let h = '';

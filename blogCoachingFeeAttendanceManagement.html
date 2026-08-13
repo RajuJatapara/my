@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Operations: Student Fees, Attendance, and Timetables - Digital Tools Hub Blog</title>
+    <meta name="description" content="Helpful class administration tips for tracking student attendance logs, structuring fee receipts with number-to-words, and planning weekly routine grids.">
+    <meta name="keywords" content="tuition fee receipt, student attendance register, batch schedule planner, class timetable print">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --card-border: rgba(251, 191, 36, 0.15);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --nav-bg: rgba(9, 13, 22, 0.95);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+        .navbar {
+            min-height: 64px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 17px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .brand-logo i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+        .back-btn-nav {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            transition: all 0.2s;
+        }
+        .back-btn-nav:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .blog-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        .blog-header p {
+            color: var(--text-sub);
+            font-size: 15px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        .blog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        .card-category {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--primary);
+            text-transform: uppercase;
+            width: max-content;
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .card-summary {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+        .read-more-link {
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Article specific CSS */
+        .article-container {
+            max-width: 820px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        .article-meta {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .article-content h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.35;
+        }
+        .article-content h2 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+        .article-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .article-content p {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        .article-content li {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+        }
+        .article-content th, .article-content td {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .article-content th {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .article-content tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover {
+            color: var(--primary);
+        }
+        .footer {
+            background: rgba(11, 15, 25, 0.8);
+            border-top: 1px solid var(--card-border);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-top: 60px;
+        }
+        .footer a {
+            color: var(--text-sub);
+            text-decoration: none;
+            margin: 0 8px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer a:hover {
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 0 15px; }
+            .blog-header h1 { font-size: 26px; }
+            .article-card { padding: 25px 15px; }
+            .article-content h1 { font-size: 20px; }
+            .article-content h2 { font-size: 17px; }
+        }
+</style>
+</head>
+<body>
+
+    
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="index" class="brand-logo">
+            <i class="fas fa-cubes-stacked"></i>
+            <span>Digital Tools Hub</span>
+        </a>
+        <div class="nav-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <a href="blog" class="back-btn-nav">
+                <i class="fas fa-arrow-left"></i> 
+                <span class="lang-content" data-lang="en">Back to Blog</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">બ્લોગ પર જાઓ</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">ब्लॉग पर जाएं</span>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- MAIN CONTAINER -->
+    <div class="article-container">
+        <a href="blog" class="back-btn"><i class="fas fa-arrow-left"></i> 
+            <span class="lang-content" data-lang="en">Back to Guides & Articles</span>
+            <span class="lang-content" data-lang="gu" style="display:none;">માર્ગદર્શિકા અને લેખો પર પાછા જાઓ</span>
+            <span class="lang-content" data-lang="hi" style="display:none;">मार्गदर्शिका और लेखों पर वापस जाएं</span>
+        </a>
+        <div class="article-card">
+            <div class="article-meta">
+                <span class="card-category">Education</span>
+                <span>By Digital Tools Team</span>
+                <span>|</span>
+                <span>Updated: August 2026</span>
+            </div>
+            
+            <div class="article-content">
+                <!-- English Article Content -->
+                <div class="lang-content" data-lang="en">
+                    
+            <h1>Classroom Operations: Student Fees, Attendance, and Timetables</h1>
+            <p>Running a local coaching center or tuition class involves managing student records, tracking monthly attendance, billing tuition fees, and scheduling weekly lectures. Managing these tasks efficiently saves time and prevents communication errors with parents.</p>
+
+            <h2>1. Designing a Legible Weekly Timetable</h2>
+            <p>Avoid overlapping slots. Format subject columns properly. Sans-serif fonts like Poppins prevent narrow table cells from wrapping poorly on mobile and print layouts.</p>
+
+            <h2>2. Keeping Accurate Student Attendance Registers</h2>
+            <p>Record present, absent, and holiday marks. Use color coding (red for absent and green for present) to quickly monitor low attendance.</p>
+
+            <h2>3. Designing Secure Tuition Fee Receipts</h2>
+            <p>Fee receipts should record student details, standard, fees month, and amount. Always print the amount in words (auto-convert numbers to words) to prevent altering printed receipts.</p>
+        
+                </div>
+                
+                <!-- Gujarati Article Content -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    
+            <h1>ટ્યુશન અને કોચિંગ ક્લાસીસ મેનેજમેન્ટ: સમયપત્રક, હાજરી અને ફી પહોંચ</h1>
+            <p>ખાનગી ટ્યુશન અથવા કોચિંગ ક્લાસ ચલાવવામાં વિદ્યાર્થીઓના રેકોર્ડ જાળવવા, માસિક હાજરી પત્રક પૂરવું, ફીની પહોંચ બનાવવી અને લેક્ચરનું સાપ્તાહિક સમયપત્રક ગોઠવવું વગેરે વહીવટી કાર્યો સમય માંગી લે છે. તેને સરળ કરવાની રીત નીચે મુજબ છે:</p>
+
+            <h2>૧. સાપ્તાહિક સમયપત્રક (ટાઈમ ટેબલ) નું આયોજન</h2>
+            <p>દરેક બેચ અને શિક્ષકનો સમય ઓવરલેપ ન થાય તેનું ધ્યાન રાખો. સમયપત્રકનું પ્રિન્ટ આઉટ નોટિસ બોર્ડ પર સહેલાઈથી વંચાય તેવું હોવું જોઈએ. Poppins જેવા અક્ષરો વાપરવાથી લખાણ વ્યવસ્થિત રહે છે.</p>
+
+            <h2>૨. દૈનિક હાજરી રજિસ્ટર જાળવવું</h2>
+            <p>હાજરી પૂરવા માટે P (હાજર), A (ગેરહાજર) અને H (રજા) ના ચિહ્નો વાપરો. ગેરહાજર વિદ્યાર્થીઓ માટે લાલ કલર અને હાજર માટે લીલા કલરનો ઉપયોગ કરવાથી વિગતો સ્પષ્ટ જોઈ શકાય છે.</p>
+
+            <h2>૩. ટ્યુશન ફી પહોંચ બુક બનાવવી</h2>
+            <p>ફીની રસીદ બનાવતી વખતે વિદ્યાર્થીનું ધોરણ, બેચ, કયો મહિનો અને રકમ લખવી જરૂરી છે. રકમ અંકો ઉપરાંત ફરજિયાત પણે શબ્દોમાં (દા.ત. બે હજાર રૂપિયા પૂરા) લખવી જોઈએ જેથી છેડછાડ થવાની શક્યતા ઘટે છે.</p>
+        
+                </div>
+                
+                <!-- Hindi Article Content -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    
+            <h1>ट्यूशन कोचिंग प्रबंधन: समय सारिणी, उपस्थिति और फीस रसीद गाइड</h1>
+            <p>एक कोचिंग संस्थान या ट्यूशन क्लास चलाने में छात्रों के रिकॉर्ड, उनकी मासिक उपस्थिति, फीस रसीद और साप्ताहिक समय सारिणी का प्रबंधन करना पड़ता है। इन प्रशासनिक कार्यों को आसान बनाने के तरीके नीचे दिए गए हैं:</p>
+
+            <h2>1. साप्ताहिक समय सारिणी (टाइम टेबल) का निर्माण</h2>
+            <p>कक्षाओं का समय आपस में न टकराए इसका ध्यान रखें। मोबाइल और प्रिंट में टाइम टेबल स्पष्ट दिखे इसके लिए Poppins फोंट का उपयोग करें जो कॉलम की चौड़ाई को सही से बनाए रखता है।</p>
+
+            <h2>2. छात्र उपस्थिति रजिस्टर (Attendance Register)</h2>
+            <p>रोजाना छात्रों की उपस्थिति दर्ज करने के लिए P (उपस्थित), A (अनुपस्थित) और H (छुट्टी) का उपयोग करें। अनुपस्थिति को लाल रंग से दर्शाने से रिकॉर्ड तुरंत समझ में आता है।</p>
+
+            <h2>3. फीस रसीद (Tuition Fee Receipt)</h2>
+            <p>फीस रसीद में छात्र का नाम, क्लास, फीस का महीना और भुगतान का माध्यम स्पष्ट होना चाहिए। रसीद में राशि को अंकों के साथ शब्दों में (जैसे "दो हजार रुपये मात्र") लिखना अनिवार्य करें ताकि रसीद में बदलाव न किया जा सके।</p>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="blog" style="color:#fbbf24; font-weight:600;">Guides & Blog</a> | <a href="privacy">Privacy Policy</a> | <a href="terms">Terms of Service</a>
+    </div>
+
+    
+    <script>
+        // Update language selection active classes
+        function setLanguage(lang) {
+            localStorage.setItem('rcs_lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Switch readable content blocks dynamically
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+        
+        // Load initial active language preference on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('rcs_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
+
+
+</body>
+</html>

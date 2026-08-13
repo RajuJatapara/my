@@ -69,6 +69,8 @@ const i18nData = {
 
         t19_title: "Digital Product Catalog & Showcase Crafter",
         t19_desc: "Create 1-Page Mobile Product Catalogs for clothing, hardware, kirana & sweets shops with MRP discount badges & Direct WhatsApp order buttons.",
+        t20_title: "Business Calculator Hub",
+        t20_desc: "12-in-1 interactive calculations suite covering Interest, GST, Loan EMI, Margins, Daily Milk Fat, Land units & Wages.",
 
         
         // Specific tool guide translations for EN
@@ -384,9 +386,29 @@ const i18nData = {
         calc_title: "Business & Agriculture Calculator",
         calendar_title: "Daily Calendar & Planner",
         pwa_install_title: "Install Mobile App",
-        pwa_install_desc: "Add Digital Tools Hub to your home screen and run it offline anytime."
+        pwa_install_desc: "Add Digital Tools Hub to your home screen and run it offline anytime.",
+        cc_date: "Date & Time: ",
+        cc_denom: "Denom",
+        cc_qty: "Qty",
+        cc_total_sum: "Total Sum",
+        cc_total_notes: "Total Notes/Coins Count:",
+        cc_grand_total: "GRAND TOTAL:",
+        cc_footer: "Generated via Digital Tools Hub",
+        cc_coins: "Coins",
+        cc_empty: "No notes entered yet.",
+        t21_title: "Cash Counter & Denominator",
+        t21_desc: "Calculate currency count and dynamic denomination totals for Indian Rupee notes easily.",
+        t22_title: "Student Progress Report Card",
+        t22_desc: "Generate printable marksheet report cards with automated grade calculation and student progress tracking.",
+        t23_title: "Tuition & Coaching Fee Receipt",
+        t23_desc: "Create and print customized fee receipts with dynamic multi-language text converter and balance logs.",
+        t24_title: "Student Batch Attendance Log",
+        t24_desc: "Generate printable monthly attendance registers and student batch log sheets with clean tabular layouts.",
+        t25_title: "Tuition Time Table & Batch Scheduler",
+        t25_desc: "Create and print customized weekly timetables for student batches and teacher schedules with clean grid layouts."
     },
     gu: {
+        nav_blog: "માર્ગદર્શિકા અને બ્લોગ",
         suite_title: "ડિજિટલ ટુલ્સ હબ",
         hero_chip: "ફ્રી ઓલ-ઇન-વન બિઝનેસ & કાર્ડ હબ",
         hero_title: "કાર્ડ્સ, GST બિલ, બેનરો અને સ્માર્ટ સાધનો સેકન્ડોમાં બનાવો",
@@ -456,6 +478,8 @@ const i18nData = {
 
         t19_title: "દુકાન પ્રોડક્ટ કેટલોગ & શોકેસ ક્રાફ્ટર",
         t19_desc: "દુકાન માલ-સામાન પ્રોડક્ટ કેટલોગ ફોટો, ભાવ, ઑફર ડિસ્કાઉન્ટ અને ડાયરેક્ટ વોટ્સએપ ઓર્ડર બટન સાથે બનાવો.",
+        t20_title: "વ્યવસાય કેલ્ક્યુલેટર હબ (૧૨-ઇન-૧)",
+        t20_desc: "વ્યાજ, જીએસટી, હોમ લોન EMI, નફાનો ગાળો, દૂધના ફેટ, જમીન માપણી અને રોજમદારની મજૂરીની ગણતરી માટેના ૧૨ સાધનો.",
 
         
         // Specific tool guide translations for GU
@@ -771,9 +795,29 @@ const i18nData = {
         calc_title: "વેપાર અને ખેતીવાડી કેલ્ક્યુલેટર",
         calendar_title: "દૈનિક કેલેન્ડર અને પંચાંગ",
         pwa_install_title: "મોબાઇલ એપ ડાઉનલોડ કરો",
-        pwa_install_desc: "ડિજિટલ ટુલ્સ હબને તમારી હોમ સ્ક્રીન પર સેટ કરો અને ક્યારેય પણ ઇન્ટરનેટ વગર વાપરો."
+        pwa_install_desc: "ડિજિટલ ટુલ્સ હબને તમારી હોમ સ્ક્રીન પર સેટ કરો અને ક્યારેય પણ ઇન્ટરનેટ વગર વાપરો.",
+        cc_date: "તારીખ અને સમય: ",
+        cc_denom: "ચલણ",
+        cc_qty: "નોટની સંખ્યા",
+        cc_total_sum: "કુલ રકમ",
+        cc_total_notes: "કુલ નોટો/સિક્કાની સંખ્યા:",
+        cc_grand_total: "કુલ રકમ (સરવાળો):",
+        cc_footer: "ડિજિટલ ટૂલ્સ હબ દ્વારા બનાવેલ",
+        cc_coins: "સિક્કાઓ",
+        cc_empty: "હજુ સુધી કોઈ નોટ એન્ટર કરી નથી.",
+        t21_title: "રોકડ કેલ્ક્યુલેટર અને મેળ",
+        t21_desc: "ભારતીય ચલણી નોટો અને સિક્કાઓની સંખ્યા અને સરવાળાની ગણતરી સરળતાથી કરો.",
+        t22_title: "વિદ્યાર્થી પ્રગતિ પત્રક (માર્કશીટ)",
+        t22_desc: "ગ્રેડ અને ટકાવારીની ગણતરી સાથે પ્રિન્ટ કરી શકાય તેવા પ્રગતિ પત્રક બનાવો.",
+        t23_title: "ટ્યુશન ફી પહોંચ (બિલ બુક)",
+        t23_desc: "રકમ અંકોમાંથી આપમેળે શબ્દોમાં કન્વર્ટ કરવા અને ફી રસીદ માટેના બિલ.",
+        t24_title: "હાજરી પત્રક રજિસ્ટર",
+        t24_desc: "વિદ્યાર્થી બેચ માટે માસિક રજિસ્ટર અને પ્રિન્ટ-રેડી પત્રકો બનાવો.",
+        t25_title: "ટ્યુશન ટાઇમ ટેબલ પ્લાનર",
+        t25_desc: "સાપ્તાહિક સમયપત્રક અને લેક્ચર પ્લાનર સેટ કરવા માટેના ટેબલ."
     },
     hi: {
+        nav_blog: "मार्गदर्शिका और ब्लॉग",
         suite_title: "डिजिटल टूल्स हब",
         hero_chip: "फ्री ऑल-इन-वन बिजनेस & कार्ड हब",
         hero_title: "कार्ड्स, GST बिल, बैनर और स्मार्ट टूल्स सेकेंडों में बनाएं",
@@ -843,6 +887,8 @@ const i18nData = {
 
         t19_title: "दुकान डिजिटल प्रोडक्ट कैटलॉग क्राफ्टर",
         t19_desc: "दुकान सामान प्रोडक्ट कैटलॉग फोटो, कीमत, ऑफर डिस्काउंट और डायरेक्ट व्हाट्सएप ऑर्डर बटन के साथ बनाएं।",
+        t20_title: "व्यापार कैलकुलेटर हब (12-इन-1)",
+        t20_desc: "ब्याज, जीएसटी, लोन ईएमआई, मार्जिन, दूध फैट, भूमि मापन इकाइयाँ और मजदूरी की गणना के लिए 12-इन-1 कैलकुलेटर.",
 
         
         // Specific tool guide translations for HI
@@ -1158,7 +1204,26 @@ const i18nData = {
         calc_title: "व्यापार और कृषि कैलकुलेटर",
         calendar_title: "दैनिक कैलेंडर और पंचांग",
         pwa_install_title: "मोबाइल ऐप इंस्टॉल करें",
-        pwa_install_desc: "डिजिटल टूल्स हब को अपनी होम स्क्रीन पर जोड़ें और कभी भी बिना इंटरनेट के चलाएं."
+        pwa_install_desc: "डिजिटल टूल्स हब को अपनी होम स्क्रीन पर जोड़ें और कभी भी बिना इंटरनेट के चलाएं.",
+        cc_date: "दिनांक और समय: ",
+        cc_denom: "मूल्य",
+        cc_qty: "नोटों की संख्या",
+        cc_total_sum: "कुल राशि",
+        cc_total_notes: "कुल नोटों/सिक्कों की संख्या:",
+        cc_grand_total: "कुल योग (GRAND TOTAL):",
+        cc_footer: "डिजिटल टूल्स हब द्वारा जनरेट किया गया",
+        cc_coins: "सिक्के",
+        cc_empty: "अभी तक कोई नोट दर्ज नहीं किया गया है।",
+        t21_title: "कैश काउंटर और डिनॉमिनेटर",
+        t21_desc: "भारतीय करेंसी नोटों की संख्या और कुल जमा राशि का हिसाब आसानी से लगाएं।",
+        t22_title: "छात्र प्रगति रिपोर्ट कार्ड (मार्कशीट)",
+        t22_desc: "स्वचालित ग्रेड और प्रतिशत गणना के साथ प्रिंट करने योग्य प्रगति पत्रक बनाएं।",
+        t23_title: "ट्यूशन और कोचिंग फीस रसीद",
+        t23_desc: "अंकों से शब्दों में स्वचालित रूपांतरण और बकाया राशि के लॉग के साथ रसीद बुक।",
+        t24_title: "छात्र बैच उपस्थिति रजिस्टर",
+        t24_desc: "छात्रों के बैच के लिए मासिक उपस्थिति रजिस्टर और प्रिंट-रेडी शीट बनाएं।",
+        t25_title: "ट्यूशन टाइम टेबल और बैच शेड्यूलर",
+        t25_desc: "छात्रों के बैच और शिक्षकों के साप्ताहिक शेड्यूल के लिए साफ टाइम टेबल ग्रिड बनाएं."
     }
 };
 
@@ -1214,6 +1279,7 @@ const commonUiDict = {
         "Text & Content": "Text & Content"
     },
     gu: {
+        nav_blog: "માર્ગદર્શિકા અને બ્લોગ",
         "Print PDF": "PDF પ્રિન્ટ કરો",
         "Print Menu": "મેનૂ પ્રિન્ટ કરો",
         "Print ID Badge": "ID પ્રિન્ટ કરો",
@@ -1263,6 +1329,7 @@ const commonUiDict = {
         "Text & Content": "ટેક્સ્ટ અને કન્ટેન્ટ"
     },
     hi: {
+        nav_blog: "मार्गदर्शिका और ब्लॉग",
         "Print PDF": "PDF प्रिंट करें",
         "Print Menu": "मेनू प्रिंट करें",
         "Print ID Badge": "ID प्रिंट करें",

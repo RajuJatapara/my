@@ -429,7 +429,28 @@
             .phone-frame { width: 100%; max-width: 360px; scale: 1; margin: 0 auto; height: 500px; }
             input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select, textarea { font-size: 14px; padding: 12px; min-height: 44px; }
         }
-    </style>
+    
+        /* 🌌 Unified Mobile Layout Alignment & Horizontal Scroll Override (Anti-left-crop) */
+        @media (max-width: 900px) {
+            .preview-panel {
+                display: flex !important;
+                justify-content: flex-start !important;
+                align-items: flex-start !important;
+                overflow-x: auto !important;
+                padding: 15px !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .invoice-paper, .receipt-card, .attendance-sheet, .sheet-card, .canvas-card, 
+            .slip-card, .card-container, .preview-container, .print-card, .tally-card, 
+            .cert-card, .wedding-card, .menu-card, .id-card, .label-card, .resume-card, 
+            .tripsheet-card, .receipt-print-area, .attendance-sheet-print, .trip-canvas, 
+            .report-card, .preview-box, .cert-preview-container, .preview-sheet, .time-table-container {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                flex-shrink: 0 !important;
+            }
+        }
+</style>
 </head>
 
 <body>
@@ -440,7 +461,7 @@
     <!-- TOPBAR HEADER -->
     <div class="app-header">
         <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
-            <a href="index.html" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+            <a href="index" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
                 <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
                 <span data-i18n="suite_title">Digital Tools Hub</span>
             </a>
@@ -522,14 +543,15 @@
             <div id="tab-4" class="tab-body">
                 <div class="grp-label">Live Scan-to-Chat QR Code</div>
                 <div style="text-align:center; background:rgba(255,255,255,0.05); padding:20px; border-radius:14px; border:1px solid rgba(255,255,255,0.08)">
-                    <img id="qr-img-share" src="" style="width:160px; height:160px; background:#fff; padding:8px; border-radius:12px; margin-bottom:10px">
-                    <div style="font-size:11px; color:#94a3b8">Scan QR code to start direct WhatsApp chat!</div>
+                    <img id="qr-img-share" src="" style="width:160px; height:160px; background:#fff; padding:8px; border-radius:12px; margin-bottom:15px">
+                    <div style="font-size:11.5px; color:#cbd5e1; margin-bottom:15px">Scan QR code to start direct WhatsApp chat!</div>
+                    <button type="button" class="action-btn-main" onclick="downloadChatQR()" style="width:100%; border-radius:10px; font-weight:800; font-size:12px;"><i class="fas fa-download"></i> Download QR Code (PNG)</button>
                 </div>
             </div>
         
             <!-- GUIDES, BENEFITS & FAQ SECTION FOR ADSENSE & SEO -->
             <div class="editor-group-card" style="margin-top: 24px;">
-                <details style="cursor: pointer; outline: none; width: 100%;">
+                <details open style="cursor: pointer; outline: none; width: 100%;">
                     <summary style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; outline: none; user-select: none; width: 100%;">
                         <span><i class="fas fa-circle-question"></i> <span data-i18n="how_to_use">Guide & FAQs</span></span>
                         <i class="fas fa-chevron-down" style="font-size:10px; color:#94a3b8;"></i>
@@ -660,7 +682,33 @@
                 showToast('✨ HTML Embed Code copied!', 'fa-code');
             });
         }
-    </script>
+            function downloadChatQR() {
+            const qrSrc = _('qr-img-share').src;
+            if (!qrSrc) {
+                showToast('Please enter a phone number first!', 'fa-exclamation-triangle');
+                return;
+            }
+            showToast('Preparing QR code download...', 'fa-circle-notch');
+            fetch(qrSrc)
+                .then(resp => resp.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = 'whatsapp-chat-qr.png';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    showToast('QR Code downloaded successfully!', 'fa-circle-check');
+                })
+                .catch(() => {
+                    window.open(qrSrc, '_blank');
+                    showToast('QR opened in new tab!', 'fa-arrow-up-right-from-square');
+                });
+        }
+
+</script>
 </body>
 
 </html>

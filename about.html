@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
-            --primary: #f59e0b;
-            --primary-hover: #d97706;
-            --page-bg: #0f172a;
-            --card-bg: #1e293b;
-            --border: #334155;
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --page-bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --border: rgba(251, 191, 36, 0.15);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -33,7 +33,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 5%;
-            background-color: #0b0f19;
+            background-color: rgba(9, 13, 22, 0.95);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
@@ -51,13 +51,13 @@
         }
 
         .back-btn {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-main);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 8px 16px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -71,6 +71,33 @@
             border-color: var(--primary);
         }
 
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
         .container {
             max-width: 800px;
             margin: 40px auto;
@@ -80,14 +107,14 @@
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 20px;
             padding: 35px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         h1 {
             color: var(--primary);
-            font-size: 28px;
+            font-size: 26px;
             margin-top: 0;
             margin-bottom: 20px;
             font-weight: 800;
@@ -97,7 +124,7 @@
 
         h2 {
             color: var(--text-main);
-            font-size: 20px;
+            font-size: 18px;
             margin-top: 30px;
             margin-bottom: 15px;
             font-weight: 700;
@@ -105,12 +132,12 @@
 
         p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13.5px;
             margin-bottom: 20px;
         }
 
         .highlight-box {
-            background: rgba(245, 158, 11, 0.05);
+            background: rgba(251, 191, 36, 0.05);
             border-left: 4px solid var(--primary);
             padding: 20px;
             border-radius: 6px;
@@ -132,53 +159,146 @@
             border-top: 1px solid var(--border);
             margin-top: 60px;
         }
+        
+        .footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            margin: 0 6px;
+        }
+        
+        .footer a:hover {
+            color: var(--primary);
+        }
     </style>
-    <!-- i18n Translation Engine & Helpline Links -->
     <script src="assets/i18n.js"></script>
 </head>
 <body>
 
     <!-- NAVBAR -->
     <div class="navbar">
-        <a href="index.html" class="brand-logo">
+        <a href="index" class="brand-logo">
             <i class="fas fa-cubes-stacked" style="color:var(--primary)"></i>
             <span>Digital Tools Hub</span>
         </a>
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <a href="index" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 
+                <span class="lang-content" data-lang="en">Back to Dashboard</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">ડેશબોર્ડ પર જાઓ</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">डैशबोर्ड पर जाएं</span>
+            </a>
+        </div>
     </div>
 
     <!-- MAIN CONTAINER -->
     <div class="container">
         <div class="card">
-            <h1>About Us</h1>
-            <p>Welcome to <strong>Digital Tools Hub</strong>, India's leading 100% free web utility store designed specifically for small business owners, retail shopkeepers, local traders, farmers, and daily wage workers.</p>
-            
-            <div class="highlight-box">
-                <p>"Our mission is to replace old paper logbooks with simple, high-speed, and secure digital utility interfaces that require absolutely zero login or setup charges."</p>
+            <!-- English Section -->
+            <div class="lang-content" data-lang="en">
+                <h1>About Us</h1>
+                <p>Welcome to <strong>Digital Tools Hub</strong>, India's leading 100% free web utility store designed specifically for small business owners, retail shopkeepers, local traders, farmers, and daily wage workers.</p>
+                
+                <div class="highlight-box">
+                    <p>"Our mission is to replace old paper logbooks with simple, high-speed, and secure digital utility interfaces that require absolutely zero login or setup charges."</p>
+                </div>
+
+                <h2>Who We Are</h2>
+                <p>Digital Tools Hub was founded by <strong>Raju Jatapara</strong>, a passionate designer and developer committed to making accounting and utility templates accessible to everyone. We noticed that small business owners, especially in rural and semi-urban sectors, find modern ERP and accounting software too expensive, complex, or slow for daily client billing. We built this platform to simplify their calculations.</p>
+                
+                <h2>What We Provide</h2>
+                <p>We host a suite of 25+ powerful tools including:</p>
+                <ul>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>GST Invoicing & Cash Memos:</strong> Issue quotes and receipts directly on mobile.</li>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>Agricultural & Services Tools:</strong> Perform APMC crop bag calculations, mill fat charts, and tractor rent sheets.</li>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>Business Marketing Banners:</strong> Design visiting cards, festival posters, letterheads, and wedding invitations.</li>
+                </ul>
+
+                <h2>Why Choose Digital Tools Hub?</h2>
+                <p>We are a privacy-first platform. All of our utility calculators work directly inside your browser. No registration is required, no phone number checks are executed, and all tools remain 100% free forever.</p>
             </div>
 
-            <h2>Who We Are</h2>
-            <p>Digital Tools Hub was founded by <strong>Raju Jatapara</strong>, a passionate designer and developer committed to making accounting and utility templates accessible to everyone. We noticed that small business owners, especially in rural and semi-urban sectors, find modern ERP and accounting software too expensive, complex, or slow for daily client billing. We built this platform to simplify their calculations.</p>
-            
-            <h2>What We Provide</h2>
-            <p>We host a suite of 20+ powerful tools including:</p>
-            <ul>
-                <li style="color:var(--text-muted); font-size:14px; margin-bottom:10px;"><strong>GST Invoicing & Cash Memos:</strong> Issue quotes and receipts directly on mobile.</li>
-                <li style="color:var(--text-muted); font-size:14px; margin-bottom:10px;"><strong>Agricultural & Services Tools:</strong> Perform APMC crop bag calculations, mill fat charts, and tractor rent sheets.</li>
-                <li style="color:var(--text-muted); font-size:14px; margin-bottom:10px;"><strong>Business Marketing Banners:</strong> Design visiting cards, festival posters, letterheads, and wedding invitations.</li>
-            </ul>
+            <!-- Gujarati Section -->
+            <div class="lang-content" data-lang="gu" style="display:none;">
+                <h1>અમારા વિશે</h1>
+                <p><strong>ડિજિટલ ટૂલ્સ હબ</strong> માં આપનું હાર્દિક સ્વાગત છે. નાના વ્યવસાયિકો, રિટેલ દુકાનદારો, સ્થાનિક વેપારીઓ, ખેડૂતો અને રોજમદાર મિત્રો માટે ખાસ ડિઝાઇન કરેલી આ ભારતની અગ્રણી ૧૦૦% મફત વેબ સુવિધા છે.</p>
+                
+                <div class="highlight-box">
+                    <p>"અમારો ઉદ્દેશ્ય જૂના પેપર ચોપડાઓને સરળ, ઝડપી અને સુરક્ષિત ડિજિટલ સાધનો દ્વારા બદલવાનો છે, જેમાં કોઈ લોગિન કે ચાર્જની જરૂર નથી."</p>
+                </div>
 
-            <h2>Why Choose Digital Tools Hub?</h2>
-            <p>We are a privacy-first platform. All of our utility calculators work directly inside your browser. No registration is required, no phone number checks are executed, and all tools remain 100% free forever.</p>
+                <h2>અમે કોણ છીએ</h2>
+                <p>ડિજિટલ ટૂલ્સ હબની સ્થાપના <strong>રાજુ જતાપરા</strong> દ્વારા કરવામાં આવી છે. તેઓ એક સમર્પિત ડિઝાઇનર અને ડેવલપર છે. ગ્રામીણ અને અર્ધ-શહેરી વિસ્તારોના વેપારીઓ માટે મોંઘા એકાઉન્ટિંગ સોફ્ટવેર વાપરવા ખૂબ અઘરા અને ખર્ચાળ હોય છે. આ સમસ્યાને ધ્યાનમાં રાખીને અમે આ સરળ પ્લેટફોર્મ બનાવ્યું છે.</p>
+                
+                <h2>અમે શું પ્રદાન કરીએ છીએ</h2>
+                <p>અમે ૨૫ થી વધુ શક્તિશાળી સાધનો પ્રદાન કરીએ છીએ:</p>
+                <ul>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>જીએસટી ઇનવોઇસ અને કેશ મેમો:</strong> મોબાઇલ પરથી ગ્રાહકોને સીધા જ ક્વોટેશન અને રસીદ મોકલો.</li>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>કૃષિ અને સેવા સાધનો:</strong> APMC પાક વજન, મિલ ફેટ ચાર્ટ અને ટ્રેક્ટર ભાડા પત્રક.</li>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>વ્યાપાર માર્કેટિંગ બેનરો:</strong> વિઝિટિંગ કાર્ડ, તહેવારના પોસ્ટરો, લેટરહેડ અને લગ્નની કંકોત્રી ડિઝાઇન કરો.</li>
+                </ul>
+
+                <h2>શા માટે ડિજિટલ ટૂલ્સ હબ પસંદ કરવું?</h2>
+                <p>અમે ગોપનીયતા (Privacy) ને પ્રાથમિકતા આપીએ છીએ. તમારા બધા જ આંકડા અને ગ્રાહક લિસ્ટ તમારા બ્રાઉઝરમાં સ્થાનિક રીતે જ પ્રોસેસ થાય છે. કોઈ પણ પ્રકારના રજીસ્ટ્રેશન વગર બધું જ કાયમ માટે ૧૦૦% મફત છે.</p>
+            </div>
+
+            <!-- Hindi Section -->
+            <div class="lang-content" data-lang="hi" style="display:none;">
+                <h1>हमारे बारे में</h1>
+                <p><strong>डिजिटल टूल्स हब</strong> में आपका स्वागत है। यह छोटे व्यवसायों, खुदरा दुकानदारों, स्थानीय व्यापारियों, किसानों और दैनिक वेतन भोगी कामगारों के लिए भारत का अग्रणी 100% मुफ्त वेब यूटिलिटी हब है।</p>
+                
+                <div class="highlight-box">
+                    <p>"हमारा मिशन पुराने कागजी बही-खातों को सरल, उच्च गति और सुरक्षित डिजिटल टूल्स से बदलना है, जिसमें किसी लॉगिन या शुल्क की आवश्यकता नहीं है।"</p>
+                </div>
+
+                <h2>हम कौन हैं</h2>
+                <p>डिजिटल टूल्स हब की स्थापना <strong>राजू जतापरा</strong> द्वारा की गई है, जो एक जुनूनी डेवलपर हैं। ग्रामीण और अर्ध-शहरी क्षेत्रों के छोटे व्यापारियों के लिए दैनिक बिलिंग और लेखांकन को सरल और सुलभ बनाने के उद्देश्य से हमने इस मंच का निर्माण किया है।</p>
+                
+                <h2>हम क्या प्रदान करते हैं</h2>
+                <p>हम 25 से अधिक उपयोगी साधन प्रदान करते हैं:</p>
+                <ul>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>जीएसटी इनवॉइस और कैश मेमो:</strong> मोबाइल से सीधे ग्राहकों को इनवॉइस और कोटेशन भेजें।</li>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>कृषि और सेवाएं टूल्स:</strong> एपीएमसी मंडी वजन चार्ट, आटा चक्की पिसाई और ट्रैक्टर किराया रसीद।</li>
+                    <li style="color:var(--text-muted); font-size:13.5px; margin-bottom:10px;"><strong>व्यापार विपणन बैनर:</strong> विजिटिंग कार्ड, त्योहार के पोस्टर, लेटरहेड और शादी के निमंत्रण कार्ड डिजाइन करें।</li>
+                </ul>
+
+                <h2>डिजिटल टूल्स हब क्यों चुनें?</h2>
+                <p>हम गोपनीयता (Privacy) को सर्वोपरि मानते हैं। आपकी बिलिंग और ग्राहक डेटा आपके डिवाइस पर स्थानीय रूप से सुरक्षित रूप से प्रोसेस होता है। बिना किसी पंजीकरण के यह पूरी तरह से मुफ्त है।</p>
+            </div>
         </div>
 
         <!-- FOOTER -->
         <div class="footer">
-            &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="privacy.html" style="color:var(--text-muted); text-decoration:underline;">Privacy Policy</a> | <a href="terms.html" style="color:var(--text-muted); text-decoration:underline;">Terms of Service</a>
+            &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="blog" style="color:#fbbf24; font-weight:600;">Guides & Blog</a> | <a href="privacy">Privacy Policy</a> | <a href="terms">Terms of Service</a>
         </div>
     </div>
 
+    <script>
+        function setLanguage(lang) {
+            localStorage.setItem('rcs_lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('rcs_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
 </body>
 </html>

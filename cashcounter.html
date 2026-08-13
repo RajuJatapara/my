@@ -504,6 +504,27 @@
             .lang-selector { padding: 2px; }
             .lang-btn { padding: 2px 6px; font-size: 9px; }
         }
+
+        /* 🌌 Unified Mobile Layout Alignment & Horizontal Scroll Override (Anti-left-crop) */
+        @media (max-width: 900px) {
+            .preview-panel {
+                display: flex !important;
+                justify-content: flex-start !important;
+                align-items: flex-start !important;
+                overflow-x: auto !important;
+                padding: 15px !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .invoice-paper, .receipt-card, .attendance-sheet, .sheet-card, .canvas-card, 
+            .slip-card, .card-container, .preview-container, .print-card, .tally-card, 
+            .cert-card, .wedding-card, .menu-card, .id-card, .label-card, .resume-card, 
+            .tripsheet-card, .receipt-print-area, .attendance-sheet-print, .trip-canvas, 
+            .report-card, .preview-box, .cert-preview-container, .preview-sheet, .time-table-container {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                flex-shrink: 0 !important;
+            }
+        }
 </style>
 </head>
 
@@ -515,7 +536,7 @@
     <!-- APP TOP BAR HEADER -->
     <div class="app-header">
         <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
-            <a href="index.html" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+            <a href="index" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
                 <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
                 <span data-i18n="suite_title">Digital Tools Hub</span>
             </a>
@@ -637,7 +658,7 @@
             </div>
             <!-- GUIDES, BENEFITS & FAQ SECTION FOR ADSENSE & SEO -->
             <div class="editor-group-card" style="margin-top: 24px;">
-                <details style="cursor: pointer; outline: none; width: 100%;">
+                <details open style="cursor: pointer; outline: none; width: 100%;">
                     <summary style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; outline: none; user-select: none; width: 100%;">
                         <span><i class="fas fa-circle-question"></i> <span data-i18n="how_to_use">Guide & FAQs</span></span>
                         <i class="fas fa-chevron-down" style="font-size:10px; color:#94a3b8;"></i>
@@ -676,16 +697,16 @@
             <!-- RECEIPT DOCUMENT FRAME -->
             <div class="receipt-card" id="receipt-print-area">
                 <div class="receipt-header">
-                    <div class="receipt-title" data-i18n="t20_title">Cash Counter Receipt</div>
-                    <div class="receipt-date" id="receipt-date-val">Date: 03-08-2026 10:55 PM</div>
+                    <div class="receipt-title" data-i18n="t21_title">Cash Counter & Denominator</div>
+                    <div class="receipt-date" id="receipt-date-val" data-i18n="cc_date">Date & Time: </div>
                 </div>
 
                 <table class="receipt-table">
                     <thead>
                         <tr>
-                            <th>Denom</th>
-                            <th style="text-align:center">Qty</th>
-                            <th style="text-align:right">Total Sum</th>
+                            <th data-i18n="cc_denom">Denom</th>
+                            <th style="text-align:center" data-i18n="cc_qty">Qty</th>
+                            <th style="text-align:right" data-i18n="cc_total_sum">Total Sum</th>
                         </tr>
                     </thead>
                     <tbody id="receipt-tbody">
@@ -695,11 +716,11 @@
 
                 <div class="receipt-summary">
                     <div class="summary-row">
-                        <span>Total Notes/Coins Count:</span>
+                        <span data-i18n="cc_total_notes">Total Notes/Coins Count:</span>
                         <span id="r-total-qty">0</span>
                     </div>
                     <div class="summary-row grand-total">
-                        <span>GRAND TOTAL:</span>
+                        <span data-i18n="cc_grand_total">GRAND TOTAL:</span>
                         <span id="r-grand-total">₹0</span>
                     </div>
                     <div class="words-val" id="r-total-words">
@@ -707,7 +728,7 @@
                     </div>
                 </div>
 
-                <div class="receipt-footer">
+                <div class="receipt-footer" data-i18n="cc_footer">
                     Generated via Digital Tools Hub
                 </div>
             </div>
@@ -760,10 +781,14 @@
             const tbody = _('receipt-tbody');
             tbody.innerHTML = '';
 
+            const currentLang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
+
             // Update dates dynamically
             const now = new Date();
             const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }) + ' ' + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
-            _('receipt-date-val').innerText = `Date & Time: ${dateStr}`;
+            
+            const dateLabel = (window.i18nData && window.i18nData[currentLang] && window.i18nData[currentLang]['cc_date']) || 'Date & Time: ';
+            _('receipt-date-val').innerText = `${dateLabel}${dateStr}`;
 
             // Process notes
             denoms.forEach(d => {
@@ -795,12 +820,13 @@
             _('s-coin').innerText = `₹${coinVal.toLocaleString('en-IN')}`;
 
             if (coinVal > 0) {
-                totalQty += 1; // Count coins block as 1 quantity indicator
+                totalQty += 1;
                 grandTotal += coinVal;
 
+                const coinsLabel = (window.i18nData && window.i18nData[currentLang] && window.i18nData[currentLang]['cc_coins']) || 'Coins';
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td>Coins</td>
+                    <td>${coinsLabel}</td>
                     <td style="text-align:center">-</td>
                     <td class="td-val">₹${coinVal.toLocaleString('en-IN')}</td>
                 `;
@@ -809,7 +835,8 @@
 
             // Fallback for empty table
             if (tbody.innerHTML === '') {
-                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#94a3b8; padding: 20px;">No notes entered yet.</td></tr>`;
+                const emptyLabel = (window.i18nData && window.i18nData[currentLang] && window.i18nData[currentLang]['cc_empty']) || 'No notes entered yet.';
+                tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#94a3b8; padding: 20px;">${emptyLabel}</td></tr>`;
             }
 
             // Update totals
@@ -817,7 +844,6 @@
             _('r-grand-total').innerText = `₹${grandTotal.toLocaleString('en-IN')}`;
 
             // Translate numbers to words
-            const currentLang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
             _('r-total-words').innerText = numToWords(grandTotal, currentLang);
         }
 

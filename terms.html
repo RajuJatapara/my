@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
-            --primary: #f59e0b;
-            --primary-hover: #d97706;
-            --page-bg: #0f172a;
-            --card-bg: #1e293b;
-            --border: #334155;
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --page-bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --border: rgba(251, 191, 36, 0.15);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -33,7 +33,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 5%;
-            background-color: #0b0f19;
+            background-color: rgba(9, 13, 22, 0.95);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
@@ -51,13 +51,13 @@
         }
 
         .back-btn {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-main);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 8px 16px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -71,6 +71,33 @@
             border-color: var(--primary);
         }
 
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
         .container {
             max-width: 800px;
             margin: 40px auto;
@@ -80,14 +107,14 @@
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 20px;
             padding: 35px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         h1 {
             color: var(--primary);
-            font-size: 28px;
+            font-size: 26px;
             margin-top: 0;
             margin-bottom: 20px;
             font-weight: 800;
@@ -97,7 +124,7 @@
 
         h2 {
             color: var(--text-main);
-            font-size: 20px;
+            font-size: 18px;
             margin-top: 30px;
             margin-bottom: 15px;
             font-weight: 700;
@@ -105,13 +132,13 @@
 
         p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13.5px;
             margin-bottom: 20px;
         }
 
         ul {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13.5px;
             margin-bottom: 20px;
             padding-left: 20px;
         }
@@ -128,48 +155,107 @@
             border-top: 1px solid var(--border);
             margin-top: 60px;
         }
+        
+        .footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            margin: 0 6px;
+        }
+        
+        .footer a:hover {
+            color: var(--primary);
+        }
     </style>
-    <!-- i18n Translation Engine & Helpline Links -->
     <script src="assets/i18n.js"></script>
 </head>
 <body>
 
     <!-- NAVBAR -->
     <div class="navbar">
-        <a href="index.html" class="brand-logo">
+        <a href="index" class="brand-logo">
             <i class="fas fa-cubes-stacked" style="color:var(--primary)"></i>
             <span>Digital Tools Hub</span>
         </a>
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <a href="index" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 
+                <span class="lang-content" data-lang="en">Back to Dashboard</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">ડેશબોર્ડ પર જાઓ</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">डैशबोर्ड पर जाएं</span>
+            </a>
+        </div>
     </div>
 
     <!-- MAIN CONTAINER -->
     <div class="container">
         <div class="card">
-            <h1>Terms of Service</h1>
-            <p>Last Updated: August 2026</p>
-            <p>Welcome to Digital Tools Hub. By accessing or using our website, you agree to comply with and be bound by the following Terms of Service. Please read them carefully.</p>
+            <!-- Dynamic Titles for visual language matching -->
+            <h1 class="lang-content" data-lang="en">Terms of Service</h1>
+            <h1 class="lang-content" data-lang="gu" style="display:none;">સેવાની શરતો (Terms of Service)</h1>
+            <h1 class="lang-content" data-lang="hi" style="display:none;">सेवा की शर्तें (Terms of Service)</h1>
             
-            <h2>1. Free License to Use</h2>
-            <p>We grant you a free, non-exclusive, non-transferable license to use all business tools, calculators, templates, invitation designers, and slip generators available on Digital Tools Hub for personal and commercial business purposes.</p>
+            <p style="font-weight:600; color:var(--text-main)">
+                <span class="lang-content" data-lang="en">Last Updated: August 2026</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">છેલ્લે અપડેટ કરેલ: ઓગસ્ટ ૨૦૨૬</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">अंतिम अपडेट: अगस्त 2026</span>
+            </p>
             
-            <h2>2. User Content & Generated Files</h2>
-            <p>Any PDF invoices, visiting cards, resumes, vouchers, or invitations generated using our platform belong entirely to you. Digital Tools Hub claims no ownership rights over your creations. You are responsible for ensuring that the content you input is lawful and does not infringe on third-party trademarks.</p>
+            <!-- Note explaining that the legal terms are kept in English for official compliance -->
+            <div style="background: rgba(251,191,36,0.06); padding: 12px 16px; border-radius: 8px; font-size:11.5px; border: 1px solid rgba(251,191,36,0.12); margin-bottom: 25px; color:#cbd5e1;">
+                <span class="lang-content" data-lang="en"><strong>Note:</strong> To comply with official Google AdSense reviewer bots, our legal terms are maintained in English.</span>
+                <span class="lang-content" data-lang="gu" style="display:none;"><strong>નોંધ:</strong> ગુગલ એડસેન્સ રિવ્યુઅર બોટ્સની કાયદાકીય ચકાસણીની અનુકૂળતા માટે, આ નિયમો અંગ્રેજી ભાષામાં જ રાખવામાં આવ્યા છે.</span>
+                <span class="lang-content" data-lang="hi" style="display:none;"><strong>नोट:</strong> गूगल एडसेंस रिव्यूअर बॉट्स के कानूनी सत्यापन की सुविधा के लिए, ये नियम केवल अंग्रेजी भाषा में ही रखे गए हैं।</span>
+            </div>
+
+            <!-- Official English Legal content body -->
+            <p>Welcome to Digital Tools Hub. By accessing or using our website, you agree to comply with and be bound by the following terms of service. If you do not agree with any of these terms, please do not use our services.</p>
             
-            <h2>3. Disclaimer of Accuracy & Calculations</h2>
-            <p>All calculations (GST, interest, crop weight, milk dairies, salary, trip sheets) are provided as standard business approximations. While we strive to maintain mathematical precision, you should independently verify all calculated balances, tax sums, and interest weights before charging clients or performing final transactions.</p>
+            <h2>1. Use of Services</h2>
+            <p>Digital Tools Hub provides free web utility tools (calculators, templates, invoice generators) for personal and commercial usage. You agree to use these tools only for lawful purposes. You must not use the services to generate fraudulent invoices, certificates, or misleading documents.</p>
             
-            <h2>4. Limitation of Liability</h2>
-            <p>Digital Tools Hub, its developers, and founders shall not be liable for any financial disputes, errors, omissions, or transaction failures that occur as a result of using our free applications. All services are provided "As Is" without warranties of any kind.</p>
+            <h2>2. No Warranty & Limitation of Liability</h2>
+            <p>Our tools are provided "as is" and "as available" without any warranties of any kind, express or implied. Digital Tools Hub does not guarantee that the outputs (calculations, currency count, invoice totals, etc.) are 100% error-free. You are responsible for verifying any calculations before making business payments or filing official taxes. In no event shall we be liable for any direct or indirect business losses, damages, or errors resulting from the use of our services.</p>
+            
+            <h2>3. Intellectual Property</h2>
+            <p>All tool source codes, dynamic algorithms, templates, designs, and interface assets are the property of Digital Tools Hub. You may not copy, replicate, redistribute, or reverse engineer our tools without prior written consent from our founder.</p>
+
+            <h2>4. Changes to Terms</h2>
+            <p>We reserve the right to revise or update these terms at any time without prior notice. By continuing to use the website after changes are posted, you accept the updated terms.</p>
         </div>
 
         <!-- FOOTER -->
         <div class="footer">
-            &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="privacy.html" style="color:var(--text-muted); text-decoration:underline;">Privacy Policy</a> | <a href="terms.html" style="color:var(--text-muted); text-decoration:underline;">Terms of Service</a>
+            &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="blog" style="color:#fbbf24; font-weight:600;">Guides & Blog</a> | <a href="privacy">Privacy Policy</a> | <a href="terms">Terms of Service</a>
         </div>
     </div>
 
+    <script>
+        function setLanguage(lang) {
+            localStorage.setItem('rcs_lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('rcs_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
 </body>
 </html>

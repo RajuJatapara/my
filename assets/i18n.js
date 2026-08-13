@@ -69,6 +69,15 @@ function setLanguage(lang) {
             document.title = `${toolText} - ${suiteText}`;
         }
     }
+
+    // 5. Toggle multilingual .lang-content blocks
+    document.querySelectorAll('.lang-content').forEach(el => {
+        if (el.getAttribute('data-lang') === lang) {
+            el.style.display = 'block';
+        } else {
+            el.style.display = 'none';
+        }
+    });
 }
 
 // ==========================================
@@ -664,8 +673,8 @@ function setLanguage(lang) {
 
     function renderHelpContent() {
         const lang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
-        const isCalc = window.location.pathname.includes("calculator.html");
-        const isEst = window.location.pathname.includes("estimate.html");
+        const isCalc = window.location.pathname.includes("calculator");
+        const isEst = window.location.pathname.includes("estimate");
         const isIndex = document.querySelector(".cat-pills") !== null;
 
         // Parse page name from URL
@@ -716,8 +725,8 @@ function setLanguage(lang) {
 
     window.runHelpDemo = function () {
         window.closeHelpModal();
-        const isCalc = window.location.pathname.includes("calculator.html");
-        const isEst = window.location.pathname.includes("estimate.html");
+        const isCalc = window.location.pathname.includes("calculator");
+        const isEst = window.location.pathname.includes("estimate");
 
         if (isCalc) {
             const engine = typeof currentEngine !== "undefined" ? currentEngine : "interest";
@@ -783,7 +792,7 @@ function setLanguage(lang) {
         if (event) event.preventDefault();
         const lang = typeof getSavedLanguage === 'function' ? getSavedLanguage() : 'en';
         const shareDomain = window.APP_SHARE_DOMAIN || window.location.origin;
-        const targetUrl = shareDomain + '/index.html';
+        const targetUrl = shareDomain + '/';
 
         let msg = "";
         if (lang === 'gu') {
@@ -996,7 +1005,7 @@ function setLanguage(lang) {
 
         // Update creator details in about.html text dynamically
         const card = document.querySelector(".card");
-        if (card && window.location.pathname.includes("about.html")) {
+        if (card && window.location.pathname.includes("about")) {
             card.innerHTML = card.innerHTML.replace(/Raju Jatapara/g, creatorName);
         }
     }

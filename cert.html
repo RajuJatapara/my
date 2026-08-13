@@ -628,7 +628,28 @@
             .cert-recipient-name { font-size: 22px; }
             input[type="text"], input[type="tel"], input[type="number"], input[type="date"], select, textarea { font-size: 14px; padding: 12px; min-height: 44px; }
         }
-    </style>
+    
+        /* 🌌 Unified Mobile Layout Alignment & Horizontal Scroll Override (Anti-left-crop) */
+        @media (max-width: 900px) {
+            .preview-panel {
+                display: flex !important;
+                justify-content: flex-start !important;
+                align-items: flex-start !important;
+                overflow-x: auto !important;
+                padding: 15px !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .invoice-paper, .receipt-card, .attendance-sheet, .sheet-card, .canvas-card, 
+            .slip-card, .card-container, .preview-container, .print-card, .tally-card, 
+            .cert-card, .wedding-card, .menu-card, .id-card, .label-card, .resume-card, 
+            .tripsheet-card, .receipt-print-area, .attendance-sheet-print, .trip-canvas, 
+            .report-card, .preview-box, .cert-preview-container, .preview-sheet, .time-table-container {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                flex-shrink: 0 !important;
+            }
+        }
+</style>
 </head>
 
 <body>
@@ -639,7 +660,7 @@
     <!-- TOPBAR HEADER -->
     <div class="app-header">
         <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
-            <a href="index.html" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+            <a href="index" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
                 <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
                 <span data-i18n="suite_title">Digital Tools Hub</span>
             </a>
@@ -766,7 +787,7 @@
         
             <!-- GUIDES, BENEFITS & FAQ SECTION FOR ADSENSE & SEO -->
             <div class="editor-group-card" style="margin-top: 24px;">
-                <details style="cursor: pointer; outline: none; width: 100%;">
+                <details open style="cursor: pointer; outline: none; width: 100%;">
                     <summary style="font-size: 13px; font-weight: 800; color: var(--primary); text-transform: uppercase; list-style: none; display: flex; align-items: center; justify-content: space-between; outline: none; user-select: none; width: 100%;">
                         <span><i class="fas fa-circle-question"></i> <span data-i18n="how_to_use">Guide & FAQs</span></span>
                         <i class="fas fa-chevron-down" style="font-size:10px; color:#94a3b8;"></i>

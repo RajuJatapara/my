@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tools-hub-cache-v7';
+const CACHE_NAME = 'tools-hub-cache-v9';
 const ASSETS = [
     './',
     './index.html',
@@ -28,6 +28,14 @@ const ASSETS = [
     './tuitionreceipt.html',
     './attendance.html',
     './timetable.html',
+    './blog.html',
+    './blogInterestCalculation.html',
+    './blogGstBillingGuide.html',
+    './blogVisitingCardDesign.html',
+    './blogMandiCropBagWeights.html',
+    './blogAttaChakkiMilkBilling.html',
+    './blogCoachingFeeAttendanceManagement.html',
+    './404.html',
     './privacy.html',
     './terms.html',
     './about.html',
@@ -78,10 +86,40 @@ self.addEventListener('activate', event => {
     );
 });
 
-// Fetch Event (Stale-While-Revalidate caching strategy)
+// Fetch Event (Stale-While-Revalidate caching strategy with extensionless URL mapping)
 self.addEventListener('fetch', event => {
     // Only cache requests from the same origin
     if (!event.request.url.startsWith(self.location.origin)) {
+        return;
+    }
+
+    const urlObj = new URL(event.request.url);
+    const path = urlObj.pathname;
+    
+    // List of static pages to map extensionless requests to .html in cache
+    const staticPages = [
+        'ad', 'bill', 'calculator', 'calendar', 'catalog', 'cert', 'estimate', 'festival', 
+        'idcard', 'kankotri', 'label', 'letterhead', 'menu', 'parchi', 'qr', 'rateboard', 
+        'resume', 'salary', 'tripsheet', 'vcard', 'wa', 'cashcounter', 'reportcard', 
+        'tuitionreceipt', 'attendance', 'timetable', 'privacy', 'terms', 'about', 'contact', 'blog',
+        'blogInterestCalculation', 'blogGstBillingGuide', 'blogVisitingCardDesign',
+        'blogMandiCropBagWeights', 'blogAttaChakkiMilkBilling', 'blogCoachingFeeAttendanceManagement'
+    ];
+    
+    const pageName = path.split('/').pop();
+    if (staticPages.includes(pageName)) {
+        const newUrl = urlObj.origin + path + '.html' + urlObj.search;
+        event.respondWith(
+            caches.open(CACHE_NAME).then(cache => {
+                return cache.match(newUrl).then(cachedResponse => {
+                    const fetchedResponse = fetch(event.request).then(networkResponse => {
+                        cache.put(newUrl, networkResponse.clone());
+                        return networkResponse;
+                    }).catch(() => null);
+                    return cachedResponse || fetchedResponse;
+                });
+            })
+        );
         return;
     }
 

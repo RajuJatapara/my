@@ -1,0 +1,13 @@
+# 🌌 Apache Server Configuration Rules
+RewriteEngine On
+
+# 1. Map extension-less pretty URLs to standard HTML files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [NC,L]
+
+# 2. Portable Custom 404 Redirect Rule (Works under both /my/ and root / directories)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !404\.html
+RewriteRule ^.*$ 404.html [L]

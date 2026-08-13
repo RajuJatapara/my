@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
-            --primary: #f59e0b;
-            --primary-hover: #d97706;
-            --page-bg: #0f172a;
-            --card-bg: #1e293b;
-            --border: #334155;
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --page-bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --border: rgba(251, 191, 36, 0.15);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
         }
@@ -33,7 +33,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 5%;
-            background-color: #0b0f19;
+            background-color: rgba(9, 13, 22, 0.95);
             border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
@@ -51,13 +51,13 @@
         }
 
         .back-btn {
-            background: var(--card-bg);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-main);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 8px 16px;
             border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 11px;
+            font-weight: 700;
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -71,6 +71,33 @@
             border-color: var(--primary);
         }
 
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+
         .container {
             max-width: 800px;
             margin: 40px auto;
@@ -80,14 +107,14 @@
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 20px;
             padding: 35px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         h1 {
             color: var(--primary);
-            font-size: 28px;
+            font-size: 26px;
             margin-top: 0;
             margin-bottom: 20px;
             font-weight: 800;
@@ -97,7 +124,7 @@
 
         p {
             color: var(--text-muted);
-            font-size: 14px;
+            font-size: 13.5px;
             margin-bottom: 20px;
         }
 
@@ -117,8 +144,8 @@
         .contact-item {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 24px;
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -136,10 +163,10 @@
             color: #000;
             border: none;
             padding: 10px 20px;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: bold;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 12px;
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -158,57 +185,158 @@
             border-top: 1px solid var(--border);
             margin-top: 60px;
         }
+        
+        .footer a {
+            color: var(--text-muted);
+            text-decoration: underline;
+            margin: 0 6px;
+        }
+        
+        .footer a:hover {
+            color: var(--primary);
+        }
     </style>
-    <!-- i18n Translation Engine & Helpline Links -->
     <script src="assets/i18n.js"></script>
 </head>
 <body>
 
     <!-- NAVBAR -->
     <div class="navbar">
-        <a href="index.html" class="brand-logo">
+        <a href="index" class="brand-logo">
             <i class="fas fa-cubes-stacked" style="color:var(--primary)"></i>
             <span>Digital Tools Hub</span>
         </a>
-        <a href="index.html" class="back-btn">
-            <i class="fas fa-arrow-left"></i> Back to Dashboard
-        </a>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <a href="index" class="back-btn">
+                <i class="fas fa-arrow-left"></i> 
+                <span class="lang-content" data-lang="en">Back to Dashboard</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">ડેશબોર્ડ પર જાઓ</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">डैशबोर्ड पर जाएं</span>
+            </a>
+        </div>
     </div>
 
     <!-- MAIN CONTAINER -->
     <div class="container">
         <div class="card">
-            <h1>Contact Us</h1>
-            <p>Have questions, suggestions, or need help using our tools? Get in touch with our founder and support team! We would love to hear your feedback.</p>
-            
-            <div class="contact-grid">
-                <!-- WhatsApp Support -->
-                <div class="contact-item">
-                    <div class="contact-icon" style="color: #25d366;"><i class="fab fa-whatsapp"></i></div>
-                    <div style="font-weight: 700; font-size: 16px;">WhatsApp Helpline</div>
-                    <p style="margin: 0; font-size: 12px; height: 36px;">Chat directly on WhatsApp for suggestions and custom business setups.</p>
-                    <a href="https://wa.me/919998877766" target="_blank" class="contact-btn" style="background: #25d366; color: #fff;">
-                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-                    </a>
-                </div>
+            <!-- English Section -->
+            <div class="lang-content" data-lang="en">
+                <h1>Contact Us</h1>
+                <p>Have questions, suggestions, or need help using our tools? Get in touch with our founder and support team! We would love to hear your feedback.</p>
+                
+                <div class="contact-grid">
+                    <!-- WhatsApp Support -->
+                    <div class="contact-item">
+                        <div class="contact-icon" style="color: #25d366;"><i class="fab fa-whatsapp"></i></div>
+                        <div style="font-weight: 700; font-size: 15px; color: #fff;">WhatsApp Support</div>
+                        <p style="margin: 0; font-size: 12px; height: 36px; color: var(--text-muted);">Chat directly with founder Raju Jatapara for suggestions.</p>
+                        <a href="https://wa.me/916356239260?text=Hello%20Raju%20Jatapara,%20I%20am%20using%20Digital%20Tools%20Hub!" target="_blank" class="contact-btn" style="background: #25d366; color: #fff;">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </a>
+                    </div>
 
-                <!-- Call Support -->
-                <div class="contact-item">
-                    <div class="contact-icon" style="color: #38bdf8;"><i class="fas fa-phone-alt"></i></div>
-                    <div style="font-weight: 700; font-size: 16px;">Support Call</div>
-                    <p style="margin: 0; font-size: 12px; height: 36px;">Call us directly for critical issues or platform errors.</p>
-                    <a href="tel:+919998877766" class="contact-btn" style="background: #38bdf8; color: #000;">
-                        <i class="fas fa-phone-alt"></i> Direct Call
-                    </a>
+                    <!-- Call Support -->
+                    <div class="contact-item">
+                        <div class="contact-icon" style="color: #fbbf24;"><i class="fas fa-phone-alt"></i></div>
+                        <div style="font-weight: 700; font-size: 15px; color: #fff;">Support Helpline</div>
+                        <p style="margin: 0; font-size: 12px; height: 36px; color: var(--text-muted);">Call us directly for critical platform errors and support.</p>
+                        <a href="tel:+916356239260" class="contact-btn" style="background: #fbbf24; color: #000;">
+                            <i class="fas fa-phone-alt"></i> Direct Call
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gujarati Section -->
+            <div class="lang-content" data-lang="gu" style="display:none;">
+                <h1>અમારો સંપર્ક કરો</h1>
+                <p>કોઈ પ્રશ્નો, સૂચનો હોય અથવા અમારા સાધનો વાપરવામાં મદદ જોઈતી હોય, તો અમારા સંસ્થાપક અને સપોર્ટ ટીમનો સંપર્ક કરો! અમને તમારો અભિપ્રાય સાંભળવો ગમશે.</p>
+                
+                <div class="contact-grid">
+                    <!-- WhatsApp Support -->
+                    <div class="contact-item">
+                        <div class="contact-icon" style="color: #25d366;"><i class="fab fa-whatsapp"></i></div>
+                        <div style="font-weight: 700; font-size: 15px; color: #fff;">વોટ્સએપ હેલ્પલાઇન</div>
+                        <p style="margin: 0; font-size: 12px; height: 36px; color: var(--text-muted);">કોઈપણ નવા આઇડિયા અથવા સૂચનો માટે સીધા રાજુ જતાપરા સાથે ચેટ કરો.</p>
+                        <a href="https://wa.me/916356239260?text=Hello%20Raju%20Jatapara,%20I%20am%20using%20Digital%20Tools%20Hub!" target="_blank" class="contact-btn" style="background: #25d366; color: #fff;">
+                            <i class="fab fa-whatsapp"></i> વોટ્સએપ પર ચેટ કરો
+                        </a>
+                    </div>
+
+                    <!-- Call Support -->
+                    <div class="contact-item">
+                        <div class="contact-icon" style="color: #fbbf24;"><i class="fas fa-phone-alt"></i></div>
+                        <div style="font-weight: 700; font-size: 15px; color: #fff;">ડાયરેક્ટ કોલ સપોર્ટ</div>
+                        <p style="margin: 0; font-size: 12px; height: 36px; color: var(--text-muted);">કોઈપણ તકનીકી ખામી કે સમસ્યા માટે અમને સીધા ફોન કરો.</p>
+                        <a href="tel:+916356239260" class="contact-btn" style="background: #fbbf24; color: #000;">
+                            <i class="fas fa-phone-alt"></i> ફોન કોલ કરો
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hindi Section -->
+            <div class="lang-content" data-lang="hi" style="display:none;">
+                <h1>हमसे संपर्क करें</h1>
+                <p>क्या आपके पास कोई प्रश्न, सुझाव है या हमारे टूल्स का उपयोग करने में मदद चाहिए? हमारे संस्थापक और सहायता टीम से संपर्क करें! हमें आपकी प्रतिक्रिया जानकर खुशी होगी।</p>
+                
+                <div class="contact-grid">
+                    <!-- WhatsApp Support -->
+                    <div class="contact-item">
+                        <div class="contact-icon" style="color: #25d366;"><i class="fab fa-whatsapp"></i></div>
+                        <div style="font-weight: 700; font-size: 15px; color: #fff;">व्हाट्सएप हेल्पलाइन</div>
+                        <p style="margin: 0; font-size: 12px; height: 36px; color: var(--text-muted);">सुझाव और नए टूल्स के लिए सीधे संस्थापक राजू जतापरा से चैट करें।</p>
+                        <a href="https://wa.me/916356239260?text=Hello%20Raju%20Jatapara,%20I%20am%20using%20Digital%20Tools%20Hub!" target="_blank" class="contact-btn" style="background: #25d366; color: #fff;">
+                            <i class="fab fa-whatsapp"></i> व्हाट्सएप चैट करें
+                        </a>
+                    </div>
+
+                    <!-- Call Support -->
+                    <div class="contact-item">
+                        <div class="contact-icon" style="color: #fbbf24;"><i class="fas fa-phone-alt"></i></div>
+                        <div style="font-weight: 700; font-size: 15px; color: #fff;">कॉल सपोर्ट</div>
+                        <p style="margin: 0; font-size: 12px; height: 36px; color: var(--text-muted);">किसी भी तकनीकी समस्या या सहायता के लिए हमें सीधे कॉल करें।</p>
+                        <a href="tel:+916356239260" class="contact-btn" style="background: #fbbf24; color: #000;">
+                            <i class="fas fa-phone-alt"></i> डायरेक्ट कॉल करें
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- FOOTER -->
         <div class="footer">
-            &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="privacy.html" style="color:var(--text-muted); text-decoration:underline;">Privacy Policy</a> | <a href="terms.html" style="color:var(--text-muted); text-decoration:underline;">Terms of Service</a>
+            &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="blog" style="color:#fbbf24; font-weight:600;">Guides & Blog</a> | <a href="privacy">Privacy Policy</a> | <a href="terms">Terms of Service</a>
         </div>
     </div>
 
+    <script>
+        function setLanguage(lang) {
+            localStorage.setItem('rcs_lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('rcs_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Village Monthly Interest vs. Bank Yearly Interest Calculations - Digital Tools Hub Blog</title>
+    <meta name="description" content="A complete multilingual guide explaining simple monthly village interest (Dandi method) versus annual bank interest, including calculation formulas and comparisons.">
+    <meta name="keywords" content="village interest rate, simple interest calculator, monthly interest formula, gujarat dandi interest">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --card-border: rgba(251, 191, 36, 0.15);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --nav-bg: rgba(9, 13, 22, 0.95);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+        .navbar {
+            min-height: 64px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 17px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .brand-logo i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+        .back-btn-nav {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            transition: all 0.2s;
+        }
+        .back-btn-nav:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .blog-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        .blog-header p {
+            color: var(--text-sub);
+            font-size: 15px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        .blog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        .card-category {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--primary);
+            text-transform: uppercase;
+            width: max-content;
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .card-summary {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+        .read-more-link {
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Article specific CSS */
+        .article-container {
+            max-width: 820px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        .article-meta {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .article-content h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.35;
+        }
+        .article-content h2 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+        .article-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .article-content p {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        .article-content li {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+        }
+        .article-content th, .article-content td {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .article-content th {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .article-content tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover {
+            color: var(--primary);
+        }
+        .footer {
+            background: rgba(11, 15, 25, 0.8);
+            border-top: 1px solid var(--card-border);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-top: 60px;
+        }
+        .footer a {
+            color: var(--text-sub);
+            text-decoration: none;
+            margin: 0 8px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer a:hover {
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 0 15px; }
+            .blog-header h1 { font-size: 26px; }
+            .article-card { padding: 25px 15px; }
+            .article-content h1 { font-size: 20px; }
+            .article-content h2 { font-size: 17px; }
+        }
+</style>
+</head>
+<body>
+
+    
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="index" class="brand-logo">
+            <i class="fas fa-cubes-stacked"></i>
+            <span>Digital Tools Hub</span>
+        </a>
+        <div class="nav-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <a href="blog" class="back-btn-nav">
+                <i class="fas fa-arrow-left"></i> 
+                <span class="lang-content" data-lang="en">Back to Blog</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">બ્લોગ પર જાઓ</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">ब्लॉग पर जाएं</span>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- MAIN CONTAINER -->
+    <div class="article-container">
+        <a href="blog" class="back-btn"><i class="fas fa-arrow-left"></i> 
+            <span class="lang-content" data-lang="en">Back to Guides & Articles</span>
+            <span class="lang-content" data-lang="gu" style="display:none;">માર્ગદર્શિકા અને લેખો પર પાછા જાઓ</span>
+            <span class="lang-content" data-lang="hi" style="display:none;">मार्गदर्शिका और लेखों पर वापस जाएं</span>
+        </a>
+        <div class="article-card">
+            <div class="article-meta">
+                <span class="card-category">Finance</span>
+                <span>By Digital Tools Team</span>
+                <span>|</span>
+                <span>Updated: August 2026</span>
+            </div>
+            
+            <div class="article-content">
+                <!-- English Article Content -->
+                <div class="lang-content" data-lang="en">
+                    
+            <h1>Village Monthly Interest vs. Bank Yearly Interest Calculations</h1>
+            <p>Finance calculations are the cornerstone of local commerce, trading, and agricultural credits. While commercial banks and institutions use annual percentage rates (APR) with compound schedules, local rural and semi-urban traders in states like Gujarat and Rajasthan rely heavily on a unique interest framework: <strong>Monthly Interest (also known as the Dandi or village monthly method)</strong>. Understanding the mathematical differences, formulas, and practical use cases of both systems is crucial for maintaining clear finance transactions and avoiding financial losses.</p>
+
+            <h2>1. What is Monthly Village Interest?</h2>
+            <p>In local communities, credit is often extended for short-to-medium durations. Because agricultural cycles and commodity trades run in seasons rather than fiscal years, interest is calculated and charged on a monthly basis rather than annually. When a village trader states that the interest rate is "2 percent" (₹2.00 monthly interest per ₹100), this refers to a <strong>2% monthly interest rate</strong>. On an annualized basis, this equates to 24% per year (2% * 12 months = 24% annual simple interest).</p>
+            <p>This system provides a quick calculation index for local transactions. It allows farmers and shopkeepers to easily calculate interest in their heads without having to compute fractional years.</p>
+
+            <h2>2. The Mathematical Formulas</h2>
+            <p>Both village and bank simple interest calculations are based on three variables: Principal (P), Rate (R), and Time (T). However, the definition of time and rate varies:</p>
+            
+            <h3>Village Monthly Interest Formula:</h3>
+            <p>Here, the time duration is measured in <strong>months</strong>, and the rate is the <strong>monthly interest percentage</strong>.</p>
+            <p><strong>Formula: Interest (I) = (Principal * Monthly Rate * Duration in Months) / 100</strong></p>
+            
+            <h3>Bank Annual Simple Interest Formula:</h3>
+            <p>Here, the time duration is measured in <strong>years</strong>, and the rate is the <strong>annual interest percentage</strong>.</p>
+            <p><strong>Formula: Interest (I) = (Principal * Annual Rate * Duration in Years) / 100</strong></p>
+
+            <h2>3. Practical Example Comparison</h2>
+            <p>Let us take a practical business transaction. A local trader borrows a principal amount of <strong>₹50,000</strong> to purchase agricultural inventory. The loan is borrowed for a duration of <strong>15 months</strong>. Let us compare the interest payable under both monthly village rates and annual bank rates:</p>
+
+            <table>
+                <tr>
+                    <th>Calculation Factor</th>
+                    <th>Village Monthly Rate (2% per Month)</th>
+                    <th>Bank Annual Rate (10% per Year)</th>
+                </tr>
+                <tr>
+                    <td>Principal Amount (P)</td>
+                    <td>₹50,000</td>
+                    <td>₹50,000</td>
+                </tr>
+                <tr>
+                    <td>Interest Rate (R)</td>
+                    <td>2% per Month</td>
+                    <td>10% per Year (0.83% per Month)</td>
+                </tr>
+                <tr>
+                    <td>Time Duration (T)</td>
+                    <td>15 Months</td>
+                    <td>1.25 Years (15 / 12)</td>
+                </tr>
+                <tr>
+                    <td>Interest Formula</td>
+                    <td>(50,000 * 2 * 15) / 100</td>
+                    <td>(50,000 * 10 * 1.25) / 100</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Interest Owed</strong></td>
+                    <td><strong>₹15,000</strong></td>
+                    <td><strong>₹6,250</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Grand Total Payable</strong></td>
+                    <td><strong>₹65,000</strong></td>
+                    <td><strong>₹56,250</strong></td>
+                </tr>
+            </table>
+
+            <h2>4. Essential Rules and Common Mistakes to Avoid</h2>
+            <ul>
+                <li><strong>Interest Rate Ambiguity:</strong> Always clarify if the interest rate is monthly or annual before signing credit papers. A 3% village interest rate sounds small but is actually a staggering 36% annual rate.</li>
+                <li><strong>Counting Days:</strong> In village finance, if a loan is taken for a partial month, interest is calculated pro-rata. For example, if a loan is borrowed for 10 days, the time variable is entered as 10/30 = 0.33 months.</li>
+                <li><strong>Upad (Advances) Adjustment:</strong> If the borrower returns a portion of the principal midway (e.g. ₹10,000 returned after 5 months), the interest calculation must be split into two parts: interest on the full ₹50,000 for the first 5 months, and interest on the remaining ₹40,000 for the subsequent months.</li>
+            </ul>
+        
+                </div>
+                
+                <!-- Gujarati Article Content -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    
+            <h1>ગામઠી વ્યાજ ગણતરી (માસિક) વિરુદ્ધ બેંક વ્યાજ (વાર્ષિક) નો સંપૂર્ણ ગાઈડ</h1>
+            <p>સ્થાનિક વ્યાપાર, ખેતીવાડી અને ધિરાણના વ્યવહારોમાં વ્યાજની ગણતરી સૌથી મહત્વની છે. મોટી બેંકો વાર્ષિક ચક્રવૃદ્ધિ વ્યાજ પદ્ધતિ વાપરે છે, જ્યારે ગુજરાતના ગામડાઓ અને ગ્રામીણ બજારોમાં વ્યાજની ગણતરી માસિક ધોરણે થાય છે, જેને આપણે <strong>ગામઠી વ્યાજ (દાંડી વ્યાજ પદ્ધતિ)</strong> કહીએ છીએ. આ બંને ગણતરી પદ્ધતિના સૂત્રો અને તફાવતો સમજવા ખૂબ જ જરૂરી છે.</p>
+
+            <h2>૧. ગામઠી વ્યાજ એટલે શું?</h2>
+            <p>જ્યારે કોઈ વ્યાપારી કે મિત્ર વ્યાજે નાણાં લે ત્યારે સામાન્ય રીતે વ્યાજનો દર "૨ ટકા" નક્કી થાય છે. આનો અર્થ એ છે કે <strong>રૂ. ૧૦૦ પર દર મહિને રૂ. ૨ વ્યાજ</strong> લાગશે. આ માસિક સાદું વ્યાજ છે. જો આ વ્યાજને વાર્ષિક ગણવામાં આવે તો તે ૨% * ૧૨ = ૨૪% વાર્ષિક વ્યાજ બરાબર થાય છે.</p>
+            <p>ગ્રામ્ય વિસ્તારોમાં આ ગણતરી સહેલી છે કારણ કે તેનાથી હિસાબ મૌખિક રીતે ઝડપથી થઈ જાય છે.</p>
+
+            <h2>૨. વ્યાજ ગણતરીના સૂત્રો</h2>
+            
+            <h3>ગામઠી વ્યાજ (માસિક) ગણતરીનું સૂત્ર:</h3>
+            <p>અહીં સમયગાળો <strong>મહિના</strong> માં ગણવામાં આવે છે.</p>
+            <p><strong>સૂત્ર: વ્યાજ = (મુદલ * માસિક વ્યાજ દર * કુલ મહિના) / ૧૦૦</strong></p>
+            
+            <h3>બેંક વ્યાજ (વાર્ષિક) ગણતરીનું સૂત્ર:</h3>
+            <p>અહીં સમયગાળો <strong>વર્ષ</strong> માં ગણવામાં આવે છે.</p>
+            <p><strong>સૂત્ર: વ્યાજ = (મુદલ * વાર્ષિક વ્યાજ દર * કુલ વર્ષ) / ૧૦૦</strong></p>
+
+            <h2>૩. વાસ્તવિક ઉદાહરણ સરખામણી</h2>
+            <p>ધારો કે તમે <strong>રૂ. ૫૦,૦૦૦</strong> ની મુદલ રકમ <strong>૧૫ મહિના</strong> માટે લોન તરીકે લો છો. ગામઠી વ્યાજ દર ૨% માસિક છે અને બેંક વ્યાજ દર ૧૦% વાર્ષિક છે:</p>
+
+            <table>
+                <tr>
+                    <th>ગણતરીના પરિબળો</th>
+                    <th>ગામઠી વ્યાજ દર (૨% માસિક)</th>
+                    <th>બેંક વ્યાજ દર (૧૦% વાર્ષિક)</th>
+                </tr>
+                <tr>
+                    <td>મુદલ રકમ (P)</td>
+                    <td>રૂ. ૫૦,૦૦૦</td>
+                    <td>રૂ. ૫૦,૦૦૦</td>
+                </tr>
+                <tr>
+                    <td>વ્યાજનો દર (R)</td>
+                    <td>૨% દર મહિને</td>
+                    <td>૧૦% વાર્ષિક</td>
+                </tr>
+                <tr>
+                    <td>કુલ સમય (T)</td>
+                    <td>૧૫ મહિના</td>
+                    <td>૧.૨૫ વર્ષ (૧૫ / ૧૨)</td>
+                </tr>
+                <tr>
+                    <td>વ્યાજ ગણતરી સૂત્ર</td>
+                    <td>(૫૦,૦૦૦ * ૨ * ૧૫) / ૧૦૦</td>
+                    <td>(૫૦,૦૦૦ * ૧૦ * ૧.૨૫) / ૧૦૦</td>
+                </tr>
+                <tr>
+                    <td><strong>કુલ વ્યાજ રકમ</strong></td>
+                    <td><strong>રૂ. ૧૫,૦૦૦</strong></td>
+                    <td><strong>રૂ. ૬,૨૫૦</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>પરત કરવાની કુલ રકમ</strong></td>
+                    <td><strong>રૂ. ૬૫,૦૦૦</strong></td>
+                    <td><strong>રૂ. ૫૬,૨૫૦</strong></td>
+                </tr>
+            </table>
+
+            <h2>૪. સાવચેતી અને મહત્વના નિયમો</h2>
+            <ul>
+                <li><strong>દરની સ્પષ્ટતા:</strong> વ્યવહાર કરતા પહેલા નક્કી કરો કે વ્યાજનો દર માસિક છે કે વાર્ષિક. ૩% ગામઠી વ્યાજ દેખાવામાં નાનું લાગે પણ તે વાર્ષિક ૩૬% જેટલું મોટું વ્યાજ બને છે.</li>
+                <li><strong>દિવસોની ગણતરી:</strong> જો મહિનાના અધવચ્ચેથી વ્યાજની ચૂકવણી કરવાની હોય તો દિવસોની ગણતરી મહિનાના ભાગ તરીકે કરો (દા.ત. ૧૫ દિવસ એટલે ૦.૫ મહિનો).</li>
+                <li><strong>ઉપાડ (એડવાન્સ) ની બાદબાકી:</strong> જો તમે લોન ચાલુ હોય તે દરમિયાન વચ્ચેથી થોડી રકમ પરત કરો, તો વ્યાજની ગણતરી બે ભાગમાં કરવી જોઈએ જેથી નુકસાન ન થાય.</li>
+            </ul>
+        
+                </div>
+                
+                <!-- Hindi Article Content -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    
+            <h1>गांव का मासिक ब्याज बनाम बैंक का वार्षिक ब्याज - गणना गाइड</h1>
+            <p>स्थानीय व्यापार, खेतीबाड़ी और लेन-देन में ब्याज की गणना सबसे महत्वपूर्ण है। वाणिज्यिक बैंक वार्षिक रूप से चक्रवृद्धि ब्याज का उपयोग करते हैं, जबकि स्थानीय ग्रामीण और अर्ध-शहरी व्यापारी <strong>मासिक ब्याज (जिसे दांडी या गांव की मासिक ब्याज पद्धति भी कहा जाता है)</strong> पर निर्भर करते हैं। वित्तीय नुकसान से बचने के लिए दोनों प्रणालियों के गणितीय अंतर और सूत्रों को समझना अत्यंत आवश्यक है।</p>
+
+            <h2>1. गांव का मासिक ब्याज क्या है?</h2>
+            <p>ग्रामीण क्षेत्रों में जब ऋण लिया जाता है तो आमतौर पर ब्याज दर "2 प्रतिशत" (यानी ₹100 पर ₹2 प्रति माह) तय की जाती है। यह एक <strong>2% मासिक ब्याज दर</strong> है। यदि इसे वार्षिक रूप में बदलें, तो यह 2% * 12 = 24% वार्षिक साधारण ब्याज के बराबर होता है।</p>
+            <p>यह प्रणाली ग्रामीण व्यापारियों और किसानों को बिना किसी जटिल गुणा-भाग के मौखिक रूप से तुरंत गणना करने की सुविधा देती है।</p>
+
+            <h2>2. ब्याज गणना के गणितीय सूत्र</h2>
+            
+            <h3>गांव का मासिक ब्याज सूत्र:</h3>
+            <p>यहाँ समय अवधि <strong>महीनों</strong> में मापी जाती है और दर मासिक ब्याज दर होती है।</p>
+            <p><strong>सूत्र: ब्याज = (मूलधन * मासिक दर * महीनों की संख्या) / 100</strong></p>
+            
+            <h3>बैंक का वार्षिक साधारण ब्याज सूत्र:</h3>
+            <p>यहाँ समय अवधि <strong>वर्षों</strong> में मापी जाती है और दर वार्षिक ब्याज दर होती है।</p>
+            <p><strong>सूत्र: ब्याज = (मूलधन * वार्षिक दर * वर्षों की संख्या) / 100</strong></p>
+
+            <h2>3. व्यावहारिक उदाहरण से तुलना</h2>
+            <p>मान लीजिए कि एक स्थानीय व्यवसायी कृषि माल खरीदने के लिए <strong>₹50,000</strong> की मूलधन राशि <strong>15 महीने</strong> के लिए उधार लेता है। गांव की मासिक ब्याज दर 2% है और बैंक की साधारण ब्याज दर 10% वार्षिक है:</p>
+
+            <table>
+                <tr>
+                    <th>गणना कारक</th>
+                    <th>गांव का मासिक दर (2% प्रति माह)</th>
+                    <th>बैंक की वार्षिक दर (10% प्रति वर्ष)</th>
+                </tr>
+                <tr>
+                    <td>मूलधन राशि (P)</td>
+                    <td>₹50,000</td>
+                    <td>₹50,000</td>
+                </tr>
+                <tr>
+                    <td>ब्याज दर (R)</td>
+                    <td>2% प्रति माह</td>
+                    <td>10% प्रति वर्ष (0.83% प्रति माह)</td>
+                </tr>
+                <tr>
+                    <td>समय अवधि (T)</td>
+                    <td>15 महीने</td>
+                    <td>1.25 वर्ष (15 / 12)</td>
+                </tr>
+                <tr>
+                    <td>ब्याज का सूत्र</td>
+                    <td>(50,000 * 2 * 15) / 100</td>
+                    <td>(50,000 * 10 * 1.25) / 100</td>
+                </tr>
+                <tr>
+                    <td><strong>कुल देय ब्याज</strong></td>
+                    <td><strong>₹15,000</strong></td>
+                    <td><strong>₹6,250</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>कुल देय राशि</strong></td>
+                    <td><strong>₹65,000</strong></td>
+                    <td><strong>₹56,250</strong></td>
+                </tr>
+            </table>
+
+            <h2>4. ध्यान रखने योग्य बातें और सामान्य गलतियाँ</h2>
+            <ul>
+                <li><strong>ब्याज दर की स्पष्टता:</strong> पैसे लेने या देने से पहले यह स्पष्ट कर लें कि ब्याज दर मासिक है या वार्षिक। 3% मासिक ब्याज दर वार्षिक रूप से 36% की भारी दर बन जाती है।</li>
+                <li><strong>दिनों की गणना:</strong> यदि ऋण महीने के बीच में चुकाया जाता है, तो ब्याज दिनों के अनुपात में निकाला जाता है (जैसे 10 दिन = 10/30 = 0.33 महीने)।</li>
+                <li><strong>उपाड़ (अग्रिम) समायोजन:</strong> यदि उधारकर्ता बीच में मूलधन का कुछ हिस्सा (जैसे ₹10,000) लौटाता है, तो ब्याज की गणना शेष राशि पर ही की जानी चाहिए।</li>
+            </ul>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="blog" style="color:#fbbf24; font-weight:600;">Guides & Blog</a> | <a href="privacy">Privacy Policy</a> | <a href="terms">Terms of Service</a>
+    </div>
+
+    
+    <script>
+        // Update language selection active classes
+        function setLanguage(lang) {
+            localStorage.setItem('rcs_lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Switch readable content blocks dynamically
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+        
+        // Load initial active language preference on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('rcs_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
+
+
+</body>
+</html>

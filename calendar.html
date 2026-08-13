@@ -251,7 +251,28 @@
         }
 
         .btn-create:hover { opacity: 0.9; transform: scale(1.02); }
-    </style>
+    
+        /* 🌌 Unified Mobile Layout Alignment & Horizontal Scroll Override (Anti-left-crop) */
+        @media (max-width: 900px) {
+            .preview-panel {
+                display: flex !important;
+                justify-content: flex-start !important;
+                align-items: flex-start !important;
+                overflow-x: auto !important;
+                padding: 15px !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            .invoice-paper, .receipt-card, .attendance-sheet, .sheet-card, .canvas-card, 
+            .slip-card, .card-container, .preview-container, .print-card, .tally-card, 
+            .cert-card, .wedding-card, .menu-card, .id-card, .label-card, .resume-card, 
+            .tripsheet-card, .receipt-print-area, .attendance-sheet-print, .trip-canvas, 
+            .report-card, .preview-box, .cert-preview-container, .preview-sheet, .time-table-container {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                flex-shrink: 0 !important;
+            }
+        }
+</style>
 </head>
 
 <body>
@@ -259,7 +280,7 @@
     <!-- TOPBAR HEADER -->
     <div class="app-header">
         <div class="header-left" style="display: flex; align-items: center; gap: 8px;">
-            <a href="index.html" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
+            <a href="index" class="brand-logo-title" style="margin-right: 0; display: flex; align-items: center; gap: 8px; text-decoration: none;">
                 <i class="fas fa-arrow-left" style="color: var(--primary); font-size: 18px;"></i>
                 <span data-i18n="suite_title">Digital Tools Hub</span>
             </a>

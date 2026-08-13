@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guides & Informative Blog - Digital Tools Hub</title>
+    <meta name="description" content="Read expert guides, business tutorials, and calculation walkthroughs for GST billing, simple interest calculations, APMC crop yields, and village store management.">
+    <meta name="keywords" content="business guides, calculator tutorials, digital tools hub blog, simple interest calculation, gst billing rules, local trade billing">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --card-border: rgba(251, 191, 36, 0.15);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --nav-bg: rgba(9, 13, 22, 0.95);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+        .navbar {
+            min-height: 64px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 17px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .brand-logo i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+        .back-btn-nav {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            transition: all 0.2s;
+        }
+        .back-btn-nav:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .blog-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        .blog-header p {
+            color: var(--text-sub);
+            font-size: 15px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        .blog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        .card-category {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--primary);
+            text-transform: uppercase;
+            width: max-content;
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .card-summary {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+        .read-more-link {
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Article specific CSS */
+        .article-container {
+            max-width: 820px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        .article-meta {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .article-content h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.35;
+        }
+        .article-content h2 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+        .article-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .article-content p {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        .article-content li {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+        }
+        .article-content th, .article-content td {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .article-content th {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .article-content tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover {
+            color: var(--primary);
+        }
+        .footer {
+            background: rgba(11, 15, 25, 0.8);
+            border-top: 1px solid var(--card-border);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-top: 60px;
+        }
+        .footer a {
+            color: var(--text-sub);
+            text-decoration: none;
+            margin: 0 8px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer a:hover {
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 0 15px; }
+            .blog-header h1 { font-size: 26px; }
+            .article-card { padding: 25px 15px; }
+            .article-content h1 { font-size: 20px; }
+            .article-content h2 { font-size: 17px; }
+        }
+</style>
+</head>
+<body>
+
+    
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="index" class="brand-logo">
+            <i class="fas fa-cubes-stacked"></i>
+            <span>Digital Tools Hub</span>
+        </a>
+        <div class="nav-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <a href="index" class="back-btn-nav">
+                <i class="fas fa-arrow-left"></i> 
+                <span class="lang-content" data-lang="en">Back to Dashboard</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">ડેશબોર્ડ પર જાઓ</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">डैशबोर्ड पर जाएं</span>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- MAIN CONTAINER -->
+    <div class="container">
+        <div class="blog-header">
+            <!-- English Blog Header -->
+            <div class="lang-content" data-lang="en">
+                <h1>Business Guides & Articles</h1>
+                <p>Helpful articles, step-by-step calculation methods, and guidelines to help small business owners, shopkeepers, and creators simplify their daily tasks.</p>
+            </div>
+            <!-- Gujarati Blog Header -->
+            <div class="lang-content" data-lang="gu" style="display:none;">
+                <h1>વ્યાપાર માર્ગદર્શિકા અને લેખો</h1>
+                <p>નાના વ્યવસાયિકો, દુકાનદારો અને ઉત્પાદકોને તેમના દૈનિક હિસાબી કાર્યો સરળ બનાવવામાં મદદ કરવા માટેના ઉપયોગી લેખો અને ગણતરી માર્ગદર્શિકા.</p>
+            </div>
+            <!-- Hindi Blog Header -->
+            <div class="lang-content" data-lang="hi" style="display:none;">
+                <h1>व्यापार मार्गदर्शिका और लेख</h1>
+                <p>छोटे व्यवसायियों, दुकानदारों और रचनाकारों को उनके दैनिक लेखांकन कार्यों को सरल बनाने में मदद करने के लिए उपयोगी लेख और गणना मार्गदर्शिका।</p>
+            </div>
+        </div>
+
+        <div class="blog-grid">
+            <!-- Article 1 -->
+            <a href="blogInterestCalculation" class="blog-card">
+                <span class="card-category">Finance</span>
+                <!-- EN -->
+                <div class="lang-content" data-lang="en">
+                    <h2 class="card-title">Village Monthly Interest vs. Bank Yearly Interest Calculations</h2>
+                    <p class="card-summary">Learn the formulas, core differences, and practical step-by-step examples of monthly village interest (Dandi method) and standard annual banking interest rates.</p>
+                </div>
+                <!-- GU -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    <h2 class="card-title">ગામઠી વ્યાજ ગણતરી (માસિક) વિરુદ્ધ બેંક વ્યાજ (વાર્ષિક) નો ગાઈડ</h2>
+                    <p class="card-summary">માસિક ગામઠી વ્યાજ (દાંડી પદ્ધતિ) અને સામાન્ય વાર્ષિક બેંક વ્યાજના સૂત્રો, તફાવતો અને ઉદાહરણો વિશે જાણો.</p>
+                </div>
+                <!-- HI -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    <h2 class="card-title">गांव का मासिक ब्याज बनाम बैंक का वार्षिक ब्याज - गणना गाइड</h2>
+                    <p class="card-summary">मासिक गांव के ब्याज (दांडी पद्धति) और मानक वार्षिक बैंक ब्याज दरों के सूत्रों, मुख्य अंतरों और व्यावहारिक उदाहरणों के बारे में जानें।</p>
+                </div>
+                <div class="card-meta">
+                    <span>Digital Tools Hub</span>
+                    <span class="read-more-link"><i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Article 2 -->
+            <a href="blogGstBillingGuide" class="blog-card">
+                <span class="card-category">Billing</span>
+                <!-- EN -->
+                <div class="lang-content" data-lang="en">
+                    <h2 class="card-title">A Beginner's Guide to GST Billing, Invoices, and Estimates</h2>
+                    <p class="card-summary">Unpack GST billing components like CGST, SGST, IGST, and HSN codes. Learn how to accurately add or extract tax amounts from your customer bills.</p>
+                </div>
+                <!-- GU -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    <h2 class="card-title">જીએસટી (GST) બિલિંગ, ઇન્વૉઇસ અને એસ્ટીમેટ બનાવવાનો સરળ ગાઈડ</h2>
+                    <p class="card-summary">CGST, SGST, IGST અને HSN કોડ જેવા GST બિલિંગના ભાગો વિશે જાણો. ગ્રાહકના બિલમાં ટેક્સ ઉમેરવાની અને બાદ કરવાની પદ્ધતિ શીખો.</p>
+                </div>
+                <!-- HI -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    <h2 class="card-title">जीएसटी (GST) बिलिंग, इनवॉइस और एस्टीमेट बनाने की संपूर्ण गाइड</h2>
+                    <p class="card-summary">CGST, SGST, IGST और HSN कोड जैसे जीएसटी बिलिंग घटकों को समझें। अपने ग्राहकों के बिलों में कर जोड़ने या कर राशि निकालने का सही गणित सीखें.</p>
+                </div>
+                <div class="card-meta">
+                    <span>Digital Tools Hub</span>
+                    <span class="read-more-link"><i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Article 3 -->
+            <a href="blogVisitingCardDesign" class="blog-card">
+                <span class="card-category">Marketing</span>
+                <!-- EN -->
+                <div class="lang-content" data-lang="en">
+                    <h2 class="card-title">Designing Professional Business Cards to Build Client Trust</h2>
+                    <p class="card-summary">Visual design principles, fonts, standard print layouts, and digital vCard sharing. Learn how a simple card design can boost your local retail store sales.</p>
+                </div>
+                <!-- GU -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    <h2 class="card-title">ગ્રાહકનો વિશ્વાસ જીતવા માટે પ્રોફેશનલ વિઝિટિંગ કાર્ડ કેવી રીતે બનાવવું?</h2>
+                    <p class="card-summary">ડિઝાઇનના નિયમો, ફોન્ટ્સ, પ્રિન્ટ લેઆઉટ અને ડિજિટલ vCard. જાણો કેવી રીતે એક સામાન્ય કાર્ડ તમારા વ્યવસાયનું બ્રાન્ડિંગ વધારી શકે છે.</p>
+                </div>
+                <!-- HI -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    <h2 class="card-title">ग्राहकों का विश्वास जीतने के लिए व्यावसायिक विजिटिंग कार्ड कैसे बनाएं?</h2>
+                    <p class="card-summary">डिजाइन सिद्धांत, फोंट, मानक प्रिंट लेआउट और डिजिटल vCard साझा करना। जानें कि कैसे एक साधारण विजिटिंग कार्ड आपके स्थानीय व्यवसाय को बढ़ा सकता है।</p>
+                </div>
+                <div class="card-meta">
+                    <span>Digital Tools Hub</span>
+                    <span class="read-more-link"><i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Article 4 -->
+            <a href="blogMandiCropBagWeights" class="blog-card">
+                <span class="card-category">Agriculture</span>
+                <!-- EN -->
+                <div class="lang-content" data-lang="en">
+                    <h2 class="card-title">APMC Mandi Yard Crop Yields and Sacks Weight Guide</h2>
+                    <p class="card-summary">Avoid weight calculation errors in the Mandi. Learn how to deduct empty gunny bags tare weight and calculate total crop value per Mann (20kg) and Quintal.</p>
+                </div>
+                <!-- GU -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    <h2 class="card-title">APMC માર્કેટ યાર્ડ ખેતી પાક ગુણી અને વજન ગણતરી પદ્ધતિનો ગાઈડ</h2>
+                    <p class="card-summary">યાર્ડમાં ગણતરીની ભૂલોથી બચો. ખાલી કોથળાનું વજન (બારદાન કટ) બાદ કરવાની અને મણ (૨૦ કિલો) દીઠ કુલ પાકની કિંમત ગણવાની રીત શીખો.</p>
+                </div>
+                <!-- HI -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    <h2 class="card-title">APMC मंडी यार्ड फसल बोरी वजन और मूल्य गणना गाइड</h2>
+                    <p class="card-summary">मंडी में वजन की गणना में होने वाली गलतियों से बचें। खाली बोरी (बारदाना) का वजन घटाने और प्रति मन (20 किलो) और क्विंटल कुल फसल मूल्य की गणना करना सीखें।</p>
+                </div>
+                <div class="card-meta">
+                    <span>Digital Tools Hub</span>
+                    <span class="read-more-link"><i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Article 5 -->
+            <a href="blogAttaChakkiMilkBilling" class="blog-card">
+                <span class="card-category">Local Trade</span>
+                <!-- EN -->
+                <div class="lang-content" data-lang="en">
+                    <h2 class="card-title">Managing Village Atta Chakki Invoices and Milk Dairy FAT Billing</h2>
+                    <p class="card-summary">Manage daily micro-business transactions. Learn how to calculate grinding waste deductions (Katar), milk FAT percentages, advances (Upad), and net payouts.</p>
+                </div>
+                <!-- GU -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    <h2 class="card-title">ઘંટી પીસાઈ રસીદ અને દૂધ મંડળી ફેટ બિલિંગ હિસાબ ગાઈડ</h2>
+                    <p class="card-summary">દૈનિક નાના વ્યવસાયોનો હિસાબ સરળ બનાવો. પીસાઈ કટાર (કચરો બાદબાકી), દૂધના ફેટ અને લીધેલ ઉપાડ (રોકડ એડવાન્સ) ની ગણતરી પદ્ધતિ શીખો.</p>
+                </div>
+                <!-- HI -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    <h2 class="card-title">आटा चक्की पिसाई रसीद और दूध डेयरी फैट बिलिंग गाइड</h2>
+                    <p class="card-summary">दैनिक सूक्ष्म-व्यवसाय लेनदेन का प्रबंधन करें। पिसाई की कटौती (कटार), दूध का फैट प्रतिशत, अग्रिम (उपाड़) और कुल भुगतान की गणना सीखें।</p>
+                </div>
+                <div class="card-meta">
+                    <span>Digital Tools Hub</span>
+                    <span class="read-more-link"><i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Article 6 -->
+            <a href="blogCoachingFeeAttendanceManagement" class="blog-card">
+                <span class="card-category">Education</span>
+                <!-- EN -->
+                <div class="lang-content" data-lang="en">
+                    <h2 class="card-title">Classroom Operations: Student Fees, Attendance, and Timetables</h2>
+                    <p class="card-summary">Simplify tuition center administration. Best practices for tracking batch attendance logs, creating error-free fee receipts, and managing lecture time tables.</p>
+                </div>
+                <!-- GU -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    <h2 class="card-title">ટ્યુશન અને કોચિંગ ક્લાસીસ મેનેજમેન્ટ: સમયપત્રક, હાજરી અને ફી પહોંચ</h2>
+                    <p class="card-summary">ટ્યુશન કેન્દ્રનો વહીવટ સરળ બનાવો. વિદ્યાર્થીઓની દૈનિક હાજરી રજિસ્ટર, ફી પહોંચ બુક અને સમયપત્રક (ટાઇમ ટેબલ) જાળવવા માટેની શ્રેષ્ઠ રીતો.</p>
+                </div>
+                <!-- HI -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    <h2 class="card-title">ट्यूशन कोचिंग प्रबंधन: समय सारिणी, उपस्थिति और फीस रसीद गाइड</h2>
+                    <p class="card-summary">कोचिंग संस्थानों के प्रशासन को सरल बनाएं। छात्रों की उपस्थिति दर्ज करने, बिना त्रुटि के फीस रसीद काटने और साप्ताहिक समय सारिणी बनाने के सर्वोत्तम तरीके।</p>
+                </div>
+                <div class="card-meta">
+                    <span>Digital Tools Hub</span>
+                    <span class="read-more-link"><i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="blog" style="color:#fbbf24; font-weight:600;">Guides & Blog</a> | <a href="privacy">Privacy Policy</a> | <a href="terms">Terms of Service</a>
+    </div>
+
+    
+    <script>
+        // Update language selection active classes
+        function setLanguage(lang) {
+            localStorage.setItem('rcs_lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Switch readable content blocks dynamically
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+        
+        // Load initial active language preference on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('rcs_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
+
+
+</body>
+</html>

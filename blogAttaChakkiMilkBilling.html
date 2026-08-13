@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Managing Village Atta Chakki Invoices and Milk Dairy FAT Billing - Digital Tools Hub Blog</title>
+    <meta name="description" content="Local village commerce guide covering flour mill grinding bills, milk collection fat rate calculations, and customer advances.">
+    <meta name="keywords" content="atta chakki bill, milk fat payout, katar deduction, village dairy billing">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --bg: #090d16;
+            --card-bg: rgba(22, 28, 45, 0.8);
+            --card-border: rgba(251, 191, 36, 0.15);
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --nav-bg: rgba(9, 13, 22, 0.95);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background: var(--bg);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.6;
+        }
+        .navbar {
+            min-height: 64px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            font-size: 17px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .brand-logo i {
+            -webkit-text-fill-color: initial;
+            color: #fbbf24;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 18px;
+        }
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .lang-btn.active, .lang-btn:hover {
+            background: var(--primary);
+            color: #000;
+        }
+        .back-btn-nav {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            transition: all 0.2s;
+        }
+        .back-btn-nav:hover {
+            background: var(--primary);
+            color: #000;
+            border-color: var(--primary);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .blog-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .blog-header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f8fafc, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        .blog-header p {
+            color: var(--text-sub);
+            font-size: 15px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        .blog-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+        .card-category {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 3px 10px;
+            border-radius: 12px;
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--primary);
+            text-transform: uppercase;
+            width: max-content;
+            margin-bottom: 15px;
+        }
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .card-summary {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-sub);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 15px;
+        }
+        .read-more-link {
+            color: var(--primary);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* Article specific CSS */
+        .article-container {
+            max-width: 820px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        .article-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+        .article-meta {
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .article-content h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            line-height: 1.35;
+        }
+        .article-content h2 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 35px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 8px;
+        }
+        .article-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        .article-content p {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .article-content ul, .article-content ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        .article-content li {
+            font-size: 14.5px;
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+        .article-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 13px;
+        }
+        .article-content th, .article-content td {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 10px 12px;
+            text-align: left;
+        }
+        .article-content th {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        .article-content tr:nth-child(even) td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-sub);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 30px;
+            transition: color 0.2s;
+        }
+        .back-btn:hover {
+            color: var(--primary);
+        }
+        .footer {
+            background: rgba(11, 15, 25, 0.8);
+            border-top: 1px solid var(--card-border);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 13px;
+            margin-top: 60px;
+        }
+        .footer a {
+            color: var(--text-sub);
+            text-decoration: none;
+            margin: 0 8px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer a:hover {
+            color: var(--primary);
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 0 15px; }
+            .blog-header h1 { font-size: 26px; }
+            .article-card { padding: 25px 15px; }
+            .article-content h1 { font-size: 20px; }
+            .article-content h2 { font-size: 17px; }
+        }
+</style>
+</head>
+<body>
+
+    
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="index" class="brand-logo">
+            <i class="fas fa-cubes-stacked"></i>
+            <span>Digital Tools Hub</span>
+        </a>
+        <div class="nav-actions">
+            <div class="lang-selector">
+                <button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" data-lang="gu" onclick="setLanguage('gu')">ગુજ</button>
+                <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+            </div>
+            <a href="blog" class="back-btn-nav">
+                <i class="fas fa-arrow-left"></i> 
+                <span class="lang-content" data-lang="en">Back to Blog</span>
+                <span class="lang-content" data-lang="gu" style="display:none;">બ્લોગ પર જાઓ</span>
+                <span class="lang-content" data-lang="hi" style="display:none;">ब्लॉग पर जाएं</span>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- MAIN CONTAINER -->
+    <div class="article-container">
+        <a href="blog" class="back-btn"><i class="fas fa-arrow-left"></i> 
+            <span class="lang-content" data-lang="en">Back to Guides & Articles</span>
+            <span class="lang-content" data-lang="gu" style="display:none;">માર્ગદર્શિકા અને લેખો પર પાછા જાઓ</span>
+            <span class="lang-content" data-lang="hi" style="display:none;">मार्गदर्शिका और लेखों पर वापस जाएं</span>
+        </a>
+        <div class="article-card">
+            <div class="article-meta">
+                <span class="card-category">Local Trade</span>
+                <span>By Digital Tools Team</span>
+                <span>|</span>
+                <span>Updated: August 2026</span>
+            </div>
+            
+            <div class="article-content">
+                <!-- English Article Content -->
+                <div class="lang-content" data-lang="en">
+                    
+            <h1>Managing Village Atta Chakki Invoices and Milk Dairy FAT Billing</h1>
+            <p>Local businesses in villages—primarily Atta Chakkis and Milk Collection Dairies—form the backbone of rural economies. Managing daily micro-transactions with local residents requires simple, transparent accounting.</p>
+
+            <h2>1. Atta Chakki (Flour Mill) Billing and Waste (Katar) Deductions</h2>
+            <p>Grinding service charges are based on the weight of the grain. Grinding bill = Grain Weight (kg) * Grinding Rate per kg.</p>
+            <p>Katar or waste deduction is subtracted in grams per kg (e.g., 10 grams per kg) to account for moisture or dust lost during grinding.</p>
+
+            <h2>2. Milk Dairy FAT and SNF Payout Calculations</h2>
+            <p>Dairies purchase milk based on FAT percentage. Payout = Milk Weight (Liters) * (Milk FAT % * FAT Rate Factor).</p>
+        
+                </div>
+                
+                <!-- Gujarati Article Content -->
+                <div class="lang-content" data-lang="gu" style="display:none;">
+                    
+            <h1>ઘંટી પીસાઈ રસીદ અને દૂધ મંડળી ફેટ બિલિંગ હિસાબ ગાઈડ</h1>
+            <p>ગ્રામ્ય વિસ્તારોમાં ચાલતા લોટ ઘંટી (Atta Chakki) અને દૂધ મંડળી (Milk Dairy) જેવા વ્યવસાયો સ્થાનિક આર્થિક વ્યવહારોના મુખ્ય અંગ છે. ગ્રાહકો સાથે દૈનિક ધોરણે રોકડા અને ઉધાર હિસાબ જાળવવા માટે સાચી ગણતરી પદ્ધતિ જરૂરી છે.</p>
+
+            <h2>૧. લોટ ઘંટી પીસાઈ અને કટાર (કચરો) બાદબાકી</h2>
+            <p>પીસાઈ બિલ અનાજના વજન પર ગણાય છે. પીસાઈ બિલ = અનાજ વજન (કિલો) * દર પ્રતિ કિલો.</p>
+            <p>દળામણ દરમિયાન ઉડતી ધૂળ કે ભેજના કારણે વજન ઓછું થાય છે તેને કટાર અથવા કચરો કહેવાય છે જે ગ્રાહકને આપવાના લોટમાંથી બાદ કરવામાં આવે છે (દા.ત. ૧૦ ગ્રામ પ્રતિ કિલો).</p>
+
+            <h2>૨. દૂધ મંડળી ફેટ બિલિંગ ગણતરી</h2>
+            <p>ડેરી દૂધમાં રહેલા ફેટ (ચરબી) ના આધારે કિંમત ચૂકવે છે. દૂધ કિંમત = દૂધ લિટર * (દૂધ ફેટ ટકાવારી * ફેટ દર પરિબળ).</p>
+        
+                </div>
+                
+                <!-- Hindi Article Content -->
+                <div class="lang-content" data-lang="hi" style="display:none;">
+                    
+            <h1>आटा चक्की पिसाई रसीद और दूध डेयरी फैट बिलिंग गाइड</h1>
+            <p>ग्रामीण क्षेत्रों में आटा चक्की और दूध डेयरी संग्रह केंद्र मुख्य व्यवसाय हैं। ग्राहकों के साथ दैनिक लेनदेन का रिकॉर्ड रखने के लिए सरल लेखांकन की आवश्यकता होती है।</p>
+
+            <h2>1. आटा चक्की पिसाई और कटार (कटाव) की गणना</h2>
+            <p>पिसाई का बिल अनाज के कुल वजन पर तय होता है। पिसाई राशि = अनाज का वजन (kg) * पिसाई की दर।</p>
+            <p>पिसाई के दौरान उड़ने वाली धूल और नमी की वजह से होने वाले नुकसान को कटार (कटौती) कहा जाता है और इसे आटे के कुल वजन से घटा दिया जाता है।</p>
+
+            <h2>2. दूध डेयरी फैट और भुगतान की गणना</h2>
+            <p>डेयरी किसानों को दूध में फैट (FAT) प्रतिशत के आधार पर भुगतान करती है। भुगतान = दूध का वजन (लीटर) * (फैट प्रतिशत * प्रति फैट दर)।</p>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        &copy; 2026 Digital Tools Hub. All rights reserved. | <a href="blog" style="color:#fbbf24; font-weight:600;">Guides & Blog</a> | <a href="privacy">Privacy Policy</a> | <a href="terms">Terms of Service</a>
+    </div>
+
+    
+    <script>
+        // Update language selection active classes
+        function setLanguage(lang) {
+            localStorage.setItem('rcs_lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Switch readable content blocks dynamically
+            document.querySelectorAll('.lang-content').forEach(el => {
+                if (el.getAttribute('data-lang') === lang) {
+                    el.style.display = 'block';
+                } else {
+                    el.style.display = 'none';
+                }
+            });
+        }
+        
+        // Load initial active language preference on load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('rcs_lang') || 'en';
+            setLanguage(savedLang);
+        });
+    </script>
+
+
+</body>
+</html>
