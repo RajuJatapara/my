@@ -19,7 +19,7 @@ function setLanguage(lang) {
 
     // 2. Translate common UI elements
     const dict = commonUiDict[lang] || commonUiDict['en'];
-    document.querySelectorAll('.tab-item, .btn-top, .btn-top-main, .btn-top-sec, .grp-label, label, legend, th').forEach(el => {
+    document.querySelectorAll('.tab-item, .btn-top, .btn-top-main, .btn-top-sec, .grp-label, label, legend, th, .footer-links a').forEach(el => {
         let orig = el.getAttribute('data-orig-text');
         if (!orig) {
             orig = el.textContent.trim();

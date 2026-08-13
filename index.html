@@ -443,19 +443,37 @@
         /* MOBILE RESPONSIVE NAVBAR & 2-COLUMN COMPACT GRID */
         @media (max-width: 768px) {
             .navbar {
-                padding: 10px 12px;
-                flex-wrap: wrap;
-                gap: 8px;
+                padding: 10px 10px;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                gap: 6px;
             }
 
             .brand-logo {
-                font-size: 14px;
+                font-size: 13px;
+                white-space: nowrap;
             }
 
             .nav-actions {
-                width: 100%;
-                justify-content: space-between;
+                width: auto;
+                justify-content: flex-end;
                 gap: 4px;
+            }
+            .btn-blog span, #theme-text, .btn-share-wa-text {
+                display: none !important;
+            }
+            .btn-blog, .theme-btn, .btn-share-wa {
+                padding: 6px 8px !important;
+                gap: 0 !important;
+                margin-right: 0 !important;
+                font-size: 11px !important;
+            }
+            .lang-selector {
+                padding: 2px !important;
+            }
+            .lang-btn {
+                padding: 2px 5px !important;
+                font-size: 9px !important;
             }
 
             .hero-section {
@@ -782,7 +800,7 @@
             <div class="theme-btn" onclick="cycleTheme()"><i class="fas fa-moon" id="theme-icon"></i> <span
                     id="theme-text">Dark</span></div>
             <a href="#" onclick="shareIndexPage(event)" class="btn-share-wa">
-                <i class="fab fa-whatsapp"></i> Share App
+                <i class="fab fa-whatsapp"></i> <span class="btn-share-wa-text">Share App</span>
             </a>
         </div>
     </div>
@@ -1587,22 +1605,17 @@
     </a>
 
     <!-- FOOTER -->
-    <div class="footer" style="padding: 40px 0 25px 0;">
-        <div>
-            Digital Tools Hub • Designed & Developed with ❤️ by <span
-                style="color:#fbbf24; font-weight:900; background:rgba(245,158,11,0.15); padding:4px 12px; border-radius:14px; border:1px solid rgba(245,158,11,0.3); display:inline-block; margin-left:4px">👑
-                Raju Jatapara</span>
+    <div class="footer" style="padding: 35px 15px 80px 15px; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <div style="line-height: 1.6; font-size: 12.5px; text-align: center;">
+            <span data-i18n="footer_text">Digital Tools Hub • Designed & Developed with ❤️ by</span>
+            <span style="color:#fbbf24; font-weight:900; background:rgba(245,158,11,0.15); padding:4px 12px; border-radius:14px; border:1px solid rgba(245,158,11,0.3); display:inline-block; margin-left:4px">👑 Raju Jatapara</span>
         </div>
-        <div style="margin-top: 15px; font-size: 13px;">
-            <a href="blog" style="color: #fbbf24; text-decoration: none; margin: 0 8px; font-weight: 600;">Guides & Blog</a> | 
-            <a href="about" style="color: #94a3b8; text-decoration: none; margin: 0 8px; font-weight: 500;">About
-                Us</a> |
-            <a href="contact"
-                style="color: #94a3b8; text-decoration: none; margin: 0 8px; font-weight: 500;">Contact Us</a> |
-            <a href="privacy"
-                style="color: #94a3b8; text-decoration: none; margin: 0 8px; font-weight: 500;">Privacy Policy</a> |
-            <a href="terms" style="color: #94a3b8; text-decoration: none; margin: 0 8px; font-weight: 500;">Terms
-                of Service</a>
+        <div class="footer-links" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 18px; font-size: 13px;">
+            <a href="blog" style="color: #fbbf24; text-decoration: none; font-weight: 700;">Guides & Blog</a>
+            <a href="about" style="color: #cbd5e1; text-decoration: none; font-weight: 500;">About Us</a>
+            <a href="contact" style="color: #cbd5e1; text-decoration: none; font-weight: 500;">Contact Us</a>
+            <a href="privacy" style="color: #cbd5e1; text-decoration: none; font-weight: 500;">Privacy Policy</a>
+            <a href="terms" style="color: #cbd5e1; text-decoration: none; font-weight: 500;">Terms of Service</a>
         </div>
     </div>
 
