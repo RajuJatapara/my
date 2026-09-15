@@ -900,6 +900,20 @@ function setLanguage(lang) {
     }
 
     // Dynamic AdSense Layout Injection
+    function setupAdsterraBanner() {
+        if (!window.ENABLE_ADSTERRA) return;
+        
+        const adContainer = document.createElement("div");
+        adContainer.className = "adsterra-banner-global";
+        adContainer.style.cssText = "width: 100%; text-align: center; margin: 10px 0; display: flex; justify-content: center; z-index: 50; position: relative;";
+        adContainer.innerHTML = '<iframe src="ads_banner.html" width="320" height="50" frameborder="0" scrolling="no" style="border:none;"></iframe>';
+        
+        const header = document.querySelector(".navbar") || document.querySelector(".app-header");
+        if (header && header.nextSibling) {
+            header.parentNode.insertBefore(adContainer, header.nextSibling);
+        }
+    }
+
     function setupAdsenseLayout() {
         if (!window.ENABLE_ADSENSE || !window.ADSENSE_PUB_ID || !window.ADSENSE_PUB_ID.includes("pub-")) {
             return;
@@ -1244,6 +1258,7 @@ function setLanguage(lang) {
             injectModal();
             setupHeaderButtons();
             setupAdsenseLayout();
+            setupAdsterraBanner();
             setupHelplineLinks();
             setupPWA();
         });
@@ -1251,6 +1266,7 @@ function setLanguage(lang) {
         injectModal();
         setupHeaderButtons();
         setupAdsenseLayout();
+        setupAdsterraBanner();
         setupHelplineLinks();
         setupPWA();
     }
